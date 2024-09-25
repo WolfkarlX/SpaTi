@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/overlayImage"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/back" />
+    <TextView
+        android:id="@+id/sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:hint="Seleccionar horario"
+        android:inputType="text"
+        android:textAlignment="textStart"
+        android:textSize="40sp" />
+    <Button
+        android:id="@+id/Empleado"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:text="Alfredo Gaona"
+        android:drawableLeft="@drawable/empone"
+        android:padding="10dp"
+        android:alpha=".60"
+        android:gravity="center_vertical"
+        android:background="@drawable/profile_button"
+        />
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/circular_button"
+            android:text="17"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_margin="8dp"/>
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/circular_button_green"
+            android:text="18"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_margin="8dp"/>
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/circular_button"
+            android:text="19"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_margin="8dp"/>
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/buttonh1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_hora"
+        android:text="3:00 PM - 3:30 PM"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:alpha=".60"
+        android:layout_margin="8dp"/>
+    <Button
+        android:id="@+id/buttonh2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_hora"
+        android:text="3:00 PM - 3:30 PM"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:alpha=".60"
+        android:layout_margin="8dp"/>
+    <Button
+        android:id="@+id/buttonh3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_hora"
+        android:text="3:00 PM - 3:30 PM"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:alpha=".60"
+        android:layout_margin="8dp"/>
+    <Button
+        android:id="@+id/buttonh4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_hora"
+        android:text="3:00 PM - 3:30 PM"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:alpha=".60"
+        android:layout_margin="8dp"/>
+    <Button
+        android:id="@+id/buttonh5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_hora"
+        android:text="3:00 PM - 3:30 PM"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:alpha=".60"
+        android:layout_margin="8dp"/>
+</LinearLayout>
