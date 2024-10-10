@@ -1,0 +1,266 @@
+[
+    {
+        "merged": "com.example.spaTi.app-debug-59:/font_koho.ttf.flat",
+        "source": "com.example.spaTi.app-main-61:/font/koho.ttf"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_profile_button.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/profile_button.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/layout_add_tag_dialog.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/layout/add_tag_dialog.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_ic_baseline_delete_24.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/ic_baseline_delete_24.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.spaTi.app-main-61:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.spaTi.app-main-61:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_corazon.png.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/corazon.png"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_edittext_rounded.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/edittext_rounded.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_ic_baseline_cancel_24.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/ic_baseline_cancel_24.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.spaTi.app-main-61:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_ic_baseline_add_circle_24.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/ic_baseline_add_circle_24.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_circular_button_green.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/circular_button_green.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_ic_baseline_arrow_back_ios_24.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/ic_baseline_arrow_back_ios_24.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/layout_activity_main.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_fivestar.png.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/fivestar.png"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/layout_fragment_register.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/layout/fragment_register.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/font_titillium_web_regular.ttf.flat",
+        "source": "com.example.spaTi.app-main-61:/font/titillium_web_regular.ttf"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_ic_baseline_check_24.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/ic_baseline_check_24.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/font_titillium_web_bold.ttf.flat",
+        "source": "com.example.spaTi.app-main-61:/font/titillium_web_bold.ttf"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_emp.png.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/emp.png"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_fav.png.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/fav.png"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_ic_baseline_add_24.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/ic_baseline_add_24.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.spaTi.app-main-61:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_goo.png.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/goo.png"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/layout_fragment_note_listing.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/layout/fragment_note_listing.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_fondo_hojas.png.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/fondo_hojas.png"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_empthree.png.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/empthree.png"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_fb.png.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/fb.png"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/font_titillium_web_light.ttf.flat",
+        "source": "com.example.spaTi.app-main-61:/font/titillium_web_light.ttf"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.spaTi.app-main-61:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_emptwo.png.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/emptwo.png"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/xml_backup_rules.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.spaTi.app-main-61:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_back.png.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/back.png"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/layout_sample_my_view.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/layout/sample_my_view.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_calendario.png.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/calendario.png"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_lista.png.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/lista.png"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.example.spaTi.app-main-61:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/font_titillium_web_black.ttf.flat",
+        "source": "com.example.spaTi.app-main-61:/font/titillium_web_black.ttf"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/layout_item_note_layout.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/layout/item_note_layout.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_fondo.png.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/fondo.png"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_button_hora.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/button_hora.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_icono_lobby.png.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/icono_lobby.png"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_logo.png.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/logo.png"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_circular_button.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/circular_button.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.spaTi.app-main-61:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_black_rect_bg.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/black_rect_bg.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/layout_fragment_note_detail.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/layout/fragment_note_detail.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_person.png.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/person.png"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_ic_baseline_edit_24.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/ic_baseline_edit_24.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_bg.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/bg.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_searchh.jpg.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/searchh.jpg"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/layout_item_chip.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/layout/item_chip.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_fondo1.png.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/fondo1.png"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.example.spaTi.app-main-61:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/layout_fragment_login.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/layout/fragment_login.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_empone.png.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/empone.png"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_lupa.png.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/lupa.png"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/drawable_black_white_rect_bg.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/drawable/black_white_rect_bg.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/navigation_app_navigation.xml.flat",
+        "source": "com.example.spaTi.app-main-61:/navigation/app_navigation.xml"
+    },
+    {
+        "merged": "com.example.spaTi.app-debug-59:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.example.spaTi.app-main-61:/mipmap-mdpi/ic_launcher.webp"
+    }
+]
