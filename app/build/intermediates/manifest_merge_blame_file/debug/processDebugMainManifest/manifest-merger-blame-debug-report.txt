@@ -1,0 +1,429 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.spaTi"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="34" />
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\smite\OneDrive\Documentos\PI\SpaTi-master\app\src\main\AndroidManifest.xml:28:5-67
+11-->C:\Users\smite\OneDrive\Documentos\PI\SpaTi-master\app\src\main\AndroidManifest.xml:28:22-64
+12    <!-- Although the *SdkVersion is captured in gradle build files, this is required for non gradle builds -->
+13    <!-- <uses-sdk android:minSdkVersion="21" /> -->
+14    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+14-->[com.google.firebase:firebase-firestore:25.1.0] C:\Users\smite\.gradle\caches\transforms-4\6f5af4158b2f5e3e37dc4300a5785f8b\transformed\firebase-firestore-25.1.0\AndroidManifest.xml:10:5-79
+14-->[com.google.firebase:firebase-firestore:25.1.0] C:\Users\smite\.gradle\caches\transforms-4\6f5af4158b2f5e3e37dc4300a5785f8b\transformed\firebase-firestore-25.1.0\AndroidManifest.xml:10:22-76
+15    <uses-permission android:name="android.permission.WAKE_LOCK" />
+15-->[com.google.android.gms:play-services-measurement-api:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\8611d3a714d433149afcd8ac2ef2306b\transformed\play-services-measurement-api-22.1.0\AndroidManifest.xml:24:5-68
+15-->[com.google.android.gms:play-services-measurement-api:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\8611d3a714d433149afcd8ac2ef2306b\transformed\play-services-measurement-api-22.1.0\AndroidManifest.xml:24:22-65
+16    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+16-->[com.google.android.gms:play-services-measurement-api:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\8611d3a714d433149afcd8ac2ef2306b\transformed\play-services-measurement-api-22.1.0\AndroidManifest.xml:25:5-79
+16-->[com.google.android.gms:play-services-measurement-api:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\8611d3a714d433149afcd8ac2ef2306b\transformed\play-services-measurement-api-22.1.0\AndroidManifest.xml:25:22-76
+17    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_ATTRIBUTION" />
+17-->[com.google.android.gms:play-services-measurement-api:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\8611d3a714d433149afcd8ac2ef2306b\transformed\play-services-measurement-api-22.1.0\AndroidManifest.xml:26:5-88
+17-->[com.google.android.gms:play-services-measurement-api:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\8611d3a714d433149afcd8ac2ef2306b\transformed\play-services-measurement-api-22.1.0\AndroidManifest.xml:26:22-85
+18    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_AD_ID" />
+18-->[com.google.android.gms:play-services-measurement-api:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\8611d3a714d433149afcd8ac2ef2306b\transformed\play-services-measurement-api-22.1.0\AndroidManifest.xml:27:5-82
+18-->[com.google.android.gms:play-services-measurement-api:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\8611d3a714d433149afcd8ac2ef2306b\transformed\play-services-measurement-api-22.1.0\AndroidManifest.xml:27:22-79
+19    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+19-->[com.google.android.recaptcha:recaptcha:18.4.0] C:\Users\smite\.gradle\caches\transforms-4\5ded6f98f76e0363f8c21255ab71a464\transformed\recaptcha-18.4.0\AndroidManifest.xml:9:5-98
+19-->[com.google.android.recaptcha:recaptcha:18.4.0] C:\Users\smite\.gradle\caches\transforms-4\5ded6f98f76e0363f8c21255ab71a464\transformed\recaptcha-18.4.0\AndroidManifest.xml:9:22-95
+20    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+20-->[com.google.android.gms:play-services-measurement:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\dd9ca9b70aa9a48275baafabc7296d7c\transformed\play-services-measurement-22.1.0\AndroidManifest.xml:26:5-110
+20-->[com.google.android.gms:play-services-measurement:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\dd9ca9b70aa9a48275baafabc7296d7c\transformed\play-services-measurement-22.1.0\AndroidManifest.xml:26:22-107
+21
+22    <permission
+22-->[androidx.core:core:1.13.1] C:\Users\smite\.gradle\caches\transforms-4\63976b2aeed37d54343f0e271c8509fc\transformed\core-1.13.1\AndroidManifest.xml:22:5-24:47
+23        android:name="com.example.spaTi.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+23-->[androidx.core:core:1.13.1] C:\Users\smite\.gradle\caches\transforms-4\63976b2aeed37d54343f0e271c8509fc\transformed\core-1.13.1\AndroidManifest.xml:23:9-81
+24        android:protectionLevel="signature" />
+24-->[androidx.core:core:1.13.1] C:\Users\smite\.gradle\caches\transforms-4\63976b2aeed37d54343f0e271c8509fc\transformed\core-1.13.1\AndroidManifest.xml:24:9-44
+25
+26    <uses-permission android:name="com.example.spaTi.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+26-->[androidx.core:core:1.13.1] C:\Users\smite\.gradle\caches\transforms-4\63976b2aeed37d54343f0e271c8509fc\transformed\core-1.13.1\AndroidManifest.xml:26:5-97
+26-->[androidx.core:core:1.13.1] C:\Users\smite\.gradle\caches\transforms-4\63976b2aeed37d54343f0e271c8509fc\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
+27
+28    <application
+28-->C:\Users\smite\OneDrive\Documentos\PI\SpaTi-master\app\src\main\AndroidManifest.xml:4:5-26:19
+29        android:name="com.example.spaTi.MyApplication"
+29-->C:\Users\smite\OneDrive\Documentos\PI\SpaTi-master\app\src\main\AndroidManifest.xml:6:9-38
+30        android:allowBackup="true"
+30-->C:\Users\smite\OneDrive\Documentos\PI\SpaTi-master\app\src\main\AndroidManifest.xml:7:9-35
+31        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+31-->[androidx.core:core:1.13.1] C:\Users\smite\.gradle\caches\transforms-4\63976b2aeed37d54343f0e271c8509fc\transformed\core-1.13.1\AndroidManifest.xml:28:18-86
+32        android:dataExtractionRules="@xml/data_extraction_rules"
+32-->C:\Users\smite\OneDrive\Documentos\PI\SpaTi-master\app\src\main\AndroidManifest.xml:8:9-65
+33        android:debuggable="true"
+34        android:extractNativeLibs="false"
+35        android:fullBackupContent="@xml/backup_rules"
+35-->C:\Users\smite\OneDrive\Documentos\PI\SpaTi-master\app\src\main\AndroidManifest.xml:9:9-54
+36        android:icon="@mipmap/ic_launcher"
+36-->C:\Users\smite\OneDrive\Documentos\PI\SpaTi-master\app\src\main\AndroidManifest.xml:10:9-43
+37        android:label="@string/app_name"
+37-->C:\Users\smite\OneDrive\Documentos\PI\SpaTi-master\app\src\main\AndroidManifest.xml:11:9-41
+38        android:roundIcon="@mipmap/ic_launcher_round"
+38-->C:\Users\smite\OneDrive\Documentos\PI\SpaTi-master\app\src\main\AndroidManifest.xml:12:9-54
+39        android:supportsRtl="true"
+39-->C:\Users\smite\OneDrive\Documentos\PI\SpaTi-master\app\src\main\AndroidManifest.xml:13:9-35
+40        android:testOnly="true"
+41        android:theme="@style/Theme.spaTi" >
+41-->C:\Users\smite\OneDrive\Documentos\PI\SpaTi-master\app\src\main\AndroidManifest.xml:14:9-43
+42        <activity
+42-->C:\Users\smite\OneDrive\Documentos\PI\SpaTi-master\app\src\main\AndroidManifest.xml:16:9-25:20
+43            android:name="com.example.spaTi.MainActivity"
+43-->C:\Users\smite\OneDrive\Documentos\PI\SpaTi-master\app\src\main\AndroidManifest.xml:17:13-41
+44            android:exported="true" >
+44-->C:\Users\smite\OneDrive\Documentos\PI\SpaTi-master\app\src\main\AndroidManifest.xml:18:13-36
+45            <intent-filter>
+45-->C:\Users\smite\OneDrive\Documentos\PI\SpaTi-master\app\src\main\AndroidManifest.xml:19:13-24:29
+46                <action android:name="android.intent.action.MAIN" />
+46-->C:\Users\smite\OneDrive\Documentos\PI\SpaTi-master\app\src\main\AndroidManifest.xml:20:17-69
+46-->C:\Users\smite\OneDrive\Documentos\PI\SpaTi-master\app\src\main\AndroidManifest.xml:20:25-66
+47
+48                <category android:name="android.intent.category.LAUNCHER" />
+48-->C:\Users\smite\OneDrive\Documentos\PI\SpaTi-master\app\src\main\AndroidManifest.xml:23:17-77
+48-->C:\Users\smite\OneDrive\Documentos\PI\SpaTi-master\app\src\main\AndroidManifest.xml:23:27-74
+49            </intent-filter>
+50        </activity>
+51
+52        <service
+52-->[com.google.firebase:firebase-firestore:25.1.0] C:\Users\smite\.gradle\caches\transforms-4\6f5af4158b2f5e3e37dc4300a5785f8b\transformed\firebase-firestore-25.1.0\AndroidManifest.xml:14:9-23:19
+53            android:name="com.google.firebase.components.ComponentDiscoveryService"
+53-->[com.google.firebase:firebase-firestore:25.1.0] C:\Users\smite\.gradle\caches\transforms-4\6f5af4158b2f5e3e37dc4300a5785f8b\transformed\firebase-firestore-25.1.0\AndroidManifest.xml:15:13-84
+54            android:directBootAware="true"
+54-->[com.google.firebase:firebase-common:21.0.0] C:\Users\smite\.gradle\caches\transforms-4\d35ca443d5775c29013699fc7e74002c\transformed\firebase-common-21.0.0\AndroidManifest.xml:32:13-43
+55            android:exported="false" >
+55-->[com.google.firebase:firebase-firestore:25.1.0] C:\Users\smite\.gradle\caches\transforms-4\6f5af4158b2f5e3e37dc4300a5785f8b\transformed\firebase-firestore-25.1.0\AndroidManifest.xml:16:13-37
+56            <meta-data
+56-->[com.google.firebase:firebase-firestore:25.1.0] C:\Users\smite\.gradle\caches\transforms-4\6f5af4158b2f5e3e37dc4300a5785f8b\transformed\firebase-firestore-25.1.0\AndroidManifest.xml:17:13-19:85
+57                android:name="com.google.firebase.components:com.google.firebase.firestore.FirebaseFirestoreKtxRegistrar"
+57-->[com.google.firebase:firebase-firestore:25.1.0] C:\Users\smite\.gradle\caches\transforms-4\6f5af4158b2f5e3e37dc4300a5785f8b\transformed\firebase-firestore-25.1.0\AndroidManifest.xml:18:17-122
+58                android:value="com.google.firebase.components.ComponentRegistrar" />
+58-->[com.google.firebase:firebase-firestore:25.1.0] C:\Users\smite\.gradle\caches\transforms-4\6f5af4158b2f5e3e37dc4300a5785f8b\transformed\firebase-firestore-25.1.0\AndroidManifest.xml:19:17-82
+59            <meta-data
+59-->[com.google.firebase:firebase-firestore:25.1.0] C:\Users\smite\.gradle\caches\transforms-4\6f5af4158b2f5e3e37dc4300a5785f8b\transformed\firebase-firestore-25.1.0\AndroidManifest.xml:20:13-22:85
+60                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+60-->[com.google.firebase:firebase-firestore:25.1.0] C:\Users\smite\.gradle\caches\transforms-4\6f5af4158b2f5e3e37dc4300a5785f8b\transformed\firebase-firestore-25.1.0\AndroidManifest.xml:21:17-111
+61                android:value="com.google.firebase.components.ComponentRegistrar" />
+61-->[com.google.firebase:firebase-firestore:25.1.0] C:\Users\smite\.gradle\caches\transforms-4\6f5af4158b2f5e3e37dc4300a5785f8b\transformed\firebase-firestore-25.1.0\AndroidManifest.xml:22:17-82
+62            <meta-data
+62-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:69:13-71:85
+63                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+63-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:70:17-109
+64                android:value="com.google.firebase.components.ComponentRegistrar" />
+64-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:71:17-82
+65            <meta-data
+65-->[com.google.android.gms:play-services-measurement-api:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\8611d3a714d433149afcd8ac2ef2306b\transformed\play-services-measurement-api-22.1.0\AndroidManifest.xml:37:13-39:85
+66                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+66-->[com.google.android.gms:play-services-measurement-api:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\8611d3a714d433149afcd8ac2ef2306b\transformed\play-services-measurement-api-22.1.0\AndroidManifest.xml:38:17-139
+67                android:value="com.google.firebase.components.ComponentRegistrar" />
+67-->[com.google.android.gms:play-services-measurement-api:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\8611d3a714d433149afcd8ac2ef2306b\transformed\play-services-measurement-api-22.1.0\AndroidManifest.xml:39:17-82
+68            <meta-data
+68-->[com.google.firebase:firebase-installations:18.0.0] C:\Users\smite\.gradle\caches\transforms-4\8d0c801f9e08c163a904b23185c7fa39\transformed\firebase-installations-18.0.0\AndroidManifest.xml:15:13-17:85
+69                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsKtxRegistrar"
+69-->[com.google.firebase:firebase-installations:18.0.0] C:\Users\smite\.gradle\caches\transforms-4\8d0c801f9e08c163a904b23185c7fa39\transformed\firebase-installations-18.0.0\AndroidManifest.xml:16:17-130
+70                android:value="com.google.firebase.components.ComponentRegistrar" />
+70-->[com.google.firebase:firebase-installations:18.0.0] C:\Users\smite\.gradle\caches\transforms-4\8d0c801f9e08c163a904b23185c7fa39\transformed\firebase-installations-18.0.0\AndroidManifest.xml:17:17-82
+71            <meta-data
+71-->[com.google.firebase:firebase-installations:18.0.0] C:\Users\smite\.gradle\caches\transforms-4\8d0c801f9e08c163a904b23185c7fa39\transformed\firebase-installations-18.0.0\AndroidManifest.xml:18:13-20:85
+72                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+72-->[com.google.firebase:firebase-installations:18.0.0] C:\Users\smite\.gradle\caches\transforms-4\8d0c801f9e08c163a904b23185c7fa39\transformed\firebase-installations-18.0.0\AndroidManifest.xml:19:17-127
+73                android:value="com.google.firebase.components.ComponentRegistrar" />
+73-->[com.google.firebase:firebase-installations:18.0.0] C:\Users\smite\.gradle\caches\transforms-4\8d0c801f9e08c163a904b23185c7fa39\transformed\firebase-installations-18.0.0\AndroidManifest.xml:20:17-82
+74            <meta-data
+74-->[com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\smite\.gradle\caches\transforms-4\2538126d26fc1701b635684499195a10\transformed\firebase-common-ktx-21.0.0\AndroidManifest.xml:12:13-14:85
+75                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
+75-->[com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\smite\.gradle\caches\transforms-4\2538126d26fc1701b635684499195a10\transformed\firebase-common-ktx-21.0.0\AndroidManifest.xml:13:17-116
+76                android:value="com.google.firebase.components.ComponentRegistrar" />
+76-->[com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\smite\.gradle\caches\transforms-4\2538126d26fc1701b635684499195a10\transformed\firebase-common-ktx-21.0.0\AndroidManifest.xml:14:17-82
+77            <meta-data
+77-->[com.google.firebase:firebase-common:21.0.0] C:\Users\smite\.gradle\caches\transforms-4\d35ca443d5775c29013699fc7e74002c\transformed\firebase-common-21.0.0\AndroidManifest.xml:35:13-37:85
+78                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
+78-->[com.google.firebase:firebase-common:21.0.0] C:\Users\smite\.gradle\caches\transforms-4\d35ca443d5775c29013699fc7e74002c\transformed\firebase-common-21.0.0\AndroidManifest.xml:36:17-109
+79                android:value="com.google.firebase.components.ComponentRegistrar" />
+79-->[com.google.firebase:firebase-common:21.0.0] C:\Users\smite\.gradle\caches\transforms-4\d35ca443d5775c29013699fc7e74002c\transformed\firebase-common-21.0.0\AndroidManifest.xml:37:17-82
+80        </service>
+81
+82        <activity
+82-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:29:9-46:20
+83            android:name="com.google.firebase.auth.internal.GenericIdpActivity"
+83-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:30:13-80
+84            android:excludeFromRecents="true"
+84-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:31:13-46
+85            android:exported="true"
+85-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:32:13-36
+86            android:launchMode="singleTask"
+86-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:33:13-44
+87            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+87-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:34:13-72
+88            <intent-filter>
+88-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:35:13-45:29
+89                <action android:name="android.intent.action.VIEW" />
+89-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:36:17-69
+89-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:36:25-66
+90
+91                <category android:name="android.intent.category.DEFAULT" />
+91-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:38:17-76
+91-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:38:27-73
+92                <category android:name="android.intent.category.BROWSABLE" />
+92-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:39:17-78
+92-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:39:27-75
+93
+94                <data
+94-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:41:17-44:51
+95                    android:host="firebase.auth"
+95-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:42:21-49
+96                    android:path="/"
+96-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:43:21-37
+97                    android:scheme="genericidp" />
+97-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:44:21-48
+98            </intent-filter>
+99        </activity>
+100        <activity
+100-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:47:9-64:20
+101            android:name="com.google.firebase.auth.internal.RecaptchaActivity"
+101-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:48:13-79
+102            android:excludeFromRecents="true"
+102-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:49:13-46
+103            android:exported="true"
+103-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:50:13-36
+104            android:launchMode="singleTask"
+104-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:51:13-44
+105            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+105-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:52:13-72
+106            <intent-filter>
+106-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:53:13-63:29
+107                <action android:name="android.intent.action.VIEW" />
+107-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:36:17-69
+107-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:36:25-66
+108
+109                <category android:name="android.intent.category.DEFAULT" />
+109-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:38:17-76
+109-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:38:27-73
+110                <category android:name="android.intent.category.BROWSABLE" />
+110-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:39:17-78
+110-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:39:27-75
+111
+112                <data
+112-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:41:17-44:51
+113                    android:host="firebase.auth"
+113-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:42:21-49
+114                    android:path="/"
+114-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:43:21-37
+115                    android:scheme="recaptcha" />
+115-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\smite\.gradle\caches\transforms-4\b01db2833e66102b69387119f6dcf84a\transformed\firebase-auth-23.0.0\AndroidManifest.xml:44:21-48
+116            </intent-filter>
+117        </activity>
+118
+119        <property
+119-->[com.google.android.gms:play-services-measurement-api:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\8611d3a714d433149afcd8ac2ef2306b\transformed\play-services-measurement-api-22.1.0\AndroidManifest.xml:30:9-32:61
+120            android:name="android.adservices.AD_SERVICES_CONFIG"
+120-->[com.google.android.gms:play-services-measurement-api:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\8611d3a714d433149afcd8ac2ef2306b\transformed\play-services-measurement-api-22.1.0\AndroidManifest.xml:31:13-65
+121            android:resource="@xml/ga_ad_services_config" />
+121-->[com.google.android.gms:play-services-measurement-api:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\8611d3a714d433149afcd8ac2ef2306b\transformed\play-services-measurement-api-22.1.0\AndroidManifest.xml:32:13-58
+122
+123        <service
+123-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\smite\.gradle\caches\transforms-4\35f1731a5c84281a7499614b883b8d4c\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:24:9-32:19
+124            android:name="androidx.credentials.playservices.CredentialProviderMetadataHolder"
+124-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\smite\.gradle\caches\transforms-4\35f1731a5c84281a7499614b883b8d4c\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:25:13-94
+125            android:enabled="true"
+125-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\smite\.gradle\caches\transforms-4\35f1731a5c84281a7499614b883b8d4c\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:26:13-35
+126            android:exported="false" >
+126-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\smite\.gradle\caches\transforms-4\35f1731a5c84281a7499614b883b8d4c\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:27:13-37
+127            <meta-data
+127-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\smite\.gradle\caches\transforms-4\35f1731a5c84281a7499614b883b8d4c\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:29:13-31:104
+128                android:name="androidx.credentials.CREDENTIAL_PROVIDER_KEY"
+128-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\smite\.gradle\caches\transforms-4\35f1731a5c84281a7499614b883b8d4c\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:30:17-76
+129                android:value="androidx.credentials.playservices.CredentialProviderPlayServicesImpl" />
+129-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\smite\.gradle\caches\transforms-4\35f1731a5c84281a7499614b883b8d4c\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:31:17-101
+130        </service>
+131
+132        <activity
+132-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\smite\.gradle\caches\transforms-4\35f1731a5c84281a7499614b883b8d4c\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:34:9-41:20
+133            android:name="androidx.credentials.playservices.HiddenActivity"
+133-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\smite\.gradle\caches\transforms-4\35f1731a5c84281a7499614b883b8d4c\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:35:13-76
+134            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+134-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\smite\.gradle\caches\transforms-4\35f1731a5c84281a7499614b883b8d4c\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:36:13-87
+135            android:enabled="true"
+135-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\smite\.gradle\caches\transforms-4\35f1731a5c84281a7499614b883b8d4c\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:37:13-35
+136            android:exported="false"
+136-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\smite\.gradle\caches\transforms-4\35f1731a5c84281a7499614b883b8d4c\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:38:13-37
+137            android:fitsSystemWindows="true"
+137-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\smite\.gradle\caches\transforms-4\35f1731a5c84281a7499614b883b8d4c\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:39:13-45
+138            android:theme="@style/Theme.Hidden" >
+138-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\smite\.gradle\caches\transforms-4\35f1731a5c84281a7499614b883b8d4c\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:40:13-48
+139        </activity>
+140
+141        <provider
+141-->[com.google.firebase:firebase-common:21.0.0] C:\Users\smite\.gradle\caches\transforms-4\d35ca443d5775c29013699fc7e74002c\transformed\firebase-common-21.0.0\AndroidManifest.xml:23:9-28:39
+142            android:name="com.google.firebase.provider.FirebaseInitProvider"
+142-->[com.google.firebase:firebase-common:21.0.0] C:\Users\smite\.gradle\caches\transforms-4\d35ca443d5775c29013699fc7e74002c\transformed\firebase-common-21.0.0\AndroidManifest.xml:24:13-77
+143            android:authorities="com.example.spaTi.firebaseinitprovider"
+143-->[com.google.firebase:firebase-common:21.0.0] C:\Users\smite\.gradle\caches\transforms-4\d35ca443d5775c29013699fc7e74002c\transformed\firebase-common-21.0.0\AndroidManifest.xml:25:13-72
+144            android:directBootAware="true"
+144-->[com.google.firebase:firebase-common:21.0.0] C:\Users\smite\.gradle\caches\transforms-4\d35ca443d5775c29013699fc7e74002c\transformed\firebase-common-21.0.0\AndroidManifest.xml:26:13-43
+145            android:exported="false"
+145-->[com.google.firebase:firebase-common:21.0.0] C:\Users\smite\.gradle\caches\transforms-4\d35ca443d5775c29013699fc7e74002c\transformed\firebase-common-21.0.0\AndroidManifest.xml:27:13-37
+146            android:initOrder="100" />
+146-->[com.google.firebase:firebase-common:21.0.0] C:\Users\smite\.gradle\caches\transforms-4\d35ca443d5775c29013699fc7e74002c\transformed\firebase-common-21.0.0\AndroidManifest.xml:28:13-36
+147
+148        <activity
+148-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\smite\.gradle\caches\transforms-4\7122f7ba3e8f912d1c70ab1021f13306\transformed\play-services-auth-20.7.0\AndroidManifest.xml:23:9-27:75
+149            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+149-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\smite\.gradle\caches\transforms-4\7122f7ba3e8f912d1c70ab1021f13306\transformed\play-services-auth-20.7.0\AndroidManifest.xml:24:13-93
+150            android:excludeFromRecents="true"
+150-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\smite\.gradle\caches\transforms-4\7122f7ba3e8f912d1c70ab1021f13306\transformed\play-services-auth-20.7.0\AndroidManifest.xml:25:13-46
+151            android:exported="false"
+151-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\smite\.gradle\caches\transforms-4\7122f7ba3e8f912d1c70ab1021f13306\transformed\play-services-auth-20.7.0\AndroidManifest.xml:26:13-37
+152            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+152-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\smite\.gradle\caches\transforms-4\7122f7ba3e8f912d1c70ab1021f13306\transformed\play-services-auth-20.7.0\AndroidManifest.xml:27:13-72
+153        <!--
+154            Service handling Google Sign-In user revocation. For apps that do not integrate with
+155            Google Sign-In, this service will never be started.
+156        -->
+157        <service
+157-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\smite\.gradle\caches\transforms-4\7122f7ba3e8f912d1c70ab1021f13306\transformed\play-services-auth-20.7.0\AndroidManifest.xml:33:9-37:51
+158            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+158-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\smite\.gradle\caches\transforms-4\7122f7ba3e8f912d1c70ab1021f13306\transformed\play-services-auth-20.7.0\AndroidManifest.xml:34:13-89
+159            android:exported="true"
+159-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\smite\.gradle\caches\transforms-4\7122f7ba3e8f912d1c70ab1021f13306\transformed\play-services-auth-20.7.0\AndroidManifest.xml:35:13-36
+160            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"
+160-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\smite\.gradle\caches\transforms-4\7122f7ba3e8f912d1c70ab1021f13306\transformed\play-services-auth-20.7.0\AndroidManifest.xml:36:13-107
+161            android:visibleToInstantApps="true" />
+161-->[com.google.android.gms:play-services-auth:20.7.0] C:\Users\smite\.gradle\caches\transforms-4\7122f7ba3e8f912d1c70ab1021f13306\transformed\play-services-auth-20.7.0\AndroidManifest.xml:37:13-48
+162
+163        <activity
+163-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\smite\.gradle\caches\transforms-4\faefd57cc4fa02c9fcfb0616854bf3f0\transformed\play-services-base-18.0.1\AndroidManifest.xml:20:9-22:45
+164            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+164-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\smite\.gradle\caches\transforms-4\faefd57cc4fa02c9fcfb0616854bf3f0\transformed\play-services-base-18.0.1\AndroidManifest.xml:20:19-85
+165            android:exported="false"
+165-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\smite\.gradle\caches\transforms-4\faefd57cc4fa02c9fcfb0616854bf3f0\transformed\play-services-base-18.0.1\AndroidManifest.xml:22:19-43
+166            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+166-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\smite\.gradle\caches\transforms-4\faefd57cc4fa02c9fcfb0616854bf3f0\transformed\play-services-base-18.0.1\AndroidManifest.xml:21:19-78
+167
+168        <receiver
+168-->[com.google.android.gms:play-services-measurement:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\dd9ca9b70aa9a48275baafabc7296d7c\transformed\play-services-measurement-22.1.0\AndroidManifest.xml:29:9-33:20
+169            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+169-->[com.google.android.gms:play-services-measurement:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\dd9ca9b70aa9a48275baafabc7296d7c\transformed\play-services-measurement-22.1.0\AndroidManifest.xml:30:13-85
+170            android:enabled="true"
+170-->[com.google.android.gms:play-services-measurement:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\dd9ca9b70aa9a48275baafabc7296d7c\transformed\play-services-measurement-22.1.0\AndroidManifest.xml:31:13-35
+171            android:exported="false" >
+171-->[com.google.android.gms:play-services-measurement:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\dd9ca9b70aa9a48275baafabc7296d7c\transformed\play-services-measurement-22.1.0\AndroidManifest.xml:32:13-37
+172        </receiver>
+173
+174        <service
+174-->[com.google.android.gms:play-services-measurement:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\dd9ca9b70aa9a48275baafabc7296d7c\transformed\play-services-measurement-22.1.0\AndroidManifest.xml:35:9-38:40
+175            android:name="com.google.android.gms.measurement.AppMeasurementService"
+175-->[com.google.android.gms:play-services-measurement:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\dd9ca9b70aa9a48275baafabc7296d7c\transformed\play-services-measurement-22.1.0\AndroidManifest.xml:36:13-84
+176            android:enabled="true"
+176-->[com.google.android.gms:play-services-measurement:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\dd9ca9b70aa9a48275baafabc7296d7c\transformed\play-services-measurement-22.1.0\AndroidManifest.xml:37:13-35
+177            android:exported="false" />
+177-->[com.google.android.gms:play-services-measurement:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\dd9ca9b70aa9a48275baafabc7296d7c\transformed\play-services-measurement-22.1.0\AndroidManifest.xml:38:13-37
+178        <service
+178-->[com.google.android.gms:play-services-measurement:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\dd9ca9b70aa9a48275baafabc7296d7c\transformed\play-services-measurement-22.1.0\AndroidManifest.xml:39:9-43:72
+179            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+179-->[com.google.android.gms:play-services-measurement:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\dd9ca9b70aa9a48275baafabc7296d7c\transformed\play-services-measurement-22.1.0\AndroidManifest.xml:40:13-87
+180            android:enabled="true"
+180-->[com.google.android.gms:play-services-measurement:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\dd9ca9b70aa9a48275baafabc7296d7c\transformed\play-services-measurement-22.1.0\AndroidManifest.xml:41:13-35
+181            android:exported="false"
+181-->[com.google.android.gms:play-services-measurement:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\dd9ca9b70aa9a48275baafabc7296d7c\transformed\play-services-measurement-22.1.0\AndroidManifest.xml:42:13-37
+182            android:permission="android.permission.BIND_JOB_SERVICE" />
+182-->[com.google.android.gms:play-services-measurement:22.1.0] C:\Users\smite\.gradle\caches\transforms-4\dd9ca9b70aa9a48275baafabc7296d7c\transformed\play-services-measurement-22.1.0\AndroidManifest.xml:43:13-69
+183
+184        <meta-data
+184-->[com.google.android.gms:play-services-basement:18.4.0] C:\Users\smite\.gradle\caches\transforms-4\41fc5ff3a1e3254a2ff4b3c3cc0794df\transformed\play-services-basement-18.4.0\AndroidManifest.xml:6:9-122
+185            android:name="com.google.android.gms.version"
+185-->[com.google.android.gms:play-services-basement:18.4.0] C:\Users\smite\.gradle\caches\transforms-4\41fc5ff3a1e3254a2ff4b3c3cc0794df\transformed\play-services-basement-18.4.0\AndroidManifest.xml:6:20-65
+186            android:value="@integer/google_play_services_version" />
+186-->[com.google.android.gms:play-services-basement:18.4.0] C:\Users\smite\.gradle\caches\transforms-4\41fc5ff3a1e3254a2ff4b3c3cc0794df\transformed\play-services-basement-18.4.0\AndroidManifest.xml:6:66-119
+187
+188        <provider
+188-->[androidx.emoji2:emoji2:1.3.0] C:\Users\smite\.gradle\caches\transforms-4\9a756fe633c788bac0fed38230185be4\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+189            android:name="androidx.startup.InitializationProvider"
+189-->[androidx.emoji2:emoji2:1.3.0] C:\Users\smite\.gradle\caches\transforms-4\9a756fe633c788bac0fed38230185be4\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
+190            android:authorities="com.example.spaTi.androidx-startup"
+190-->[androidx.emoji2:emoji2:1.3.0] C:\Users\smite\.gradle\caches\transforms-4\9a756fe633c788bac0fed38230185be4\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
+191            android:exported="false" >
+191-->[androidx.emoji2:emoji2:1.3.0] C:\Users\smite\.gradle\caches\transforms-4\9a756fe633c788bac0fed38230185be4\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
+192            <meta-data
+192-->[androidx.emoji2:emoji2:1.3.0] C:\Users\smite\.gradle\caches\transforms-4\9a756fe633c788bac0fed38230185be4\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+193                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+193-->[androidx.emoji2:emoji2:1.3.0] C:\Users\smite\.gradle\caches\transforms-4\9a756fe633c788bac0fed38230185be4\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
+194                android:value="androidx.startup" />
+194-->[androidx.emoji2:emoji2:1.3.0] C:\Users\smite\.gradle\caches\transforms-4\9a756fe633c788bac0fed38230185be4\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
+195            <meta-data
+195-->[androidx.lifecycle:lifecycle-process:2.8.6] C:\Users\smite\.gradle\caches\transforms-4\c0a240d2867d800da7e8d23278c35561\transformed\lifecycle-process-2.8.6\AndroidManifest.xml:29:13-31:52
+196                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+196-->[androidx.lifecycle:lifecycle-process:2.8.6] C:\Users\smite\.gradle\caches\transforms-4\c0a240d2867d800da7e8d23278c35561\transformed\lifecycle-process-2.8.6\AndroidManifest.xml:30:17-78
+197                android:value="androidx.startup" />
+197-->[androidx.lifecycle:lifecycle-process:2.8.6] C:\Users\smite\.gradle\caches\transforms-4\c0a240d2867d800da7e8d23278c35561\transformed\lifecycle-process-2.8.6\AndroidManifest.xml:31:17-49
+198            <meta-data
+198-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smite\.gradle\caches\transforms-4\dfe3db4ba6390c4b4fa4d4f98bf22854\transformed\profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+199                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+199-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smite\.gradle\caches\transforms-4\dfe3db4ba6390c4b4fa4d4f98bf22854\transformed\profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+200                android:value="androidx.startup" />
+200-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smite\.gradle\caches\transforms-4\dfe3db4ba6390c4b4fa4d4f98bf22854\transformed\profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+201        </provider>
+202
+203        <uses-library
+203-->[androidx.privacysandbox.ads:ads-adservices:1.0.0-beta05] C:\Users\smite\.gradle\caches\transforms-4\8f95f104e30f4544751b690f2c590177\transformed\ads-adservices-1.0.0-beta05\AndroidManifest.xml:23:9-25:40
+204            android:name="android.ext.adservices"
+204-->[androidx.privacysandbox.ads:ads-adservices:1.0.0-beta05] C:\Users\smite\.gradle\caches\transforms-4\8f95f104e30f4544751b690f2c590177\transformed\ads-adservices-1.0.0-beta05\AndroidManifest.xml:24:13-50
+205            android:required="false" />
+205-->[androidx.privacysandbox.ads:ads-adservices:1.0.0-beta05] C:\Users\smite\.gradle\caches\transforms-4\8f95f104e30f4544751b690f2c590177\transformed\ads-adservices-1.0.0-beta05\AndroidManifest.xml:25:13-37
+206        <uses-library
+206-->[androidx.window:window:1.0.0] C:\Users\smite\.gradle\caches\transforms-4\0868fc0e96981600ab82957bbb2e3eaa\transformed\window-1.0.0\AndroidManifest.xml:25:9-27:40
+207            android:name="androidx.window.extensions"
+207-->[androidx.window:window:1.0.0] C:\Users\smite\.gradle\caches\transforms-4\0868fc0e96981600ab82957bbb2e3eaa\transformed\window-1.0.0\AndroidManifest.xml:26:13-54
+208            android:required="false" />
+208-->[androidx.window:window:1.0.0] C:\Users\smite\.gradle\caches\transforms-4\0868fc0e96981600ab82957bbb2e3eaa\transformed\window-1.0.0\AndroidManifest.xml:27:13-37
+209        <uses-library
+209-->[androidx.window:window:1.0.0] C:\Users\smite\.gradle\caches\transforms-4\0868fc0e96981600ab82957bbb2e3eaa\transformed\window-1.0.0\AndroidManifest.xml:28:9-30:40
+210            android:name="androidx.window.sidecar"
+210-->[androidx.window:window:1.0.0] C:\Users\smite\.gradle\caches\transforms-4\0868fc0e96981600ab82957bbb2e3eaa\transformed\window-1.0.0\AndroidManifest.xml:29:13-51
+211            android:required="false" />
+211-->[androidx.window:window:1.0.0] C:\Users\smite\.gradle\caches\transforms-4\0868fc0e96981600ab82957bbb2e3eaa\transformed\window-1.0.0\AndroidManifest.xml:30:13-37
+212
+213        <receiver
+213-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smite\.gradle\caches\transforms-4\dfe3db4ba6390c4b4fa4d4f98bf22854\transformed\profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+214            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+214-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smite\.gradle\caches\transforms-4\dfe3db4ba6390c4b4fa4d4f98bf22854\transformed\profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+215            android:directBootAware="false"
+215-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smite\.gradle\caches\transforms-4\dfe3db4ba6390c4b4fa4d4f98bf22854\transformed\profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+216            android:enabled="true"
+216-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smite\.gradle\caches\transforms-4\dfe3db4ba6390c4b4fa4d4f98bf22854\transformed\profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+217            android:exported="true"
+217-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smite\.gradle\caches\transforms-4\dfe3db4ba6390c4b4fa4d4f98bf22854\transformed\profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+218            android:permission="android.permission.DUMP" >
+218-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smite\.gradle\caches\transforms-4\dfe3db4ba6390c4b4fa4d4f98bf22854\transformed\profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+219            <intent-filter>
+219-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smite\.gradle\caches\transforms-4\dfe3db4ba6390c4b4fa4d4f98bf22854\transformed\profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+220                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+220-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smite\.gradle\caches\transforms-4\dfe3db4ba6390c4b4fa4d4f98bf22854\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+220-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smite\.gradle\caches\transforms-4\dfe3db4ba6390c4b4fa4d4f98bf22854\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+221            </intent-filter>
+222            <intent-filter>
+222-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smite\.gradle\caches\transforms-4\dfe3db4ba6390c4b4fa4d4f98bf22854\transformed\profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+223                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+223-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smite\.gradle\caches\transforms-4\dfe3db4ba6390c4b4fa4d4f98bf22854\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+223-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smite\.gradle\caches\transforms-4\dfe3db4ba6390c4b4fa4d4f98bf22854\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+224            </intent-filter>
+225            <intent-filter>
+225-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smite\.gradle\caches\transforms-4\dfe3db4ba6390c4b4fa4d4f98bf22854\transformed\profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+226                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+226-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smite\.gradle\caches\transforms-4\dfe3db4ba6390c4b4fa4d4f98bf22854\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+226-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smite\.gradle\caches\transforms-4\dfe3db4ba6390c4b4fa4d4f98bf22854\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+227            </intent-filter>
+228            <intent-filter>
+228-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smite\.gradle\caches\transforms-4\dfe3db4ba6390c4b4fa4d4f98bf22854\transformed\profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+229                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+229-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smite\.gradle\caches\transforms-4\dfe3db4ba6390c4b4fa4d4f98bf22854\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+229-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smite\.gradle\caches\transforms-4\dfe3db4ba6390c4b4fa4d4f98bf22854\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+230            </intent-filter>
+231        </receiver>
+232    </application>
+233
+234</manifest>

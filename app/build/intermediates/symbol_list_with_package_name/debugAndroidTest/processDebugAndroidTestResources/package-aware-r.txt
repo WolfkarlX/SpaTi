@@ -1,0 +1,3 @@
+com.example.spaTi.test
+style WhiteBackgroundDialogTheme
+style WhiteBackgroundTheme

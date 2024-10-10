@@ -1,0 +1,12 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Color de fondo del EditText -->
+    <solid android:color="@android:color/white" />
+
+    <!-- Bordes redondeados -->
+    <corners android:radius="73dp" />
+
+    <!-- Color y grosor del borde -->
+    <stroke
+        android:width="1dp"
+        android:color="@color/black" /> <!-- Puedes usar un color de tu archivo colors.xml -->
+</shape>
