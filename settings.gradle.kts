@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "TaskManager"
+rootProject.name = "spaTi"
 include(":app")

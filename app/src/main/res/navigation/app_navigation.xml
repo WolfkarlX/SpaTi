@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/noteListingFragment"
-        android:name="com.example.taskmanager.ui.notes.NoteListingFragment"
+        android:name="com.example.spaTi.ui.notes.NoteListingFragment"
         android:label="fragment_note_listing"
         tools:layout="@layout/fragment_note_listing" >
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/noteDetailFragment"
-        android:name="com.example.taskmanager.ui.notes.NoteDetailFragment"
+        android:name="com.example.spaTi.ui.notes.NoteDetailFragment"
         android:label="fragment_note_detail"
         tools:layout="@layout/fragment_note_detail" />
 
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.taskmanager.ui.auth.LoginFragment"
+        android:name="com.example.spaTi.ui.auth.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action

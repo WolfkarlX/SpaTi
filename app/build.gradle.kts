@@ -12,11 +12,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.taskmanager"
+    namespace = "com.example.spaTi"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.taskmanager"
+        applicationId = "com.example.spaTi"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

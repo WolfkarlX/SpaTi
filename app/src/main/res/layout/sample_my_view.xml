@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.taskmanager.data.repository.MyView
+    <com.example.spaTi.data.repository.MyView
         style="@style/Widget.Theme.TaskManager.MyView"
         android:layout_width="300dp"
         android:layout_height="300dp"
