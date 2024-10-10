@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "720037910857",
+    "project_id": "fir-mvvm-f5266",
+    "storage_bucket": "fir-mvvm-f5266.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720037910857:android:4650971aaae5b87bac2298",
+        "android_client_info": {
+          "package_name": "com.example.spaTi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArX_sxrxMSu3V8OiLsvm1qo1BKQKRN7ig"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
