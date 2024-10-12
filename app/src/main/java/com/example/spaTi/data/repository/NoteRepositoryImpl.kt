@@ -1,8 +1,11 @@
 package com.example.spaTi.data.repository
 
+import android.content.SharedPreferences
 import com.example.spaTi.data.models.Note
+import com.example.spaTi.data.models.User
 import com.example.spaTi.util.FireStoreCollection
 import com.example.spaTi.util.FireStoreDocumentField
+import com.example.spaTi.util.SharedPrefConstants
 import com.example.spaTi.util.UiState
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query

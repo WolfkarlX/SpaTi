@@ -1,4 +1,4 @@
-package com.example.firebasewithmvvm.ui.auth
+package com.example.spaTi.ui.auth
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

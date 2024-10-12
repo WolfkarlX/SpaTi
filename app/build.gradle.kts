@@ -61,6 +61,9 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
+    //gson
+    implementation ("com.google.code.gson:gson:2.8.9")
+
     // Material Design
     implementation(libs.material)
 
@@ -89,3 +92,4 @@ dependencies {
     //constraint layout
     implementation("androidx.constraintlayout:constraintlayout:2.1.3")
 }
+

@@ -1,14 +1,18 @@
 package com.example.spaTi.ui.auth
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavGraph
 import androidx.navigation.fragment.findNavController
 import com.example.spaTi.R
 import com.example.spaTi.databinding.FragmentLoginBinding
+import com.example.spaTi.databinding.FragmentRegisterBinding
 import com.example.spaTi.util.*
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,7 +24,7 @@ class LoginFragment : Fragment() {
     val viewModel: AuthViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflaterf: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentLoginBinding.inflate(layoutInflater)
@@ -40,7 +44,7 @@ class LoginFragment : Fragment() {
         }
 
         binding.forgotPassLabel.setOnClickListener {
-
+            findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
         }
 
         binding.registerLabel.setOnClickListener {
@@ -92,6 +96,16 @@ class LoginFragment : Fragment() {
             }
         }
         return isValid
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.getSession { user ->
+            if (user != null){
+                Log.d("XDDD", user.toString())
+                findNavController().navigate(R.id.action_loginFragment_to_noteListingFragment)
+            }
+        }
     }
 
 }
