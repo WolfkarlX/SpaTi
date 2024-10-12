@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.firebasewithmvvm.ui.auth.RegisterFragment"
+        android:name="com.example.spaTi.ui.auth.RegisterFragment"
         android:label="RegisterFragment" >
         <action
             android:id="@+id/action_registerFragment_to_noteListingFragment"
