@@ -1,13 +1,14 @@
 {
   "project_info": {
-    "project_number": "720037910857",
-    "project_id": "fir-mvvm-f5266",
-    "storage_bucket": "fir-mvvm-f5266.appspot.com"
+    "project_number": "129031947414",
+    "firebase_url": "https://spati-movil-default-rtdb.firebaseio.com",
+    "project_id": "spati-movil",
+    "storage_bucket": "spati-movil.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:720037910857:android:4650971aaae5b87bac2298",
+        "mobilesdk_app_id": "1:129031947414:android:983b5cd946595dab2d6eb7",
         "android_client_info": {
           "package_name": "com.example.spaTi"
         }
@@ -15,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyArX_sxrxMSu3V8OiLsvm1qo1BKQKRN7ig"
+          "current_key": "AIzaSyAXNRUCD3-kJY71KCKvPk8GjEdiarDsRyA"
         }
       ],
       "services": {
