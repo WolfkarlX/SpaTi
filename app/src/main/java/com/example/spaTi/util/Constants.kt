@@ -3,6 +3,7 @@ package com.example.spaTi.util
 object FireStoreCollection{
     val NOTE = "note"
     val USER = "user"
+    val SERVICE = "service"
 }
 
 object FireStoreDocumentField {
