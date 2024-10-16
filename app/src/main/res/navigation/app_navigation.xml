@@ -18,6 +18,9 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_noteListingFragment_to_servicesFragment"
+            app:destination="@id/servicesFragment" />
     </fragment>
 
     <fragment
@@ -34,6 +37,7 @@
             android:id="@+id/action_registerFragment_to_noteListingFragment"
             app:destination="@id/noteListingFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.spaTi.ui.auth.LoginFragment"
@@ -49,11 +53,30 @@
             android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
             app:destination="@id/forgotPasswordFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/forgotPasswordFragment"
         android:name="com.example.spaTi.ui.auth.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
 
-</navigation>
+    <fragment
+        android:id="@+id/servicesFragment"
+        android:name="com.example.spaTi.ui.services.ServicesFragment"
+        android:label="fragment_services"
+        tools:layout="@layout/fragment_services" >
+        <action
+            android:id="@+id/action_servicesFragment_to_serviceDetailFragment"
+            app:destination="@id/serviceDetailFragment" />
+        <action
+            android:id="@+id/action_servicesFragment_to_noteListingFragment"
+            app:destination="@id/noteListingFragment" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/serviceDetailFragment"
+        android:name="com.example.spaTi.ui.services.ServiceDetailFragment"
+        android:label="fragment_service_detail"
+        tools:layout="@layout/fragment_service_detail" />
+
+</navigation>
