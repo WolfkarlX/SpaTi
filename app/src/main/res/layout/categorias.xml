@@ -39,8 +39,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
+                        android:background="@drawable/rounded_corners"
                         android:gravity="center"
-                        android:background="#338EA705"
                         android:padding="8dp"
                         android:layout_marginEnd="8dp">
                         <ImageView
@@ -62,8 +62,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
+                        android:background="@drawable/rounded_corners"
                         android:gravity="center"
-                        android:background="#338EA705"
                         android:padding="8dp"
                         android:layout_marginStart="8dp">
                         <ImageView
@@ -91,8 +91,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
+                        android:background="@drawable/rounded_corners"
                         android:gravity="center"
-                        android:background="#338EA705"
                         android:padding="8dp"
                         android:layout_marginEnd="8dp">
                         <ImageView
@@ -114,8 +114,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
+                        android:background="@drawable/rounded_corners"
                         android:gravity="center"
-                        android:background="#338EA705"
                         android:padding="8dp"
                         android:layout_marginStart="8dp">
                         <ImageView
@@ -143,8 +143,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
+                        android:background="@drawable/rounded_corners"
                         android:gravity="center"
-                        android:background="#338EA705"
                         android:padding="8dp"
                         android:layout_marginEnd="8dp">
                         <ImageView
@@ -166,8 +166,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
+                        android:background="@drawable/rounded_corners"
                         android:gravity="center"
-                        android:background="#338EA705"
                         android:padding="8dp"
                         android:layout_marginStart="8dp">
                         <ImageView

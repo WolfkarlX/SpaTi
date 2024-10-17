@@ -38,9 +38,9 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:background="@drawable/rounded_corners"
             android:gravity="center_vertical"
             android:padding="8dp"
-            android:background="#338EA705"
             android:layout_marginTop="16dp"
             android:elevation="4dp">
             <ImageView
@@ -174,9 +174,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:background="@drawable/rounded_corners"
                     android:gravity="center_vertical"
                     android:padding="16dp"
-                    android:background="#338EA705"
+                    android:layout_marginBottom="8dp"
+                    android:elevation="2dp">
+
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3:00 PM - 3:30 PM"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/koho" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@drawable/rounded_corners"
+                    android:gravity="center_vertical"
+                    android:padding="16dp"
                     android:layout_marginBottom="8dp"
                     android:elevation="2dp">
                     <TextView
@@ -191,9 +210,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:background="@drawable/rounded_corners"
                     android:gravity="center_vertical"
                     android:padding="16dp"
-                    android:background="#338EA705"
                     android:layout_marginBottom="8dp"
                     android:elevation="2dp">
                     <TextView
@@ -208,9 +227,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:background="@drawable/rounded_corners"
                     android:gravity="center_vertical"
                     android:padding="16dp"
-                    android:background="#338EA705"
                     android:layout_marginBottom="8dp"
                     android:elevation="2dp">
                     <TextView
@@ -225,9 +244,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:background="@drawable/rounded_corners"
                     android:gravity="center_vertical"
                     android:padding="16dp"
-                    android:background="#338EA705"
                     android:layout_marginBottom="8dp"
                     android:elevation="2dp">
                     <TextView
@@ -242,9 +261,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:background="@drawable/rounded_corners"
                     android:gravity="center_vertical"
                     android:padding="16dp"
-                    android:background="#338EA705"
                     android:layout_marginBottom="8dp"
                     android:elevation="2dp">
                     <TextView
@@ -259,26 +278,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:background="@drawable/rounded_corners"
                     android:gravity="center_vertical"
                     android:padding="16dp"
-                    android:background="#338EA705"
-                    android:layout_marginBottom="8dp"
-                    android:elevation="2dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="3:00 PM - 3:30 PM"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp"
-                        android:fontFamily="@font/koho" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="16dp"
-                    android:background="#338EA705"
                     android:layout_marginBottom="8dp"
                     android:elevation="2dp">
                     <TextView

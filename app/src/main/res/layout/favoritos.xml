@@ -26,9 +26,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
                 android:orientation="vertical"
+                android:background="@drawable/rounded_corners"
                 android:padding="16dp"
                 android:layout_margin="8dp"
-                android:background="#338EA705"
                 android:elevation="4dp">
                 <ImageView
                     android:layout_width="match_parent"
@@ -76,9 +76,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
                 android:orientation="vertical"
+                android:background="@drawable/rounded_corners"
                 android:padding="16dp"
                 android:layout_margin="8dp"
-                android:background="#338EA705"
                 android:elevation="4dp">
                 <ImageView
                     android:layout_width="match_parent"

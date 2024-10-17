@@ -44,9 +44,9 @@
                 android:layout_height="100dp"
                 android:layout_columnWeight="1"
                 android:orientation="vertical"
+                android:background="@drawable/rounded_corners"
                 android:gravity="center"
                 android:padding="8dp"
-                android:background="#338EA705"
                 android:layout_margin="8dp"
                 android:elevation="4dp">
                 <ImageView
@@ -77,9 +77,9 @@
                 android:layout_height="100dp"
                 android:layout_columnWeight="1"
                 android:orientation="vertical"
+                android:background="@drawable/rounded_corners"
                 android:gravity="center"
                 android:padding="8dp"
-                android:background="#338EA705"
                 android:layout_margin="8dp"
                 android:elevation="4dp">
                 <ImageView
@@ -110,9 +110,9 @@
                 android:layout_height="100dp"
                 android:layout_columnWeight="1"
                 android:orientation="vertical"
+                android:background="@drawable/rounded_corners"
                 android:gravity="center"
                 android:padding="8dp"
-                android:background="#338EA705"
                 android:layout_margin="8dp"
                 android:elevation="4dp">
                 <ImageView
@@ -143,9 +143,9 @@
                 android:layout_height="100dp"
                 android:layout_columnWeight="1"
                 android:orientation="vertical"
+                android:background="@drawable/rounded_corners"
                 android:gravity="center"
                 android:padding="8dp"
-                android:background="#338EA705"
                 android:layout_margin="8dp"
                 android:elevation="4dp">
                 <ImageView
@@ -176,9 +176,9 @@
                 android:layout_height="100dp"
                 android:layout_columnWeight="1"
                 android:orientation="vertical"
+                android:background="@drawable/rounded_corners"
                 android:gravity="center"
                 android:padding="8dp"
-                android:background="#338EA705"
                 android:layout_margin="8dp"
                 android:elevation="4dp">
                 <ImageView
@@ -211,9 +211,9 @@
                 android:layout_height="100dp"
                 android:layout_columnWeight="1"
                 android:orientation="vertical"
+                android:background="@drawable/rounded_corners"
                 android:gravity="center"
                 android:padding="8dp"
-                android:background="#338EA705"
                 android:layout_margin="8dp"
                 android:elevation="4dp">
                 <ImageView
