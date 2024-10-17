@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imgFondoSuperiorRegisterUser"
+        android:id="@+id/imgFondoSuperiorRegisterSpa"
         android:layout_width="260dp"
         android:layout_height="200dp"
         android:layout_marginTop="-70dp"
@@ -31,20 +31,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/first_name_label"
+        android:id="@+id/spa_name_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:fontFamily="@font/koho"
-        android:text="Nombre(s)"
+        android:text="Nombre del negocio"
         android:textColor="@color/black"
         android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <EditText
-        android:id="@+id/first_name_et"
+        android:id="@+id/spa_name_et"
         android:layout_width="0dp"
         android:layout_height="38dp"
         android:layout_marginStart="16dp"
@@ -56,28 +56,28 @@
         android:ems="10"
         android:fontFamily="@font/koho"
         android:inputType="textPersonName"
-        android:hint="Ingrese su nombre"
+        android:hint="Ingrese el nombre del establecimiento"
         android:paddingLeft="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/first_name_label" />
+        app:layout_constraintTop_toBottomOf="@+id/spa_name_label" />
 
     <TextView
-        android:id="@+id/last_name_label"
+        android:id="@+id/locatio_spa_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/koho"
-        android:text="Apellidos"
+        android:text="Ubicación"
         android:textColor="@color/black"
         android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/first_name_et" />
+        app:layout_constraintTop_toBottomOf="@+id/spa_name_et" />
 
     <EditText
-        android:id="@+id/last_name_et"
+        android:id="@+id/location_spa_et"
         android:layout_width="0dp"
         android:layout_height="38dp"
         android:layout_marginStart="16dp"
@@ -89,16 +89,16 @@
         android:ems="10"
         android:fontFamily="@font/koho"
         android:inputType="textPersonName"
-        android:hint="Ingrese sus apellidos"
+        android:hint="Ingrese la ubicación del establecimiento"
         android:paddingLeft="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/last_name_label" />
+        app:layout_constraintTop_toBottomOf="@+id/locatio_spa_label" />
 
 
     <TextView
-        android:id="@+id/email_label"
+        android:id="@+id/email_spa_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -108,10 +108,10 @@
         android:textColor="@color/black"
         android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/last_name_et" />
+        app:layout_constraintTop_toBottomOf="@+id/location_spa_et" />
 
     <EditText
-        android:id="@+id/email_et"
+        android:id="@+id/email_spa_et"
         android:layout_width="0dp"
         android:layout_height="38dp"
         android:layout_marginStart="16dp"
@@ -128,10 +128,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_label" />
+        app:layout_constraintTop_toBottomOf="@+id/email_spa_label" />
 
     <TextView
-        android:id="@+id/pass_label"
+        android:id="@+id/pass_spa_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -139,13 +139,13 @@
         android:text="Contraseña"
         android:textColor="@color/black"
         android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/email_et"
+        app:layout_constraintEnd_toEndOf="@+id/email_spa_et"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/email_et"
-        app:layout_constraintTop_toBottomOf="@+id/email_et" />
+        app:layout_constraintStart_toStartOf="@+id/email_spa_et"
+        app:layout_constraintTop_toBottomOf="@+id/email_spa_et" />
 
     <EditText
-        android:id="@+id/pass_et"
+        android:id="@+id/pass_spa_et"
         android:layout_width="0dp"
         android:layout_height="38dp"
         android:layout_marginTop="8dp"
@@ -154,10 +154,10 @@
         android:inputType="textPassword"
         android:hint="Ingrese la que será su contraseña"
         android:paddingLeft="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/email_et"
+        app:layout_constraintEnd_toEndOf="@+id/email_spa_et"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/email_et"
-        app:layout_constraintTop_toBottomOf="@+id/pass_label" />
+        app:layout_constraintStart_toStartOf="@+id/email_spa_et"
+        app:layout_constraintTop_toBottomOf="@+id/pass_spa_label" />
 
 
     <RelativeLayout
@@ -165,10 +165,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        app:layout_constraintEnd_toEndOf="@+id/email_et"
+        app:layout_constraintEnd_toEndOf="@+id/email_spa_et"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/email_et"
-        app:layout_constraintTop_toBottomOf="@+id/pass_et">
+        app:layout_constraintStart_toStartOf="@+id/email_spa_et"
+        app:layout_constraintTop_toBottomOf="@+id/pass_spa_et">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/register_btn"
