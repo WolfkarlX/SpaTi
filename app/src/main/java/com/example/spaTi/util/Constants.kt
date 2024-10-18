@@ -4,6 +4,7 @@ object FireStoreCollection{
     val NOTE = "note"
     val USER = "user"
     val SERVICE = "service"
+    val SPA = "spa"
 }
 
 object FireStoreDocumentField {

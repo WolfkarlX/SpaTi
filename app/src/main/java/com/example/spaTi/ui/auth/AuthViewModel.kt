@@ -1,8 +1,10 @@
 package com.example.spaTi.ui.auth
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.spaTi.data.models.Spa
 import com.example.spaTi.data.models.User
 import com.example.spaTi.data.repository.AuthRepository
 import com.example.spaTi.util.UiState
@@ -30,7 +32,7 @@ class AuthViewModel @Inject constructor(
     fun register(
         email: String,
         password: String,
-        user: User
+        user:User,
     ) {
         _register.value = UiState.Loading
         repository.registerUser(
@@ -45,6 +47,9 @@ class AuthViewModel @Inject constructor(
         password: String
     ) {
         _login.value = UiState.Loading
+        Log.d("XDDD", "auth viewmodel")
+        Log.d("XDDD", email)
+        Log.d("XDDD", password)
         repository.loginUser(
             email,
             password
