@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/fondo_cita"
+        android:scaleType="centerCrop"
+        android:alpha="0.2" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end">
+            <ImageButton
+                android:id="@+id/closeButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/close"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Perfecto, solo falta que te relajes"
+            android:textSize="24sp"
+            android:textColor="@color/v_oscuro"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:fontFamily="@font/koho" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/spa"
+            android:layout_marginTop="16dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="Imagen del lugar" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lugar:"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/koho"
+            android:layout_marginTop="16dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SpaLove"
+            android:textColor="@color/v_oscuro"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tratamiento: Depilacion bikini\nPersonal: Jose Avalos\nFecha: Lunes 17 de Septiembre\nHora: 3:00 PM - 3:30 PM"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/koho" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="24dp"
+            android:layout_gravity="center"
+            android:gravity="center">
+            <Button
+                android:id="@+id/acceptButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aceptar"
+                android:backgroundTint="@color/v_oscuro"
+                android:fontFamily="@font/koho"
+                android:textColor="@android:color/white"
+                android:layout_marginEnd="16dp" />
+            <Button
+                android:id="@+id/denyButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Denegar"
+                android:backgroundTint="@color/v_oscuro"
+                android:fontFamily="@font/koho"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

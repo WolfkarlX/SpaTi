@@ -1,0 +1,291 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F3F3F3"
+    android:padding="16dp">
+
+    <!-- Contenedor ScrollView para el contenido principal -->
+    <ScrollView
+        android:id="@+id/scrollViewContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="80dp">
+            <TextView
+                android:id="@+id/textViewBienvenida"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bienvenida"
+                android:textSize="30sp"
+                android:fontFamily="@font/koho"
+                android:textColor="@color/v_oscuro"/>
+            <TextView
+                android:id="@+id/textViewRecomendado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recomendado"
+                android:textSize="18sp"
+                android:fontFamily="@font/koho"
+                android:textColor="@color/verde"
+                android:layout_marginTop="5dp"/>
+            <HorizontalScrollView
+                android:id="@+id/scrollViewRecomendado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:scrollbars="none">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Spa 1  Recomendados-->
+                    <LinearLayout
+                        android:layout_width="200dp"
+                        android:layout_height="150dp"
+                        android:orientation="vertical"
+                        android:background="@drawable/rounded_corners"
+                        android:layout_margin="8dp"
+                        android:elevation="4dp"
+                        android:padding="8dp">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:src="@drawable/spa"
+                            android:scaleType="centerCrop"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Calix"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/koho"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="5.0 ★"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/koho"
+                            android:textColor="#9E9E9E"/>
+                    </LinearLayout>
+
+                    <!-- Spa 2 Recomendados -->
+                    <LinearLayout
+                        android:layout_width="200dp"
+                        android:layout_height="150dp"
+                        android:orientation="vertical"
+                        android:background="@drawable/rounded_corners"
+                        android:layout_margin="8dp"
+                        android:elevation="4dp"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:src="@drawable/spa"
+                            android:scaleType="centerCrop"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SpaLove"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/koho"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="4.8 ★"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/koho"
+                            android:textColor="#9E9E9E"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Sección Nuevos -->
+            <TextView
+                android:id="@+id/textViewNuevos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nuevos"
+                android:textSize="18sp"
+                android:fontFamily="@font/koho"
+                android:textColor="@color/verde"
+                android:layout_marginTop="16dp"/>
+
+            <HorizontalScrollView
+                android:id="@+id/scrollViewNuevos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Spa 1 Nuevos -->
+                    <LinearLayout
+                        android:layout_width="200dp"
+                        android:layout_height="150dp"
+                        android:orientation="vertical"
+                        android:background="@drawable/rounded_corners"
+                        android:layout_margin="8dp"
+                        android:elevation="4dp"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:src="@drawable/spa"
+                            android:scaleType="centerCrop"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SpaLove"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/koho"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="4.8 ★"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/koho"
+                            android:textColor="#9E9E9E"/>
+                    </LinearLayout>
+
+                    <!-- Spa 2 Nuevos -->
+                    <LinearLayout
+                        android:layout_width="200dp"
+                        android:layout_height="150dp"
+                        android:orientation="vertical"
+                        android:background="@drawable/rounded_corners"
+                        android:layout_margin="8dp"
+                        android:elevation="4dp"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:src="@drawable/spa"
+                            android:scaleType="centerCrop"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SpaLove"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/koho"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="4.8 ★"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/koho"
+                            android:textColor="#9E9E9E"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Sección Mejores Valorados -->
+            <TextView
+                android:id="@+id/textViewMejoresValorados"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mejores valorados"
+                android:textSize="18sp"
+                android:fontFamily="@font/koho"
+                android:textColor="@color/verde"
+                android:layout_marginTop="16dp"/>
+
+            <HorizontalScrollView
+                android:id="@+id/scrollViewMejoresValorados"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Spa 1 Mejores valorados-->
+                    <LinearLayout
+                        android:layout_width="200dp"
+                        android:layout_height="150dp"
+                        android:orientation="vertical"
+                        android:background="@drawable/rounded_corners"
+                        android:layout_margin="8dp"
+                        android:elevation="4dp"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:src="@drawable/spa"
+                            android:scaleType="centerCrop"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SpaLove"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/koho"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="4.8 ★"
+                            android:textSize="14sp"
+                            android:textColor="#9E9E9E"
+                            android:fontFamily="@font/koho"/>
+                    </LinearLayout>
+
+                    <!-- Spa 2 Mejores Valorados -->
+                    <LinearLayout
+                        android:layout_width="200dp"
+                        android:layout_height="150dp"
+                        android:orientation="vertical"
+                        android:background="@drawable/rounded_corners"
+                        android:layout_margin="8dp"
+                        android:elevation="4dp"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:src="@drawable/spa"
+                            android:scaleType="centerCrop"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SpaLove"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/koho"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="4.8 ★"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/koho"
+                            android:textColor="#9E9E9E"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
