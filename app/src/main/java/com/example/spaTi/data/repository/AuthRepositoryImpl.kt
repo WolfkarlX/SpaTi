@@ -1,6 +1,7 @@
 package com.example.spaTi.data.repository
 
 import android.content.SharedPreferences
+import android.util.Log
 import com.example.spaTi.data.models.User
 import com.example.spaTi.util.FireStoreCollection
 import com.example.spaTi.util.SharedPrefConstants
@@ -90,6 +91,9 @@ class AuthRepositoryImp(
         email: String,
         password: String,
         result: (UiState<String>) -> Unit) {
+        Log.d("XDDD", "user repository")
+        Log.d("XDDD", email)
+        Log.d("XDDD", password)
         auth.signInWithEmailAndPassword(email,password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {

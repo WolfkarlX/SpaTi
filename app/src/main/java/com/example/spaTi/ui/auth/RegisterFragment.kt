@@ -1,6 +1,7 @@
 package com.example.spaTi.ui.auth
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -38,7 +39,7 @@ class RegisterFragment : Fragment() {
                 viewModel.register(
                     email = binding.emailEt.text.toString(),
                     password = binding.passEt.text.toString(),
-                    user = getUserObj()
+                    user = getUserObj(),
                 )
             }
         }
@@ -72,6 +73,7 @@ class RegisterFragment : Fragment() {
             first_name = binding.firstNameEt.text.toString(),
             last_name = binding.lastNameEt.text.toString(),
             email = binding.emailEt.text.toString(),
+            type = "1",
         )
     }
 
@@ -108,6 +110,16 @@ class RegisterFragment : Fragment() {
             }
         }
         return isValid
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.getSession { user ->
+            if (user != null){
+                Log.d("XDDD", user.toString())
+                findNavController().navigate(R.id.action_loginFragment_to_noteListingFragment)
+            }
+        }
     }
 
 }

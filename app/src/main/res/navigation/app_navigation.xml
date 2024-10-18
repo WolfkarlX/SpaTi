@@ -36,6 +36,10 @@
         <action
             android:id="@+id/action_registerFragment_to_noteListingFragment"
             app:destination="@id/noteListingFragment" />
+
+        <action
+            android:id="@+id/action_registerFragment_to_servicesFragment"
+            app:destination="@id/servicesFragment" />
     </fragment>
 
     <fragment
@@ -52,6 +56,12 @@
         <action
             android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
             app:destination="@id/forgotPasswordFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_ServicesFragment"
+            app:destination="@id/servicesFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_SpaRegisterFragment"
+            app:destination="@id/registerSpaFragment" />
     </fragment>
 
     <fragment
@@ -59,6 +69,16 @@
         android:name="com.example.spaTi.ui.auth.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
+
+    <fragment
+        android:id="@+id/registerSpaFragment"
+        android:name="com.example.spaTi.ui.SpaAuth.SpaRegisterFragment"
+        android:label="fragment_register_spa"
+        tools:layout="@layout/fragment_register_spa">
+        <action
+            android:id="@+id/action_registerSpaFragment_to_serviceDetailFragment"
+            app:destination="@id/servicesFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/servicesFragment"

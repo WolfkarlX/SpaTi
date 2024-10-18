@@ -7,6 +7,8 @@ import com.example.spaTi.data.repository.NoteRepository
 import com.example.spaTi.data.repository.NoteRepositoryImp
 import com.example.spaTi.data.repository.ServiceRepository
 import com.example.spaTi.data.repository.ServiceRepositoryImpl
+import com.example.spaTi.data.repository.SpaAuthRepository
+import com.example.spaTi.data.repository.SpaAuthRepositoryImpl
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
@@ -37,6 +39,18 @@ object RepositoryModule {
         gson: Gson
     ): AuthRepository {
         return AuthRepositoryImp(auth,database,appPreferences,gson)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSpaAuthRepository(
+        database: FirebaseFirestore,
+        auth: FirebaseAuth,
+        appPreferences: SharedPreferences,
+        gson: Gson
+    ): SpaAuthRepository {
+        // Return the implementation of the interface
+        return SpaAuthRepositoryImpl(auth, database, appPreferences, gson)
     }
 
     @Provides
