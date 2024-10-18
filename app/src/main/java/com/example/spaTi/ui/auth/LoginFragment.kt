@@ -19,9 +19,11 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 
+    var UserType: Int = 0
     val TAG: String = "RegisterFragment"
     lateinit var binding: FragmentLoginBinding
-    val viewModel: AuthViewModel by viewModels()
+    val viewModelUser: AuthViewModel by viewModels()
+    val viewModelSpa: SpaAuthViewModel by viewModels()
 
     override fun onCreateView(
         inflaterf: LayoutInflater, container: ViewGroup?,
@@ -33,18 +35,27 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observer()
+
+        // Set up observers once
+        setupObservers()
+
         binding.loginBtn.setOnClickListener {
             if (validation()) {
-                viewModel.login(
+                Log.d("XDDD", "It validated")
+                attemptSpaLogin(
                     email = binding.emailEt.text.toString(),
-                    password = binding.passEt.text.toString()
+                    password = binding.passEt.text.toString(),
                 )
             }
         }
 
+        // Register the navigation handlers
         binding.forgotPassLabel.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
+        }
+
+        binding.registerLabelSpa.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_SpaRegisterFragment)
         }
 
         binding.registerLabel.setOnClickListener {
@@ -52,24 +63,75 @@ class LoginFragment : Fragment() {
         }
     }
 
-    fun observer(){
-        viewModel.login.observe(viewLifecycleOwner) { state ->
-            when(state){
-                is UiState.Loading -> {
-                    binding.loginBtn.setText("")
-                    binding.loginProgress.show()
-                }
-                is UiState.Failure -> {
-                    binding.loginBtn.setText("Login")
-                    binding.loginProgress.hide()
-                    toast(state.error)
-                }
-                is UiState.Success -> {
-                    binding.loginBtn.setText("Login")
-                    binding.loginProgress.hide()
-                    toast(state.data)
-                    findNavController().navigate(R.id.action_loginFragment_to_noteListingFragment)
-                }
+    // Set up observers once
+    private fun setupObservers() {
+        // Observer for Spa login
+        viewModelSpa.login.observe(viewLifecycleOwner) { state ->
+            handleSpaLoginState(state)
+        }
+
+        // Observer for User login
+        viewModelUser.login.observe(viewLifecycleOwner) { state ->
+            handleUserLoginState(state)
+        }
+    }
+
+    private fun attemptSpaLogin(email: String, password: String) {
+        Log.d("XDDD", "Spa Login")
+        Log.d("XDDD", email)
+        Log.d("XDDD", password)
+
+        // Attempt spa login
+        viewModelSpa.login(email = email, password = password)
+    }
+
+    private fun attemptUserLogin(email: String, password: String) {
+        Log.d("XDDD", "User Login")
+        Log.d("XDDD", email)
+        Log.d("XDDD", password)
+
+        // Attempt user login
+        viewModelUser.login(email = email.toString(), password = password.toString())
+    }
+
+    private fun handleSpaLoginState(state: UiState<String>) {
+        when (state) {
+            is UiState.Loading -> {
+                binding.loginBtn.text = ""
+                binding.loginProgress.show()
+            }
+            is UiState.Failure -> {
+                // Spa login failed, now attempt user login
+                attemptUserLogin(binding.emailEt.text.toString(), binding.passEt.text.toString())
+            }
+            is UiState.Success -> {
+                // Spa login successful
+                binding.loginBtn.text = "Login"
+                binding.loginProgress.hide()
+                toast(state.data)
+                findNavController().navigate(R.id.action_loginFragment_to_ServicesFragment)
+            }
+        }
+    }
+
+    private fun handleUserLoginState(state: UiState<String>) {
+        when (state) {
+            is UiState.Loading -> {
+                binding.loginBtn.text = ""
+                binding.loginProgress.show()
+            }
+            is UiState.Failure -> {
+                // Both logins failed
+                binding.loginBtn.text = "Login"
+                binding.loginProgress.hide()
+                toast(state.error)
+            }
+            is UiState.Success -> {
+                // User login successful
+                binding.loginBtn.text = "Login"
+                binding.loginProgress.hide()
+                toast(state.data)
+                findNavController().navigate(R.id.action_loginFragment_to_noteListingFragment)
             }
         }
     }
@@ -77,20 +139,20 @@ class LoginFragment : Fragment() {
     fun validation(): Boolean {
         var isValid = true
 
-        if (binding.emailEt.text.isNullOrEmpty()){
+        if (binding.emailEt.text.isNullOrEmpty()) {
             isValid = false
             toast(getString(R.string.enter_email))
-        }else{
-            if (!binding.emailEt.text.toString().isValidEmail()){
+        } else {
+            if (!binding.emailEt.text.toString().isValidEmail()) {
                 isValid = false
                 toast(getString(R.string.invalid_email))
             }
         }
-        if (binding.passEt.text.isNullOrEmpty()){
+        if (binding.passEt.text.isNullOrEmpty()) {
             isValid = false
             toast(getString(R.string.enter_password))
-        }else{
-            if (binding.passEt.text.toString().length < 8){
+        } else {
+            if (binding.passEt.text.toString().length < 8) {
                 isValid = false
                 toast(getString(R.string.invalid_password))
             }
@@ -100,10 +162,23 @@ class LoginFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.getSession { user ->
-            if (user != null){
-                Log.d("XDDD", user.toString())
-                findNavController().navigate(R.id.action_loginFragment_to_noteListingFragment)
+        checkSessions()
+    }
+
+    private fun checkSessions() {
+        // Check for spa session first
+        viewModelSpa.getSession { spa ->
+            if (spa != null && spa.type == "2") {
+                // Navigate to Spa services if session exists and type is "2"
+                findNavController().navigate(R.id.action_loginFragment_to_ServicesFragment)
+            } else {
+                // If no valid spa session, check for user session
+                viewModelUser.getSession { user ->
+                    if (user != null && user.type == "1") {
+                        // Navigate to user notes if session exists and type is "1"
+                        findNavController().navigate(R.id.action_loginFragment_to_noteListingFragment)
+                    }
+                }
             }
         }
     }
