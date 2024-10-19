@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Perfecto, solo falta que te relajes"
+            android:text="¡Perfecto, solo falta que te relajes!"
             android:textSize="24sp"
             android:textColor="@color/v_oscuro"
             android:textStyle="bold"
