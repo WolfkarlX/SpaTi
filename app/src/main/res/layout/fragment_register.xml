@@ -190,7 +190,7 @@
                 android:fontFamily="@font/koho"
                 android:hint="Número de teléfono o celular"
                 android:paddingLeft="16dp"
-                android:inputType="phone"
+                android:inputType="number|phone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"

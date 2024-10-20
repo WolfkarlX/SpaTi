@@ -12,6 +12,15 @@
     <string name="enter_job_title">Enter job title</string>
     <string name="enter_email">Enter email address</string>
     <string name="invalid_email">Invalid email entered</string>
+    <string name="enter_cellphone">Enter phone number</string>
+    <string name="enter_sex">Enter sex</string>
+    <string name="enter_day">Enter day</string>
+    <string name="enter_month">Enter month</string>
+    <string name="enter_year">Enter year</string>
+    <string name="invalid_cellphone_number">Invalid Cellphone Number</string>
     <string name="enter_password">Enter password</string>
+    <string name="invalid_age">You are under the age permitted</string>
+
+
     <string name="invalid_password">Your password must be at least 8 characters</string>
 </resources>
