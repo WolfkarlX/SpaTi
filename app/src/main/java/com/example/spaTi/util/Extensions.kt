@@ -74,3 +74,18 @@ val Int.pxToDp: Int
 
 fun String.isValidEmail() =
     isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
+
+fun getAge(day:Int, month: Int, year:Int): Int {
+    val today = java.util.Calendar.getInstance()
+    val currentYear = today.get(java.util.Calendar.YEAR)
+    val currentMonth = today.get(java.util.Calendar.MONTH) + 1
+    val currentDay = today.get(java.util.Calendar.DAY_OF_MONTH)
+
+    var age = currentYear - year
+
+    if (month > currentMonth || (month == currentMonth && day > currentDay)) {
+        age--
+    }
+
+    return age
+}
