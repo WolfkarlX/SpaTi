@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/welcomeAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bienvenido"
+            android:textSize="30sp"
+            android:fontFamily="@font/koho"
+            android:textColor="@color/black"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/textViewAdministrador"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Administrador"
+            android:textSize="30sp"
+            android:fontFamily="@font/koho"
+            android:textColor="@color/black"
+            android:layout_below="@id/welcomeAdmin"
+            android:layout_centerHorizontal="true"/>
+
+        <!-- Botones principales en una cuadrícula -->
+        <GridLayout
+            android:id="@+id/gridOpcionesAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewAdministrador"
+            android:layout_marginTop="24dp"
+            android:columnCount="2"
+            android:rowCount="2"
+            android:layout_gravity="center">
+
+            <!-- Botón Agenda -->
+            <LinearLayout
+                android:layout_width="170dp"
+                android:layout_height="160dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:padding="16dp"
+                android:background="@drawable/rounded_corners"
+                android:layout_margin="8dp">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/agenda" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Agenda"
+                    android:textColor="@color/verde"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/koho"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+
+            <!-- Botón Empleados -->
+            <LinearLayout
+                android:layout_width="170dp"
+                android:layout_height="160dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:padding="16dp"
+                android:background="@drawable/rounded_corners"
+                android:layout_margin="8dp">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/admin_employees" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Empleados"
+                    android:textColor="@color/verde"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/koho"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+
+            <!-- Botón Servicios -->
+            <LinearLayout
+                android:layout_width="170dp"
+                android:layout_height="160dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:padding="16dp"
+                android:background="@drawable/rounded_corners"
+                android:layout_margin="8dp">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/servicios" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Servicios"
+                    android:textColor="@color/verde"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/koho"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+
+            <!-- Botón Reportes -->
+            <LinearLayout
+                android:layout_width="170dp"
+                android:layout_height="160dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:padding="16dp"
+                android:background="@drawable/rounded_corners"
+                android:layout_margin="8dp">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/reports" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reportes"
+                    android:textColor="@color/verde"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/koho"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+        </GridLayout>
+
+        <ImageView
+            android:id="@+id/imgFondoSuperior"
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:layout_marginTop="450dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/fondo_hojas"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

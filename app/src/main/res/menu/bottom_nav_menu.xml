@@ -3,26 +3,21 @@
     <item
         android:id="@+id/favorites"
         android:icon="@drawable/corazon"
-        android:title="Favoritos"
-        android:state_checked="false"/>
+        android:title="Favoritos"/>
     <item
         android:id="@+id/tags"
         android:icon="@drawable/lista"
-        android:title="Etiquetas"
-        android:state_checked="false"/>
+        android:title="Etiquetas"/>
     <item
         android:id="@+id/home"
         android:icon="@drawable/icono_lobby"
-        android:title="Home"
-        android:state_checked="true"/>
+        android:title="Home"/>
     <item
         android:id="@+id/citas"
         android:icon="@drawable/calendario"
-        android:title="Citas"
-        android:state_checked="false"/>
+        android:title="Citas"/>
     <item
         android:id="@+id/profile"
         android:icon="@drawable/person"
-        android:title="Perfil"
-        android:state_checked="false"/>
+        android:title="Perfil"/>
 </menu>

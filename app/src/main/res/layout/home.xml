@@ -66,13 +66,7 @@
                             android:text="Calix"
                             android:textSize="16sp"
                             android:fontFamily="@font/koho"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="5.0 ★"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/koho"
-                            android:textColor="#9E9E9E"/>
+
                     </LinearLayout>
 
                     <!-- Spa 2 Recomendados -->
@@ -98,13 +92,6 @@
                             android:textSize="16sp"
                             android:fontFamily="@font/koho"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="4.8 ★"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/koho"
-                            android:textColor="#9E9E9E"/>
                     </LinearLayout>
                 </LinearLayout>
             </HorizontalScrollView>
@@ -155,13 +142,6 @@
                             android:textSize="16sp"
                             android:fontFamily="@font/koho"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="4.8 ★"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/koho"
-                            android:textColor="#9E9E9E"/>
                     </LinearLayout>
 
                     <!-- 2 Todos los Spa -->
@@ -187,13 +167,6 @@
                             android:textSize="16sp"
                             android:fontFamily="@font/koho"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="4.8 ★"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/koho"
-                            android:textColor="#9E9E9E"/>
                     </LinearLayout>
                 </LinearLayout>
             </HorizontalScrollView>
@@ -233,13 +206,6 @@
                             android:textSize="16sp"
                             android:fontFamily="@font/koho"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="4.8 ★"
-                            android:textSize="14sp"
-                            android:textColor="#9E9E9E"
-                            android:fontFamily="@font/koho"/>
                     </LinearLayout>
 
                     <!-- 4 Todos los Spa -->
@@ -265,13 +231,6 @@
                             android:textSize="16sp"
                             android:fontFamily="@font/koho"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="4.8 ★"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/koho"
-                            android:textColor="#9E9E9E"/>
                     </LinearLayout>
                 </LinearLayout>
             </HorizontalScrollView>
@@ -285,7 +244,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="?android:attr/windowBackground"
-        app:itemIconTint="@color/nav_item_color"
+        app:itemIconTint="@color/black"
         app:itemTextColor="@color/black"
         app:menu="@menu/bottom_nav_menu" />
 
