@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="#F7F7F7">
+
+        <!-- Header -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/rectangle_green_profile"
+            android:padding="160dp">
+
+            <!-- Botón de regresar -->
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="-150dp"
+                android:layout_marginStart="0dp"
+                android:src="@drawable/back" />
+
+            <!-- Foto del perfil -->
+            <ImageView
+                android:id="@+id/profile_image"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="-100dp"
+                android:src="@drawable/personal" />
+
+            <!-- Icono para cambiar imagen -->
+            <ImageView
+                android:id="@+id/edit_profile_image"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_below="@id/profile_image"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:contentDescription="Edit profile picture" />
+        </RelativeLayout>
+
+        <!-- Sección de información básica -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Título -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Información básica"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+
+            <!-- Botón de Editar -->
+            <TextView
+                android:id="@+id/edit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Editar"
+                android:textColor="#A0C835"
+                android:layout_alignParentEnd="true" />
+
+            <!-- Información del perfil -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp" />
+
+            <TextView
+                android:id="@+id/first_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apellidos"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:id="@+id/last_names"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Correo Electronico"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#A0C835" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Numero de telefono"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:id="@+id/phone_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#A0C835" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha de nacimiento"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:id="@+id/bornday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#A0C835" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sexo"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:id="@+id/sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#A0C835" />
+        </LinearLayout>
+
+        <!-- Botón inferior -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="16dp">
+
+            <ImageView
+                android:id="@+id/save_button"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/ic_baseline_exit_to_app_24"
+                app:tint="@color/black" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/session_progress"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="16dp"
+            android:elevation="10dp"
+            android:indeterminateTint="@color/white"
+            android:visibility="invisible" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

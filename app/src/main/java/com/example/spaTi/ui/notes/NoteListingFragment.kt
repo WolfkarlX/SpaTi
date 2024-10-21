@@ -81,6 +81,11 @@ class NoteListingFragment : Fragment() {
                 findNavController().navigate(R.id.action_noteListingFragment_to_loginFragment)
             }
         }
+        binding.profileButton.setOnClickListener{
+            findNavController().navigate(R.id.action_noteListingFragment_to_myprofileFragment)
+
+        }
+
         // MOVE THIS BINDING TO MOVE THE SERVICES CRUD
         binding.testButton.setOnClickListener {
             findNavController().navigate(R.id.action_noteListingFragment_to_servicesFragment)

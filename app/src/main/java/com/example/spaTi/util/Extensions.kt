@@ -89,3 +89,8 @@ fun getAge(day:Int, month: Int, year:Int): Int {
 
     return age
 }
+
+fun extractNumbersFromDate(input: String): Array<String> {
+    // Split the input string by "/" and convert it to an array
+    return input.split("/").toTypedArray()
+}
