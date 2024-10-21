@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_editar_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Editar información"
+            android:textSize="22sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/koho"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/first_name_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/koho"
+            android:text="Nombre(s)"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
+
+        <EditText
+            android:id="@+id/et_nombre"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/edittext_rounded"
+            android:ems="10"
+            android:fontFamily="@font/koho"
+            android:inputType="textPersonName"
+            android:hint="Nombre"
+            android:paddingLeft="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/first_name_label" />
+
+        <TextView
+            android:id="@+id/last_name_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/koho"
+            android:text="Apellidos"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/first_name_et" />
+
+        <EditText
+            android:id="@+id/last_name_et"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/edittext_rounded"
+            android:ems="10"
+            android:fontFamily="@font/koho"
+            android:inputType="textPersonName"
+            android:hint="Apellidos"
+            android:paddingLeft="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/last_name_label" />
+
+        <TextView
+            android:id="@+id/telefono_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/koho"
+            android:text="Teléfono/ Celular"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/last_name_et" />
+
+        <EditText
+            android:id="@+id/telefono_et"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/edittext_rounded"
+            android:ems="10"
+            android:fontFamily="@font/koho"
+            android:hint="Número de teléfono o celular"
+            android:paddingLeft="16dp"
+            android:inputType="phone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/telefono_label" />
+
+        <TextView
+            android:id="@+id/sexo_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/koho"
+            android:text="Sexo"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/telefono_et" />
+
+        <EditText
+            android:id="@+id/sexo_et"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/edittext_rounded"
+            android:ems="10"
+            android:fontFamily="@font/koho"
+            android:hint="Sexo"
+            android:paddingLeft="16dp"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sexo_label" />
+
+        <TextView
+            android:id="@+id/fecha_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/koho"
+            android:text="Fecha de nacimiento"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sexo_et" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_dia"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="Dia"
+                android:inputType="number"/>
+
+            <EditText
+                android:id="@+id/et_mes"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="Mes"
+                android:inputType="number"/>
+
+            <EditText
+                android:id="@+id/et_ano"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="Año"
+                android:inputType="number"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <Button
+                android:id="@+id/btn_cancelar"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:text="Cancelar"
+                android:backgroundTint="@android:color/holo_red_light"/>
+
+            <Button
+                android:id="@+id/btn_guardar"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:text="Guardar"
+                android:backgroundTint="@android:color/holo_green_light"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/session_progress"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:elevation="10dp"
+        android:indeterminateTint="@color/black"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

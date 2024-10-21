@@ -11,6 +11,9 @@
         android:label="fragment_note_listing"
         tools:layout="@layout/fragment_note_listing" >
         <action
+            android:id="@+id/action_noteListingFragment_to_myprofileFragment"
+            app:destination="@id/myprofileFragment" />
+        <action
             android:id="@+id/action_noteListingFragment_to_noteDetailFragment"
             app:destination="@id/noteDetailFragment" />
         <action
@@ -98,5 +101,35 @@
         android:name="com.example.spaTi.ui.services.ServiceDetailFragment"
         android:label="fragment_service_detail"
         tools:layout="@layout/fragment_service_detail" />
+
+    <fragment
+        android:id="@+id/myprofileFragment"
+        android:name="com.example.spaTi.ui.Profile.MyprofileFragmentt"
+        android:label="fragment_my_profile"
+        tools:layout="@layout/fragment_myprofile_" >
+
+        <action
+            android:id="@+id/action_myprofileFragment_to_editprofileFragment"
+            app:destination="@id/editprofileFragment" />
+
+        <action
+            android:id="@+id/action_myprofileFragment_to_notelistingFragment"
+            app:destination="@id/noteListingFragment" />
+
+        <action
+            android:id="@+id/action_myprofileFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editprofileFragment"
+        android:name="com.example.spaTi.ui.Profile.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" >
+
+        <action
+            android:id="@+id/action_editprofileFragment_to_myprofileFragment"
+            app:destination="@id/myprofileFragment" />
+    </fragment>
 
 </navigation>
