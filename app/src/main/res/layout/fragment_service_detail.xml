@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/serviceDetailContent"
     android:background="@android:color/white"
     android:padding="16dp"
     tools:context=".ui.services.ServiceDetailFragment">
@@ -60,7 +62,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/durationInputLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -96,31 +97,35 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
+                android:id="@+id/textViewTags"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Categorías"
+                android:text="Etiquetas"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@color/verde"
                 />
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/categories"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tags_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp" />
+                android:layout_margin="8dp"
+                tools:listitem="@layout/item_tag_selected"
+                tools:itemCount="5"
+                />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/add_category_btn"
+                android:id="@+id/add_tag_btn"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Agregar categoría"
+                android:text="Agregar etiqueta"
                 android:textAppearance="@style/SubTitleStyle"
-                android:textColor="@color/verde"
-                app:backgroundTint="@color/white"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/verde"
                 />
 
         </LinearLayout>
