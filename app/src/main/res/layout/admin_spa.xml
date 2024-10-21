@@ -144,6 +144,16 @@
             </LinearLayout>
         </GridLayout>
 
+        <Button
+            android:id="@+id/btn_cerrarSesion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="500dp"
+            android:layout_marginStart="130dp"
+            android:text="Cerrar sesión"
+            android:fontFamily="@font/koho"
+            android:backgroundTint="@color/verde"/>
+
     </RelativeLayout>
     <ImageView
         android:id="@+id/imgFondoSuperior"

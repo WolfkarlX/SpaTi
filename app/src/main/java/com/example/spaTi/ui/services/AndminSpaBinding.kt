@@ -25,5 +25,4 @@ class AdminSpaFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }
