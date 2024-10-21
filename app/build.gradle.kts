@@ -23,7 +23,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        
     }
 
     buildFeatures {
@@ -46,7 +45,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    
 }
 
 dependencies {
