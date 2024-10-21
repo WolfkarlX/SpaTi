@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.spaTi.R
 import com.example.spaTi.databinding.FragmentServicesBinding
+import com.example.spaTi.databinding.AdminSpaBinding
 import com.example.spaTi.ui.auth.AuthViewModel
 import com.example.spaTi.ui.services.ServicesAdapter
 import com.example.spaTi.ui.services.ServiceViewModel
@@ -45,7 +46,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ServicesFragment : Fragment() {
     val TAG: String = "ServicesFragment"
-    lateinit var binding: FragmentServicesBinding
+
+    lateinit var binding: AdminSpaBinding
     val viewModel: ServiceViewModel by viewModels()
     val authViewModel: AuthViewModel by viewModels()
     val adapter by lazy {
@@ -80,23 +82,13 @@ class ServicesFragment : Fragment() {
         if (this::binding.isInitialized) {
             return binding.root
         } else {
-            binding = FragmentServicesBinding.inflate(layoutInflater)
+
+            binding = AdminSpaBinding.inflate(layoutInflater)
             return binding.root
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        Log.e(TAG, "onViewCreated: ")
-        observer()
-        val staggeredGridLayoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
-        binding.recyclerView.layoutManager = staggeredGridLayoutManager
-        binding.recyclerView.adapter = adapter
-        binding.home.setOnClickListener {
-            findNavController().navigate(R.id.action_servicesFragment_to_noteListingFragment)
-        }
-        viewModel.getServices()
-    }
+
 
     override fun onStart() {
         super.onStart()
@@ -133,21 +125,4 @@ class ServicesFragment : Fragment() {
         Log.e(TAG, "onDetach: ")
     }
 
-    private fun observer() {
-        viewModel.service.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is UiState.Loading -> {
-                    binding.progressBar.show()
-                }
-                is UiState.Failure -> {
-                    binding.progressBar.hide()
-                    toast(state.error)
-                }
-                is UiState.Success -> {
-                    binding.progressBar.hide()
-                    adapter.updateList(state.data.toMutableList())
-                }
-            }
-        }
-    }
 }

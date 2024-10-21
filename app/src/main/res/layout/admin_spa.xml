@@ -144,18 +144,18 @@
             </LinearLayout>
         </GridLayout>
 
-        <ImageView
-            android:id="@+id/imgFondoSuperior"
-            android:layout_width="wrap_content"
-            android:layout_height="250dp"
-            android:layout_marginTop="450dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/fondo_hojas"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </RelativeLayout>
+    <ImageView
+        android:id="@+id/imgFondoSuperior"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:layout_marginTop="485dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/fondo_hojas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
