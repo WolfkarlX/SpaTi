@@ -1,7 +1,7 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#F3F3F3"
     android:padding="16dp">
 
@@ -10,8 +10,8 @@
         android:id="@+id/scrollViewContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/bottom_navigation">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -66,13 +66,7 @@
                             android:text="Calix"
                             android:textSize="16sp"
                             android:fontFamily="@font/koho"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="5.0 ★"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/koho"
-                            android:textColor="#9E9E9E"/>
+
                     </LinearLayout>
 
                     <!-- Spa 2 Recomendados -->
@@ -98,13 +92,6 @@
                             android:textSize="16sp"
                             android:fontFamily="@font/koho"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="4.8 ★"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/koho"
-                            android:textColor="#9E9E9E"/>
                     </LinearLayout>
                 </LinearLayout>
             </HorizontalScrollView>
@@ -114,7 +101,7 @@
                 android:id="@+id/textViewNuevos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nuevos"
+                android:text="Todos los spas"
                 android:textSize="18sp"
                 android:fontFamily="@font/koho"
                 android:textColor="@color/verde"
@@ -132,7 +119,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <!-- Spa 1 Nuevos -->
+                    <!-- 1 Todos los Spa -->
                     <LinearLayout
                         android:layout_width="200dp"
                         android:layout_height="150dp"
@@ -155,16 +142,9 @@
                             android:textSize="16sp"
                             android:fontFamily="@font/koho"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="4.8 ★"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/koho"
-                            android:textColor="#9E9E9E"/>
                     </LinearLayout>
 
-                    <!-- Spa 2 Nuevos -->
+                    <!-- 2 Todos los Spa -->
                     <LinearLayout
                         android:layout_width="200dp"
                         android:layout_height="150dp"
@@ -187,27 +167,9 @@
                             android:textSize="16sp"
                             android:fontFamily="@font/koho"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="4.8 ★"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/koho"
-                            android:textColor="#9E9E9E"/>
                     </LinearLayout>
                 </LinearLayout>
             </HorizontalScrollView>
-
-            <!-- Sección Mejores Valorados -->
-            <TextView
-                android:id="@+id/textViewMejoresValorados"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mejores valorados"
-                android:textSize="18sp"
-                android:fontFamily="@font/koho"
-                android:textColor="@color/verde"
-                android:layout_marginTop="16dp"/>
 
             <HorizontalScrollView
                 android:id="@+id/scrollViewMejoresValorados"
@@ -221,7 +183,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <!-- Spa 1 Mejores valorados-->
+                    <!-- 3 Todos los Spa-->
                     <LinearLayout
                         android:layout_width="200dp"
                         android:layout_height="150dp"
@@ -244,16 +206,9 @@
                             android:textSize="16sp"
                             android:fontFamily="@font/koho"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="4.8 ★"
-                            android:textSize="14sp"
-                            android:textColor="#9E9E9E"
-                            android:fontFamily="@font/koho"/>
                     </LinearLayout>
 
-                    <!-- Spa 2 Mejores Valorados -->
+                    <!-- 4 Todos los Spa -->
                     <LinearLayout
                         android:layout_width="200dp"
                         android:layout_height="150dp"
@@ -276,16 +231,21 @@
                             android:textSize="16sp"
                             android:fontFamily="@font/koho"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="4.8 ★"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/koho"
-                            android:textColor="#9E9E9E"/>
                     </LinearLayout>
                 </LinearLayout>
             </HorizontalScrollView>
         </LinearLayout>
     </ScrollView>
+
+    <!-- Menú de navegación inferior -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="?android:attr/windowBackground"
+        app:itemIconTint="@color/black"
+        app:itemTextColor="@color/black"
+        app:menu="@menu/bottom_nav_menu" />
+
 </RelativeLayout>
