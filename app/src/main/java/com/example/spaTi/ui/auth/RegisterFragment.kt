@@ -35,6 +35,10 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observer()
+        binding.termsTextView.setOnClickListener {
+            // Navegar a la vista de términos y condiciones
+            findNavController().navigate(R.id.action_registerFragment_to_TermsFragment)
+        }
         binding.registerBtn.setOnClickListener {
             if (validation()){
                 viewModel.register(
