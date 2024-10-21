@@ -66,6 +66,7 @@ dependencies {
 
     // Material Design
     implementation(libs.material)
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
 
     // Navigation components
     implementation(libs.androidx.navigation.fragment.ktx)
