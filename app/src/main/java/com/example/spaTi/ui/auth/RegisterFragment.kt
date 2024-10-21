@@ -19,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class RegisterFragment : Fragment() {
 
+    var age = 0
     val TAG: String = "RegisterFragment"
     lateinit var binding:  FragmentRegisterBinding
     val viewModel: AuthViewModel by viewModels()
@@ -73,6 +74,10 @@ class RegisterFragment : Fragment() {
             first_name = binding.firstNameEt.text.toString(),
             last_name = binding.lastNameEt.text.toString(),
             email = binding.emailEt.text.toString(),
+            cellphone = binding.telefonoEt.text.toString(),
+            sex = binding.sexoEt.text.toString(),
+            bornday = "" + binding.diaEt.text.toString() + "/"+ binding.mesEt.text.toString()+ "/" + binding.anoEt.text.toString(),
+            age = age.toString(),
             type = "1",
         )
     }
@@ -90,6 +95,35 @@ class RegisterFragment : Fragment() {
             toast(getString(R.string.enter_last_name))
         }
 
+        if (binding.telefonoEt.text.isNullOrEmpty()){
+            isValid = false
+            toast(getString(R.string.enter_cellphone))
+        }else{
+            if (binding.telefonoEt.text.toString().length < 10 || binding.telefonoEt.text.toString().length > 15) {
+                isValid = false
+                toast(getString(R.string.invalid_cellphone_number))
+            }
+        }
+
+        if (binding.sexoEt.text.isNullOrEmpty()){
+            isValid = false
+            toast(getString(R.string.enter_sex))
+        }
+
+        if (binding.diaEt.text.isNullOrEmpty() || binding.mesEt.text.isNullOrEmpty() || binding.anoEt.text.isNullOrEmpty()) {
+            isValid = false
+            when {
+                binding.diaEt.text.isNullOrEmpty() -> toast(getString(R.string.enter_day))
+                binding.mesEt.text.isNullOrEmpty() -> toast(getString(R.string.enter_month))
+                binding.anoEt.text.isNullOrEmpty() -> toast(getString(R.string.enter_year))
+            }
+        }else{
+            age = getAge(binding.diaEt.text.toString().toInt(), binding.mesEt.text.toString().toInt(), binding.anoEt.text.toString().toInt())
+            if (age < 18) {
+                isValid = false
+                toast(getString(R.string.invalid_age))
+            }
+        }
 
         if (binding.emailEt.text.isNullOrEmpty()){
             isValid = false
