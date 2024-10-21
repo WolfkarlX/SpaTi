@@ -3,11 +3,9 @@ package com.example.spaTi.ui.services
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.spaTi.data.models.Note
+import com.example.spaTi.R
 import com.example.spaTi.data.models.Service
 import com.example.spaTi.databinding.ItemServiceBinding
-import com.example.spaTi.util.addChip
-import com.example.spaTi.util.hide
 
 /**
  * ServicesAdapter is a RecyclerView adapter that displays a list of services
@@ -76,15 +74,16 @@ class ServicesAdapter (
     inner class MyViewHolder(val binding: ItemServiceBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Service) {
             binding.name.text = item.name
+            binding.itemLayout.setCardBackgroundColor(binding.root.context.getColor(R.color.white))
+            binding.name.setTextColor(binding.root.context.getColor(R.color.verde))
             // You can set an image for the service here
             binding.itemLayout.setOnClickListener { onItemClicked.invoke(adapterPosition, item) }
         }
 
-
         fun bindAddNew() {
             binding.name.text = "Agregar Servicio"
-            binding.itemLayout.setCardBackgroundColor(binding.root.context.getColor(com.example.spaTi.R.color.verde))
-            binding.name.setTextColor(binding.root.context.getColor(android.R.color.white))
+            binding.itemLayout.setCardBackgroundColor(binding.root.context.getColor(R.color.verde))
+            binding.name.setTextColor(binding.root.context.getColor(R.color.white))
             // Set a plus icon or any other indicator for adding a new service
             binding.itemLayout.setOnClickListener { onItemClicked.invoke(adapterPosition, null) }
         }

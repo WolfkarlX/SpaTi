@@ -13,17 +13,21 @@ import java.util.*
  * @property name The name of the service. Default is an empty string.
  * @property durationMinutes The duration of the service in minutes. Default is 0.
  * @property price The price of the service in double precision. Default is 0.0.
- * @property categories A list of categories that this service belongs to. Default is an empty mutable list. NOT IMPLEMENTED YET
- * @property date The timestamp for the service creation or update. Uses Firestore's server timestamp annotation.
+ * @property tags A list of [Tag]s ids that are related to. Default is an String list.
+ * @property createdAt The timestamp for the service creation. Uses Firestore's server timestamp annotation.
+ * @property updatedAt The timestamp for the service update. Uses Firestore's server timestamp annotation.
  */
 @Parcelize
-class Service (
+data class Service (
     var id: String = "",
     val spaId: String = "",
+    val employeeId: String = "",
     val name: String = "",
     val durationMinutes: Int = 0,
     val price: Double = 0.0,
-    val categories: MutableList<String> = arrayListOf(),
+    val tags: List<String> = emptyList(),
     @ServerTimestamp
-    val date: Date = Date(),
+    val createdAt: Date = Date(),
+    @ServerTimestamp
+    var updatedAt: Date = Date(),
 ) : Parcelable
