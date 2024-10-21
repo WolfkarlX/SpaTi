@@ -8,6 +8,7 @@ import com.example.spaTi.data.models.Spa
 import com.example.spaTi.data.models.User
 import com.example.spaTi.data.repository.AuthRepository
 import com.example.spaTi.util.UiState
+import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -39,9 +40,31 @@ class AuthViewModel @Inject constructor(
             email = email,
             password = password,
             user = user
-        ) { _register.value = it }
+        ) { result ->
+            if (result is UiState.Success) {
+                // El registro fue exitoso, enviar correo de verificación
+                val firebaseUser = repository.getCurrentUser()
+                firebaseUser?.let {
+                    sendEmailVerification(it)
+                }?: run {
+                    _register.value = UiState.Failure("Failed to get current user.")
+                }
+            }
+            _register.value = result
+        }
     }
-
+    private fun sendEmailVerification(user: FirebaseUser) {
+        user.sendEmailVerification()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("AuthViewModel", "Verification email sent to ${user.email}")
+                    _register.value = UiState.Success("Registration successful. Verification email sent to ${user.email}")
+                } else {
+                    Log.e("AuthViewModel", "Failed to send verification email", task.exception)
+                    _register.value = UiState.Failure("Registration successful but failed to send verification email.")
+                }
+            }
+    }
     fun login(
         email: String,
         password: String
@@ -53,9 +76,22 @@ class AuthViewModel @Inject constructor(
         repository.loginUser(
             email,
             password
-        ){
-            _login.value = it
+        ){ result ->
+            if (result is UiState.Success) {
+                val firebaseUser = repository.getCurrentUser()
+                // Comprobar si el correo está verificado
+                if (firebaseUser?.isEmailVerified == true) {
+                    _login.value = result
+                } else {
+                    _login.value = UiState.Failure("Please verify your email before logging in.")
+                    // Cerrar sesión si el email no está verificado
+                }
+            }else
+            {
+                _login.value = result
+            }
         }
+
     }
 
     fun forgotPassword(email: String) {
@@ -65,11 +101,11 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    fun logout(result: () -> Unit){
-        repository.logout(result)
+    fun getSession(result: (User?) -> Unit) {
+        repository.getSession(result)
     }
 
-    fun getSession(result: (User?) -> Unit){
-        repository.getSession(result)
+    fun logout(result: () -> Unit) {
+        repository.logout(result)
     }
 }

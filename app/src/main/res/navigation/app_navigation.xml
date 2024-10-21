@@ -43,7 +43,14 @@
         <action
             android:id="@+id/action_registerFragment_to_servicesFragment"
             app:destination="@id/servicesFragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_TermsFragment"
+            app:destination="@id/TermsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/TermsFragment"
+        android:name="com.example.spaTi.ui.notes.TermsFragment"
+        android:label="Términos y Condiciones" />
 
     <fragment
         android:id="@+id/loginFragment"
