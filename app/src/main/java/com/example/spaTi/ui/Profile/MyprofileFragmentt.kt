@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.spaTi.R
 import com.example.spaTi.data.models.User
-import com.example.spaTi.databinding.FragmentMyprofileBinding
+import com.example.spaTi.databinding.FragmentMyProfileBinding
 import com.example.spaTi.util.UiState
 import com.example.spaTi.util.hide
 import com.example.spaTi.util.show
@@ -21,14 +21,14 @@ import dagger.hilt.android.AndroidEntryPoint
 class MyprofileFragmentt : Fragment() {
 
     val TAG: String = "MyprofileFragmentt"
-    lateinit var binding: FragmentMyprofileBinding
+    lateinit var binding: FragmentMyProfileBinding
     val viewModel: ProfileViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMyprofileBinding.inflate(layoutInflater)
+        binding = FragmentMyProfileBinding.inflate(layoutInflater)
         return binding.root
     }
 
