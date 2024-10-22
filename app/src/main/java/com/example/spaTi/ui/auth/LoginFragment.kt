@@ -28,7 +28,7 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflaterf: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentLoginBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -41,7 +41,6 @@ class LoginFragment : Fragment() {
 
         binding.loginBtn.setOnClickListener {
             if (validation()) {
-                Log.d("XDDD", "It validated")
                 attemptSpaLogin(
                     email = binding.emailEt.text.toString(),
                     password = binding.passEt.text.toString(),
@@ -77,19 +76,11 @@ class LoginFragment : Fragment() {
     }
 
     private fun attemptSpaLogin(email: String, password: String) {
-        Log.d("XDDD", "Spa Login")
-        Log.d("XDDD", email)
-        Log.d("XDDD", password)
-
         // Attempt spa login
         viewModelSpa.login(email = email, password = password)
     }
 
     private fun attemptUserLogin(email: String, password: String) {
-        Log.d("XDDD", "User Login")
-        Log.d("XDDD", email)
-        Log.d("XDDD", password)
-
         // Attempt user login
         viewModelUser.login(email = email.toString(), password = password.toString())
     }
@@ -109,7 +100,9 @@ class LoginFragment : Fragment() {
                 binding.loginBtn.text = "Login"
                 binding.loginProgress.hide()
                 toast(state.data)
-                findNavController().navigate(R.id.action_loginFragment_to_ServicesFragment)
+                if (state.data == "Login successfully!") {
+                    findNavController().navigate(R.id.action_loginFragment_to_ServicesFragment)
+                }
             }
         }
     }

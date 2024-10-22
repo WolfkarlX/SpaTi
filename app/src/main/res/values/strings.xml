@@ -20,6 +20,7 @@
     <string name="invalid_cellphone_number">Invalid Cellphone Number</string>
     <string name="enter_password">Enter password</string>
     <string name="invalid_age">You are under the age permitted</string>
+    <string name="check_terms">You must accept terms to continue</string>
 
 
     <string name="invalid_password">Your password must be at least 8 characters</string>

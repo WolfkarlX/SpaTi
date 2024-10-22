@@ -38,6 +38,9 @@ class SpaRegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observer()
+        binding.termsTextView.setOnClickListener {
+            findNavController().navigate(R.id.action_registerSpaFragment_to_TermsFragment)
+        }
         binding.registerBtn.setOnClickListener {
             if (validation()){
                 viewModel.registerSpa(
@@ -53,19 +56,22 @@ class SpaRegisterFragment : Fragment() {
         viewModel.register.observe(viewLifecycleOwner) { state ->
             when(state){
                 is UiState.Loading -> {
+                    Log.d("SpaRegisterFragment observer", "LOADING")
                     binding.registerBtn.setText("")
                     binding.registerProgress.show()
                 }
                 is UiState.Failure -> {
+                    Log.d("SpaRegisterFragment observer", "FAILURE")
                     binding.registerBtn.setText("Register")
                     binding.registerProgress.hide()
                     toast(state.error)
                 }
                 is UiState.Success -> {
+                    Log.d("SpaRegisterFragment observer", "SUCCESS")
                     binding.registerBtn.setText("Register")
                     binding.registerProgress.hide()
                     toast(state.data)
-                    findNavController().navigate(R.id.action_registerSpaFragment_to_serviceDetailFragment)
+                    findNavController().navigate(R.id.action_registerSpaFragment_to_loginFragment)
                 }
             }
         }
@@ -82,46 +88,50 @@ class SpaRegisterFragment : Fragment() {
     }
 
     fun validation(): Boolean {
-        var isValid = true
-
         if (binding.spaNameLabel.text.isNullOrEmpty()){
-            isValid = false
             toast(getString(R.string.enter_first_name))
+            return false
         }
 
         if (binding.locationSpaEt.text.isNullOrEmpty()){
-            isValid = false
             toast(getString(R.string.enter_last_name))
+            return false
         }
 
 
         if (binding.emailSpaLabel.text.isNullOrEmpty()){
-            isValid = false
             toast(getString(R.string.enter_email))
-        }else{
+            return false
+        } else {
             if (!binding.emailSpaEt.text.toString().isValidEmail()){
-                isValid = false
                 toast(getString(R.string.invalid_email))
+                return false
             }
         }
+
         if (binding.passSpaEt.text.isNullOrEmpty()){
-            isValid = false
             toast(getString(R.string.enter_password))
-        }else{
+            return false
+        } else {
             if (binding.passSpaEt.text.toString().length < 8){
-                isValid = false
                 toast(getString(R.string.invalid_password))
+                return false
             }
         }
-        return isValid
+
+        if (!binding.termsCheckbox.isChecked) {
+            toast(getString(R.string.check_terms))
+            return false
+        }
+
+        return true
     }
 
     override fun onStart() {
         super.onStart()
         viewModel.getSession { spa ->
             if (spa != null){
-                Log.d("XDDD", spa.toString())
-                findNavController().navigate(R.id.action_loginFragment_to_noteListingFragment)
+                findNavController().navigate(R.id.action_loginFragment_to_ServicesFragment)
             }
         }
     }

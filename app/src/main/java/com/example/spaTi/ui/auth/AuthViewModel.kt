@@ -30,19 +30,10 @@ class AuthViewModel @Inject constructor(
         get() = _forgotPassword
 
 
-    fun register(
-        email: String,
-        password: String,
-        user:User,
-    ) {
+    fun register(email: String, password: String, user: User) {
         _register.value = UiState.Loading
-        repository.registerUser(
-            email = email,
-            password = password,
-            user = user
-        ) { result ->
+        repository.registerUser(email = email, password = password, user = user) { result ->
             if (result is UiState.Success) {
-                // El registro fue exitoso, enviar correo de verificación
                 val firebaseUser = repository.getCurrentUser()
                 firebaseUser?.let {
                     sendEmailVerification(it)
@@ -53,11 +44,11 @@ class AuthViewModel @Inject constructor(
             _register.value = result
         }
     }
+
     private fun sendEmailVerification(user: FirebaseUser) {
         user.sendEmailVerification()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.d("AuthViewModel", "Verification email sent to ${user.email}")
                     _register.value = UiState.Success("Registration successful. Verification email sent to ${user.email}")
                 } else {
                     Log.e("AuthViewModel", "Failed to send verification email", task.exception)
@@ -65,33 +56,26 @@ class AuthViewModel @Inject constructor(
                 }
             }
     }
-    fun login(
-        email: String,
-        password: String
-    ) {
+
+    fun login( email: String, password: String) {
         _login.value = UiState.Loading
-        Log.d("XDDD", "auth viewmodel")
-        Log.d("XDDD", email)
-        Log.d("XDDD", password)
-        repository.loginUser(
-            email,
-            password
-        ){ result ->
-            if (result is UiState.Success) {
-                val firebaseUser = repository.getCurrentUser()
-                // Comprobar si el correo está verificado
-                if (firebaseUser?.isEmailVerified == true) {
-                    _login.value = result
-                } else {
-                    _login.value = UiState.Failure("Please verify your email before logging in.")
-                    // Cerrar sesión si el email no está verificado
+        repository.loginUser(email, password) { state ->
+            when (state) {
+                is UiState.Loading -> {}
+                is UiState.Failure -> {
+                    _login.value = UiState.Failure(state.error)
                 }
-            }else
-            {
-                _login.value = result
+                is UiState.Success -> {
+                    val firebaseUser = repository.getCurrentUser()
+                    if (firebaseUser?.isEmailVerified == true) {
+                        _login.value = UiState.Success(state.data)
+                    } else {
+                        repository.logout {}
+                        _login.value = UiState.Failure("Please verify your email before logging in.")
+                    }
+                }
             }
         }
-
     }
 
     fun forgotPassword(email: String) {

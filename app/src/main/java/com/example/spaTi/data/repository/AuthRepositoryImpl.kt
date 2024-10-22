@@ -31,13 +31,7 @@ class AuthRepositoryImp @Inject constructor(
                     updateUserInfo(user) { state ->
                         when (state) {
                             is UiState.Success -> {
-                                storeSession(id = it.result.user?.uid ?: "") {
-                                    if (it == null) {
-                                        result.invoke(UiState.Failure("User registered successfully but session failed to store"))
-                                    } else {
-                                        result.invoke(UiState.Success("User registered successfully!"))
-                                    }
-                                }
+                                result.invoke(UiState.Success("Verification email sent to ${user.email}"))
                             }
                             is UiState.Failure -> {
                                 result.invoke(UiState.Failure(state.error))
@@ -81,9 +75,6 @@ class AuthRepositoryImp @Inject constructor(
         password: String,
         result: (UiState<String>) -> Unit
     ) {
-        Log.d("XDDD", "user repository")
-        Log.d("XDDD", email)
-        Log.d("XDDD", password)
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -146,7 +137,6 @@ class AuthRepositoryImp @Inject constructor(
         }
     }
 
-    // Nuevo método para obtener el usuario autenticado actualmente
     override fun getCurrentUser(): FirebaseUser? {
         return auth.currentUser
     }

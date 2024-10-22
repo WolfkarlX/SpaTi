@@ -37,9 +37,8 @@
         android:name="com.example.spaTi.ui.auth.RegisterFragment"
         android:label="RegisterFragment" >
         <action
-            android:id="@+id/action_registerFragment_to_noteListingFragment"
-            app:destination="@id/noteListingFragment" />
-
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
         <action
             android:id="@+id/action_registerFragment_to_servicesFragment"
             app:destination="@id/servicesFragment" />
@@ -47,6 +46,7 @@
             android:id="@+id/action_registerFragment_to_TermsFragment"
             app:destination="@id/TermsFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/TermsFragment"
         android:name="com.example.spaTi.ui.notes.TermsFragment"
@@ -83,11 +83,13 @@
     <fragment
         android:id="@+id/registerSpaFragment"
         android:name="com.example.spaTi.ui.SpaAuth.SpaRegisterFragment"
-        android:label="fragment_register_spa"
-        tools:layout="@layout/fragment_register_spa">
+        android:label="RegisterSpaFragment">
         <action
-            android:id="@+id/action_registerSpaFragment_to_serviceDetailFragment"
-            app:destination="@id/servicesFragment" />
+            android:id="@+id/action_registerSpaFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_registerSpaFragment_to_TermsFragment"
+            app:destination="@id/TermsFragment" />
     </fragment>
 
     <fragment
