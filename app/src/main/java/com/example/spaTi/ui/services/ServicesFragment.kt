@@ -69,7 +69,7 @@ class ServicesFragment : Fragment() {
         binding.recyclerView.layoutManager = staggeredGridLayoutManager
         binding.recyclerView.adapter = adapter
         binding.home.setOnClickListener {
-            findNavController().navigate(R.id.action_servicesFragment_to_noteListingFragment)
+            findNavController().navigate(R.id.action_servicesFragment_to_spaHomeFragment)
         }
         viewModel.getServices()
     }

@@ -157,7 +157,7 @@ class RegisterFragment : Fragment() {
         super.onStart()
         viewModel.getSession { user ->
             if (user != null){
-                findNavController().navigate(R.id.action_loginFragment_to_noteListingFragment)
+                findNavController().navigate(R.id.action_loginFragment_to_userHomeFragment)
             }
         }
     }

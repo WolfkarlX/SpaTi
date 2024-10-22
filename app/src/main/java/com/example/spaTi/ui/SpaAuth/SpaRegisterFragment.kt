@@ -131,7 +131,7 @@ class SpaRegisterFragment : Fragment() {
         super.onStart()
         viewModel.getSession { spa ->
             if (spa != null){
-                findNavController().navigate(R.id.action_loginFragment_to_ServicesFragment)
+                findNavController().navigate(R.id.action_loginFragment_to_spaHomeFragment)
             }
         }
     }

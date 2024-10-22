@@ -2,8 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#F3F3F3"
-    android:padding="16dp">
+    android:background="@color/white">
 
     <!-- Contenedor ScrollView para el contenido principal -->
     <ScrollView
@@ -11,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/bottom_navigation">
+        android:layout_above="@+id/bottom_navigation"
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"

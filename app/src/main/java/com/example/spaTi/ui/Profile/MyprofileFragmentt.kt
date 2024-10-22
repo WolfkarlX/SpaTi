@@ -45,7 +45,7 @@ class MyprofileFragmentt : Fragment() {
         }
 
         binding.btnBack.setOnClickListener {
-            findNavController().navigate(R.id.action_myprofileFragment_to_notelistingFragment)
+            findNavController().navigate(R.id.action_myprofileFragment_to_userHomeFragment)
         }
 
         binding.saveButton.setOnClickListener {

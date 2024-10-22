@@ -101,7 +101,7 @@ class LoginFragment : Fragment() {
                 binding.loginProgress.hide()
                 toast(state.data)
                 if (state.data == "Login successfully!") {
-                    findNavController().navigate(R.id.action_loginFragment_to_ServicesFragment)
+                    findNavController().navigate(R.id.action_loginFragment_to_spaHomeFragment)
                 }
             }
         }
@@ -124,7 +124,7 @@ class LoginFragment : Fragment() {
                 binding.loginBtn.text = "Login"
                 binding.loginProgress.hide()
                 toast(state.data)
-                findNavController().navigate(R.id.action_loginFragment_to_noteListingFragment)
+                findNavController().navigate(R.id.action_loginFragment_to_userHomeFragment)
             }
         }
     }
@@ -163,13 +163,13 @@ class LoginFragment : Fragment() {
         viewModelSpa.getSession { spa ->
             if (spa != null && spa.type == "2") {
                 // Navigate to Spa services if session exists and type is "2"
-                findNavController().navigate(R.id.action_loginFragment_to_ServicesFragment)
+                findNavController().navigate(R.id.action_loginFragment_to_spaHomeFragment)
             } else {
                 // If no valid spa session, check for user session
                 viewModelUser.getSession { user ->
                     if (user != null && user.type == "1") {
                         // Navigate to user notes if session exists and type is "1"
-                        findNavController().navigate(R.id.action_loginFragment_to_noteListingFragment)
+                        findNavController().navigate(R.id.action_loginFragment_to_userHomeFragment)
                     }
                 }
             }

@@ -13,7 +13,7 @@
         android:icon="@drawable/icono_lobby"
         android:title="Home"/>
     <item
-        android:id="@+id/citas"
+        android:id="@+id/appointments"
         android:icon="@drawable/calendario"
         android:title="Citas"/>
     <item

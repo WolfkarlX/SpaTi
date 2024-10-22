@@ -67,6 +67,8 @@ class TagsFragment : BottomSheetDialogFragment() {
                 val behaviour = BottomSheetBehavior.from(bottomSheet)
                 bottomSheet.layoutParams.height = (resources.displayMetrics.heightPixels * 0.85).toInt()
                 behaviour.state = BottomSheetBehavior.STATE_EXPANDED
+
+                behaviour.isDraggable = false
             }
         }
 
