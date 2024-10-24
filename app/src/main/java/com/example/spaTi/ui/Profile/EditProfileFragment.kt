@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.spaTi.R
 import com.example.spaTi.data.models.User
 import com.example.spaTi.databinding.FragmentEditProfileBinding
-import com.example.spaTi.databinding.FragmentMyprofileBinding
 import com.example.spaTi.util.UiState
 import com.example.spaTi.util.extractNumbersFromDate
 import com.example.spaTi.util.getAge

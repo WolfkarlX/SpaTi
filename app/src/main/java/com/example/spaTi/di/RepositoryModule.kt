@@ -11,6 +11,8 @@ import com.example.spaTi.data.repository.ServiceRepository
 import com.example.spaTi.data.repository.ServiceRepositoryImpl
 import com.example.spaTi.data.repository.SpaAuthRepository
 import com.example.spaTi.data.repository.SpaAuthRepositoryImpl
+import com.example.spaTi.data.repository.TagRepository
+import com.example.spaTi.data.repository.TagRepositoryImpl
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
@@ -58,9 +60,18 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideServiceRepository(
-        database: FirebaseFirestore
+        database: FirebaseFirestore,
+        tagRepository: TagRepository
     ): ServiceRepository {
-        return  ServiceRepositoryImpl(database)
+        return  ServiceRepositoryImpl(database, tagRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTagRepository(
+        database: FirebaseFirestore
+    ): TagRepository {
+        return  TagRepositoryImpl(database)
     }
 
     @Provides

@@ -6,44 +6,23 @@
     app:startDestination="@id/loginFragment">
 
     <fragment
-        android:id="@+id/noteListingFragment"
-        android:name="com.example.spaTi.ui.notes.NoteListingFragment"
-        android:label="fragment_note_listing"
-        tools:layout="@layout/fragment_note_listing" >
-        <action
-            android:id="@+id/action_noteListingFragment_to_myprofileFragment"
-            app:destination="@id/myprofileFragment" />
-        <action
-            android:id="@+id/action_noteListingFragment_to_noteDetailFragment"
-            app:destination="@id/noteDetailFragment" />
-        <action
-            android:id="@+id/action_noteListingFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true"/>
-        <action
-            android:id="@+id/action_noteListingFragment_to_servicesFragment"
-            app:destination="@id/servicesFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/noteDetailFragment"
-        android:name="com.example.spaTi.ui.notes.NoteDetailFragment"
-        android:label="fragment_note_detail"
-        tools:layout="@layout/fragment_note_detail" />
-
-    <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.spaTi.ui.auth.RegisterFragment"
-        android:label="RegisterFragment" >
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_register">
         <action
-            android:id="@+id/action_registerFragment_to_noteListingFragment"
-            app:destination="@id/noteListingFragment" />
-
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
         <action
-            android:id="@+id/action_registerFragment_to_servicesFragment"
-            app:destination="@id/servicesFragment" />
+            android:id="@+id/action_registerFragment_to_TermsFragment"
+            app:destination="@id/TermsFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/TermsFragment"
+        android:name="com.example.spaTi.ui.notes.TermsFragment"
+        android:label="Términos y Condiciones"
+        tools:layout="@layout/terminos"/>
 
     <fragment
         android:id="@+id/loginFragment"
@@ -51,8 +30,8 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_noteListingFragment"
-            app:destination="@id/noteListingFragment" />
+            android:id="@+id/action_loginFragment_to_userHomeFragment"
+            app:destination="@id/userHomeFragment" />
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
@@ -60,8 +39,8 @@
             android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
             app:destination="@id/forgotPasswordFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_ServicesFragment"
-            app:destination="@id/servicesFragment" />
+            android:id="@+id/action_loginFragment_to_spaHomeFragment"
+            app:destination="@id/spaHomeFragment" />
         <action
             android:id="@+id/action_loginFragment_to_SpaRegisterFragment"
             app:destination="@id/registerSpaFragment" />
@@ -76,11 +55,14 @@
     <fragment
         android:id="@+id/registerSpaFragment"
         android:name="com.example.spaTi.ui.SpaAuth.SpaRegisterFragment"
-        android:label="fragment_register_spa"
-        tools:layout="@layout/fragment_register_spa">
+        android:label="RegisterSpaFragment"
+        tools:layout="@layout/fragment_spa_register">
         <action
-            android:id="@+id/action_registerSpaFragment_to_serviceDetailFragment"
-            app:destination="@id/servicesFragment" />
+            android:id="@+id/action_registerSpaFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_registerSpaFragment_to_TermsFragment"
+            app:destination="@id/TermsFragment" />
     </fragment>
 
     <fragment
@@ -92,8 +74,8 @@
             android:id="@+id/action_servicesFragment_to_serviceDetailFragment"
             app:destination="@id/serviceDetailFragment" />
         <action
-            android:id="@+id/action_servicesFragment_to_noteListingFragment"
-            app:destination="@id/noteListingFragment" />
+            android:id="@+id/action_servicesFragment_to_spaHomeFragment"
+            app:destination="@id/spaHomeFragment" />
     </fragment>
 
     <fragment
@@ -103,7 +85,7 @@
         tools:layout="@layout/fragment_service_detail" />
 
     <fragment
-        android:id="@+id/myprofileFragment"
+        android:id="@+id/myProfileFragment"
         android:name="com.example.spaTi.ui.Profile.MyprofileFragmentt"
         android:label="fragment_my_profile"
         tools:layout="@layout/fragment_myprofile_" >
@@ -113,8 +95,8 @@
             app:destination="@id/editprofileFragment" />
 
         <action
-            android:id="@+id/action_myprofileFragment_to_notelistingFragment"
-            app:destination="@id/noteListingFragment" />
+            android:id="@+id/action_myprofileFragment_to_userHomeFragment"
+            app:destination="@id/userHomeFragment" />
 
         <action
             android:id="@+id/action_myprofileFragment_to_loginFragment"
@@ -129,7 +111,60 @@
 
         <action
             android:id="@+id/action_editprofileFragment_to_myprofileFragment"
-            app:destination="@id/myprofileFragment" />
+            app:destination="@id/myProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/userHomeFragment"
+        android:name="com.example.spaTi.ui.homeUser.UserHomeFragment"
+        android:label="fragment_user_home"
+        tools:layout="@layout/fragment_user_home">
+        <action
+            android:id="@+id/action_userHomeFragment_to_myProfileFragment"
+            app:destination="@+id/myProfileFragment"/>
+        <action
+            android:id="@+id/action_userHomeFragment_to_favoritesFragment"
+            app:destination="@+id/favoritesFragment"/>
+        <action
+            android:id="@+id/action_userHomeFragment_to_tagsListFragment"
+            app:destination="@+id/tagsListFragment"/>
+        <action
+            android:id="@+id/action_userHomeFragment_to_appointmentsFragment"
+            app:destination="@+id/appointmentsFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/spaHomeFragment"
+        android:name="com.example.spaTi.ui.spaHome.SpaHomeFragment"
+        android:label="fragment_spa_home"
+        tools:layout="@layout/fragment_spa_home">
+        <action
+            android:id="@+id/action_spaHomeFragment_to_servicesFragment"
+            app:destination="@+id/servicesFragment"/>
+        <action
+            android:id="@+id/action_spaHomeFragment_to_loginFragment"
+            app:destination="@+id/loginFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.spaTi.ui.homeUser.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites">
+    </fragment>
+
+    <fragment
+        android:id="@+id/tagsListFragment"
+        android:name="com.example.spaTi.ui.homeUser.TagsListFragment"
+        android:label="fragment_tags_list"
+        tools:layout="@layout/fragment_tags_list">
+    </fragment>
+
+    <fragment
+        android:id="@+id/appointmentsFragment"
+        android:name="com.example.spaTi.ui.homeUser.AppointmentsFragment"
+        android:label="fragment_appointments"
+        tools:layout="@layout/fragment_appointments">
     </fragment>
 
 </navigation>

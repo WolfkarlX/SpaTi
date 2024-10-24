@@ -3,6 +3,7 @@ package com.example.spaTi.data.repository
 import com.example.spaTi.data.models.Note
 import com.example.spaTi.data.models.User
 import com.example.spaTi.util.UiState
+import com.google.firebase.auth.FirebaseUser
 
 interface AuthRepository {
     fun registerUser(email: String, password: String, user: User, result: (UiState<String>) -> Unit)
@@ -12,4 +13,5 @@ interface AuthRepository {
     fun logout(result: () -> Unit)
     fun storeSession(id: String, result: (User?) -> Unit)
     fun getSession(result: (User?) -> Unit)
+    abstract fun getCurrentUser(): FirebaseUser?
 }

@@ -35,9 +35,9 @@ class NoteListingFragment : Fragment() {
     val adapter by lazy {
         NoteListingAdapter(
             onItemClicked = { pos, item ->
-                findNavController().navigate(R.id.action_noteListingFragment_to_noteDetailFragment,Bundle().apply {
+                Bundle().apply {
                     putParcelable("note",item)
-                })
+                }
             }
         )
     }
@@ -73,23 +73,23 @@ class NoteListingFragment : Fragment() {
         val staggeredGridLayoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
         binding.recyclerView.layoutManager = staggeredGridLayoutManager
         binding.recyclerView.adapter = adapter
-        binding.button.setOnClickListener {
-            findNavController().navigate(R.id.action_noteListingFragment_to_noteDetailFragment)
-        }
-        binding.logout.setOnClickListener {
-            authViewModel.logout {
-                findNavController().navigate(R.id.action_noteListingFragment_to_loginFragment)
-            }
-        }
-        binding.profileButton.setOnClickListener{
-            findNavController().navigate(R.id.action_noteListingFragment_to_myprofileFragment)
-
-        }
-
-        // MOVE THIS BINDING TO MOVE THE SERVICES CRUD
-        binding.testButton.setOnClickListener {
-            findNavController().navigate(R.id.action_noteListingFragment_to_servicesFragment)
-        }
+//        binding.button.setOnClickListener {
+//            findNavController().navigate(R.id.action_noteListingFragment_to_noteDetailFragment)
+//        }
+//        binding.logout.setOnClickListener {
+//            authViewModel.logout {
+//                findNavController().navigate(R.id.action_noteListingFragment_to_loginFragment)
+//            }
+//        }
+//        binding.profileButton.setOnClickListener{
+//            findNavController().navigate(R.id.action_noteListingFragment_to_myprofileFragment)
+//
+//        }
+//
+//        // MOVE THIS BINDING TO MOVE THE SERVICES CRUD
+//        binding.testButton.setOnClickListener {
+//            findNavController().navigate(R.id.action_noteListingFragment_to_servicesFragment)
+//        }
         viewModel.getNotes()
     }
 

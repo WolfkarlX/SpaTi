@@ -31,6 +31,70 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/email_spa_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/koho"
+        android:text="Correo Electrónico"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <EditText
+        android:id="@+id/email_spa_et"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/edittext_rounded"
+        android:ems="10"
+        android:fontFamily="@font/koho"
+        android:inputType="textEmailAddress"
+        android:hint="Ingrese su email"
+        android:paddingLeft="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_spa_label" />
+
+    <TextView
+        android:id="@+id/pass_spa_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/koho"
+        android:text="Contraseña"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/email_spa_et"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/email_spa_et"
+        app:layout_constraintTop_toBottomOf="@+id/email_spa_et" />
+
+    <EditText
+        android:id="@+id/pass_spa_et"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/edittext_rounded"
+        android:fontFamily="@font/koho"
+        android:inputType="textPassword"
+        android:hint="Ingrese la que será su contraseña"
+        android:paddingLeft="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pass_spa_label" />
+
+    <TextView
         android:id="@+id/spa_name_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,7 +105,7 @@
         android:textColor="@color/black"
         android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
+        app:layout_constraintTop_toBottomOf="@+id/pass_spa_et" />
 
     <EditText
         android:id="@+id/spa_name_et"
@@ -96,68 +160,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/locatio_spa_label" />
 
-
-    <TextView
-        android:id="@+id/email_spa_label"
+    <LinearLayout
         android:layout_width="wrap_content"
+        android:id="@+id/terminos"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:orientation="horizontal"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/koho"
-        android:text="Correo Electrónico"
-        android:textColor="@color/black"
-        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location_spa_et" />
-
-    <EditText
-        android:id="@+id/email_spa_et"
-        android:layout_width="0dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:background="@drawable/edittext_rounded"
-        android:ems="10"
-        android:fontFamily="@font/koho"
-        android:inputType="textPersonName"
-        android:hint="Ingrese su email"
-        android:paddingLeft="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_spa_label" />
+        app:layout_constraintTop_toBottomOf="@id/location_spa_et">
 
-    <TextView
-        android:id="@+id/pass_spa_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/koho"
-        android:text="Contraseña"
-        android:textColor="@color/black"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/email_spa_et"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/email_spa_et"
-        app:layout_constraintTop_toBottomOf="@+id/email_spa_et" />
+        <CheckBox
+            android:id="@+id/terms_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/koho"
+            android:text="Acepto los términos y condiciones"/>
 
-    <EditText
-        android:id="@+id/pass_spa_et"
-        android:layout_width="0dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/edittext_rounded"
-        android:fontFamily="@font/koho"
-        android:inputType="textPassword"
-        android:hint="Ingrese la que será su contraseña"
-        android:paddingLeft="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/email_spa_et"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/email_spa_et"
-        app:layout_constraintTop_toBottomOf="@+id/pass_spa_label" />
+        <TextView
+            android:id="@+id/termsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/koho"
+            android:text="Consulte aquí"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true"/>
+    </LinearLayout>
 
 
     <RelativeLayout
@@ -168,7 +198,7 @@
         app:layout_constraintEnd_toEndOf="@+id/email_spa_et"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/email_spa_et"
-        app:layout_constraintTop_toBottomOf="@+id/pass_spa_et">
+        app:layout_constraintTop_toBottomOf="@+id/terminos">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/register_btn"

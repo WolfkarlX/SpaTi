@@ -28,22 +28,13 @@ class SpaAuthRepositoryImpl(
                 if (it.isSuccessful){
                     spa.id = it.result.user?.uid ?: ""
                     updateSpaInfo(spa) { state ->
-                        when(state){
+                        when(state) {
                             is UiState.Success -> {
-                                storeSession(id = it.result.user?.uid ?: "") {
-                                    if (it == null){
-                                        result.invoke(UiState.Failure("User register successfully but session failed to store"))
-                                    }else{
-                                        result.invoke(
-                                            UiState.Success("User register successfully!")
-                                        )
-                                    }
-                                }
+                                result.invoke(UiState.Success("Verification email sent to ${spa.email}"))
                             }
                             is UiState.Failure -> {
                                 result.invoke(UiState.Failure(state.error))
                             }
-
                             else -> {}
                         }
                     }
@@ -62,11 +53,7 @@ class SpaAuthRepositoryImpl(
                 }
             }
             .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
+                result.invoke(UiState.Failure(it.localizedMessage))
             }
     }
 
@@ -75,26 +62,18 @@ class SpaAuthRepositoryImpl(
         document
             .set(spa)
             .addOnSuccessListener {
-                result.invoke(
-                    UiState.Success("User has been update successfully")
-                )
+                result.invoke(UiState.Success("User has been update successfully"))
             }
             .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
+                result.invoke(UiState.Failure(it.localizedMessage))
             }
     }
 
     override fun loginSpa(
         email: String,
         password: String,
-        result: (UiState<String>) -> Unit) {
-        Log.d("XDDD", "SPA repository")
-        Log.d("XDDD", email)
-        Log.d("XDDD", password)
+        result: (UiState<String>) -> Unit
+    ) {
         auth.signInWithEmailAndPassword(email,password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -135,10 +114,9 @@ class SpaAuthRepositoryImpl(
         database.collection(FireStoreCollection.SPA).document(id)
             .get()
             .addOnCompleteListener {
-                Log.d("XDDD", "i could get the document id")
                 if (it.isSuccessful){
                     val spa = it.result.toObject(Spa::class.java)
-                    appPreferences.edit().putString(SharedPrefConstants.USER_SESSION,gson.toJson(spa)).apply()
+                    appPreferences.edit().putString(SharedPrefConstants.USER_SESSION, gson.toJson(spa)).apply()
                     result.invoke(spa)
                 }else{
                     result.invoke(null)
@@ -146,8 +124,6 @@ class SpaAuthRepositoryImpl(
             }
             .addOnFailureListener {
                 result.invoke(null)
-                Log.d("XDDD", "i could not get the document id")
-
             }
     }
 
@@ -159,6 +135,10 @@ class SpaAuthRepositoryImpl(
             val spa = gson.fromJson(user_str,Spa::class.java)
             result.invoke(spa)
         }
+    }
+
+    override fun getCurrentUser(): FirebaseUser? {
+        return auth.currentUser
     }
 
 }

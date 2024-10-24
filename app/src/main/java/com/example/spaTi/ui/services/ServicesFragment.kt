@@ -1,8 +1,6 @@
 package com.example.spaTi.ui.services
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.spaTi.R
 import com.example.spaTi.databinding.FragmentServicesBinding
-import com.example.spaTi.ui.auth.AuthViewModel
-import com.example.spaTi.ui.services.ServicesAdapter
-import com.example.spaTi.ui.services.ServiceViewModel
 import com.example.spaTi.util.UiState
 import com.example.spaTi.util.hide
 import com.example.spaTi.util.show
@@ -35,21 +30,16 @@ import dagger.hilt.android.AndroidEntryPoint
  * - Observes service loading states and updates the UI based on the state.
  *
  * Lifecycle methods:
- * - [onAttach]: Called when the fragment is attached to its context.
- * - [onCreate]: Initializes the fragment.
  * - [onCreateView]: Inflates the fragment's view and initializes binding.
  * - [onViewCreated]: Sets up the observer and initializes the RecyclerView.
- * - [onStart], [onResume], [onPause], [onStop], [onDestroyView], [onDestroy], [onDetach]:
  * - [observer]: Watches the view model for updates to show progress, errors, or the service list.
  */
 @AndroidEntryPoint
 class ServicesFragment : Fragment() {
     val TAG: String = "ServicesFragment"
-    lateinit var binding: FragmentServicesBinding
     val viewModel: ServiceViewModel by viewModels()
-    val authViewModel: AuthViewModel by viewModels()
     val adapter by lazy {
-        ServicesAdapter{ pos, item ->
+        ServicesAdapter { pos, item ->
             if ( item == null ){
                 findNavController().navigate(R.id.action_servicesFragment_to_serviceDetailFragment)
             } else {
@@ -60,77 +50,36 @@ class ServicesFragment : Fragment() {
         }
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.e(TAG, "onAttach: ")
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.e(TAG, "******************************************************")
-        Log.e(TAG, "onCreate: ")
-    }
+    private var _binding: FragmentServicesBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Log.e(TAG, "onCreateView: ")
-        if (this::binding.isInitialized) {
-            return binding.root
-        } else {
-            binding = FragmentServicesBinding.inflate(layoutInflater)
-            return binding.root
-        }
+        _binding = FragmentServicesBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.e(TAG, "onViewCreated: ")
         observer()
         val staggeredGridLayoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
         binding.recyclerView.layoutManager = staggeredGridLayoutManager
         binding.recyclerView.adapter = adapter
         binding.home.setOnClickListener {
-            findNavController().navigate(R.id.action_servicesFragment_to_noteListingFragment)
+            findNavController().navigate(R.id.action_servicesFragment_to_spaHomeFragment)
         }
         viewModel.getServices()
     }
 
-    override fun onStart() {
-        super.onStart()
-        Log.e(TAG, "onStart: ")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.e(TAG, "onResume: ")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.e(TAG, "onPause: ")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.e(TAG, "onStop: ")
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.e(TAG, "onDestroyView: ")
-    }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.e(TAG, "onDestroy: ")
-    }
+        viewModel.service.removeObservers(viewLifecycleOwner)
 
-    override fun onDetach() {
-        super.onDetach()
-        Log.e(TAG, "onDetach: ")
+        _binding = null
     }
 
     private fun observer() {

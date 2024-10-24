@@ -35,6 +35,9 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observer()
+        binding.termsTextView.setOnClickListener {
+            findNavController().navigate(R.id.action_registerFragment_to_TermsFragment)
+        }
         binding.registerBtn.setOnClickListener {
             if (validation()){
                 viewModel.register(
@@ -62,7 +65,7 @@ class RegisterFragment : Fragment() {
                     binding.registerBtn.setText("Register")
                     binding.registerProgress.hide()
                     toast(state.data)
-                    findNavController().navigate(R.id.action_registerFragment_to_noteListingFragment)
+                    findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                 }
             }
         }
@@ -83,75 +86,78 @@ class RegisterFragment : Fragment() {
     }
 
     fun validation(): Boolean {
-        var isValid = true
-
         if (binding.firstNameEt.text.isNullOrEmpty()){
-            isValid = false
             toast(getString(R.string.enter_first_name))
+            return false
         }
 
         if (binding.lastNameEt.text.isNullOrEmpty()){
-            isValid = false
             toast(getString(R.string.enter_last_name))
+            return false
         }
 
         if (binding.telefonoEt.text.isNullOrEmpty()){
-            isValid = false
             toast(getString(R.string.enter_cellphone))
-        }else{
+            return false
+        } else {
             if (binding.telefonoEt.text.toString().length < 10 || binding.telefonoEt.text.toString().length > 15) {
-                isValid = false
                 toast(getString(R.string.invalid_cellphone_number))
+                return false
             }
         }
 
         if (binding.sexoEt.text.isNullOrEmpty()){
-            isValid = false
             toast(getString(R.string.enter_sex))
+            return false
         }
 
         if (binding.diaEt.text.isNullOrEmpty() || binding.mesEt.text.isNullOrEmpty() || binding.anoEt.text.isNullOrEmpty()) {
-            isValid = false
             when {
                 binding.diaEt.text.isNullOrEmpty() -> toast(getString(R.string.enter_day))
                 binding.mesEt.text.isNullOrEmpty() -> toast(getString(R.string.enter_month))
                 binding.anoEt.text.isNullOrEmpty() -> toast(getString(R.string.enter_year))
             }
+            return false
         }else{
             age = getAge(binding.diaEt.text.toString().toInt(), binding.mesEt.text.toString().toInt(), binding.anoEt.text.toString().toInt())
             if (age < 18) {
-                isValid = false
                 toast(getString(R.string.invalid_age))
+                return false
             }
         }
 
         if (binding.emailEt.text.isNullOrEmpty()){
-            isValid = false
             toast(getString(R.string.enter_email))
+            return false
         }else{
             if (!binding.emailEt.text.toString().isValidEmail()){
-                isValid = false
                 toast(getString(R.string.invalid_email))
+                return false
             }
         }
         if (binding.passEt.text.isNullOrEmpty()){
-            isValid = false
             toast(getString(R.string.enter_password))
+            return false
         }else{
             if (binding.passEt.text.toString().length < 8){
-                isValid = false
                 toast(getString(R.string.invalid_password))
+                return false
             }
         }
-        return isValid
+
+        if (!binding.termsCheckbox.isChecked) {
+            toast(getString(R.string.check_terms))
+            return false
+        }
+
+        return true
     }
 
     override fun onStart() {
         super.onStart()
         viewModel.getSession { user ->
             if (user != null){
-                Log.d("XDDD", user.toString())
-                findNavController().navigate(R.id.action_loginFragment_to_noteListingFragment)
+                findNavController().navigate(R.id.action_loginFragment_to_userHomeFragment)
             }
         }
     }
