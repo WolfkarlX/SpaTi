@@ -88,7 +88,7 @@
         android:id="@+id/myProfileFragment"
         android:name="com.example.spaTi.ui.Profile.MyprofileFragmentt"
         android:label="fragment_my_profile"
-        tools:layout="@layout/fragment_myprofile_" >
+        tools:layout="@layout/fragment_my_profile" >
 
         <action
             android:id="@+id/action_myprofileFragment_to_editprofileFragment"
@@ -144,13 +144,6 @@
         <action
             android:id="@+id/action_spaHomeFragment_to_loginFragment"
             app:destination="@+id/loginFragment"/>
-    </fragment>
-
-    <fragment
-        android:id="@+id/favoritesFragment"
-        android:name="com.example.spaTi.ui.homeUser.FavoritesFragment"
-        android:label="fragment_favorites"
-        tools:layout="@layout/fragment_favorites">
     </fragment>
 
     <fragment

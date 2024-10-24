@@ -1,23 +1,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/favorites"
-        android:icon="@drawable/corazon"
-        android:title="Favoritos"/>
-    <item
-        android:id="@+id/tags"
-        android:icon="@drawable/lista"
-        android:title="Etiquetas"/>
-    <item
-        android:id="@+id/home"
-        android:icon="@drawable/icono_lobby"
+        android:id="@+id/homeMenuHome"
+        android:icon="@drawable/ic_menu_home"
         android:title="Home"/>
     <item
-        android:id="@+id/appointments"
-        android:icon="@drawable/calendario"
+        android:id="@+id/homeMenuSearch"
+        android:icon="@drawable/ic_menu_search"
+        android:title="Buscar"/>
+    <item
+        android:id="@+id/homeMenuAppointments"
+        android:icon="@drawable/ic_menu_calendar"
         android:title="Citas"/>
     <item
-        android:id="@+id/profile"
-        android:icon="@drawable/person"
+        android:id="@+id/homeMenuProfile"
+        android:icon="@drawable/ic_menu_user"
         android:title="Perfil"/>
 </menu>
