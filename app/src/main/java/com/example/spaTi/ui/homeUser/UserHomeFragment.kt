@@ -26,32 +26,6 @@ class UserHomeFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.favorites -> {
-                    findNavController().navigate(R.id.action_userHomeFragment_to_favoritesFragment)
-                    true
-                }
-                R.id.tags -> {
-                    findNavController().navigate(R.id.action_userHomeFragment_to_tagsListFragment)
-                    true
-                }
-                R.id.home -> { true }
-                R.id.appointments -> {
-                    findNavController().navigate(R.id.action_userHomeFragment_to_appointmentsFragment)
-                    true
-                }
-                R.id.profile -> {
-                    findNavController().navigate(R.id.action_userHomeFragment_to_myProfileFragment)
-                    true
-                }
-                else -> false
-            }
-        }
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
