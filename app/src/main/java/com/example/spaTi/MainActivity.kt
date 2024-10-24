@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
+    // Code provide by https://github.com/Gavalencia12/Mobile_Application, granted permission to me to use in this project
     private fun setupUserMenu() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
         navController = navHostFragment.navController
