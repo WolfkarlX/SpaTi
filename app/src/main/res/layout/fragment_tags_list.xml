@@ -19,7 +19,7 @@
             android:text="Etiquetas"
             android:textSize="30sp"
             android:textColor="@color/v_oscuro"
-            android:fontFamily="@font/koho" />
+             />
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

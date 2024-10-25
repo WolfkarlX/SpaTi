@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/bottom_navigation"
         android:padding="16dp">
 
         <LinearLayout
@@ -24,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:text="Bienvenida"
                 android:textSize="30sp"
-                android:fontFamily="@font/koho"
+                
                 android:textColor="@color/v_oscuro"/>
             <TextView
                 android:id="@+id/textViewRecomendado"
@@ -32,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:text="Recomendado"
                 android:textSize="18sp"
-                android:fontFamily="@font/koho"
+                
                 android:textColor="@color/verde"
                 android:layout_marginTop="5dp"/>
             <HorizontalScrollView
@@ -65,7 +64,7 @@
                             android:layout_height="wrap_content"
                             android:text="Calix"
                             android:textSize="16sp"
-                            android:fontFamily="@font/koho"/>
+                            />
 
                     </LinearLayout>
 
@@ -90,7 +89,7 @@
                             android:layout_height="wrap_content"
                             android:text="SpaLove"
                             android:textSize="16sp"
-                            android:fontFamily="@font/koho"/>
+                            />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -103,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:text="Todos los spas"
                 android:textSize="18sp"
-                android:fontFamily="@font/koho"
+                
                 android:textColor="@color/verde"
                 android:layout_marginTop="16dp"/>
 
@@ -140,7 +139,7 @@
                             android:layout_height="wrap_content"
                             android:text="SpaLove"
                             android:textSize="16sp"
-                            android:fontFamily="@font/koho"/>
+                            />
 
                     </LinearLayout>
 
@@ -165,7 +164,7 @@
                             android:layout_height="wrap_content"
                             android:text="SpaLove"
                             android:textSize="16sp"
-                            android:fontFamily="@font/koho"/>
+                            />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -204,7 +203,7 @@
                             android:layout_height="wrap_content"
                             android:text="SpaLove"
                             android:textSize="16sp"
-                            android:fontFamily="@font/koho"/>
+                            />
 
                     </LinearLayout>
 
@@ -229,7 +228,7 @@
                             android:layout_height="wrap_content"
                             android:text="SpaLove"
                             android:textSize="16sp"
-                            android:fontFamily="@font/koho"/>
+                            />
 
                     </LinearLayout>
                 </LinearLayout>
