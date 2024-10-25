@@ -12,7 +12,7 @@
         android:text="Favoritos"
         android:textSize="30sp"
         android:textColor="@color/v_oscuro"
-        android:fontFamily="@font/koho" />
+         />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,14 +52,14 @@
                             android:layout_height="wrap_content"
                             android:text="Calix"
                             android:textSize="18sp"
-                            android:fontFamily="@font/koho"
+                            
                             android:textColor="#000" />
 
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/koho"
+                            
                             android:text="av. paseo de las gaviotas"
                             android:textColor="#888888"
                             android:textSize="14sp" />
@@ -96,7 +96,7 @@
                             android:layout_height="wrap_content"
                             android:text="SpaLove"
                             android:textSize="18sp"
-                            android:fontFamily="@font/koho"
+                            
                             android:textColor="#000" />
 
                         <TextView
@@ -104,7 +104,7 @@
                             android:layout_height="wrap_content"
                             android:text="Manzanillo, Centro"
                             android:textSize="14sp"
-                            android:fontFamily="@font/koho"
+                            
                             android:textColor="#888888" />
                     </LinearLayout>
                 </LinearLayout>

@@ -32,7 +32,7 @@
                 android:text="Seleccionar horario"
                 android:textSize="24sp"
                 android:textColor="@color/v_oscuro"
-                android:fontFamily="@font/koho" />
+                 />
         </RelativeLayout>
         <LinearLayout
             android:layout_width="200dp"
@@ -81,14 +81,14 @@
                         android:text="17"
                         android:textColor="@android:color/black"
                         android:textSize="24sp"
-                        android:fontFamily="@font/koho" />
+                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="LUNES"
                         android:textColor="@android:color/black"
                         android:textSize="14sp"
-                        android:fontFamily="@font/koho" />
+                         />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="100dp"
@@ -104,14 +104,14 @@
                         android:text="17"
                         android:textColor="@android:color/black"
                         android:textSize="24sp"
-                        android:fontFamily="@font/koho" />
+                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="LUNES"
                         android:textColor="@android:color/black"
                         android:textSize="14sp"
-                        android:fontFamily="@font/koho" />
+                         />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="100dp"
@@ -127,14 +127,14 @@
                         android:text="17"
                         android:textColor="@android:color/black"
                         android:textSize="24sp"
-                        android:fontFamily="@font/koho" />
+                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="LUNES"
                         android:textColor="@android:color/black"
                         android:textSize="14sp"
-                        android:fontFamily="@font/koho" />
+                         />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="100dp"
@@ -150,14 +150,14 @@
                         android:text="17"
                         android:textColor="@android:color/black"
                         android:textSize="24sp"
-                        android:fontFamily="@font/koho" />
+                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="LUNES"
                         android:textColor="@android:color/black"
                         android:textSize="14sp"
-                        android:fontFamily="@font/koho" />
+                         />
                 </LinearLayout>
             </LinearLayout>
         </HorizontalScrollView>
@@ -187,7 +187,7 @@
                         android:text="3:00 PM - 3:30 PM"
                         android:textColor="@android:color/black"
                         android:textSize="16sp"
-                        android:fontFamily="@font/koho" />
+                         />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -204,7 +204,7 @@
                         android:text="3:00 PM - 3:30 PM"
                         android:textColor="@android:color/black"
                         android:textSize="16sp"
-                        android:fontFamily="@font/koho" />
+                         />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -221,7 +221,7 @@
                         android:text="3:00 PM - 3:30 PM"
                         android:textColor="@android:color/black"
                         android:textSize="16sp"
-                        android:fontFamily="@font/koho" />
+                         />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -238,7 +238,7 @@
                         android:text="3:00 PM - 3:30 PM"
                         android:textColor="@android:color/black"
                         android:textSize="16sp"
-                        android:fontFamily="@font/koho" />
+                         />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -255,7 +255,7 @@
                         android:text="3:00 PM - 3:30 PM"
                         android:textColor="@android:color/black"
                         android:textSize="16sp"
-                        android:fontFamily="@font/koho" />
+                         />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -272,7 +272,7 @@
                         android:text="3:00 PM - 3:30 PM"
                         android:textColor="@android:color/black"
                         android:textSize="16sp"
-                        android:fontFamily="@font/koho" />
+                         />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -289,7 +289,7 @@
                         android:text="3:00 PM - 3:30 PM"
                         android:textColor="@android:color/black"
                         android:textSize="16sp"
-                        android:fontFamily="@font/koho" />
+                         />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

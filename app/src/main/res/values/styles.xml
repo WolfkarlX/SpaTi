@@ -3,4 +3,7 @@
         <item name="android:background">@color/gray_400</item>
         <item name="exampleColor">@color/light_blue_400</item>
     </style>
+    <style name="CustomTextFontFamily">
+        <item name="android:fontFamily">@font/koho</item>
+    </style>
 </resources>
