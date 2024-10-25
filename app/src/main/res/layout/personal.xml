@@ -60,7 +60,7 @@
                     android:text="Cualquier profesional"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
-                    android:fontFamily="@font/koho"
+                    
                     android:gravity="center"
                     android:layout_marginTop="8dp" />
                 <TextView
@@ -69,7 +69,7 @@
                     android:text="Máxima disponibilidad"
                     android:textColor="#ffffff"
                     android:textSize="14sp"
-                    android:fontFamily="@font/koho"
+                    
                     android:gravity="center" />
             </LinearLayout>
             <LinearLayout
@@ -93,7 +93,7 @@
                     android:text="Jose Avalos"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
-                    android:fontFamily="@font/koho"
+                    
                     android:gravity="center"
                     android:layout_marginTop="8dp" />
                 <TextView
@@ -102,7 +102,7 @@
                     android:text="Diseño de cejas"
                     android:textColor="#ffffff"
                     android:textSize="14sp"
-                    android:fontFamily="@font/koho"
+                    
                     android:gravity="center" />
             </LinearLayout>
             <LinearLayout
@@ -126,7 +126,7 @@
                     android:text="Jesus Lopez"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
-                    android:fontFamily="@font/koho"
+                    
                     android:gravity="center"
                     android:layout_marginTop="8dp" />
                 <TextView
@@ -135,7 +135,7 @@
                     android:text="Depilador"
                     android:textColor="#ffffff"
                     android:textSize="14sp"
-                    android:fontFamily="@font/koho"
+                    
                     android:gravity="center" />
             </LinearLayout>
             <LinearLayout
@@ -159,7 +159,7 @@
                     android:text="Sofia Cruz"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
-                    android:fontFamily="@font/koho"
+                    
                     android:gravity="center"
                     android:layout_marginTop="8dp" />
                 <TextView
@@ -168,7 +168,7 @@
                     android:text="Lashista"
                     android:textColor="#ffffff"
                     android:textSize="14sp"
-                    android:fontFamily="@font/koho"
+                    
                     android:gravity="center" />
             </LinearLayout>
             <LinearLayout
@@ -193,7 +193,7 @@
                     android:text="Andrea Lopez"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
-                    android:fontFamily="@font/koho"
+                    
                     android:gravity="center"
                     android:layout_marginTop="8dp" />
 
@@ -203,7 +203,7 @@
                     android:text="Masajista"
                     android:textColor="#ffffff"
                     android:textSize="14sp"
-                    android:fontFamily="@font/koho"
+                    
                     android:gravity="center" />
             </LinearLayout>
             <LinearLayout
@@ -227,7 +227,7 @@
                     android:text="Valeria Perez"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
-                    android:fontFamily="@font/koho"
+                    
                     android:gravity="center"
                     android:layout_marginTop="8dp" />
                 <TextView
@@ -236,7 +236,7 @@
                     android:text="Uñas"
                     android:textColor="#ffffff"
                     android:textSize="14sp"
-                    android:fontFamily="@font/koho"
+                    
                     android:gravity="center" />
             </LinearLayout>
         </GridLayout>

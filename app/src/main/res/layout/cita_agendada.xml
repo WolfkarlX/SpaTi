@@ -35,7 +35,7 @@
             android:textStyle="bold"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:fontFamily="@font/koho" />
+             />
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -49,7 +49,7 @@
             android:text="Lugar:"
             android:textColor="@android:color/black"
             android:textSize="16sp"
-            android:fontFamily="@font/koho"
+            
             android:layout_marginTop="16dp" />
         <TextView
             android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
             android:text="Tratamiento: Depilacion bikini\nPersonal: Jose Avalos\nFecha: Lunes 17 de Septiembre\nHora: 3:00 PM - 3:30 PM"
             android:textColor="@android:color/black"
             android:textSize="16sp"
-            android:fontFamily="@font/koho" />
+             />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:text="Aceptar"
                 android:backgroundTint="@color/v_oscuro"
-                android:fontFamily="@font/koho"
+                
                 android:textColor="@android:color/white"
                 android:layout_marginEnd="16dp" />
             <Button
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:text="Denegar"
                 android:backgroundTint="@color/v_oscuro"
-                android:fontFamily="@font/koho"
+                
                 android:textColor="@android:color/white" />
         </LinearLayout>
     </LinearLayout>
