@@ -147,7 +147,7 @@ class LoginFragment : Fragment() {
         } else {
             if (binding.passEt.text.toString().length < 8) {
                 isValid = false
-                toast(getString(R.string.invalid_password))
+                toast(getString(R.string.short_password))
             }
         }
         return isValid
