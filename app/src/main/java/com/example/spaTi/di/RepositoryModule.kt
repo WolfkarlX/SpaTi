@@ -11,6 +11,8 @@ import com.example.spaTi.data.repository.ServiceRepository
 import com.example.spaTi.data.repository.ServiceRepositoryImpl
 import com.example.spaTi.data.repository.SpaAuthRepository
 import com.example.spaTi.data.repository.SpaAuthRepositoryImpl
+import com.example.spaTi.data.repository.SpaRepository
+import com.example.spaTi.data.repository.SpaRepositoryImpl
 import com.example.spaTi.data.repository.TagRepository
 import com.example.spaTi.data.repository.TagRepositoryImpl
 import com.google.firebase.auth.FirebaseAuth
@@ -84,5 +86,13 @@ object RepositoryModule {
     ): ProfileRepository {
         // Return the implementation of the interface
         return ProfileRepositoryImpl(auth, database, appPreferences, gson)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSpaRepository(
+        database: FirebaseFirestore
+    ): SpaRepository {
+        return SpaRepositoryImpl(database)
     }
 }
