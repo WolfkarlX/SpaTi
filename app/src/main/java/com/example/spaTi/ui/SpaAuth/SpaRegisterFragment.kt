@@ -84,6 +84,8 @@ class SpaRegisterFragment : Fragment() {
             spa_name = binding.spaNameEt.text.toString(),
             location = binding.locationSpaEt.text.toString(),
             email = binding.emailSpaEt.text.toString(),
+            cellphone = binding.telSpaEt.text.toString(),
+            description = binding.descriptionEt.text.toString(),
             type = "2",
         )
     }
@@ -121,6 +123,35 @@ class SpaRegisterFragment : Fragment() {
                 return false
             }
 
+        }
+
+        if (binding.telSpaEt.text.isNullOrEmpty()){
+            toast(getString(R.string.enter_cellphone))
+            return false
+        } else {
+            if (binding.telSpaEt.text.toString().length < 10 || binding.telSpaEt.text.toString().length > 15) {
+                toast(getString(R.string.invalid_cellphone_number))
+                return false
+            }
+        }
+
+        if (binding.descriptionEt.text.isNullOrEmpty()) {
+            toast(getString(R.string.invalid_description_does_not_exists))
+            return false
+        } else {
+
+            val description = binding.descriptionEt.text.toString()
+            val consecutiveRepeat = Regex("(.)\\1{5,}")
+            val descriptionRegex = Regex("^[a-zA-Z0-9.,!?'\"\\- ]{20,500}$")
+
+            if (!description.matches(descriptionRegex)) {
+                toast(getString(R.string.invalid_description_too_long))
+                return false
+            }
+            if(consecutiveRepeat.containsMatchIn(description)){
+                toast(getString(R.string.invalid_description_consecutive_repeated))
+                return false
+            }
         }
 
         if (!binding.termsCheckbox.isChecked) {

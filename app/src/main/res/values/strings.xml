@@ -28,5 +28,10 @@
     <string name="invalid_password_special">Password must contain at least one special character.</string>
     <string name="invalid_password_repeated">Password cannot consist of repeated characters.</string>
     <string name="invalid_password_consecutive_repeat">Password cannot contain consecutive repeating characters.</string>
+    <string name="invalid_description_does_not_exists">Input a description</string>
+    <string name="invalid_description_too_long">Description should be between 20 and 500 characters and avoid special characters.</string>
+    <string name="invalid_description_consecutive_repeated">Description should not have repeated characters.</string>
+
+
 
 </resources>

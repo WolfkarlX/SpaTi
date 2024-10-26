@@ -5,5 +5,7 @@ data class Spa (
     val spa_name: String = "",
     val location: String = "",
     val email: String = "",
+    val cellphone: String = "",
+    val description: String = "",
     val type: String = "",
 )
