@@ -19,6 +19,7 @@ import com.example.spaTi.util.hide
 import com.example.spaTi.util.isValidEmail
 import com.example.spaTi.util.show
 import com.example.spaTi.util.toast
+import com.example.spaTi.util.validatePassword
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -113,10 +114,13 @@ class SpaRegisterFragment : Fragment() {
             toast(getString(R.string.enter_password))
             return false
         } else {
-            if (binding.passSpaEt.text.toString().length < 8){
-                toast(getString(R.string.invalid_password))
+            val (isValid, message) = validatePassword(requireContext(), binding.passSpaEt.text.toString())
+
+            if(!isValid){
+                toast(message)
                 return false
             }
+
         }
 
         if (!binding.termsCheckbox.isChecked) {

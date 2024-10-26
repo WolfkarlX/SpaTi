@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.provider.Settings.Secure.getString
 import android.view.*
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -98,3 +99,43 @@ fun extractNumbersFromDate(input: String): Array<String> {
     // Split the input string by "/" and convert it to an array
     return input.split("/").toTypedArray()
 }
+
+fun validatePassword(context: Context, password: String): Pair<Boolean, String> {
+    val minLength = 8
+
+    val hasUppercase = Regex("[A-Z]")
+    val hasLowercase = Regex("[a-z]")
+    val hasDigit = Regex("\\d")
+    val hasSpecialChar = Regex("[!@#\$%^&*(),.?\":{}|<>]")
+    val consecutiveRepeat = Regex("(.)\\1{2,}")
+
+    // Check each requirement and return a message if the password doesn't meet the criteria
+    if (password.length < minLength) {
+        return Pair(false, context.getString(R.string.short_password))
+    }
+    if (!hasUppercase.containsMatchIn(password)) {
+        return Pair(false, context.getString(R.string.invalid_password_uppercase))
+    }
+    if (!hasLowercase.containsMatchIn(password)) {
+        return Pair(false, context.getString(R.string.invalid_password_lowercase))
+    }
+    if (!hasDigit.containsMatchIn(password)) {
+        return Pair(false, context.getString(R.string.invalid_password_digit))
+    }
+    if (!hasSpecialChar.containsMatchIn(password)) {
+        return Pair(false, context.getString(R.string.invalid_password_special))
+    }
+
+    // Check for repeated characters (all characters are the same)
+    if (password.toSet().size == 1) {
+        return Pair(false, context.getString(R.string.invalid_password_repeated))
+    }
+
+    if (consecutiveRepeat.containsMatchIn(password)) {
+        return Pair(false, context.getString(R.string.invalid_password_consecutive_repeat))
+    }
+
+    // If all requirements are met
+    return Pair(true, "Password is strong.")
+}
+

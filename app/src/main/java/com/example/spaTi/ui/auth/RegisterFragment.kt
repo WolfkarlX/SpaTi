@@ -139,8 +139,10 @@ class RegisterFragment : Fragment() {
             toast(getString(R.string.enter_password))
             return false
         }else{
-            if (binding.passEt.text.toString().length < 8){
-                toast(getString(R.string.invalid_password))
+            val (isValid, message) = validatePassword(requireContext(), binding.passEt.text.toString())
+
+            if(!isValid){
+                toast(message)
                 return false
             }
         }
