@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemServiceUserHome"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:clickable="true"
+    android:elevation="4dp"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="16dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/itemSpaImageBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/spa"
+            android:scaleType="centerCrop"
+            android:background="@drawable/rounded_corners_image_view"
+            android:clipToOutline="true"
+            android:contentDescription="item service"/>
+
+        <LinearLayout
+            android:id="@+id/bottom_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@id/indicators_container"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:paddingStart="4dp"
+                android:paddingEnd="2dp">
+
+                <TextView
+                    android:id="@+id/itemSpaName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lorem ipsum."
+                    android:textSize="14sp"
+                    android:lineHeight="24sp"/>
+
+                <TextView
+                    android:id="@+id/itemSpaLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lorem ipsum dolor sit."
+                    android:textSize="8sp"/>
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_ribbon_flag_end"
+                android:backgroundTint="@color/white"
+                android:contentDescription="End of ribbon flag"
+                android:layout_marginEnd="64dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/indicators_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp"
+            android:padding="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
