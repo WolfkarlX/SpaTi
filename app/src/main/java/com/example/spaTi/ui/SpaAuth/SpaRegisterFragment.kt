@@ -147,7 +147,7 @@ class SpaRegisterFragment : Fragment() {
         }
 
         if(binding.inTimeEt.text.isNullOrEmpty()){
-            toast("Input an output hour")
+            toast("Input an input hour")
             return false
         } else {
             val validTime = validateAndFormatTime(binding.inTimeEt.text.toString())
@@ -205,20 +205,23 @@ class SpaRegisterFragment : Fragment() {
 
     @SuppressLint("NewApi")
     fun validateAndFormatTime(input: String): String? {
-        // Formatter for HH:mm format
+        // Formatter for HH:mm format with zero-padded hours
         val timeFormat = DateTimeFormatter.ofPattern("HH:mm")
 
         return try {
-            // If input is an integer (like "12"), add ":00" for the minutes
-            val formattedTime = if (input.matches(Regex("^\\d{1,2}$"))) {
+            // Check if the input is in "H:mm" format (single-digit hour)
+            val formattedTime = if (input.matches(Regex("^\\d{1}:\\d{2}$"))) {
+                "0$input" // Add a leading zero to single-digit hours
+            } else if (input.matches(Regex("^\\d{1,2}$"))) {
+                // If input is only hours (like "12"), add ":00" for minutes
                 "${input.padStart(2, '0')}:00"
             } else {
                 input
             }
 
-            // Attempt to parse the formatted time; if it fails, it's invalid
-            LocalTime.parse(formattedTime, timeFormat)
-            formattedTime // Return the formatted time if valid
+            // Parse and format the time to ensure zero-padding in "HH:mm" format
+            val time = LocalTime.parse(formattedTime, timeFormat)
+            time.format(timeFormat) // Return formatted time as "HH:mm"
         } catch (e: DateTimeParseException) {
             null // Return null if the input is invalid
         }
