@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.spaTi.R
 import com.example.spaTi.data.models.Service
 import com.example.spaTi.data.models.Tag
+import com.example.spaTi.data.repository.SpaAuthRepository
 import com.example.spaTi.databinding.FragmentServiceDetailBinding
 import com.example.spaTi.ui.tags.TagViewModel
 import com.example.spaTi.ui.tags.TagsFragment
@@ -55,7 +56,8 @@ class ServiceDetailFragment : Fragment(), TagSelectionListener {
         name = "",
         durationMinutes = 0,
         price = 0.0,
-        tags = emptyList()
+        tags = emptyList(),
+        spaId = ""
     )
     private var serviceState: ServiceState = ServiceState.Idle
     private var bottomSheetFragment: TagsFragment? = null
