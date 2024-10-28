@@ -136,7 +136,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Configuracion"
+                    android:text="Configuration"
                     android:textColor="@color/verde"
                     android:textSize="16sp"
                     
@@ -144,7 +144,7 @@
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/reports" />
+                    android:src="@drawable/configuration_with_gear_svgrepo_com" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
