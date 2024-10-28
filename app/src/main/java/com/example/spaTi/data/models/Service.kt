@@ -20,7 +20,7 @@ import java.util.*
 @Parcelize
 data class Service (
     var id: String = "",
-    val spaId: String = "",
+    var spaId: String = "",
     val employeeId: String = "",
     val name: String = "",
     val durationMinutes: Int = 0,

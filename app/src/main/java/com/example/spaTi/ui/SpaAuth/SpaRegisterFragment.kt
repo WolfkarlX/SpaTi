@@ -12,7 +12,7 @@ import com.example.spaTi.R
 import com.example.spaTi.data.models.Spa
 import com.example.spaTi.data.models.User
 import com.example.spaTi.databinding.FragmentSpaRegisterBinding
-import com.example.spaTi.ui.auth.AuthViewModel
+//import com.example.spaTi.ui.auth.AuthViewModel
 import com.example.spaTi.ui.auth.SpaAuthViewModel
 import com.example.spaTi.util.UiState
 import com.example.spaTi.util.hide

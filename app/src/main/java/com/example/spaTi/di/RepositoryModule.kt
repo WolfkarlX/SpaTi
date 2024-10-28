@@ -63,9 +63,10 @@ object RepositoryModule {
     @Singleton
     fun provideServiceRepository(
         database: FirebaseFirestore,
-        tagRepository: TagRepository
+        tagRepository: TagRepository,
+        sparepository: SpaAuthRepository,
     ): ServiceRepository {
-        return  ServiceRepositoryImpl(database, tagRepository)
+        return  ServiceRepositoryImpl(database,sparepository, tagRepository)
     }
 
     @Provides

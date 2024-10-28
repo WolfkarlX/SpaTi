@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.spaTi.data.models.Service
 import com.example.spaTi.data.repository.ServiceRepository
+import com.example.spaTi.data.repository.SpaAuthRepository
 import com.example.spaTi.util.UiState
+import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -19,7 +21,9 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class ServiceViewModel @Inject constructor(
-    val repository: ServiceRepository
+    val repository: ServiceRepository,
+    val sparepository: SpaAuthRepository
+
 ): ViewModel() {
 
     // LiveData for observing the list of services and its state.
@@ -42,6 +46,7 @@ class ServiceViewModel @Inject constructor(
     val deleteService: LiveData<UiState<String>>
         get() = _deleteService
 
+
     /**
      * Fetches the list of services from the repository and updates the _services LiveData.
      * Sets the state to [UiState.Loading] while fetching and updates with success or failure results.
@@ -58,6 +63,16 @@ class ServiceViewModel @Inject constructor(
      * @param service The [Service] object to be added.
      */
     fun addService(service: Service) {
+        val serviceId = FirebaseDatabase.getInstance().reference.child("service").push().key
+        if (serviceId != null) {
+            service.id = serviceId
+        }
+        sparepository.getSession {
+            if (it != null) {
+                service.spaId = it.id
+            }
+        }
+        FirebaseDatabase.getInstance().reference.child("service").child(serviceId!!).setValue(service)
         _addService.value = UiState.Loading
         repository.addService(service) { _addService.value = it }
     }

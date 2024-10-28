@@ -13,6 +13,7 @@ import com.google.firebase.firestore.Query
  */
 class ServiceRepositoryImpl ( // There is a meaning in naming <Entity>RepositoryImp instead of <Entity>RepositoryImpl? @Alang315
     val database: FirebaseFirestore,
+    val sparepository: SpaAuthRepository,
     private val tagRepository: TagRepository
 ) : ServiceRepository {
 
@@ -23,7 +24,14 @@ class ServiceRepositoryImpl ( // There is a meaning in naming <Entity>Repository
      * or an error message if the operation fails.
      */
     override fun getServices(result: (UiState<List<Service>>) -> Unit) {
+        var id: String? = null
+        sparepository.getSession {
+            if (it != null) {
+                id=it.id
+            }
+        }
         database.collection(FireStoreCollection.SERVICE)
+            .whereEqualTo("spaId",id)
             .orderBy("createdAt", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener {
