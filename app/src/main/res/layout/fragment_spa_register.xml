@@ -186,6 +186,69 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tel_spa_label" />
 
+
+        <TextView
+            android:id="@+id/inTime_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Hora de apertura (formato 24 horas)"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tel_spa_et" />
+
+        <EditText
+            android:id="@+id/inTime_et"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/edittext_rounded"
+            android:ems="10"
+            android:inputType="time"
+            android:hint="Hora de apertura del spa"
+            android:paddingLeft="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inTime_label" />
+
+        <TextView
+            android:id="@+id/outTime_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Hora de salida (formato 24 horas)"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inTime_et" />
+
+        <EditText
+            android:id="@+id/outTime_et"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/edittext_rounded"
+            android:ems="10"
+            android:inputType="time"
+            android:hint="Hora de apertura del spa"
+            android:paddingLeft="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/outTime_label" />
+
         <TextView
             android:id="@+id/description_label"
             android:layout_width="wrap_content"
@@ -196,7 +259,7 @@
             android:textColor="@color/black"
             android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tel_spa_et" />
+            app:layout_constraintTop_toBottomOf="@+id/outTime_et" />
 
         <EditText
             android:id="@+id/description_et"
@@ -218,11 +281,12 @@
             app:layout_constraintTop_toBottomOf="@+id/description_label" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:id="@+id/terminos"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="16dp"
+            android:layout_marginLeft="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/description_et">
@@ -231,6 +295,7 @@
                 android:id="@+id/terms_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="15dp"
                 android:text="Acepto los términos y condiciones"/>
 
             <TextView
@@ -241,7 +306,8 @@
                 android:text="Consulte aquí"
                 android:textStyle="bold"
                 android:clickable="true"
-                android:focusable="true"/>
+                android:focusable="true"
+                android:textSize="15dp"/>
         </LinearLayout>
 
 

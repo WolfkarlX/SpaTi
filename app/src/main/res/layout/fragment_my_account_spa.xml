@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header Section -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/rectangle_green_profile">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Perfil"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp"
+                android:textSize="24sp"
+                android:textColor="#FFFFFF"
+                android:fontFamily="sans-serif-medium" />
+        </RelativeLayout>
+
+        <!-- Profile Picture & Info -->
+        <LinearLayout
+            android:id="@+id/profileNpicture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/rectangle_white"
+            android:padding="15dp"
+            android:layout_marginTop="-135dp"
+            android:gravity="center"
+            android:layout_marginHorizontal="16dp"
+            android:elevation="12dp"
+            android:layout_marginBottom="12dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/spa"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                app:shapeAppearanceOverlay="@style/radius" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kalix Spa"
+                android:textSize="30sp"
+                android:textColor="#000000"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="kalixspa@spa.com"
+                android:textSize="21sp"
+                android:textColor="#333333"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <!-- Menu Options -->
+        <LinearLayout
+            android:id="@+id/profile_tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/settings_profile_buttons"
+            android:padding="0dp"
+            android:layout_margin="8dp"
+            android:gravity="center_vertical"
+            android:elevation="12dp"
+            android:layout_marginHorizontal="29dp"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/ProfileToolsImage"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/icon_settings"
+                android:layout_marginLeft="5dp"/>
+
+            <LinearLayout
+                android:id="@+id/profile_tools_inside"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="-3dp">
+
+                <TextView
+                    android:id="@+id/ProfileToolsEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Herramientas de perfil"
+                    android:textSize="26sp"
+                    android:layout_marginLeft="15dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Editar tu perfil"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="#7f7f7f" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/privacy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/settings_profile_buttons"
+            android:layout_margin="8dp"
+            android:padding="0dp"
+            android:gravity="center_vertical"
+            android:elevation="12dp"
+            android:layout_marginHorizontal="29dp"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/privacyImage"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/icon_lock"
+                android:layout_marginLeft="15dp" />
+
+            <LinearLayout
+                android:id="@+id/privacyTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="8dp">
+
+                <TextView
+                    android:id="@+id/privacyEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Privacidad"
+                    android:textSize="26sp"
+                    android:layout_marginLeft="15dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cambiar contraseña"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="#7f7f7f" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/notification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/settings_profile_buttons"
+            android:layout_margin="8dp"
+            android:padding="0dp"
+            android:gravity="center_vertical"
+            android:elevation="12dp"
+            android:layout_marginHorizontal="29dp"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/notificationImage"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/icon_notifications"
+                android:layout_marginLeft="15dp" />
+
+            <LinearLayout
+                android:id="@+id/notificationTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="8dp">
+
+                <TextView
+                    android:id="@+id/notificationEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Notificaciones"
+                    android:textSize="26sp"
+                    android:layout_marginLeft="15dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Revisar notificaciones"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="#7f7f7f" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/terminos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/settings_profile_buttons"
+            android:layout_margin="8dp"
+            android:padding="0dp"
+            android:gravity="center_vertical"
+            android:elevation="12dp"
+            android:layout_marginHorizontal="29dp">
+
+            <ImageView
+                android:id="@+id/terminosImage"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/icon_alert_triangule"
+                android:layout_marginLeft="15dp" />
+
+            <LinearLayout
+                android:id="@+id/terminosTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="8dp">
+
+                <TextView
+                    android:id="@+id/terminosEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Términos y Condiciones"
+                    android:textSize="26sp"
+                    android:layout_marginLeft="15dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Política de seguridad"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="#7f7f7f" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <FrameLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_menu_home"
+                app:backgroundTint="@color/verde"
+                app:tint="@color/white" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+</ScrollView>

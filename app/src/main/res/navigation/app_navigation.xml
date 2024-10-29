@@ -142,6 +142,9 @@
             android:id="@+id/action_spaHomeFragment_to_servicesFragment"
             app:destination="@+id/servicesFragment"/>
         <action
+            android:id="@+id/action_spaHomeFragment_to_myaccountspaFragment"
+            app:destination="@+id/myaccountspaFragment"/>
+        <action
             android:id="@+id/action_spaHomeFragment_to_loginFragment"
             app:destination="@+id/loginFragment"/>
     </fragment>
@@ -158,6 +161,17 @@
         android:name="com.example.spaTi.ui.homeUser.AppointmentsFragment"
         android:label="fragment_appointments"
         tools:layout="@layout/fragment_appointments">
+    </fragment>
+
+    <fragment
+        android:id="@+id/myaccountspaFragment"
+        android:name="com.example.spaTi.ui.spaHome.MyAccountSpaFragment"
+        android:label="fragment_appointments"
+        tools:layout="@layout/fragment_my_account_spa">
+
+        <action
+            android:id="@+id/action_MyAccountSpaFragment_to_spaHomeFragment"
+            app:destination="@+id/spaHomeFragment"/>
     </fragment>
 
 </navigation>

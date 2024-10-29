@@ -6,4 +6,10 @@
     <style name="CustomTextFontFamily">
         <item name="android:fontFamily">@font/koho</item>
     </style>
+    <style name="radius">
+        <item name="cornerSizeTopRight">45dp</item>
+        <item name="cornerSizeTopLeft">45dp</item>
+        <item name="cornerSizeBottomRight">45dp</item>
+        <item name="cornerSizeBottomLeft">45dp</item>
+    </style>
 </resources>

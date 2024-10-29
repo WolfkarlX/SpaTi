@@ -1,11 +1,14 @@
 package com.example.spaTi.ui.SpaAuth
 
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.spaTi.R
@@ -20,7 +23,11 @@ import com.example.spaTi.util.isValidEmail
 import com.example.spaTi.util.show
 import com.example.spaTi.util.toast
 import com.example.spaTi.util.validatePassword
+import com.google.protobuf.Internal.BooleanList
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 
 @AndroidEntryPoint
 class SpaRegisterFragment : Fragment() {
@@ -36,6 +43,7 @@ class SpaRegisterFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("NewApi")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observer()
@@ -86,10 +94,13 @@ class SpaRegisterFragment : Fragment() {
             email = binding.emailSpaEt.text.toString(),
             cellphone = binding.telSpaEt.text.toString(),
             description = binding.descriptionEt.text.toString(),
+            inTime = binding.inTimeEt.text.toString(),
+            outTime = binding.outTimeEt.text.toString(),
             type = "2",
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun validation(): Boolean {
         if (binding.spaNameLabel.text.isNullOrEmpty()){
             toast(getString(R.string.enter_first_name))
@@ -135,6 +146,36 @@ class SpaRegisterFragment : Fragment() {
             }
         }
 
+        if(binding.inTimeEt.text.isNullOrEmpty()){
+            toast("Input an input hour")
+            return false
+        } else {
+            val validTime = validateAndFormatTime(binding.inTimeEt.text.toString())
+
+            if (validTime != null) {
+                binding.inTimeEt.setText(validTime)
+                Log.d("XDDD", validTime) // Output: 12:00
+            } else {
+                toast("Invalid time input.")
+                return false
+            }
+        }
+
+        if(binding.outTimeEt.text.isNullOrEmpty()){
+            toast("Input an output hour")
+            return false
+        } else {
+            val validTime = validateAndFormatTime(binding.outTimeEt.text.toString())
+
+            if (validTime != null) {
+                binding.outTimeEt.setText(validTime)
+                Log.d("XDDD", validTime) // Output: 12:00
+            } else {
+                toast("Invalid time input.")
+                return false
+            }
+        }
+
         if (binding.descriptionEt.text.isNullOrEmpty()) {
             toast(getString(R.string.invalid_description_does_not_exists))
             return false
@@ -160,6 +201,30 @@ class SpaRegisterFragment : Fragment() {
         }
 
         return true
+    }
+
+    @SuppressLint("NewApi")
+    fun validateAndFormatTime(input: String): String? {
+        // Formatter for HH:mm format with zero-padded hours
+        val timeFormat = DateTimeFormatter.ofPattern("HH:mm")
+
+        return try {
+            // Check if the input is in "H:mm" format (single-digit hour)
+            val formattedTime = if (input.matches(Regex("^\\d{1}:\\d{2}$"))) {
+                "0$input" // Add a leading zero to single-digit hours
+            } else if (input.matches(Regex("^\\d{1,2}$"))) {
+                // If input is only hours (like "12"), add ":00" for minutes
+                "${input.padStart(2, '0')}:00"
+            } else {
+                input
+            }
+
+            // Parse and format the time to ensure zero-padding in "HH:mm" format
+            val time = LocalTime.parse(formattedTime, timeFormat)
+            time.format(timeFormat) // Return formatted time as "HH:mm"
+        } catch (e: DateTimeParseException) {
+            null // Return null if the input is invalid
+        }
     }
 
     override fun onStart() {

@@ -14,6 +14,8 @@ data class Spa (
     val cellphone: String = "",
     val description: String = "",
     val type: String = "",
+    val inTime: String = "",
+    val outTime: String = "",
     @ServerTimestamp
     val createdAt: Date = Date(),
     @ServerTimestamp
