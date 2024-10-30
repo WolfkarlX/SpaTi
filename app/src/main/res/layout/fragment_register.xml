@@ -90,7 +90,7 @@
             android:background="@drawable/edittext_rounded"
             
             android:inputType="textPassword"
-            android:hint="Ingrese la que será su contraseña"
+            android:hint="Ingrese una contraseña segura"
             android:paddingLeft="16dp"
             app:layout_constraintEnd_toEndOf="@+id/email_et"
             app:layout_constraintHorizontal_bias="0.0"
@@ -220,7 +220,6 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/edittext_rounded"
             android:ems="10"
-            
             android:hint="Sexo"
             android:paddingLeft="16dp"
             android:inputType="text"
@@ -279,6 +278,7 @@
             android:id="@+id/terminos"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/date_label">
@@ -287,15 +287,16 @@
                 android:id="@+id/terms_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                
+                android:textSize="15dp"
                 android:text="Acepto los términos y condiciones"/>
 
             <TextView
                 android:id="@+id/termsTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:textColor="#198b0f"
                 android:layout_marginStart="8dp"
-                
                 android:text="Consulte aquí"
                 android:textStyle="bold"
                 android:clickable="true"
@@ -347,18 +348,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
         </LinearLayout>
-
-        <!--<ImageView
-            android:id="@+id/imgFondoSuperior"
-            android:layout_width="0dp"
-            android:layout_height="300dp"
-            android:layout_marginTop="456dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/fondo_hojas"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" /> -->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
