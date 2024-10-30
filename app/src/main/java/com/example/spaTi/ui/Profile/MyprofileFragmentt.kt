@@ -44,10 +44,6 @@ class MyprofileFragmentt : Fragment() {
             findNavController().navigate(R.id.action_myprofileFragment_to_editprofileFragment)
         }
 
-        binding.btnBack.setOnClickListener {
-            findNavController().navigate(R.id.action_myprofileFragment_to_userHomeFragment)
-        }
-
         binding.saveButton.setOnClickListener {
             viewModel.logout{
                 findNavController().navigate(R.id.action_myprofileFragment_to_loginFragment)

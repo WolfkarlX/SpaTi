@@ -80,14 +80,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nombre (s)"
+                    android:text="Nombre del establecimiento"
                     android:textColor="#000"
                     android:textStyle="bold"
                     android:textSize="18dp"
                     android:layout_marginTop="16dp" />
 
                 <TextView
-                    android:id="@+id/first_name"
+                    android:id="@+id/nameSpa"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
@@ -96,30 +96,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Apellidos"
+                    android:text="Dirección"
                     android:textColor="#000"
                     android:textStyle="bold"
                     android:textSize="18dp"
                     android:layout_marginTop="8dp" />
 
                 <TextView
-                    android:id="@+id/last_names"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:textColor="#333333" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Correo Electrónico"
-                    android:textColor="#000"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="8dp" />
-
-                <TextView
-                    android:id="@+id/email"
+                    android:id="@+id/locationSpa"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
@@ -135,70 +119,98 @@
                     android:layout_marginTop="8dp" />
 
                 <TextView
-                    android:id="@+id/phone_number"
+                    android:id="@+id/phoneSpa"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
                     android:textColor="#333333" />
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/horario_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Horario"
+                        android:textSize="18dp"
+                        android:textColor="#000"
+                        android:textStyle="bold"
+                        android:layout_marginTop="8dp" />
+
+                    <!-- Hora de apertura -->
+                    <TextView
+                        android:id="@+id/apertura"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
+                        android:text="08:30"
+                        android:textColor="#333333"
+                        android:layout_below="@id/horario_label"
+                        android:layout_alignStart="@id/horario_label"
+                        android:layout_marginTop="4dp" />
+
+                    <!-- Separador "a" entre apertura y cierre -->
+                    <TextView
+                        android:id="@+id/separador"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="a"
+                        android:textSize="15dp"
+                        android:textColor="#333333"
+                        android:layout_toEndOf="@id/apertura"
+                        android:layout_marginStart="4dp"
+                        android:layout_alignBaseline="@id/apertura" />
+
+                    <!-- Hora de cierre -->
+                    <TextView
+                        android:id="@+id/cierre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
+                        android:text="20:00"
+                        android:textColor="#333333"
+                        android:layout_toEndOf="@id/separador"
+                        android:layout_marginStart="4dp"
+                        android:layout_alignBaseline="@id/apertura" />
+                </RelativeLayout>
+
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fecha de nacimiento"
-                    android:textSize="18dp"
+                    android:text="Descripción"
                     android:textColor="#000"
+                    android:textSize="18dp"
                     android:textStyle="bold"
                     android:layout_marginTop="8dp" />
 
                 <TextView
-                    android:id="@+id/bornday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:textColor="#333333" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sexo"
-                    android:textColor="#000"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="8dp" />
-
-                <TextView
-                    android:id="@+id/sex"
+                    android:id="@+id/descriptionSpa"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
                     android:textColor="#333333" />
             </LinearLayout>
 
-            <!-- Botón inferior -->
-            <LinearLayout
+            <FrameLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="330dp"
-                android:layout_marginTop="-630dp">
+                android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/save_button"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:src="@drawable/ic_baseline_exit_to_app_24"
-                    app:tint="@color/black" />
-            </LinearLayout>
-
-            <ProgressBar
-                android:id="@+id/session_progress"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="16dp"
-                android:elevation="10dp"
-                android:indeterminateTint="@color/white"
-                android:visibility="invisible" />
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/ic_menu_home"
+                    app:backgroundTint="@color/verde"
+                    app:tint="@color/white" />
+            </FrameLayout>
 
         </LinearLayout>
     </ScrollView>

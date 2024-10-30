@@ -27,19 +27,19 @@
                 android:layout_gravity="center" />
 
             <TextView
-                android:id="@+id/first_name_label"
+                android:id="@+id/spa_name_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
-                android:text="Nombre(s)"
+                android:text="Nombre del negocio"
                 android:textColor="@color/black"
                 android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/name" />
+                app:layout_constraintTop_toBottomOf="@+id/pass_spa_et" />
 
             <EditText
-                android:id="@+id/et_nombre"
+                android:id="@+id/spa_name_et"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:layout_marginStart="16dp"
@@ -50,27 +50,27 @@
                 android:background="@drawable/edittext_rounded"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:hint="Nombre"
+                android:hint="Ingrese el nombre del establecimiento"
                 android:paddingLeft="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/first_name_label" />
+                app:layout_constraintTop_toBottomOf="@+id/spa_name_label" />
 
             <TextView
-                android:id="@+id/last_name_label"
+                android:id="@+id/locatio_spa_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Apellidos"
+                android:text="Dirección"
                 android:textColor="@color/black"
                 android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/first_name_et" />
+                app:layout_constraintTop_toBottomOf="@+id/spa_name_et" />
 
             <EditText
-                android:id="@+id/last_name_et"
+                android:id="@+id/location_spa_et"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:layout_marginStart="16dp"
@@ -81,27 +81,27 @@
                 android:background="@drawable/edittext_rounded"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:hint="Apellidos"
+                android:hint="Ubicación física del Spa"
                 android:paddingLeft="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/last_name_label" />
+                app:layout_constraintTop_toBottomOf="@+id/locatio_spa_label" />
 
             <TextView
-                android:id="@+id/telefono_label"
+                android:id="@+id/tel_spa_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Teléfono/ Celular"
+                android:text="Teléfono de contacto"
                 android:textColor="@color/black"
                 android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/last_name_et" />
+                app:layout_constraintTop_toBottomOf="@+id/location_spa_et" />
 
             <EditText
-                android:id="@+id/telefono_et"
+                android:id="@+id/tel_spa_et"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:layout_marginStart="16dp"
@@ -111,28 +111,29 @@
                 android:layout_marginRight="16dp"
                 android:background="@drawable/edittext_rounded"
                 android:ems="10"
-                android:hint="Número de teléfono o celular"
+                android:inputType="number"
+                android:hint="Número de teléfono para contacto directo"
                 android:paddingLeft="16dp"
-                android:inputType="phone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/telefono_label" />
+                app:layout_constraintTop_toBottomOf="@+id/tel_spa_label" />
+
 
             <TextView
-                android:id="@+id/sexo_label"
+                android:id="@+id/inTime_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Sexo"
+                android:text="Hora de apertura (formato 24 horas)"
                 android:textColor="@color/black"
                 android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/telefono_et" />
+                app:layout_constraintTop_toBottomOf="@+id/tel_spa_et" />
 
             <EditText
-                android:id="@+id/sexo_et"
+                android:id="@+id/inTime_et"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:layout_marginStart="16dp"
@@ -142,56 +143,75 @@
                 android:layout_marginRight="16dp"
                 android:background="@drawable/edittext_rounded"
                 android:ems="10"
-                android:hint="Sexo"
+                android:inputType="time"
+                android:hint="Hora que abre el spa"
                 android:paddingLeft="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inTime_label" />
+
+            <TextView
+                android:id="@+id/outTime_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Hora de cierre (formato 24 horas)"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inTime_et" />
+
+            <EditText
+                android:id="@+id/outTime_et"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/edittext_rounded"
+                android:ems="10"
+                android:inputType="time"
+                android:hint="Hora que cierra el spa"
+                android:paddingLeft="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/outTime_label" />
+
+            <TextView
+                android:id="@+id/description_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Descripción"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/outTime_et" />
+
+            <EditText
+                android:id="@+id/description_et"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/edittext_rounded"
+                android:ems="10"
                 android:inputType="text"
+                android:hint="Breve descripción del Spa"
+                android:paddingLeft="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sexo_label" />
-
-            <TextView
-                android:id="@+id/fecha_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="Fecha de nacimiento"
-                android:textColor="@color/black"
-                android:textSize="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sexo_et" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/et_dia"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:hint="Dia"
-                    android:inputType="number" />
-
-                <EditText
-                    android:id="@+id/et_mes"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:hint="Mes"
-                    android:inputType="number" />
-
-                <EditText
-                    android:id="@+id/et_ano"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:hint="Año"
-                    android:inputType="number" />
-            </LinearLayout>
+                app:layout_constraintTop_toBottomOf="@+id/description_label" />
 
             <LinearLayout
                 android:layout_width="match_parent"
