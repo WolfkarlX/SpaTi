@@ -36,7 +36,7 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val opcionesSexo = arrayOf("Hombre", "Mujer")
-            val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, opcionesSexo)
+        val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, opcionesSexo)
         binding.sexoEt.setAdapter(adapter)
 
         binding.sexoEt.setOnClickListener {
