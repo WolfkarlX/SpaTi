@@ -130,6 +130,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/telefono_et" />
 
+            <!-- Menú desplegable próximo a usar
             <AutoCompleteTextView
                 android:id="@+id/sexoEt"
                 android:layout_width="match_parent"
@@ -147,6 +148,26 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sexo_label" />
+                -->
+
+            <EditText
+                android:id="@+id/sexoEt"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/edittext_rounded"
+                android:hint="Sexo"
+                android:inputType="text"
+                android:paddingLeft="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sexo_label" />
+
 
             <TextView
                 android:id="@+id/fecha_label"

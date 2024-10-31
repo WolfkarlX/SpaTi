@@ -41,13 +41,14 @@ class EditProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val opcionesSexo = arrayOf("Hombre", "Mujer")
+        //Menú desplegable próximo a usar
+        /*val opcionesSexo = arrayOf("Hombre", "Mujer")
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, opcionesSexo)
         binding.sexoEt.setAdapter(adapter)
 
         binding.sexoEt.setOnClickListener {
             binding.sexoEt.showDropDown()
-        }
+        }*/
 
         // Call observer method to observe session state
         observer()
