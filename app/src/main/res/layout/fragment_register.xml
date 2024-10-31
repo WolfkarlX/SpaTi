@@ -90,7 +90,7 @@
             android:background="@drawable/edittext_rounded"
             
             android:inputType="textPassword"
-            android:hint="Ingrese una contraseña segura"
+            android:hint="Ingrese la que será su contraseña"
             android:paddingLeft="16dp"
             app:layout_constraintEnd_toEndOf="@+id/email_et"
             app:layout_constraintHorizontal_bias="0.0"
@@ -209,8 +209,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/telefono_et" />
 
-        <EditText
-            android:id="@+id/sexo_et"
+        <AutoCompleteTextView
+            android:id="@+id/sexoEt"
             android:layout_width="match_parent"
             android:layout_height="38dp"
             android:layout_marginStart="16dp"
@@ -219,10 +219,9 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/edittext_rounded"
-            android:ems="10"
             android:hint="Sexo"
+            android:inputType="none"
             android:paddingLeft="16dp"
-            android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -239,7 +238,7 @@
             android:textColor="@color/black"
             android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sexo_et" />
+            app:layout_constraintTop_toBottomOf="@+id/sexoEt" />
 
         <LinearLayout
             android:id="@+id/date_label"
@@ -273,14 +272,16 @@
                 android:hint="Año"
                 android:inputType="number"/>
         </LinearLayout>
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:id="@+id/terminos"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="30dp"
             android:layout_marginTop="16dp"
+            android:layout_marginLeft="15dp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/date_label">
 
             <CheckBox
@@ -294,15 +295,14 @@
                 android:id="@+id/termsTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
                 android:textColor="#198b0f"
                 android:layout_marginStart="8dp"
                 android:text="Consulte aquí"
                 android:textStyle="bold"
                 android:clickable="true"
-                android:focusable="true"/>
+                android:focusable="true"
+                android:textSize="15dp"/>
         </LinearLayout>
-
 
         <RelativeLayout
             android:id="@+id/button_layout"
@@ -348,6 +348,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
         </LinearLayout>
+
+        <!--<ImageView
+            android:id="@+id/imgFondoSuperior"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="456dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/fondo_hojas"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" /> -->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
