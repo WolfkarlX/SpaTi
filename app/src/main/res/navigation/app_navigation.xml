@@ -131,6 +131,9 @@
         <action
             android:id="@+id/action_userHomeFragment_to_appointmentsFragment"
             app:destination="@+id/appointmentsFragment"/>
+        <action
+            android:id="@+id/action_userHomeFragment_to_spaDetailFragment"
+            app:destination="@+id/spaDetailFragment"/>
     </fragment>
 
     <fragment
@@ -174,4 +177,10 @@
             app:destination="@+id/spaHomeFragment"/>
     </fragment>
 
+    <fragment
+        android:id="@+id/spaDetailFragment"
+        android:name="com.example.spaTi.ui.spa.SpaDetailFragment"
+        android:label="fragment_spa_detail"
+        tools:layout="@layout/fragment_spa_detail">
+    </fragment>
 </navigation>

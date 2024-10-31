@@ -3,6 +3,7 @@ package com.example.spaTi.ui.spa
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.spaTi.data.models.Service
 import com.example.spaTi.data.models.Spa
 import com.example.spaTi.data.repository.SpaRepository
 import com.example.spaTi.util.UiState
@@ -21,6 +22,10 @@ class SpaViewModel @Inject constructor(
     val getSpaById: LiveData<UiState<Spa?>>
         get() = _getSpaById
 
+    private val _getServicesBySpaId = MutableLiveData<UiState<List<Service>>>(UiState.Loading)
+    val getServicesBySpaId: LiveData<UiState<List<Service>>>
+        get() = _getServicesBySpaId
+
     fun getSpas() {
         _spas.value = UiState.Loading
         repository.getSpas { _spas.value = it }
@@ -29,5 +34,10 @@ class SpaViewModel @Inject constructor(
     fun getSpaById(id: String) {
         _getSpaById.value = UiState.Loading
         repository.getSpaById(id) { _getSpaById.value = it }
+    }
+
+    fun getServicesBySpaId(id: String) {
+        _getServicesBySpaId.value = UiState.Loading
+        repository.getServicesBySpaId(id) { _getServicesBySpaId.value = it }
     }
 }
