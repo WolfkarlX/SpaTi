@@ -1,5 +1,6 @@
 package com.example.spaTi.data.repository
 
+import com.example.spaTi.data.models.Service
 import com.example.spaTi.data.models.Spa
 import com.example.spaTi.util.FireStoreCollection
 import com.example.spaTi.util.UiState
@@ -51,6 +52,21 @@ class SpaRepositoryImpl (
             }
             .addOnFailureListener {
                 result.invoke(UiState.Failure(it.localizedMessage))
+            }
+    }
+
+    override fun getServicesBySpaId(id: String, result: (UiState<List<Service>>) -> Unit) {
+        database.collection(FireStoreCollection.SERVICE)
+            .whereEqualTo("spaId", id)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                val services = snapshot.documents.mapNotNull { document ->
+                    document.toObject(Service::class.java)
+                }
+                result(UiState.Success(services))
+            }
+            .addOnFailureListener {
+                result(UiState.Failure(it.localizedMessage))
             }
     }
 
