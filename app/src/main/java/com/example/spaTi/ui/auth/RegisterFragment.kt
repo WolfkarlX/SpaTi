@@ -35,7 +35,7 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val opcionesSexo = arrayOf("Hombre", "Mujer", "39 tipos de gay")
+        val opcionesSexo = arrayOf("Hombre", "Mujer")
             val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, opcionesSexo)
         binding.sexoEt.setAdapter(adapter)
 
