@@ -165,13 +165,43 @@
 
     <fragment
         android:id="@+id/myaccountspaFragment"
-        android:name="com.example.spaTi.ui.spaHome.MyAccountSpaFragment"
+        android:name="com.example.spaTi.ui.SpaProfile.MyAccountSpaFragment"
         android:label="fragment_appointments"
         tools:layout="@layout/fragment_my_account_spa">
 
         <action
             android:id="@+id/action_MyAccountSpaFragment_to_spaHomeFragment"
             app:destination="@+id/spaHomeFragment"/>
+
+        <action
+            android:id="@+id/action_MyAccountSpaFragment_to_myspaFragment"
+            app:destination="@+id/myspaFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/myspaFragment"
+        android:name="com.example.spaTi.ui.SpaProfile.MySpaFragment"
+        android:label="fragment_myspafragment"
+        tools:layout="@layout/fragment_my_spa">
+
+        <action
+            android:id="@+id/action_myspaFragment_to_myaccountspaFragment"
+            app:destination="@+id/myaccountspaFragment"/>
+
+        <action
+            android:id="@+id/action_myspaFragment_to_myspaeditFragment"
+            app:destination="@+id/myspaeditFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/myspaeditFragment"
+        android:name="com.example.spaTi.ui.SpaProfile.MySpaEditFragment"
+        android:label="fragment_myspaeditfragment"
+        tools:layout="@layout/fragment_my_spa_edit">
+
+        <action
+            android:id="@+id/action_myspaeditFragment_to_myspaFragment"
+            app:destination="@+id/myspaFragment"/>
     </fragment>
 
 </navigation>

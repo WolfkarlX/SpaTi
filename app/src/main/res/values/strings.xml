@@ -17,6 +17,16 @@
     <string name="enter_day">Enter day</string>
     <string name="enter_month">Enter month</string>
     <string name="enter_year">Enter year</string>
+    <string name="enter_spaname">Enter spa name</string>
+    <string name="enter_location">Enter location</string>
+    <string name="input_hour">Enter hour</string>
+    <string name="enter_time_output">Enter time output</string>
+
+
+
+
+
+
     <string name="invalid_cellphone_number">Invalid Cellphone Number</string>
     <string name="enter_password">Enter password</string>
     <string name="invalid_age">You are under the age permitted</string>
@@ -31,6 +41,14 @@
     <string name="invalid_description_does_not_exists">Input a description</string>
     <string name="invalid_description_too_long">Description should be between 20 and 500 characters and avoid special characters.</string>
     <string name="invalid_description_consecutive_repeated">Description should not have repeated characters.</string>
+    <string name="invalid_time_input">Invalid time input</string>
+    <string name="invalid_time_output">Invalid time output</string>
+    <string name="invalid_day">Invalid day</string>
+    <string name="invalid_month">Invalid month</string>
+    <string name="invalid_year">Invalid year</string>
+
+
+
 
 
 </resources>

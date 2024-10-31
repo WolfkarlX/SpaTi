@@ -1,130 +1,102 @@
-package com.example.spaTi.ui.SpaAuth
+package com.example.spaTi.ui.SpaProfile
 
 import android.annotation.SuppressLint
-import android.os.Build
+import android.app.ProgressDialog.show
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
+import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.spaTi.R
 import com.example.spaTi.data.models.Spa
 import com.example.spaTi.data.models.User
-import com.example.spaTi.databinding.FragmentSpaRegisterBinding
-//import com.example.spaTi.ui.auth.AuthViewModel
-import com.example.spaTi.ui.auth.SpaAuthViewModel
+import com.example.spaTi.databinding.FragmentMySpaEditBinding
+import com.example.spaTi.ui.Profile.ProfileViewModel
+import com.example.spaTi.ui.spa.SpaViewModel
 import com.example.spaTi.util.UiState
+import com.example.spaTi.util.extractNumbersFromDate
+import com.example.spaTi.util.getAge
 import com.example.spaTi.util.hide
 import com.example.spaTi.util.isValidEmail
 import com.example.spaTi.util.show
 import com.example.spaTi.util.toast
 import com.example.spaTi.util.validatePassword
-import com.google.protobuf.Internal.BooleanList
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
+import java.util.Date
 
 @AndroidEntryPoint
-class SpaRegisterFragment : Fragment() {
-    val TAG: String = "SpaRegisterFragment"
-    lateinit var binding: FragmentSpaRegisterBinding
-    val viewModel: SpaAuthViewModel by viewModels()
+class MySpaEditFragment : Fragment() {
+
+    var id = ""
+    var email = ""
+    val TAG: String = "MySpaEditFragment"
+    var createdAt: Date? = null
+    val viewModel: MySpaViewModel by viewModels()
+
+    private var _binding: FragmentMySpaEditBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSpaRegisterBinding.inflate(layoutInflater)
+        _binding = FragmentMySpaEditBinding.inflate(layoutInflater)
         return binding.root
     }
 
-    @SuppressLint("NewApi")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                //Do nothing
+            }
+        })
+
+        // Call observer method to observe session state
         observer()
-        binding.termsTextView.setOnClickListener {
-            findNavController().navigate(R.id.action_registerSpaFragment_to_TermsFragment)
-        }
-        binding.registerBtn.setOnClickListener {
-            if (validation()){
-                viewModel.registerSpa(
-                    email = binding.emailSpaEt.text.toString(),
-                    password = binding.passSpaEt.text.toString(),
-                    spa = getSpaObj(),
-                )
+        viewModel.getSession()
+
+        // Edit button navigation
+        binding.btnGuardar.setOnClickListener {
+            if(validation()){
+                observeEdit()
+
+                val spa = getUserObj()
+                viewModel.editUser(spa = getUserObj())
             }
         }
-    }
 
-    fun observer() {
-        viewModel.register.observe(viewLifecycleOwner) { state ->
-            when(state){
-                is UiState.Loading -> {
-                    Log.d("SpaRegisterFragment observer", "LOADING")
-                    binding.registerBtn.setText("")
-                    binding.registerProgress.show()
-                }
-                is UiState.Failure -> {
-                    Log.d("SpaRegisterFragment observer", "FAILURE")
-                    binding.registerBtn.setText("Register")
-                    binding.registerProgress.hide()
-                    toast(state.error)
-                }
-                is UiState.Success -> {
-                    Log.d("SpaRegisterFragment observer", "SUCCESS")
-                    binding.registerBtn.setText("Register")
-                    binding.registerProgress.hide()
-                    toast(state.data)
-                    findNavController().navigate(R.id.action_registerSpaFragment_to_loginFragment)
-                }
-            }
+        binding.btnCancelar.setOnClickListener {
+            findNavController().navigate(R.id.action_myspaeditFragment_to_myspaFragment)
         }
+
     }
 
-    fun getSpaObj(): Spa {
+    fun getUserObj(): Spa {
         return Spa(
-            id = "",
+            id = id,
             spa_name = binding.spaNameEt.text.toString(),
             location = binding.locationSpaEt.text.toString(),
-            email = binding.emailSpaEt.text.toString(),
+            email = email,
             cellphone = binding.telSpaEt.text.toString(),
             description = binding.descriptionEt.text.toString(),
-            inTime = binding.inTimeEt.text.toString(),
-            outTime = binding.outTimeEt.text.toString(),
             type = "2",
+            inTime = binding.inTimeEt.text.toString(),
+            createdAt = createdAt ?: Date(),
+            updatedAt = Date(), // Set the new updatedAt for the current update
+            outTime = binding.outTimeEt.text.toString(),
         )
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun validation(): Boolean {
-
-        if (binding.emailSpaLabel.text.isNullOrEmpty()){
-            toast(getString(R.string.enter_email))
-            return false
-        } else {
-            if (!binding.emailSpaEt.text.toString().isValidEmail()){
-                toast(getString(R.string.invalid_email))
-                return false
-            }
-        }
-
-        if (binding.passSpaEt.text.isNullOrEmpty()){
-            toast(getString(R.string.enter_password))
-            return false
-        } else {
-            val (isValid, message) = validatePassword(requireContext(), binding.passSpaEt.text.toString())
-
-            if(!isValid){
-                toast(message)
-                return false
-            }
-
-        }
 
         if (binding.spaNameEt.text.isNullOrEmpty()){
             toast(getString(R.string.enter_spaname))
@@ -135,7 +107,6 @@ class SpaRegisterFragment : Fragment() {
             toast(getString(R.string.enter_location))
             return false
         }
-
 
         if (binding.telSpaEt.text.isNullOrEmpty()){
             toast(getString(R.string.enter_cellphone))
@@ -155,7 +126,6 @@ class SpaRegisterFragment : Fragment() {
 
             if (validTime != null) {
                 binding.inTimeEt.setText(validTime)
-                Log.d("XDDD", validTime) // Output: 12:00
             } else {
                 toast(getString(R.string.invalid_time_input))
                 return false
@@ -195,12 +165,71 @@ class SpaRegisterFragment : Fragment() {
             }
         }
 
-        if (!binding.termsCheckbox.isChecked) {
-            toast(getString(R.string.check_terms))
-            return false
-        }
-
         return true
+    }
+
+    // Observe the session LiveData from the ViewModel
+    fun observer() {
+        viewModel.session.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is UiState.Loading -> {
+                    // Show progress or loading indicator
+                    binding.sessionProgress.show()
+                }
+                is UiState.Failure -> {
+                    // Hide progress and show error message
+                    binding.sessionProgress.hide()
+                    toast(state.error)
+                }
+                is UiState.Success -> {
+                    // Hide progress and display user data
+                    binding.sessionProgress.hide()
+                    setData(state.data) // Call setData to update UI with user info
+                }
+            }
+        }
+    }
+
+    fun observeEdit() {
+        viewModel.editUser.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is UiState.Loading -> {
+                    // Show progress or loading indicator
+                    binding.sessionProgress.show()
+                }
+                is UiState.Failure -> {
+                    // Hide progress and show error message
+                    binding.sessionProgress.hide()
+                    toast(state.error)
+                }
+                is UiState.Success -> {
+                    // Hide progress and display user data
+                    binding.sessionProgress.hide()
+                    toast(state.data)
+                    CleanInputs()
+                    findNavController().navigate(R.id.action_myspaeditFragment_to_myspaFragment)
+
+                }
+            }
+        }
+    }
+
+    fun setData(user: Spa?) {
+        user?.let {
+            email = it.email
+            id = it.id
+
+            createdAt = it.createdAt // Store createdAt for future updates
+            Log.d("DEBUG", "Current createdAt: $createdAt")
+
+
+            binding.spaNameEt.setText(it.spa_name)
+            binding.locationSpaEt.setText(it.location)
+            binding.telSpaEt.setText(it.cellphone)
+            binding.inTimeEt.setText(it.inTime)
+            binding.outTimeEt.setText(it.outTime)
+            binding.descriptionEt.setText(it.description)
+        }
     }
 
     @SuppressLint("NewApi")
@@ -227,13 +256,17 @@ class SpaRegisterFragment : Fragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        viewModel.getSession { spa ->
-            if (spa != null){
-                findNavController().navigate(R.id.action_loginFragment_to_spaHomeFragment)
-            }
-        }
+    fun CleanInputs() {
+        binding.spaNameEt.setText("")
+        binding.locationSpaEt.setText("")
+        binding.telSpaEt.setText("")
+        binding.inTimeEt.setText("")
+        binding.outTimeEt.setText("")
+        binding.descriptionEt.setText("")
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
