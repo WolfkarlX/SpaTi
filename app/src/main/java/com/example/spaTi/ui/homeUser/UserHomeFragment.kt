@@ -1,15 +1,15 @@
 package com.example.spaTi.ui.homeUser
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
-import androidx.recyclerview.widget.RecyclerView
+import com.example.spaTi.R
 import com.example.spaTi.data.models.Spa
 import com.example.spaTi.databinding.FragmentUserHomeBinding
 import com.example.spaTi.ui.spa.SpaViewModel
@@ -18,7 +18,6 @@ import com.example.spaTi.util.hide
 import com.example.spaTi.util.show
 import com.example.spaTi.util.toast
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class UserHomeFragment : Fragment() {
@@ -28,17 +27,17 @@ class UserHomeFragment : Fragment() {
 
     val spasAdapter by lazy {
         SpasAdapter { _, item ->
-            Bundle().apply {
-                putParcelable("service", item)
-            }
+            findNavController().navigate(R.id.action_userHomeFragment_to_spaDetailFragment, Bundle().apply {
+                putParcelable("spa", item)
+            })
         }
     }
 
     val spasFavoritesAdapter by lazy {
         SpasAdapter { _, item ->
-            Bundle().apply {
-                putParcelable("serviceFavorites", item)
-            }
+            findNavController().navigate(R.id.action_userHomeFragment_to_spaDetailFragment, Bundle().apply {
+                putParcelable("spaFavorites", item)
+            })
         }
     }
 
