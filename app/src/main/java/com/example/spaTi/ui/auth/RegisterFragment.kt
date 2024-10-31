@@ -1,11 +1,11 @@
 package com.example.spaTi.ui.auth
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.spaTi.R
@@ -21,7 +21,7 @@ class RegisterFragment : Fragment() {
 
     var age = 0
     val TAG: String = "RegisterFragment"
-    lateinit var binding:  FragmentRegisterBinding
+    lateinit var binding: FragmentRegisterBinding
     val viewModel: AuthViewModel by viewModels()
 
     override fun onCreateView(
@@ -34,10 +34,21 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val opcionesSexo = arrayOf("Hombre", "Mujer")
+        val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, opcionesSexo)
+        binding.sexoEt.setAdapter(adapter)
+
+        binding.sexoEt.setOnClickListener {
+            binding.sexoEt.showDropDown()
+        }
+
         observer()
+
         binding.termsTextView.setOnClickListener {
             findNavController().navigate(R.id.action_registerFragment_to_TermsFragment)
         }
+
         binding.registerBtn.setOnClickListener {
             if (validation()){
                 viewModel.register(
@@ -53,16 +64,16 @@ class RegisterFragment : Fragment() {
         viewModel.register.observe(viewLifecycleOwner) { state ->
             when(state){
                 is UiState.Loading -> {
-                    binding.registerBtn.setText("")
+                    binding.registerBtn.text = ""
                     binding.registerProgress.show()
                 }
                 is UiState.Failure -> {
-                    binding.registerBtn.setText("Register")
+                    binding.registerBtn.text = "Register"
                     binding.registerProgress.hide()
                     toast(state.error)
                 }
                 is UiState.Success -> {
-                    binding.registerBtn.setText("Register")
+                    binding.registerBtn.text = "Register"
                     binding.registerProgress.hide()
                     toast(state.data)
                     findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
@@ -79,7 +90,7 @@ class RegisterFragment : Fragment() {
             email = binding.emailEt.text.toString(),
             cellphone = binding.telefonoEt.text.toString(),
             sex = binding.sexoEt.text.toString(),
-            bornday = "" + binding.diaEt.text.toString() + "/"+ binding.mesEt.text.toString()+ "/" + binding.anoEt.text.toString(),
+            bornday = "${binding.diaEt.text}/${binding.mesEt.text}/${binding.anoEt.text}",
             age = age.toString(),
             type = "1",
         )
@@ -163,5 +174,4 @@ class RegisterFragment : Fragment() {
             }
         }
     }
-
 }
