@@ -15,6 +15,7 @@ import com.example.spaTi.util.*
 import com.example.spaTi.ui.auth.AuthViewModel
 import com.example.spaTi.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Calendar
 
 @AndroidEntryPoint
 class RegisterFragment : Fragment() {
@@ -115,6 +116,21 @@ class RegisterFragment : Fragment() {
                 toast(getString(R.string.invalid_cellphone_number))
                 return false
             }
+
+            val phoneNumber = binding.telefonoEt.text.toString()
+
+            // Check if the number has at least three unique digits (to avoid repeated patterns like "3444444444")
+            if (phoneNumber.toSet().size < 4) {
+                toast(getString(R.string.invalid_cellphone_number))
+                return false
+            }
+
+            // Example pattern check: Ensure the number doesn't start with 0 or 1, common in some countries for invalid numbers
+            if (phoneNumber.startsWith("0") || phoneNumber.startsWith("1")) {
+                toast(getString(R.string.invalid_cellphone_number))
+                return false
+            }
+
         }
 
         if (binding.sexoEt.text.isNullOrEmpty()){
@@ -130,6 +146,28 @@ class RegisterFragment : Fragment() {
             }
             return false
         }else{
+
+            val day = binding.diaEt.text.toString().toIntOrNull()
+            if (day == null || day <= 0 || day > 31) {
+                toast(getString(R.string.invalid_day))
+                return false
+            }
+
+            // Validate month (1-12)
+            val month = binding.mesEt.text.toString().toIntOrNull()
+            if (month == null || month <= 0 || month > 12) {
+                toast(getString(R.string.invalid_month))
+                return false
+            }
+
+            // Validate year (greater than 1900 and less than the current year)
+            val year = binding.anoEt.text.toString().toIntOrNull()
+            val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+            if (year == null || year <= 1900 || year >= currentYear) {
+                toast(getString(R.string.invalid_year))
+                return false
+            }
+
             age = getAge(binding.diaEt.text.toString().toInt(), binding.mesEt.text.toString().toInt(), binding.anoEt.text.toString().toInt())
             if (age < 18) {
                 toast(getString(R.string.invalid_age))

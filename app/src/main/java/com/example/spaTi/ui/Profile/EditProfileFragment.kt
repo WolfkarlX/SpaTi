@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,9 +17,12 @@ import com.example.spaTi.util.UiState
 import com.example.spaTi.util.extractNumbersFromDate
 import com.example.spaTi.util.getAge
 import com.example.spaTi.util.hide
+import com.example.spaTi.util.isValidEmail
 import com.example.spaTi.util.show
 import com.example.spaTi.util.toast
+import com.example.spaTi.util.validatePassword
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Calendar
 
 @AndroidEntryPoint
 class EditProfileFragment : Fragment() {
@@ -41,6 +45,12 @@ class EditProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                //Do nothing
+            }
+        })
+        
         //Menú desplegable próximo a usar
         /*val opcionesSexo = arrayOf("Hombre", "Mujer")
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, opcionesSexo)
@@ -59,7 +69,6 @@ class EditProfileFragment : Fragment() {
             if(validation()){
                 observeEdit()
 
-                val user = getUserObj()
                 viewModel.editUser(user = getUserObj())
             }
         }
@@ -84,17 +93,86 @@ class EditProfileFragment : Fragment() {
         )
     }
 
-    fun validation():Boolean{
-        var isValid = true
-
-        age = getAge(binding.etDia.text.toString().toInt(), binding.etMes.text.toString().toInt(), binding.etAno.text.toString().toInt())
-        if (age < 18) {
-            isValid = false
-            toast(getString(R.string.invalid_age))
+    fun validation(): Boolean {
+        if (binding.etNombre.text.isNullOrEmpty()){
+            toast(getString(R.string.enter_first_name))
+            return false
         }
 
-        return isValid
+        if (binding.lastNameEt.text.isNullOrEmpty()){
+            toast(getString(R.string.enter_last_name))
+            return false
+        }
+
+        if (binding.telefonoEt.text.isNullOrEmpty()){
+            toast(getString(R.string.enter_cellphone))
+            return false
+        } else {
+            if (binding.telefonoEt.text.toString().length < 10 || binding.telefonoEt.text.toString().length > 15) {
+                toast(getString(R.string.invalid_cellphone_number))
+                return false
+            }
+
+            val phoneNumber = binding.telefonoEt.text.toString()
+
+            // Check if the number has at least three unique digits (to avoid repeated patterns like "3444444444")
+            if (phoneNumber.toSet().size < 4) {
+                toast(getString(R.string.invalid_cellphone_number))
+                return false
+            }
+
+            // Example pattern check: Ensure the number doesn't start with 0 or 1, common in some countries for invalid numbers
+            if (phoneNumber.startsWith("0") || phoneNumber.startsWith("1")) {
+                toast(getString(R.string.invalid_cellphone_number))
+                return false
+            }
+        }
+
+        if (binding.sexoEt.text.isNullOrEmpty()){
+            toast(getString(R.string.enter_sex))
+            return false
+        }
+
+        if (binding.etDia.text.isNullOrEmpty() || binding.etMes.text.isNullOrEmpty() || binding.etAno.text.isNullOrEmpty()) {
+            when {
+                binding.etDia.text.isNullOrEmpty() -> toast(getString(R.string.enter_day))
+                binding.etMes.text.isNullOrEmpty() -> toast(getString(R.string.enter_month))
+                binding.etAno.text.isNullOrEmpty() -> toast(getString(R.string.enter_year))
+            }
+            return false
+        }else{
+
+            val day = binding.etDia.text.toString().toIntOrNull()
+            if (day == null || day <= 0 || day > 31) {
+                toast(getString(R.string.invalid_day))
+                return false
+            }
+
+            // Validate month (1-12)
+            val month = binding.etMes.text.toString().toIntOrNull()
+            if (month == null || month <= 0 || month > 12) {
+                toast(getString(R.string.invalid_month))
+                return false
+            }
+
+            // Validate year (greater than 1900 and less than the current year)
+            val year = binding.etAno.text.toString().toIntOrNull()
+            val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+            if (year == null || year <= 1900 || year >= currentYear) {
+                toast(getString(R.string.invalid_year))
+                return false
+            }
+
+            age = getAge(binding.etDia.text.toString().toInt(), binding.etMes.text.toString().toInt(), binding.etAno.text.toString().toInt())
+            if (age < 18) {
+                toast(getString(R.string.invalid_age))
+                return false
+            }
+        }
+
+        return true
     }
+
 
     // Observe the session LiveData from the ViewModel
     fun observer() {
@@ -134,6 +212,7 @@ class EditProfileFragment : Fragment() {
                     // Hide progress and display user data
                     binding.progressBar.hide()
                     toast(state.data)
+                    CleanInputs()
                     findNavController().navigate(R.id.action_editprofileFragment_to_myprofileFragment)
 
                 }
@@ -156,5 +235,15 @@ class EditProfileFragment : Fragment() {
             binding.etAno.setText(bornday[2])
 
         }
+    }
+
+    fun CleanInputs() {
+        binding.etNombre.setText("")
+        binding.lastNameEt.setText("")
+        binding.telefonoEt.setText("")
+        binding.sexoEt.setText("")
+        binding.etDia.setText("")
+        binding.etMes.setText("")
+        binding.etAno.setText("")
     }
 }
