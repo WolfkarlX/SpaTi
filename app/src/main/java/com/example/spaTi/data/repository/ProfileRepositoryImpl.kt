@@ -1,12 +1,11 @@
 package com.example.spaTi.data.repository
 
 import android.content.SharedPreferences
-import android.util.Log
 import com.example.spaTi.data.models.User
 import com.example.spaTi.util.FireStoreCollection
 import com.example.spaTi.util.SharedPrefConstants
 import com.example.spaTi.util.UiState
-import com.google.firebase.auth.*
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 
@@ -17,28 +16,21 @@ class ProfileRepositoryImpl(
     val gson: Gson
 ) : ProfileRepository {
 
-
     override fun updateUserInfo(user: User, result: (UiState<String>) -> Unit) {
         val document = database.collection(FireStoreCollection.USER).document(user.id)
         document
             .set(user)
             .addOnSuccessListener {
                 storeSession(user.id) {
-                    if (it == null){
+                    if (it == null) {
                         result.invoke(UiState.Failure("User updated successfully but session failed to store"))
-                    }else{
-                        result.invoke(
-                            UiState.Success("User updated successfully!")
-                        )
+                    } else {
+                        result.invoke(UiState.Success("User updated successfully!"))
                     }
                 }
             }
             .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
+                result.invoke(UiState.Failure(it.localizedMessage))
             }
     }
 
@@ -47,18 +39,18 @@ class ProfileRepositoryImpl(
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     result.invoke(UiState.Success("Email has been sent"))
-
                 } else {
                     result.invoke(UiState.Failure(task.exception?.message))
                 }
-            }.addOnFailureListener {
+            }
+            .addOnFailureListener {
                 result.invoke(UiState.Failure("Authentication failed, Check email"))
             }
     }
 
     override fun logout(result: () -> Unit) {
         auth.signOut()
-        appPreferences.edit().putString(SharedPrefConstants.USER_SESSION,null).apply()
+        appPreferences.edit().putString(SharedPrefConstants.USER_SESSION, null).apply()
         result.invoke()
     }
 
@@ -66,11 +58,11 @@ class ProfileRepositoryImpl(
         database.collection(FireStoreCollection.USER).document(id)
             .get()
             .addOnCompleteListener {
-                if (it.isSuccessful){
+                if (it.isSuccessful) {
                     val user = it.result.toObject(User::class.java)
-                    appPreferences.edit().putString(SharedPrefConstants.USER_SESSION,gson.toJson(user)).apply()
+                    appPreferences.edit().putString(SharedPrefConstants.USER_SESSION, gson.toJson(user)).apply()
                     result.invoke(user)
-                }else{
+                } else {
                     result.invoke(null)
                 }
             }
@@ -80,13 +72,45 @@ class ProfileRepositoryImpl(
     }
 
     override fun getSession(result: (User?) -> Unit) {
-        val user_str = appPreferences.getString(SharedPrefConstants.USER_SESSION,null)
-        if (user_str == null){
+        val userStr = appPreferences.getString(SharedPrefConstants.USER_SESSION, null)
+        if (userStr == null) {
             result.invoke(null)
-        }else{
-            val user = gson.fromJson(user_str,User::class.java)
+        } else {
+            val user = gson.fromJson(userStr, User::class.java)
             result.invoke(user)
         }
     }
 
+    // New function to sync session with the database and update local session
+    override fun syncSessionWithDatabase(result: (UiState<User>) -> Unit) {
+        getSession { localUser ->
+            if (localUser == null) {
+                result.invoke(UiState.Failure("No local session found."))
+                return@getSession
+            }
+
+            val document = database.collection(FireStoreCollection.USER).document(localUser.id)
+            document.get()
+                .addOnSuccessListener { documentSnapshot ->
+                    if (documentSnapshot.exists()) {
+                        val dbUser = documentSnapshot.toObject(User::class.java)
+                        if (dbUser != null) {
+                            // Update the local session with the data from the database
+                            appPreferences.edit()
+                                .putString(SharedPrefConstants.USER_SESSION, gson.toJson(dbUser))
+                                .apply()
+
+                            result.invoke(UiState.Success(dbUser))
+                        } else {
+                            result.invoke(UiState.Failure("Failed to parse session data from database."))
+                        }
+                    } else {
+                        result.invoke(UiState.Failure("Session does not exist."))
+                    }
+                }
+                .addOnFailureListener {
+                    result.invoke(UiState.Failure("Failed to retrieve session from database: ${it.localizedMessage}"))
+                }
+        }
+    }
 }

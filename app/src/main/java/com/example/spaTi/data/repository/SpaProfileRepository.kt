@@ -9,4 +9,5 @@ interface SpaProfileRepository {
     fun logout(result: () -> Unit)
     fun storeSession(id: String, result: (Spa?) -> Unit)
     fun getSession(result: (Spa?) -> Unit)
+    fun syncSessionWithDatabase(result: (UiState<Spa>) -> Unit)
 }
