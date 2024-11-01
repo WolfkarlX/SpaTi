@@ -1,5 +1,6 @@
 package com.example.spaTi.data.repository
 
+import com.example.spaTi.data.models.Service
 import com.example.spaTi.data.models.Spa
 import com.example.spaTi.util.UiState
 
@@ -10,5 +11,6 @@ interface SpaRepository {
 //    fun deleteSpa(spa: Spa, result: (UiState<String>) -> Unit)
 
     fun getSpaById(id: String, result: (UiState<Spa?>) -> Unit)
+    fun getServicesBySpaId(id: String, result: (UiState<List<Service>>) -> Unit)
 //    fun searchSpas(query: String, result: (UiState<List<Spa>>) -> Unit)
 }

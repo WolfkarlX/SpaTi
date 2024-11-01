@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -49,6 +50,15 @@ class EditProfileFragment : Fragment() {
                 //Do nothing
             }
         })
+        
+        //Menú desplegable próximo a usar
+        /*val opcionesSexo = arrayOf("Hombre", "Mujer")
+        val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, opcionesSexo)
+        binding.sexoEt.setAdapter(adapter)
+
+        binding.sexoEt.setOnClickListener {
+            binding.sexoEt.showDropDown()
+        }*/
 
         // Call observer method to observe session state
         observer()
@@ -170,16 +180,16 @@ class EditProfileFragment : Fragment() {
             when (state) {
                 is UiState.Loading -> {
                     // Show progress or loading indicator
-                    binding.sessionProgress.show()
+                    binding.progressBar.show()
                 }
                 is UiState.Failure -> {
                     // Hide progress and show error message
-                    binding.sessionProgress.hide()
+                    binding.progressBar.hide()
                     toast(state.error)
                 }
                 is UiState.Success -> {
                     // Hide progress and display user data
-                    binding.sessionProgress.hide()
+                    binding.progressBar.hide()
                     setData(state.data) // Call setData to update UI with user info
                 }
             }
@@ -191,16 +201,16 @@ class EditProfileFragment : Fragment() {
             when (state) {
                 is UiState.Loading -> {
                     // Show progress or loading indicator
-                    binding.sessionProgress.show()
+                    binding.progressBar.show()
                 }
                 is UiState.Failure -> {
                     // Hide progress and show error message
-                    binding.sessionProgress.hide()
+                    binding.progressBar.hide()
                     toast(state.error)
                 }
                 is UiState.Success -> {
                     // Hide progress and display user data
-                    binding.sessionProgress.hide()
+                    binding.progressBar.hide()
                     toast(state.data)
                     CleanInputs()
                     findNavController().navigate(R.id.action_editprofileFragment_to_myprofileFragment)
