@@ -105,7 +105,7 @@ class ProfileRepositoryImpl(
                             result.invoke(UiState.Failure("Failed to parse session data from database."))
                         }
                     } else {
-                        result.invoke(UiState.Failure("Session does not exist in the database."))
+                        result.invoke(UiState.Failure("Session does not exist."))
                     }
                 }
                 .addOnFailureListener {

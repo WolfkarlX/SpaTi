@@ -61,6 +61,9 @@ class MyAccountSpaFragment : Fragment() {
                     // Hide progress and show error message
                     binding.sessionProgress.hide()
                     toast(state.error)
+                    viewModel.logout {
+                        findNavController().navigate(R.id.action_MyAccountSpaFragment_to_loginFragment)
+                    }
                 }
                 is UiState.Success -> {
                     // Hide progress and display user data

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import com.example.spaTi.R
 import com.example.spaTi.data.models.Spa
@@ -66,6 +67,9 @@ class MySpaFragment : Fragment() {
                     // Hide progress and show error message
                     binding.sessionProgress.hide()
                     toast(state.error)
+                    viewModel.logout {
+                        findNavController().navigate(R.id.action_myspaFragment_to_loginFragment)
+                    }
                 }
                 is UiState.Success -> {
                     // Hide progress and display user data
