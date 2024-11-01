@@ -19,8 +19,8 @@
     <string name="enter_year">Enter year</string>
     <string name="enter_spaname">Enter spa name</string>
     <string name="enter_location">Enter location</string>
-    <string name="input_hour">Enter hour</string>
-    <string name="enter_time_output">Enter time output</string>
+    <string name="input_hour">Enter input hour</string>
+    <string name="enter_time_output">Enter output hour</string>
 
 
 

@@ -116,6 +116,21 @@ class MySpaEditFragment : Fragment() {
                 toast(getString(R.string.invalid_cellphone_number))
                 return false
             }
+
+            val phoneNumber = binding.telSpaEt.text.toString()
+
+            // Check if the number has at least three unique digits (to avoid repeated patterns like "3444444444")
+            if (phoneNumber.toSet().size < 4) {
+                toast(getString(R.string.invalid_cellphone_number))
+                return false
+            }
+
+            // Example pattern check: Ensure the number doesn't start with 0 or 1, common in some countries for invalid numbers
+            if (phoneNumber.startsWith("0") || phoneNumber.startsWith("1")) {
+                toast(getString(R.string.invalid_cellphone_number))
+                return false
+            }
+
         }
 
         if(binding.inTimeEt.text.isNullOrEmpty()){
