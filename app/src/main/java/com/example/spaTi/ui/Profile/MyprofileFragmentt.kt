@@ -44,7 +44,7 @@ class MyprofileFragmentt : Fragment() {
 
         // Call observer method to observe session state
         observer()
-        viewModel.getSession()
+        viewModel.syncSessionWithDatabase()
 
         // Edit button navigation
         binding.editButton.setOnClickListener {

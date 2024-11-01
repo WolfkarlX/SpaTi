@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.spaTi.R
 import com.example.spaTi.data.models.Spa
 import com.example.spaTi.databinding.FragmentMyAccountSpaBinding
-import com.example.spaTi.ui.auth.AuthViewModel
 import com.example.spaTi.util.UiState
 import com.example.spaTi.util.hide
 import com.example.spaTi.util.show
@@ -39,7 +38,8 @@ class MyAccountSpaFragment : Fragment() {
 
         observer()
 
-        viewModel.getSession()
+        // Use syncSessionWithDatabase to get and update the session from the database
+        viewModel.syncSessionWithDatabase()
 
         binding.home.setOnClickListener {
             findNavController().navigate(R.id.action_MyAccountSpaFragment_to_spaHomeFragment)

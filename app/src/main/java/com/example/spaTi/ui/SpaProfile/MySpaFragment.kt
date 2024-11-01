@@ -7,14 +7,10 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import com.example.spaTi.R
 import com.example.spaTi.data.models.Spa
 import com.example.spaTi.databinding.FragmentMySpaBinding
-import com.example.spaTi.ui.Profile.ProfileViewModel
-import com.example.spaTi.ui.auth.AuthViewModel
-import com.example.spaTi.ui.spa.SpaViewModel
 import com.example.spaTi.util.UiState
 import com.example.spaTi.util.hide
 import com.example.spaTi.util.show
@@ -23,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MySpaFragment : Fragment() {
-    val TAG: String = "MyspaFragment"
+    val TAG: String = "MySpaFragment"
     val viewModel: MySpaViewModel by viewModels()
 
     private var _binding: FragmentMySpaBinding? = null
@@ -38,19 +34,17 @@ class MySpaFragment : Fragment() {
         return binding.root
     }
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                //Do nothing
+                // Prevent back navigation
             }
         })
 
         observer()
-        viewModel.getSession()
+        viewModel.syncSessionWithDatabase() // Use syncSessionWithDatabase instead of getSession
 
         binding.home.setOnClickListener {
             findNavController().navigate(R.id.action_myspaFragment_to_myaccountspaFragment)
@@ -61,7 +55,7 @@ class MySpaFragment : Fragment() {
         }
     }
 
-    fun observer() {
+    private fun observer() {
         viewModel.session.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is UiState.Loading -> {
@@ -83,7 +77,7 @@ class MySpaFragment : Fragment() {
     }
 
     // Update the UI with user session data
-    fun setData(spa: Spa?) {
+    private fun setData(spa: Spa?) {
         spa?.let {
             binding.nameSpa.setText(it.spa_name)
             binding.locationSpa.setText(it.location)

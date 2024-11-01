@@ -1,7 +1,6 @@
 package com.example.spaTi.ui.SpaProfile
 
 import android.annotation.SuppressLint
-import android.app.ProgressDialog.show
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,18 +12,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.spaTi.R
 import com.example.spaTi.data.models.Spa
-import com.example.spaTi.data.models.User
 import com.example.spaTi.databinding.FragmentMySpaEditBinding
-import com.example.spaTi.ui.Profile.ProfileViewModel
-import com.example.spaTi.ui.spa.SpaViewModel
 import com.example.spaTi.util.UiState
-import com.example.spaTi.util.extractNumbersFromDate
-import com.example.spaTi.util.getAge
 import com.example.spaTi.util.hide
-import com.example.spaTi.util.isValidEmail
 import com.example.spaTi.util.show
 import com.example.spaTi.util.toast
-import com.example.spaTi.util.validatePassword
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -54,22 +46,20 @@ class MySpaEditFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 //Do nothing
             }
         })
 
-        // Call observer method to observe session state
         observer()
+
         viewModel.getSession()
 
-        // Edit button navigation
         binding.btnGuardar.setOnClickListener {
-            if(validation()){
+            if (validation()) {
                 observeEdit()
-
-                val spa = getUserObj()
                 viewModel.editUser(spa = getUserObj())
             }
         }
@@ -77,7 +67,6 @@ class MySpaEditFragment : Fragment() {
         binding.btnCancelar.setOnClickListener {
             findNavController().navigate(R.id.action_myspaeditFragment_to_myspaFragment)
         }
-
     }
 
     fun getUserObj(): Spa {
@@ -91,7 +80,7 @@ class MySpaEditFragment : Fragment() {
             type = "2",
             inTime = binding.inTimeEt.text.toString(),
             createdAt = createdAt ?: Date(),
-            updatedAt = Date(), // Set the new updatedAt for the current update
+            updatedAt = Date(),
             outTime = binding.outTimeEt.text.toString(),
         )
     }
@@ -184,59 +173,49 @@ class MySpaEditFragment : Fragment() {
     }
 
     // Observe the session LiveData from the ViewModel
-    fun observer() {
+    private fun observer() {
         viewModel.session.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is UiState.Loading -> {
-                    // Show progress or loading indicator
                     binding.sessionProgress.show()
                 }
                 is UiState.Failure -> {
-                    // Hide progress and show error message
                     binding.sessionProgress.hide()
                     toast(state.error)
                 }
                 is UiState.Success -> {
-                    // Hide progress and display user data
                     binding.sessionProgress.hide()
-                    setData(state.data) // Call setData to update UI with user info
+                    setData(state.data)
                 }
             }
         }
     }
 
-    fun observeEdit() {
+    private fun observeEdit() {
         viewModel.editUser.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is UiState.Loading -> {
-                    // Show progress or loading indicator
                     binding.sessionProgress.show()
                 }
                 is UiState.Failure -> {
-                    // Hide progress and show error message
                     binding.sessionProgress.hide()
                     toast(state.error)
                 }
                 is UiState.Success -> {
-                    // Hide progress and display user data
                     binding.sessionProgress.hide()
                     toast(state.data)
-                    CleanInputs()
+                    cleanInputs()
                     findNavController().navigate(R.id.action_myspaeditFragment_to_myspaFragment)
-
                 }
             }
         }
     }
 
-    fun setData(user: Spa?) {
-        user?.let {
+    private fun setData(spa: Spa?) {
+        spa?.let {
             email = it.email
             id = it.id
-
-            createdAt = it.createdAt // Store createdAt for future updates
-            Log.d("DEBUG", "Current createdAt: $createdAt")
-
+            createdAt = it.createdAt
 
             binding.spaNameEt.setText(it.spa_name)
             binding.locationSpaEt.setText(it.location)
@@ -249,29 +228,23 @@ class MySpaEditFragment : Fragment() {
 
     @SuppressLint("NewApi")
     fun validateAndFormatTime(input: String): String? {
-        // Formatter for HH:mm format with zero-padded hours
         val timeFormat = DateTimeFormatter.ofPattern("HH:mm")
-
         return try {
-            // Check if the input is in "H:mm" format (single-digit hour)
             val formattedTime = if (input.matches(Regex("^\\d{1}:\\d{2}$"))) {
-                "0$input" // Add a leading zero to single-digit hours
+                "0$input"
             } else if (input.matches(Regex("^\\d{1,2}$"))) {
-                // If input is only hours (like "12"), add ":00" for minutes
                 "${input.padStart(2, '0')}:00"
             } else {
                 input
             }
-
-            // Parse and format the time to ensure zero-padding in "HH:mm" format
             val time = LocalTime.parse(formattedTime, timeFormat)
-            time.format(timeFormat) // Return formatted time as "HH:mm"
+            time.format(timeFormat)
         } catch (e: DateTimeParseException) {
-            null // Return null if the input is invalid
+            null
         }
     }
 
-    fun CleanInputs() {
+    private fun cleanInputs() {
         binding.spaNameEt.setText("")
         binding.locationSpaEt.setText("")
         binding.telSpaEt.setText("")

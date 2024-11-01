@@ -5,7 +5,7 @@ import com.example.spaTi.data.models.Spa
 import com.example.spaTi.util.FireStoreCollection
 import com.example.spaTi.util.SharedPrefConstants
 import com.example.spaTi.util.UiState
-import com.google.firebase.auth.*
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 
@@ -16,6 +16,37 @@ class SpaProfileRepositoryImpl(
     val gson: Gson
 ) : SpaProfileRepository {
 
+    // Other existing functions...
+
+    override fun syncSessionWithDatabase(result: (UiState<Spa>) -> Unit) {
+        getSession { localSpa ->
+            if (localSpa == null) {
+                result.invoke(UiState.Failure("No local session found."))
+                return@getSession
+            }
+
+            val document = database.collection(FireStoreCollection.SPA).document(localSpa.id)
+            document.get()
+                .addOnSuccessListener { documentSnapshot ->
+                    if (documentSnapshot.exists()) {
+                        val dbSpa = documentSnapshot.toObject(Spa::class.java)
+                        if (dbSpa != null) {
+                            appPreferences.edit()
+                                .putString(SharedPrefConstants.USER_SESSION, gson.toJson(dbSpa))
+                                .apply()
+                            result.invoke(UiState.Success(dbSpa))
+                        } else {
+                            result.invoke(UiState.Failure("Failed to parse session data from database."))
+                        }
+                    } else {
+                        result.invoke(UiState.Failure("Session does not exist in the database."))
+                    }
+                }
+                .addOnFailureListener {
+                    result.invoke(UiState.Failure("Failed to retrieve session from database"))
+                }
+        }
+    }
 
     override fun updateUserInfo(spa: Spa, result: (UiState<String>) -> Unit) {
         val document = database.collection(FireStoreCollection.SPA).document(spa.id)
@@ -23,21 +54,15 @@ class SpaProfileRepositoryImpl(
             .set(spa)
             .addOnSuccessListener {
                 storeSession(spa.id) {
-                    if (it == null){
+                    if (it == null) {
                         result.invoke(UiState.Failure("User updated successfully but session failed to store"))
-                    }else{
-                        result.invoke(
-                            UiState.Success("User updated successfully!")
-                        )
+                    } else {
+                        result.invoke(UiState.Success("User updated successfully!"))
                     }
                 }
             }
             .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
+                result.invoke(UiState.Failure(it.localizedMessage))
             }
     }
 
@@ -46,18 +71,18 @@ class SpaProfileRepositoryImpl(
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     result.invoke(UiState.Success("Email has been sent"))
-
                 } else {
                     result.invoke(UiState.Failure(task.exception?.message))
                 }
-            }.addOnFailureListener {
+            }
+            .addOnFailureListener {
                 result.invoke(UiState.Failure("Authentication failed, Check email"))
             }
     }
 
     override fun logout(result: () -> Unit) {
         auth.signOut()
-        appPreferences.edit().putString(SharedPrefConstants.USER_SESSION,null).apply()
+        appPreferences.edit().putString(SharedPrefConstants.USER_SESSION, null).apply()
         result.invoke()
     }
 
@@ -65,11 +90,11 @@ class SpaProfileRepositoryImpl(
         database.collection(FireStoreCollection.SPA).document(id)
             .get()
             .addOnCompleteListener {
-                if (it.isSuccessful){
+                if (it.isSuccessful) {
                     val spa = it.result.toObject(Spa::class.java)
-                    appPreferences.edit().putString(SharedPrefConstants.USER_SESSION,gson.toJson(spa)).apply()
+                    appPreferences.edit().putString(SharedPrefConstants.USER_SESSION, gson.toJson(spa)).apply()
                     result.invoke(spa)
-                }else{
+                } else {
                     result.invoke(null)
                 }
             }
@@ -79,13 +104,12 @@ class SpaProfileRepositoryImpl(
     }
 
     override fun getSession(result: (Spa?) -> Unit) {
-        val user_str = appPreferences.getString(SharedPrefConstants.USER_SESSION,null)
-        if (user_str == null){
+        val userStr = appPreferences.getString(SharedPrefConstants.USER_SESSION, null)
+        if (userStr == null) {
             result.invoke(null)
-        }else{
-            val spa = gson.fromJson(user_str,Spa::class.java)
+        } else {
+            val spa = gson.fromJson(userStr, Spa::class.java)
             result.invoke(spa)
         }
     }
-
 }
