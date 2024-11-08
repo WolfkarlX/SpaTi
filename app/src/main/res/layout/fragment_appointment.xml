@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.appointments.AppointmentFragment">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/fondo_horario"
+        android:scaleType="centerCrop"
+        android:alpha="0.1"/>
+
+    <ImageButton
+        android:id="@+id/appointmentBackBtn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24"
+        android:contentDescription="Arrow Point Left"
+        android:backgroundTint="@android:color/transparent"
+        app:tint="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Seleccionar horario"
+        android:textColor="@color/v_oscuro"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/appointmentBackBtn"
+        app:layout_constraintStart_toEndOf="@+id/appointmentBackBtn"
+        app:layout_constraintTop_toTopOf="@+id/appointmentBackBtn"
+        />
+
+    <TextView
+        android:id="@+id/appointmentSpaName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Spa Name"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/appointmentBackBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/appointmentServiceSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Service Selected"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/appointmentSpaName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageButton
+        android:id="@+id/appointmentCalendarMonthPrev"
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24"
+        android:contentDescription="Arrow Point Left"
+        android:backgroundTint="@android:color/transparent"
+        app:tint="@color/black"
+        app:layout_constraintTop_toTopOf="@+id/appointmentCalendarMonth"
+        app:layout_constraintBottom_toBottomOf="@+id/appointmentCalendarMonth"
+        app:layout_constraintEnd_toStartOf="@+id/appointmentCalendarMonth"/>
+
+    <TextView
+        android:id="@+id/appointmentCalendarMonth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="November"
+        android:textSize="16sp"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@+id/appointmentServiceSelected"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageButton
+        android:id="@+id/appointmentCalendarMonthNext"
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24"
+        android:contentDescription="Arrow Point Left"
+        android:backgroundTint="@android:color/transparent"
+        android:scaleX="-1"
+        app:tint="@color/black"
+        app:layout_constraintTop_toTopOf="@+id/appointmentCalendarMonth"
+        app:layout_constraintBottom_toBottomOf="@+id/appointmentCalendarMonth"
+        app:layout_constraintStart_toEndOf="@+id/appointmentCalendarMonth"/>
+
+    <com.example.spaTi.ui.appointments.CalendarView
+        android:id="@+id/appointmentCalendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/appointmentCalendarMonth"/>
+
+
+    <ProgressBar
+        android:id="@+id/appointmentProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/black"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appointmentCalendar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/appointmentScheduleRecycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appointmentCalendar"
+        tools:listitem="@layout/item_appointment_schedule"
+        tools:itemCount="15"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

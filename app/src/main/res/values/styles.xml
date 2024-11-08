@@ -6,10 +6,35 @@
     <style name="CustomTextFontFamily">
         <item name="android:fontFamily">@font/koho</item>
     </style>
+    <style name="CustomTextFontFamilyBold">
+        <item name="android:fontFamily">@font/koho</item>
+        <item name="android:textStyle">bold</item>
+    </style>
     <style name="radius">
         <item name="cornerSizeTopRight">45dp</item>
         <item name="cornerSizeTopLeft">45dp</item>
         <item name="cornerSizeBottomRight">45dp</item>
         <item name="cornerSizeBottomLeft">45dp</item>
+    </style>
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+    </style>
+
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="behavior_peekHeight">auto</item>
+        <item name="behavior_hideable">true</item>
+        <item name="behavior_draggable">true</item>
+        <item name="behavior_fitToContents">true</item>
+        <item name="android:elevation">16dp</item>
+    </style>
+    <style name="RoundedBottomSheetDialog" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/RoundedBottomSheet</item>
+    </style>
+
+    <style name="RoundedBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="android:background">@drawable/rounded_bottom_sheet_background</item>
+        <item name="android:elevation">16dp</item>
+        <item name="android:padding">16dp</item>
     </style>
 </resources>

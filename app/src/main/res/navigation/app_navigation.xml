@@ -220,5 +220,18 @@
         android:name="com.example.spaTi.ui.spa.SpaDetailFragment"
         android:label="fragment_spa_detail"
         tools:layout="@layout/fragment_spa_detail">
+        <action
+            android:id="@+id/action_spaDetailFragment_to_appointmentFragment"
+            app:destination="@+id/appointmentFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/appointmentFragment"
+        android:name="com.example.spaTi.ui.appointments.AppointmentFragment"
+        android:label="fragment_appointment"
+        tools:layout="@layout/fragment_appointment">
+        <action
+            android:id="@+id/action_appointmentFragment_to_appointmentsFragment"
+            app:destination="@+id/appointmentsFragment"/>
     </fragment>
 </navigation>
