@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import com.example.spaTi.R
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import java.time.Duration
 
 
 fun View.hide(){
@@ -139,3 +140,14 @@ fun validatePassword(context: Context, password: String): Pair<Boolean, String> 
     return Pair(true, "Password is strong.")
 }
 
+fun convertMinutesToReadableTime(minutes: Int): String {
+    val duration = Duration.ofMinutes(minutes.toLong())
+    val hours = duration.toHours()
+    val remainingMinutes = duration.minusHours(hours).toMinutes()
+
+    return when {
+        hours > 0 && remainingMinutes > 0 -> "$hours hr ${remainingMinutes} min"
+        hours > 0 -> "$hours hr"
+        else -> "$remainingMinutes min"
+    }
+}

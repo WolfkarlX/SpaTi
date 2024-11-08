@@ -13,9 +13,10 @@ import com.example.spaTi.util.UiState
  * @see [ServiceRepositoryImpl] For the implementation of this interface.
  */
 interface ServiceRepository {
-
     fun getServices(result: (UiState<List<Service>>) -> Unit)
     fun addService(service: Service, result: (UiState<Pair<Service, String>>) -> Unit)
     fun updateService(service: Service, result: (UiState<String>) -> Unit)
     fun deleteService(service: Service, result: (UiState<String>) -> Unit)
+
+    fun getServiceById(id: String, result: (UiState<Service?>) -> Unit)
 }

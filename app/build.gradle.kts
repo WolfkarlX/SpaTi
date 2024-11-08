@@ -17,7 +17,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.spaTi"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -48,7 +48,6 @@ android {
 }
 
 dependencies {
-
     // Firebase dependencies
     implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
     implementation("com.google.firebase:firebase-analytics")
@@ -67,6 +66,7 @@ dependencies {
     // Material Design
     implementation(libs.material)
     implementation("com.google.android.flexbox:flexbox:3.0.0")
+    implementation("com.google.android.material:material:1.11.0")
 
     // Navigation components
     implementation(libs.androidx.navigation.fragment.ktx)
