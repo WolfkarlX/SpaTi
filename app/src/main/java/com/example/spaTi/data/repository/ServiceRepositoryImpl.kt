@@ -126,6 +126,23 @@ class ServiceRepositoryImpl ( // There is a meaning in naming <Entity>Repository
             }
     }
 
+    override fun getServiceById(id: String, result: (UiState<Service?>) -> Unit) {
+        database.collection(FireStoreCollection.SERVICE)
+            .document(id)
+            .get()
+            .addOnSuccessListener { documentSnapshot ->
+                if (documentSnapshot.exists()) {
+                    val service = documentSnapshot.toObject(Service::class.java)
+                    result.invoke(UiState.Success(service))
+                } else {
+                    result.invoke(UiState.Success(null))
+                }
+            }
+            .addOnFailureListener {
+                result.invoke(UiState.Failure(it.localizedMessage))
+            }
+    }
+
     private fun updateTagCounts(oldTags: List<String>, newTags: List<String>) {
         val tagsToDecrement = oldTags.filter { !newTags.contains(it) }
         val tagsToIncrement = newTags.filter { !oldTags.contains(it) }

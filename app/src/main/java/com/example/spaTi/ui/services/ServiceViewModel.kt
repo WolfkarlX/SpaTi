@@ -46,6 +46,9 @@ class ServiceViewModel @Inject constructor(
     val deleteService: LiveData<UiState<String>>
         get() = _deleteService
 
+    private val _getServiceById = MutableLiveData<UiState<Service?>>()
+    val getServiceById: LiveData<UiState<Service?>>
+        get() = _getServiceById
 
     /**
      * Fetches the list of services from the repository and updates the _services LiveData.
@@ -97,5 +100,10 @@ class ServiceViewModel @Inject constructor(
     fun deleteService(service: Service) {
         _deleteService.value = UiState.Loading
         repository.deleteService(service) { _deleteService.value = it }
+    }
+
+    fun getServiceById(id: String) {
+        _getServiceById.value = UiState.Loading
+        repository.getServiceById(id) { _getServiceById.value = it }
     }
 }

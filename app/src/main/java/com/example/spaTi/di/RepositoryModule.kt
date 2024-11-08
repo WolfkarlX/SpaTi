@@ -1,6 +1,8 @@
 package com.example.spaTi.di
 
 import android.content.SharedPreferences
+import com.example.spaTi.data.repository.AppointmentRepository
+import com.example.spaTi.data.repository.AppointmentRepositoryImpl
 import com.example.spaTi.data.repository.AuthRepository
 import com.example.spaTi.data.repository.AuthRepositoryImp
 import com.example.spaTi.data.repository.NoteRepository
@@ -109,5 +111,16 @@ object RepositoryModule {
     ): SpaProfileRepository {
         // Return the implementation of the interface
         return SpaProfileRepositoryImpl(auth, database, appPreferences, gson)
+    }
+
+    @Provides
+    @Singleton
+    fun appointmentRepository(
+        database: FirebaseFirestore,
+        appPreferences: SharedPreferences,
+        gson: Gson
+    ): AppointmentRepository {
+        // Return the implementation of the interface
+        return AppointmentRepositoryImpl(database, appPreferences, gson)
     }
 }

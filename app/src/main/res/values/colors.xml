@@ -24,4 +24,17 @@
 
     <color name="background_clr">#FAFBFF</color>
 
+
+    <!--  CALENDAR PALETTE  -->
+    <color name="busy_day_bg">#FFEBEE</color>
+    <color name="busy_day_txt">#F57F17</color>
+
+    <color name="disable_day_bg">#E0E0E0</color>
+    <color name="disable_day_txt">#757575</color>
+
+    <color name="empty_day_bg">#FFFDE7</color>
+    <color name="empty_day_txt">#D32F2F</color>
+
+    <color name="date_time_available">#C08EA705</color>
+    <color name="date_time_unavailable">#BED32F2F</color>
 </resources>
