@@ -48,6 +48,8 @@ class SpaServicesAdapter (
         fun bind (item: Service) {
             binding.itemBookServiceName.text = item.name
             binding.itemBookServicePrice.text = String.format("%.2f MXN", item.price)
+
+            binding.itemBookServiceBtn.setOnClickListener { onItemClicked(adapterPosition, item) }
         }
     }
 }
