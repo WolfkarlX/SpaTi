@@ -19,6 +19,10 @@ class AppointmentViewModel @Inject constructor (
     val appointments: LiveData<UiState<List<Appointment>>>
         get() = _appointments
 
+    private val _appointmentsBySpa = MutableLiveData<UiState<List<Appointment>>>()
+    val appointmentsBySpa: LiveData<UiState<List<Appointment>>>
+        get() = _appointmentsBySpa
+
     private val _addAppointment = MutableLiveData<UiState<Pair<Appointment, String>>>()
     val addAppointment: LiveData<UiState<Pair<Appointment, String>>>
         get() = _addAppointment
@@ -35,6 +39,11 @@ class AppointmentViewModel @Inject constructor (
     fun getAppointments() {
         _appointments.value = UiState.Loading
         repository.getAppointments { _appointments.value = it }
+    }
+
+    fun getAppointmentsBySpa() {
+        _appointmentsBySpa.value = UiState.Loading
+        repository.getAppointmentBySpa { _appointmentsBySpa.value = it }
     }
 
     fun addAppointment(appointment: Appointment) {

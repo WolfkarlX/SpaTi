@@ -16,6 +16,7 @@ data class Spa (
     val type: String = "",
     val inTime: String = "",
     val outTime: String = "",
+    val reports: String = "",
     @ServerTimestamp
     val createdAt: Date = Date(),
     @ServerTimestamp

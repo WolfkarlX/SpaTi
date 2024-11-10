@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="22dp">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -15,6 +16,16 @@
         tools:ignore="MissingConstraints">
 
         <TextView
+            android:id="@+id/tvUsuario_Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Usuario:"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:textSize="17dp"
+            android:fontFamily="@font/koho"/>
+
+        <TextView
             android:id="@+id/tvUsuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,6 +33,16 @@
             android:textSize="16sp"
             android:textColor="#4A4A4A"
             android:fontFamily="@font/koho"/>
+
+        <TextView
+            android:id="@+id/tvReportes_Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reportes:"
+            android:fontFamily="@font/koho"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:textSize="17dp" />
 
         <TextView
             android:id="@+id/tvReportes"
@@ -33,6 +54,16 @@
             android:fontFamily="@font/koho"/>
 
         <TextView
+            android:id="@+id/tvServicio_Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Servicio:"
+            android:fontFamily="@font/koho"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:textSize="17dp"/>
+
+        <TextView
             android:id="@+id/tvServicio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,6 +71,16 @@
             android:textSize="14sp"
             android:textColor="#4A4A4A"
             android:fontFamily="@font/koho"/>
+
+        <TextView
+            android:id="@+id/tvFechaHora_Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha y Hora:"
+            android:fontFamily="@font/koho"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:textSize="17dp"/>
 
         <TextView
             android:id="@+id/tvFechaHora"

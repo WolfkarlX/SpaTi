@@ -42,6 +42,9 @@ class SpaHomeFragment : Fragment() {
         binding.configuration.setOnClickListener {
             findNavController().navigate(R.id.action_spaHomeFragment_to_myaccountspaFragment)
         }
+        binding.solicitud.setOnClickListener {
+            findNavController().navigate(R.id.action_spaHomeFragment_to_appointmentlisitngFragment)
+        }
     }
 
     override fun onDestroyView() {
