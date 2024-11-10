@@ -5,6 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/fondo_cita"
+        android:scaleType="centerCrop"
+        android:alpha="0.15" />
+
+    <ImageView
         android:id="@+id/logout"
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -47,6 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textViewAdministrador"
             android:layout_marginTop="24dp"
+            app:layout_constraintHorizontal_chainStyle="spread"
             android:layout_gravity="center">
 
             <LinearLayout
@@ -55,18 +63,18 @@
                 android:layout_height="160dp"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:background="@drawable/rounded_corners"
-                android:layout_marginBottom="16dp"
+                android:background="@drawable/button_selector"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/employees"
-                app:layout_constraintBottom_toTopOf="@+id/services">
+                app:layout_constraintEnd_toStartOf="@id/solicitud"
+                android:layout_margin="8dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Agenda"
-                    android:textColor="@color/verde"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
-                    
                     android:layout_marginTop="8dp" />
                 <ImageView
                     android:layout_width="60dp"
@@ -75,28 +83,54 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/employees"
+                android:id="@+id/solicitud"
                 android:layout_width="170dp"
                 android:layout_height="160dp"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:background="@drawable/rounded_corners"
-                android:layout_marginBottom="16dp"
+                android:background="@drawable/button_selector"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/agenda"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/agenda"
-                app:layout_constraintBottom_toTopOf="@+id/configuration">
+                android:layout_margin="8dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Reportar Usuario"
-                    android:textColor="@color/verde"
+                    android:text="Solicitudes de cita"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
-                    
                     android:layout_marginTop="8dp" />
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/reports" />
+                    android:src="@drawable/solicitud_pendiente" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/history"
+                android:layout_width="170dp"
+                android:layout_height="160dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/button_selector"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="@id/services"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/agenda">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Historial de citas"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/calendar_history" />
             </LinearLayout>
 
             <LinearLayout
@@ -105,17 +139,18 @@
                 android:layout_height="160dp"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:background="@drawable/rounded_corners"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/configuration"
-                app:layout_constraintBottom_toBottomOf="parent">
+                android:background="@drawable/button_selector"
+                app:layout_constraintTop_toBottomOf="@id/solicitud"
+                app:layout_constraintStart_toEndOf="@id/history"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_margin="8dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Servicios"
-                    android:textColor="@color/verde"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
-                    
                     android:layout_marginTop="8dp" />
                 <ImageView
                     android:layout_width="60dp"
@@ -129,31 +164,50 @@
                 android:layout_height="160dp"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:background="@drawable/rounded_corners"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/services"
-                app:layout_constraintBottom_toBottomOf="parent">
+                android:background="@drawable/button_selector"
+                app:layout_constraintTop_toBottomOf="@id/history"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/sin_nombre"
+                android:layout_margin="8dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Configuration"
-                    android:textColor="@color/verde"
+                    android:text="Configuración"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
-                    
                     android:layout_marginTop="8dp" />
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:src="@drawable/configuration_with_gear_svgrepo_com" />
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/sin_nombre"
+                android:layout_width="170dp"
+                android:layout_height="160dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/button_selector"
+                app:layout_constraintTop_toBottomOf="@id/services"
+                app:layout_constraintStart_toEndOf="@id/configuration"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_margin="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sin nombre"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp" />
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/reports" />
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/imgFondoSuperior"
-            android:layout_width="wrap_content"
-            android:layout_height="250dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/fondo_hojas"
-            android:layout_below="@+id/gridOpcionesAdmin"/>
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
