@@ -1,5 +1,6 @@
 package com.example.spaTi.data.repository
 
+import android.net.Uri
 import android.content.SharedPreferences
 import com.example.spaTi.data.models.Spa
 import com.example.spaTi.util.FireStoreCollection
@@ -7,16 +8,36 @@ import com.example.spaTi.util.SharedPrefConstants
 import com.example.spaTi.util.UiState
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import com.google.gson.Gson
 
 class SpaProfileRepositoryImpl(
     val auth: FirebaseAuth,
     val database: FirebaseFirestore,
     val appPreferences: SharedPreferences,
-    val gson: Gson
+    val gson: Gson,
+    val storage: FirebaseStorage // Inyecta FirebaseStorage
 ) : SpaProfileRepository {
 
-    // Other existing functions...
+    // Otros métodos existentes...
+
+    // Nuevo método para subir la imagen de perfil
+    override fun uploadProfileImage(spaId: String, imageUri: Uri, result: (UiState<String>) -> Unit) {
+        // Aquí podrías usar Firebase Storage o algún otro servicio para cargar la imagen
+        val storageReference = FirebaseStorage.getInstance().reference.child("profile_images/$spaId.jpg")
+        storageReference.putFile(imageUri)
+            .addOnSuccessListener {
+                // Obtén la URL de la imagen
+                storageReference.downloadUrl.addOnSuccessListener { uri ->
+                    result.invoke(UiState.Success(uri.toString())) // Enviamos la URL de la imagen
+                }
+            }
+            .addOnFailureListener { exception ->
+                result.invoke(UiState.Failure("Failed to upload image: ${exception.message}"))
+            }
+    }
+
+    // Otros métodos existentes...
 
     override fun syncSessionWithDatabase(result: (UiState<Spa>) -> Unit) {
         getSession { localSpa ->

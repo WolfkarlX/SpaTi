@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 import java.util.*
 
 @Parcelize
-data class Spa (
+data class Spa(
     var id: String = "",
     val spa_name: String = "",
     val location: String = "",
@@ -16,6 +16,7 @@ data class Spa (
     val type: String = "",
     val inTime: String = "",
     val outTime: String = "",
+    var profileImageUrl: String? = null,
     @ServerTimestamp
     val createdAt: Date = Date(),
     @ServerTimestamp

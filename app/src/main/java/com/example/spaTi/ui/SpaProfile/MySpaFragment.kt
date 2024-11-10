@@ -1,14 +1,18 @@
 package com.example.spaTi.ui.SpaProfile
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.spaTi.R
 import com.example.spaTi.data.models.Spa
 import com.example.spaTi.databinding.FragmentMySpaBinding
@@ -16,6 +20,7 @@ import com.example.spaTi.util.UiState
 import com.example.spaTi.util.hide
 import com.example.spaTi.util.show
 import com.example.spaTi.util.toast
+
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,6 +30,17 @@ class MySpaFragment : Fragment() {
 
     private var _binding: FragmentMySpaBinding? = null
     private val binding get() = _binding!!
+
+    private var selectedImageUri: Uri? = null
+
+    private val imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let {
+            selectedImageUri = it
+            binding.profileImage.setImageURI(it)
+            // Subir la imagen seleccionada
+            viewModel.updateProfileImage("spaId", it) // Usa el ID real del spa en lugar de "spaId"
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,7 +61,7 @@ class MySpaFragment : Fragment() {
         })
 
         observer()
-        viewModel.syncSessionWithDatabase() // Use syncSessionWithDatabase instead of getSession
+        viewModel.syncSessionWithDatabase()
 
         binding.home.setOnClickListener {
             findNavController().navigate(R.id.action_myspaFragment_to_myaccountspaFragment)
@@ -54,17 +70,20 @@ class MySpaFragment : Fragment() {
         binding.editButton.setOnClickListener {
             findNavController().navigate(R.id.action_myspaFragment_to_myspaeditFragment)
         }
+
+        binding.changeProfilePhotoText.setOnClickListener {
+            // Abre el selector de imágenes
+            imagePickerLauncher.launch("image/*")
+        }
     }
 
     private fun observer() {
         viewModel.session.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is UiState.Loading -> {
-                    // Show progress or loading indicator
                     binding.sessionProgress.show()
                 }
                 is UiState.Failure -> {
-                    // Hide progress and show error message
                     binding.sessionProgress.hide()
                     toast(state.error)
                     viewModel.logout {
@@ -72,15 +91,29 @@ class MySpaFragment : Fragment() {
                     }
                 }
                 is UiState.Success -> {
-                    // Hide progress and display user data
                     binding.sessionProgress.hide()
-                    setData(state.data) // Call setData to update UI with user info
+                    setData(state.data)
+                }
+            }
+        }
+
+        viewModel.updateProfileImage.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is UiState.Loading -> {
+                    binding.sessionProgress.show()
+                }
+                is UiState.Success -> {
+                    binding.sessionProgress.hide()
+                    toast("Imagen de perfil actualizada correctamente")
+                }
+                is UiState.Failure -> {
+                    binding.sessionProgress.hide()
+                    toast("Error al actualizar la imagen de perfil: ${state.error}")
                 }
             }
         }
     }
 
-    // Update the UI with user session data
     private fun setData(spa: Spa?) {
         spa?.let {
             binding.nameSpa.setText(it.spa_name)
@@ -89,6 +122,14 @@ class MySpaFragment : Fragment() {
             binding.apertura.setText(it.inTime)
             binding.cierre.setText(it.outTime)
             binding.descriptionSpa.setText(it.description)
+
+            // Cargar la URL de la imagen de perfil en el ImageView usando Glide
+            if (!it.profileImageUrl.isNullOrEmpty()) {
+                Glide.with(this)
+                    .load(it.profileImageUrl)
+                    .circleCrop() // Corta la imagen en forma circular
+                    .into(binding.profileImage)
+            }
         }
     }
 

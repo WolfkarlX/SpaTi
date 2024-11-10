@@ -1,5 +1,6 @@
 package com.example.spaTi.ui.SpaProfile
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,6 +27,10 @@ class MySpaViewModel @Inject constructor(
     val editUser: LiveData<UiState<String>>
         get() = _editUser
 
+    private val _updateProfileImage = MutableLiveData<UiState<String>>()
+    val updateProfileImage: LiveData<UiState<String>>
+        get() = _updateProfileImage
+
     fun forgotPassword(email: String) {
         _forgotPassword.value = UiState.Loading
         repository.forgotPassword(email) {
@@ -44,7 +49,6 @@ class MySpaViewModel @Inject constructor(
         repository.logout(result)
     }
 
-    // New function to sync session with database
     fun syncSessionWithDatabase() {
         _session.value = UiState.Loading
         repository.syncSessionWithDatabase { result ->
@@ -63,4 +67,28 @@ class MySpaViewModel @Inject constructor(
         }
     }
 
+    // Nueva función para subir imagen de perfil
+    fun updateProfileImage(spaId: String, imageUri: Uri) {
+        _updateProfileImage.value = UiState.Loading
+        repository.uploadProfileImage(spaId, imageUri) { result ->
+            if (result is UiState.Success) {
+                // Obtener el spa desde el repositorio usando spaId
+                repository.getSession { spa ->
+                    if (spa != null) {
+                        // Actualizar la URL de la imagen en el objeto Spa
+                        spa.profileImageUrl = result.data // Asume que tienes un campo 'profileImageUrl' en tu modelo 'Spa'
+
+                        // Ahora actualiza el perfil con la nueva URL de la imagen
+                        repository.updateUserInfo(spa) { updateResult ->
+                            _updateProfileImage.value = updateResult
+                        }
+                    } else {
+                        _updateProfileImage.value = UiState.Failure("Failed to retrieve spa session")
+                    }
+                }
+            } else {
+                _updateProfileImage.value = UiState.Failure("Error uploading image")
+            }
+        }
+    }
 }

@@ -86,7 +86,7 @@
 
     <fragment
         android:id="@+id/myProfileFragment"
-        android:name="com.example.spaTi.ui.Profile.MyprofileFragmentt"
+        android:name="com.example.spaTi.ui.Profile.MyProfileFragment"
         android:label="fragment_my_profile"
         tools:layout="@layout/fragment_my_profile" >
 

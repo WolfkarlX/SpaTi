@@ -1,26 +1,10 @@
 package com.example.spaTi.di
 
 import android.content.SharedPreferences
-import com.example.spaTi.data.repository.AppointmentRepository
-import com.example.spaTi.data.repository.AppointmentRepositoryImpl
-import com.example.spaTi.data.repository.AuthRepository
-import com.example.spaTi.data.repository.AuthRepositoryImp
-import com.example.spaTi.data.repository.NoteRepository
-import com.example.spaTi.data.repository.NoteRepositoryImp
-import com.example.spaTi.data.repository.ProfileRepository
-import com.example.spaTi.data.repository.ProfileRepositoryImpl
-import com.example.spaTi.data.repository.ServiceRepository
-import com.example.spaTi.data.repository.ServiceRepositoryImpl
-import com.example.spaTi.data.repository.SpaAuthRepository
-import com.example.spaTi.data.repository.SpaAuthRepositoryImpl
-import com.example.spaTi.data.repository.SpaProfileRepository
-import com.example.spaTi.data.repository.SpaProfileRepositoryImpl
-import com.example.spaTi.data.repository.SpaRepository
-import com.example.spaTi.data.repository.SpaRepositoryImpl
-import com.example.spaTi.data.repository.TagRepository
-import com.example.spaTi.data.repository.TagRepositoryImpl
+import com.example.spaTi.data.repository.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -36,19 +20,19 @@ object RepositoryModule {
     @Singleton
     fun provideNoteRepository(
         database: FirebaseFirestore
-    ): NoteRepository{
+    ): NoteRepository {
         return NoteRepositoryImp(database)
     }
 
     @Provides
     @Singleton
-    fun provideAutghRepository(
+    fun provideAuthRepository(
         database: FirebaseFirestore,
         auth: FirebaseAuth,
         appPreferences: SharedPreferences,
         gson: Gson
     ): AuthRepository {
-        return AuthRepositoryImp(auth,database,appPreferences,gson)
+        return AuthRepositoryImp(auth, database, appPreferences, gson)
     }
 
     @Provides
@@ -59,7 +43,6 @@ object RepositoryModule {
         appPreferences: SharedPreferences,
         gson: Gson
     ): SpaAuthRepository {
-        // Return the implementation of the interface
         return SpaAuthRepositoryImpl(auth, database, appPreferences, gson)
     }
 
@@ -68,9 +51,9 @@ object RepositoryModule {
     fun provideServiceRepository(
         database: FirebaseFirestore,
         tagRepository: TagRepository,
-        sparepository: SpaAuthRepository,
+        spaRepository: SpaAuthRepository
     ): ServiceRepository {
-        return  ServiceRepositoryImpl(database,sparepository, tagRepository)
+        return ServiceRepositoryImpl(database, spaRepository, tagRepository)
     }
 
     @Provides
@@ -78,7 +61,7 @@ object RepositoryModule {
     fun provideTagRepository(
         database: FirebaseFirestore
     ): TagRepository {
-        return  TagRepositoryImpl(database)
+        return TagRepositoryImpl(database)
     }
 
     @Provides
@@ -89,7 +72,6 @@ object RepositoryModule {
         appPreferences: SharedPreferences,
         gson: Gson
     ): ProfileRepository {
-        // Return the implementation of the interface
         return ProfileRepositoryImpl(auth, database, appPreferences, gson)
     }
 
@@ -103,24 +85,29 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideMySpaRepository(
-        database: FirebaseFirestore,
-        auth: FirebaseAuth,
-        appPreferences: SharedPreferences,
-        gson: Gson
-    ): SpaProfileRepository {
-        // Return the implementation of the interface
-        return SpaProfileRepositoryImpl(auth, database, appPreferences, gson)
+    fun provideFirebaseStorage(): FirebaseStorage {
+        return FirebaseStorage.getInstance()
     }
 
     @Provides
     @Singleton
-    fun appointmentRepository(
+    fun provideMySpaRepository(
+        database: FirebaseFirestore,
+        auth: FirebaseAuth,
+        appPreferences: SharedPreferences,
+        gson: Gson,
+        storage: FirebaseStorage
+    ): SpaProfileRepository {
+        return SpaProfileRepositoryImpl(auth, database, appPreferences, gson, storage)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAppointmentRepository(
         database: FirebaseFirestore,
         appPreferences: SharedPreferences,
         gson: Gson
     ): AppointmentRepository {
-        // Return the implementation of the interface
         return AppointmentRepositoryImpl(database, appPreferences, gson)
     }
 }

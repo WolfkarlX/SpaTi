@@ -9,5 +9,5 @@ interface ProfileRepository {
     fun logout(result: () -> Unit)
     fun storeSession(id: String, result: (User?) -> Unit)
     fun getSession(result: (User?) -> Unit)
-    fun syncSessionWithDatabase(result: (UiState<User>) -> Unit)
+    fun updateProfilePicture(newImageUrl: String, userId: String, result: (UiState<String>) -> Unit)
 }

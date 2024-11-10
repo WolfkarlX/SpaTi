@@ -1,5 +1,6 @@
 package com.example.spaTi.ui.Profile
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,8 +15,8 @@ class ProfileViewModel @Inject constructor(
     val repository: ProfileRepository
 ) : ViewModel() {
 
-    private val _session = MutableLiveData<UiState<User>>()
-    val session: LiveData<UiState<User>>
+    private val _session = MutableLiveData<UiState<User?>>()
+    val session: LiveData<UiState<User?>>
         get() = _session
 
     private val _forgotPassword = MutableLiveData<UiState<String>>()
@@ -25,6 +26,10 @@ class ProfileViewModel @Inject constructor(
     private val _editUser = MutableLiveData<UiState<String>>()
     val editUser: LiveData<UiState<String>>
         get() = _editUser
+
+    private val _updateProfilePicture = MutableLiveData<UiState<String>>()
+    val updateProfilePicture: LiveData<UiState<String>>
+        get() = _updateProfilePicture
 
     fun forgotPassword(email: String) {
         _forgotPassword.value = UiState.Loading
@@ -44,21 +49,22 @@ class ProfileViewModel @Inject constructor(
         repository.logout(result)
     }
 
-    fun syncSessionWithDatabase() {
-        _session.value = UiState.Loading
-        repository.syncSessionWithDatabase { result ->
-            _session.value = result
-        }
-    }
-
     fun getSession() {
         _session.value = UiState.Loading
         repository.getSession { user ->
             if (user != null) {
-                _session.value = UiState.Success(user)
+                _session.value = UiState.Success(user) // Set success state with user data
             } else {
-                _session.value = UiState.Failure("No active session found.")
+                _session.value = UiState.Failure("No active session found.") // Set failure state
             }
+        }
+    }
+
+    // Nueva función para actualizar la foto de perfil
+    fun updateProfilePicture(newImageUrl: String, userId: String) {
+        _updateProfilePicture.value = UiState.Loading
+        repository.updateProfilePicture(newImageUrl, userId) { result -> // Asegúrate de incluir el userId aquí
+            _updateProfilePicture.value = result
         }
     }
 }

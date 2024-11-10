@@ -1,11 +1,12 @@
 package com.example.spaTi.data.repository
 
 import android.content.SharedPreferences
+import android.util.Log
 import com.example.spaTi.data.models.User
 import com.example.spaTi.util.FireStoreCollection
 import com.example.spaTi.util.SharedPrefConstants
 import com.example.spaTi.util.UiState
-import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 
@@ -21,8 +22,8 @@ class ProfileRepositoryImpl(
         document
             .set(user)
             .addOnSuccessListener {
-                storeSession(user.id) {
-                    if (it == null) {
+                storeSession(user.id) { sessionUser ->
+                    if (sessionUser == null) {
                         result.invoke(UiState.Failure("User updated successfully but session failed to store"))
                     } else {
                         result.invoke(UiState.Success("User updated successfully!"))
@@ -39,11 +40,11 @@ class ProfileRepositoryImpl(
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     result.invoke(UiState.Success("Email has been sent"))
+
                 } else {
                     result.invoke(UiState.Failure(task.exception?.message))
                 }
-            }
-            .addOnFailureListener {
+            }.addOnFailureListener {
                 result.invoke(UiState.Failure("Authentication failed, Check email"))
             }
     }
@@ -81,36 +82,15 @@ class ProfileRepositoryImpl(
         }
     }
 
-    // New function to sync session with the database and update local session
-    override fun syncSessionWithDatabase(result: (UiState<User>) -> Unit) {
-        getSession { localUser ->
-            if (localUser == null) {
-                result.invoke(UiState.Failure("No local session found."))
-                return@getSession
+    // Nueva función para actualizar solo la URL de la imagen de perfil
+    override fun updateProfilePicture(newImageUrl: String, userId: String, result: (UiState<String>) -> Unit) {
+        val document = database.collection(FireStoreCollection.USER).document(userId)
+        document.update("profileImageUrl", newImageUrl) // Solo actualizamos el campo profileImageUrl
+            .addOnSuccessListener {
+                result.invoke(UiState.Success("Profile picture updated successfully"))
             }
-
-            val document = database.collection(FireStoreCollection.USER).document(localUser.id)
-            document.get()
-                .addOnSuccessListener { documentSnapshot ->
-                    if (documentSnapshot.exists()) {
-                        val dbUser = documentSnapshot.toObject(User::class.java)
-                        if (dbUser != null) {
-                            // Update the local session with the data from the database
-                            appPreferences.edit()
-                                .putString(SharedPrefConstants.USER_SESSION, gson.toJson(dbUser))
-                                .apply()
-
-                            result.invoke(UiState.Success(dbUser))
-                        } else {
-                            result.invoke(UiState.Failure("Failed to parse session data from database."))
-                        }
-                    } else {
-                        result.invoke(UiState.Failure("Session does not exist."))
-                    }
-                }
-                .addOnFailureListener {
-                    result.invoke(UiState.Failure("Failed to retrieve session from database: ${it.localizedMessage}"))
-                }
-        }
+            .addOnFailureListener { exception ->
+                result.invoke(UiState.Failure(exception.localizedMessage ?: "Error updating profile picture"))
+            }
     }
 }
