@@ -218,4 +218,29 @@ class AppointmentRepositoryImpl (
                 result.invoke(UiState.Failure(it.localizedMessage))
             }
     }
+
+    override fun setAppointmentDeclined(appointmentId: String, result: (UiState<String>) -> Unit) {
+        database.collection(FireStoreCollection.APPOINTMENT)
+            .document(appointmentId)
+            .update("status", "declined")
+            .addOnSuccessListener {
+                result.invoke(UiState.Success("Appointment declined successfully"))
+            }
+            .addOnFailureListener {
+                result.invoke(UiState.Failure(it.localizedMessage))
+            }
+    }
+
+    override fun setAppointmentAccepted(appointmentId: String, result: (UiState<String>) -> Unit) {
+        database.collection(FireStoreCollection.APPOINTMENT)
+            .document(appointmentId)
+            .update("status", "accepted")
+            .addOnSuccessListener {
+                result.invoke(UiState.Success("Appointment accepted successfully"))
+            }
+            .addOnFailureListener {
+                result.invoke(UiState.Failure(it.localizedMessage))
+            }
+    }
+
 }

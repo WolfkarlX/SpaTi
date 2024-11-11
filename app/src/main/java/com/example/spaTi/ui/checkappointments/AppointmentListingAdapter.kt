@@ -1,21 +1,17 @@
 package com.example.spaTi.ui.checkappointments
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spaTi.data.models.Appointment
 import com.example.spaTi.databinding.ItemCitaBinding
-import com.example.spaTi.ui.appointments.AppointmentViewModel
 import com.example.spaTi.util.hide
 import java.text.SimpleDateFormat
 
 class AppointmentListingAdapter(
-    val onItemClicked: (Int, Appointment) -> Unit
+    val onItemClicked: (Int, Appointment, Int) -> Unit
 ) : RecyclerView.Adapter<AppointmentListingAdapter.MyViewHolder>() {
 
-    val sdf = SimpleDateFormat("dd MMM yyyy")
     private var list: MutableList<Appointment> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -42,10 +38,16 @@ class AppointmentListingAdapter(
         }
     }
 
-    fun removeItem(position: Int){
-        list.removeAt(position)
-        notifyItemChanged(position)
+    fun removeItem(position: Int) {
+        if (position >= 0 && position < list.size) {
+            list.removeAt(position)
+            notifyItemRemoved(position)
+            if (list.isEmpty()) {
+                updateList(arrayListOf(Appointment(userId = "null", spaId = "null", serviceId = "null")))
+            }
+        }
     }
+
 
     override fun getItemCount(): Int {
         return list.size
@@ -58,7 +60,11 @@ class AppointmentListingAdapter(
             binding.tvServicio.setText(item.serviceId)
             binding.tvFechaHora.setText(item.date + ", " + item.dateTime + "hrs")
 
-            //binding.itemLayout.setOnClickListener { onItemClicked.invoke(adapterPosition,item) }
+            binding.btnAceptarCita.setOnClickListener { onItemClicked.invoke(adapterPosition,item, 1)
+            }
+
+            binding.btnRechazarCita.setOnClickListener { onItemClicked.invoke(adapterPosition,item, 0)
+            }
         }
 
         fun bindEmptyList(item: Appointment){

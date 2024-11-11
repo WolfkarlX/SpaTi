@@ -14,4 +14,8 @@ interface AppointmentRepository {
     fun getAppointmentBySpa(result: (UiState<List<Appointment>>) -> Unit)
     fun getAppointmentsByDate(spaId: String, date: LocalDate, result: (UiState<List<Appointment>>) -> Unit)
     fun getAppointmentByMonth(spaId: String, yearMonth: YearMonth, result: (UiState<Map<LocalDate, List<Appointment>>>) -> Unit)
+    fun setAppointmentDeclined(appointmentid: String, result: (UiState<String>) -> Unit)
+    fun setAppointmentAccepted(appointmentid: String, result: (UiState<String>) -> Unit)
+
+
 }

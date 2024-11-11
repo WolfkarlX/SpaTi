@@ -244,8 +244,5 @@
         android:label="fragment_appointmentlisting"
         tools:layout="@layout/fragment_appointment_listing">
 
-        <action
-            android:id="@+id/appointmentlistingFragment_to_myspaF"
-            app:destination="@+id/myspaFragment"/>
     </fragment>
 </navigation>
