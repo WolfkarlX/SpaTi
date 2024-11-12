@@ -39,6 +39,10 @@ class AppointmentViewModel @Inject constructor (
     val setAppointmentStatus: LiveData<UiState<String>>
         get() = _setAppointmentStatus
 
+    private val _checkPendingAppointments = MutableLiveData<UiState<String>>()
+    val checkPendingAppointments: LiveData<UiState<String>>
+        get() = _checkPendingAppointments
+
 
     fun getAppointments() {
         _appointments.value = UiState.Loading
@@ -78,6 +82,11 @@ class AppointmentViewModel @Inject constructor (
         _setAppointmentStatus.value = UiState.Loading
         repository.setAppointmentDeclined(AppointmentId) { _setAppointmentStatus.value = it }
 
+    }
+
+    fun checkPendingAppointments(spaId: String) {
+        _checkPendingAppointments.value = UiState.Loading
+        repository.checkPendingAppointments(spaId) { _checkPendingAppointments.value = it }
     }
 
 }

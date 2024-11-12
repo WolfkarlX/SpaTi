@@ -11,14 +11,19 @@ import com.example.spaTi.util.SharedPrefConstants
 import com.example.spaTi.util.UiState
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.toObject
 import com.google.gson.Gson
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.YearMonth
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.util.concurrent.TimeUnit
 
 class AppointmentRepositoryImpl (
     val database: FirebaseFirestore,
@@ -240,6 +245,60 @@ class AppointmentRepositoryImpl (
             }
             .addOnFailureListener {
                 result.invoke(UiState.Failure(it.localizedMessage))
+            }
+    }
+
+    override fun checkPendingAppointments(spaId: String, result: (UiState<String>) -> Unit) {
+        val now = System.currentTimeMillis()
+        val oneDayInMillis = TimeUnit.HOURS.toMillis(24)
+
+        database.collection(FireStoreCollection.APPOINTMENT)
+            .whereEqualTo("spaId", spaId)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                if (querySnapshot.isEmpty) {
+                    result.invoke(UiState.Success("No pending appointments found."))
+                }
+
+                val batch = database.batch()
+                var anyUpdates = false
+
+                for (document in querySnapshot.documents) {
+                    val appointment = document.toObject<Appointment>()
+                    appointment?.let {
+                        val createdAt = it.createdAt
+                        val status = it.status
+
+                        if (createdAt != null) {
+                            val createdAtMillis = createdAt.time
+
+                            // Only update if status is "pending" and 24 hours have passed
+                            if (status == "pending" && (now - createdAtMillis) >= oneDayInMillis) {
+                                val appointmentRef = database.collection("appointment").document(document.id)
+                                batch.update(appointmentRef, "status", "out of time")
+                                anyUpdates = true
+                            }
+                        } else {
+                            result.invoke(UiState.Failure("Couldnt get the appointments"))
+                        }
+                    }
+                }
+
+                // Commit the batch update if there are documents to update
+                if (anyUpdates) {
+                    batch.commit()
+                        .addOnSuccessListener {
+                            result.invoke(UiState.Success("Pending appointments checked and updated"))
+                        }
+                        .addOnFailureListener { e ->
+                            result.invoke(UiState.Failure(e.localizedMessage))
+                        }
+                } else {
+                    result.invoke(UiState.Success("No updates needed for pending appointments"))
+                }
+            }
+            .addOnFailureListener { e ->
+                result.invoke(UiState.Failure(e.localizedMessage))
             }
     }
 
