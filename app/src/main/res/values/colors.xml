@@ -37,4 +37,8 @@
 
     <color name="date_time_available">#C08EA705</color>
     <color name="date_time_unavailable">#BED32F2F</color>
+
+    <!-- COLORES EN EL HOME DEL SPA -->
+    <color name="colorPressed">#00FFC5</color> <!-- Color cuando está presionado -->
+    <color name="colorNormal">#9912C10C</color>  <!-- Color normal -->
 </resources>

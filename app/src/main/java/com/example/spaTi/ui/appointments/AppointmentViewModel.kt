@@ -19,6 +19,10 @@ class AppointmentViewModel @Inject constructor (
     val appointments: LiveData<UiState<List<Appointment>>>
         get() = _appointments
 
+    private val _appointmentsBySpa = MutableLiveData<UiState<List<Appointment>>>()
+    val appointmentsBySpa: LiveData<UiState<List<Appointment>>>
+        get() = _appointmentsBySpa
+
     private val _addAppointment = MutableLiveData<UiState<Pair<Appointment, String>>>()
     val addAppointment: LiveData<UiState<Pair<Appointment, String>>>
         get() = _addAppointment
@@ -31,10 +35,23 @@ class AppointmentViewModel @Inject constructor (
     val getAppointmentByMonth: LiveData<UiState<Map<LocalDate, List<Appointment>>>>
         get() = _getAppointmentByMonth
 
+    private val _setAppointmentStatus = MutableLiveData<UiState<String>>()
+    val setAppointmentStatus: LiveData<UiState<String>>
+        get() = _setAppointmentStatus
+
+    private val _checkPendingAppointments = MutableLiveData<UiState<String>>()
+    val checkPendingAppointments: LiveData<UiState<String>>
+        get() = _checkPendingAppointments
+
 
     fun getAppointments() {
         _appointments.value = UiState.Loading
         repository.getAppointments { _appointments.value = it }
+    }
+
+    fun getAppointmentsBySpa() {
+        _appointmentsBySpa.value = UiState.Loading
+        repository.getAppointmentBySpa { _appointmentsBySpa.value = it }
     }
 
     fun addAppointment(appointment: Appointment) {
@@ -54,6 +71,22 @@ class AppointmentViewModel @Inject constructor (
     fun getAppointmentByMonth(spaId: String, yearMonth: YearMonth) {
         _getAppointmentByMonth.value = UiState.Loading
         repository.getAppointmentByMonth(spaId, yearMonth) { _getAppointmentByMonth.value = it }
+    }
+
+    fun setAppointmentAccepted(AppointmentId: String) {
+        _setAppointmentStatus.value = UiState.Loading
+        repository.setAppointmentAccepted(AppointmentId) { _setAppointmentStatus.value = it }
+    }
+
+    fun setAppointmentDeclined(AppointmentId: String) {
+        _setAppointmentStatus.value = UiState.Loading
+        repository.setAppointmentDeclined(AppointmentId) { _setAppointmentStatus.value = it }
+
+    }
+
+    fun checkPendingAppointments(spaId: String) {
+        _checkPendingAppointments.value = UiState.Loading
+        repository.checkPendingAppointments(spaId) { _checkPendingAppointments.value = it }
     }
 
 }

@@ -13,6 +13,7 @@ object FireStoreCollection{
 
 object FireStoreDocumentField {
     val DATE = "date"
+    val DATETIME = "dateTime"
 }
 
 object SharedPrefConstants {

@@ -150,6 +150,9 @@
         <action
             android:id="@+id/action_spaHomeFragment_to_loginFragment"
             app:destination="@+id/loginFragment"/>
+        <action
+            android:id="@+id/action_spaHomeFragment_to_appointmentlisitngFragment"
+            app:destination="@+id/appointmentlistingFragment"/>
     </fragment>
 
     <fragment
@@ -233,5 +236,13 @@
         <action
             android:id="@+id/action_appointmentFragment_to_appointmentsFragment"
             app:destination="@+id/appointmentsFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/appointmentlistingFragment"
+        android:name="com.example.spaTi.ui.checkappointments.AppointmentListingFragment"
+        android:label="fragment_appointmentlisting"
+        tools:layout="@layout/fragment_appointment_listing">
+
     </fragment>
 </navigation>
