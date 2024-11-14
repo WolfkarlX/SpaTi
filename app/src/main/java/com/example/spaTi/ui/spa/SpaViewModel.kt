@@ -40,4 +40,9 @@ class SpaViewModel @Inject constructor(
         _getServicesBySpaId.value = UiState.Loading
         repository.getServicesBySpaId(id) { _getServicesBySpaId.value = it }
     }
+
+    fun searchServicesOnSpa(spaId: String, query: String) {
+        _getServicesBySpaId.value = UiState.Loading
+        repository.searchServicesOnSpa(spaId, query) { _getServicesBySpaId.value = it }
+    }
 }
