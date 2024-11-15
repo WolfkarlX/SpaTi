@@ -199,6 +199,79 @@ class AppointmentRepositoryImpl (
             }
     }
 
+    override fun getAppointmentsByDateOnAppointmentsSchedule(
+        spaId: String,
+        date: LocalDate,
+        result: (UiState<List<Map<String, Any>>>) -> Unit // Modify result type to List of Maps
+    ) {
+        val dateString = date.format(DateTimeFormatter.ISO_LOCAL_DATE)
+        val appointmentsWithExtras = arrayListOf<Map<String, Any>>() // List of maps to hold additional data
+
+        database.collection(FireStoreCollection.APPOINTMENT)
+            .whereEqualTo("spaId", spaId)
+            .whereEqualTo("status", "accepted")
+            .whereEqualTo("date", dateString)
+            .orderBy(FireStoreDocumentField.DATE, Query.Direction.ASCENDING)
+            .orderBy(FireStoreDocumentField.DATETIME, Query.Direction.ASCENDING)
+            .get()
+            .addOnSuccessListener { appointmentDocs ->
+                val tasks = mutableListOf<Task<DocumentSnapshot>>()
+
+                for (document in appointmentDocs) {
+                    val appointment = document.toObject(Appointment::class.java)
+                    val appointmentData = mutableMapOf<String, Any>(
+                        "appointment" to appointment // Store the appointment object in the map
+                    )
+
+                    // Fetch user data based on userId
+                    val userTask = database.collection(FireStoreCollection.USER)
+                        .document(appointment.userId)
+                        .get()
+                        .addOnSuccessListener { userDoc ->
+                            if (userDoc.exists()) {
+                                // Add additional user data to the map
+                                appointmentData["userName"] = userDoc.getString("first_name") ?: "Unknown"
+                                appointmentData["userReports"] = userDoc.getString("reports") ?: "No reports"
+                                appointmentData["userEmail"] = userDoc.getString("email") ?: "No Email"
+                                appointmentData["userCellphone"] = userDoc.getString("cellphone") ?: "No Cellphone"
+                            }
+                        }
+                    tasks.add(userTask)
+
+                    // Fetch service data based on serviceId
+                    val serviceTask = database.collection(FireStoreCollection.SERVICE)
+                        .document(appointment.serviceId)
+                        .get()
+                        .addOnSuccessListener { serviceDoc ->
+                            if (serviceDoc.exists()) {
+                                // Add additional service data to the map
+                                appointmentData["serviceName"] = serviceDoc.getString("name") ?: "Unknown Service"
+                                appointmentData["serviceDescription"] = serviceDoc.getString("description") ?: "No Description"
+                            }
+                        }
+                    tasks.add(serviceTask)
+
+                    // Add the map with the appointment and additional data to the list
+                    appointmentsWithExtras.add(appointmentData)
+                }
+
+                // Wait until all user and service tasks complete
+                Tasks.whenAllComplete(tasks)
+                    .addOnSuccessListener {
+                        result.invoke(UiState.Success(appointmentsWithExtras))
+                    }
+                    .addOnFailureListener {
+                        result.invoke(UiState.Failure(it.localizedMessage))
+                    }
+            }
+            .addOnFailureListener {
+                result.invoke(UiState.Failure(it.localizedMessage))
+            }
+    }
+
+
+
+
     override fun getAppointmentByMonth(
         spaId: String,
         yearMonth: YearMonth,
@@ -210,6 +283,32 @@ class AppointmentRepositoryImpl (
         database.collection(FireStoreCollection.APPOINTMENT)
             .whereGreaterThanOrEqualTo("date", startDate)
             .whereLessThanOrEqualTo("date", endDate)
+            .get()
+            .addOnSuccessListener { documents ->
+                val appointmentsByDate = documents
+                    .mapNotNull { it.toObject(Appointment::class.java) }
+                    .filter { appointment -> appointment.spaId == spaId }
+                    .groupBy { appointment -> LocalDate.parse(appointment.date) }
+
+                result.invoke(UiState.Success(appointmentsByDate))
+            }
+            .addOnFailureListener {
+                result.invoke(UiState.Failure(it.localizedMessage))
+            }
+    }
+
+    override fun getAppointmentByMonthOnAppointmentsSchedule(
+        spaId: String,
+        yearMonth: YearMonth,
+        result: (UiState<Map<LocalDate, List<Appointment>>>) -> Unit
+    ) {
+        val startDate = yearMonth.atDay(1).format(DateTimeFormatter.ISO_LOCAL_DATE)
+        val endDate = yearMonth.atEndOfMonth().format(DateTimeFormatter.ISO_LOCAL_DATE)
+
+        database.collection(FireStoreCollection.APPOINTMENT)
+            .whereGreaterThanOrEqualTo("date", startDate)
+            .whereLessThanOrEqualTo("date", endDate)
+            .whereEqualTo("status", "accepted")
             .get()
             .addOnSuccessListener { documents ->
                 val appointmentsByDate = documents

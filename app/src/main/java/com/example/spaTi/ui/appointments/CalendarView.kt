@@ -137,11 +137,16 @@ class CalendarView @JvmOverloads constructor(
             monthTextView = rootView?.findViewById(R.id.appointmentCalendarMonth)
         }
 
-        monthTextView?.text = currentMonth.month.getDisplayName(TextStyle.FULL, Locale.getDefault())
+        val monthAndYear = "${currentMonth.month.getDisplayName(TextStyle.FULL, Locale.getDefault())} ${currentMonth.year}"
+        monthTextView?.text = monthAndYear
     }
 
     fun markBusy(date: LocalDate) {
         dayViews[date]?.markBusy()
+    }
+
+    fun therearefeAppointments(date: LocalDate){
+        dayViews[date]?.therearefewAppointments()
     }
 
     fun markDisable(date: LocalDate) {
