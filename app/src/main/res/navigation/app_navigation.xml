@@ -126,8 +126,8 @@
             android:id="@+id/action_userHomeFragment_to_favoritesFragment"
             app:destination="@+id/favoritesFragment"/>
         <action
-            android:id="@+id/action_userHomeFragment_to_tagsListFragment"
-            app:destination="@+id/tagsListFragment"/>
+            android:id="@+id/action_userHomeFragment_to_searchTagsFragment"
+            app:destination="@+id/searchTagsFragment"/>
         <action
             android:id="@+id/action_userHomeFragment_to_appointmentsFragment"
             app:destination="@+id/appointmentsFragment"/>
@@ -156,10 +156,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/tagsListFragment"
-        android:name="com.example.spaTi.ui.homeUser.TagsListFragment"
-        android:label="fragment_tags_list"
-        tools:layout="@layout/fragment_tags_list">
+        android:id="@+id/searchTagsFragment"
+        android:name="com.example.spaTi.ui.homeUser.SearchTagsFragment"
+        android:label="fragment_search_tags"
+        tools:layout="@layout/fragment_search_tags">
     </fragment>
 
     <fragment

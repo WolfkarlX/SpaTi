@@ -19,4 +19,5 @@ interface ServiceRepository {
     fun deleteService(service: Service, result: (UiState<String>) -> Unit)
 
     fun getServiceById(id: String, result: (UiState<Service?>) -> Unit)
+    fun getServicesByTagId(id: String, result: (UiState<List<Service>>) -> Unit)
 }
