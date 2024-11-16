@@ -12,8 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.spaTi.data.models.Appointment
-import com.example.spaTi.data.models.Service
 import com.example.spaTi.data.models.Spa
 import com.example.spaTi.databinding.FragmentSpaScheduleBinding
 import com.example.spaTi.ui.appointments.AppointmentViewModel
@@ -25,7 +23,6 @@ import com.example.spaTi.util.toast
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.time.LocalDate
 import java.time.YearMonth
-import java.util.Calendar
 
 
 class SpaScheduleFragment : Fragment() {
@@ -33,7 +30,6 @@ class SpaScheduleFragment : Fragment() {
     private val binding get() = _binding!!
     private var currentMonth = YearMonth.now()
     private var objSpa: Spa? = null
-    private var objService: Service? = null
     private var dateSelected : LocalDate? = null
     private val appointmentViewModel: AppointmentViewModel by activityViewModels()
     private val serviceViewModel: ServiceViewModel by activityViewModels()
@@ -50,9 +46,6 @@ class SpaScheduleFragment : Fragment() {
             }
         )
     }
-    private var currentAppointments = listOf<Appointment>()
-    private val serviceCache = mutableMapOf<String, Service>()
-    private var pendingServiceRequests = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -138,7 +131,6 @@ class SpaScheduleFragment : Fragment() {
 
             }
         }
-        //YOU WERE WORKING HERE YESTERDAY
         appointmentViewModel.setAppointmentStatus.observe(viewLifecycleOwner) { state ->
             when(state){
                 is UiState.Loading -> {
@@ -173,31 +165,8 @@ class SpaScheduleFragment : Fragment() {
 
     private fun processAppointments(appointments: List<Map<String, Any>>) {
         adapterSchedule.updateList(appointments)
-        /*currentAppointments = appointments
-        serviceCache.clear()
-        pendingServiceRequests = appointments.size
-
-        // Fetch service details for each appointment
-        appointments.forEach { appointment ->
-            serviceViewModel.getServiceById(appointment.serviceId)
-        }*/
-
     }
 
-    /*private fun updateScheduleWithServices() {
-        val occupiedSlots = currentAppointments.mapNotNull { appointment ->
-            val service = serviceCache[appointment.serviceId]
-            if (service != null) {
-                Pair(appointment.dateTime, service.durationMinutes)
-            } else null
-        }
-        /*adapterSchedule.setTimeRange(
-            startTime = objSpa!!.inTime,
-            endTime = objSpa!!.outTime,
-            serviceDurationMinutes = 10/*objService!!.durationMinutes*/,
-            occupiedSlots = occupiedSlots
-        )*/
-    }*/
 
     private fun setupRecyclerView() {
 
@@ -213,12 +182,6 @@ class SpaScheduleFragment : Fragment() {
 
     private fun setupFragmentData() {
         objSpa = arguments?.getParcelable<Spa>("spa")
-        //objService = arguments?.getParcelable<Spa>("services")
-
-        /*objSpa?.let { binding.appointmentSpaName.text = it.spa_name }
-        objService?.let {
-            binding.appointmentServiceSelected.text = "${it.name} - ${convertMinutesToReadableTime(it.durationMinutes)} - ${it.price} MXN"
-        }*/
 
         updateCalendarMonth()
     }
@@ -256,63 +219,4 @@ class SpaScheduleFragment : Fragment() {
         appointmentViewModel.getAppointmentByMonthOnAppointmentsSchedule(objSpa!!.id, currentMonth)
         adapterSchedule.clearAppointments()
     }
-
-
-    /*private fun showConfirmBottomSheet(date: String) {
-        isBottomSheetShowing = true
-
-        val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme).apply {
-            setOnDismissListener {
-                isBottomSheetShowing = false
-                currentBottomSheet = null
-            }
-
-            val bottomSheetBinding = FragmentAppointmentConfirmBinding.inflate(LayoutInflater.from(context))
-            setContentView(bottomSheetBinding.root)
-
-            val bottomSheet = findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as? FrameLayout
-            bottomSheet?.layoutParams?.height = (resources.displayMetrics.heightPixels * 0.75).toInt()
-
-            val behavior = BottomSheetBehavior.from(bottomSheet ?: return@apply)
-            behavior.state = BottomSheetBehavior.STATE_EXPANDED
-            behavior.isDraggable = true
-            behavior.isHideable = true
-
-            behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-                        dismiss()
-                    }
-                }
-
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {}
-            })
-
-            with(bottomSheetBinding) {
-                appointmentConfirmName.text = objSpa?.spa_name ?: "Spa name unavailable"
-                appointmentConfirmService.text = objService?.name ?: "Service name unavailable"
-                appointmentConfirmDate.text = dateSelected?.format(
-                    DateTimeFormatter.ofPattern("EEEE d MMMM", Locale.getDefault())
-                ) ?: "Date unavailable"
-
-                val dateEnd = try {
-                    objService?.let {
-                        LocalTime.parse(date.trim(), DateTimeFormatter.ofPattern("HH:mm"))
-                            .plusMinutes(it.durationMinutes.toLong())
-                    }
-                } catch (e: Exception) {
-                    null
-                }
-
-                appointmentConfirmTime.text = "$date - ${dateEnd ?: "End time unavailable"}"
-
-                appointmentConfirmCancelBtn.setOnClickListener {
-                    dismiss()
-                }
-            }
-        }
-
-        currentBottomSheet = bottomSheetDialog
-        bottomSheetDialog.show()
-    }*/
 }

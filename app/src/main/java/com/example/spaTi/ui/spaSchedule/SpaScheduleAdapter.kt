@@ -65,6 +65,7 @@ class SpaScheduleAdapter(
             binding.tvFechaHora.text = "${appointment.date}, ${appointment.dateTime} hrs"
             binding.tvCorreo.text = item["userEmail"] as? String
             binding.tvtelefono.text = item["userCellphone"] as? String
+            binding.tvsexo.text = item["userSex"] as? String
 
             binding.btnRechazarCita.setOnClickListener { onItemClicked.invoke(adapterPosition,appointment, 1)
             }

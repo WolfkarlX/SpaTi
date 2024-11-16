@@ -234,6 +234,7 @@ class AppointmentRepositoryImpl (
                                 appointmentData["userReports"] = userDoc.getString("reports") ?: "No reports"
                                 appointmentData["userEmail"] = userDoc.getString("email") ?: "No Email"
                                 appointmentData["userCellphone"] = userDoc.getString("cellphone") ?: "No Cellphone"
+                                appointmentData["userSex"] = userDoc.getString("sex") ?: "No sex"
                             }
                         }
                     tasks.add(userTask)

@@ -164,6 +164,28 @@
                 android:fontFamily="@font/koho"
                 android:layout_column="1"/>
 
+            <TextView
+                android:id="@+id/tvsexo_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sexo:"
+                android:fontFamily="@font/koho"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="17dp"
+                android:layout_column="0"/>
+
+            <TextView
+                android:id="@+id/tvsexo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Eample"
+                android:textSize="14sp"
+                android:layout_marginStart="-61dp"
+                android:textColor="#4A4A4A"
+                android:fontFamily="@font/koho"
+                android:layout_column="1"/>
+
             <Button
                 android:id="@+id/btnRechazarCita"
                 android:layout_width="wrap_content"
@@ -178,6 +200,7 @@
                 android:layout_columnSpan="2"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"/>
+
         </GridLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
