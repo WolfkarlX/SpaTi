@@ -37,6 +37,8 @@
 
     <color name="date_time_available">#C08EA705</color>
     <color name="date_time_unavailable">#BED32F2F</color>
+    <color name="colorOnlyOneAppointment">#FF00E8</color> <!-- Color cuando está presionado -->
+
 
     <!-- COLORES EN EL HOME DEL SPA -->
     <color name="colorPressed">#00FFC5</color> <!-- Color cuando está presionado -->
