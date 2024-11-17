@@ -65,7 +65,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="• Otorga permiso de utilizar la cámara de su dispositivo para realizar capturas y subirlas como fot de perfil.\n"
+                android:text="• Otorga permiso de utilizar la cámara de su dispositivo para realizar capturas y que estas puedan ser subidas como foto de perfil.\n"
                 android:textSize="16sp"
                 android:textColor="#333333"/>
 
@@ -224,10 +224,11 @@
                 android:textColor="#333333"/>
 
             <TextView
+                android:id="@+id/privacyTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Política de privacidad:"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:layout_marginTop="16dp"/>
@@ -249,7 +250,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="• Los spas no tendrán acceso a ningún tipo de información confidencial del usuario, solamente al nombre para facilitar el trato y ubicar a los usuarios.\n"
+                android:text="• Los spas no tendrán acceso a ningún tipo de información confidencial del usuario, solamente aquellos datos que sirvan para facilitar el trato y ubicar a los usuarios clientes.\n"
                 android:textSize="16sp"
                 android:textColor="#333333"/>
 

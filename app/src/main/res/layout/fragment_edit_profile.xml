@@ -3,8 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/fondo_cita_transparente"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -130,7 +132,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/telefono_et" />
 
-            <!-- Menú desplegable próximo a usar
+            <!-- Menú desplegable para elegir sexo-->
             <AutoCompleteTextView
                 android:id="@+id/sexoEt"
                 android:layout_width="match_parent"
@@ -148,26 +150,6 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sexo_label" />
-                -->
-
-            <EditText
-                android:id="@+id/sexoEt"
-                android:layout_width="match_parent"
-                android:layout_height="38dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:background="@drawable/edittext_rounded"
-                android:hint="Sexo"
-                android:inputType="text"
-                android:paddingLeft="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sexo_label" />
-
 
             <TextView
                 android:id="@+id/fecha_label"
@@ -249,6 +231,14 @@
                     android:indeterminateTint="@color/white"
                     android:visibility="invisible" />
             </RelativeLayout>
+
+            <!-- Cuando el usuario edite su info, no afectará los reportes-->
+            <TextView
+                android:id="@+id/reportsEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                android:enabled="true" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
