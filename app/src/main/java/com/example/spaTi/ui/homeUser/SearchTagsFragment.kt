@@ -12,9 +12,16 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.spaTi.R
+import com.example.spaTi.data.models.Service
+import com.example.spaTi.data.models.Spa
 import com.example.spaTi.databinding.FragmentSearchTagsBinding
 import com.example.spaTi.ui.services.ServiceViewModel
+import com.example.spaTi.ui.spa.SpaViewModel
 import com.example.spaTi.ui.tags.TagViewModel
 import com.example.spaTi.util.UiState
 import com.example.spaTi.util.hide
@@ -32,6 +39,7 @@ import kotlinx.coroutines.launch
 class SearchTagsFragment : Fragment() {
     private val tagViewModel: TagViewModel by viewModels()
     private val serviceViewModel: ServiceViewModel by viewModels()
+    private val spaViewModel: SpaViewModel by viewModels()
     private var _binding: FragmentSearchTagsBinding? = null
     private val binding get() = _binding!!
     private lateinit var searchAdapter: SearchAdapter
@@ -71,6 +79,7 @@ class SearchTagsFragment : Fragment() {
     private fun cleanupObservers() {
         tagViewModel.tag.removeObservers(viewLifecycleOwner)
         serviceViewModel.service.removeObservers(viewLifecycleOwner)
+        spaViewModel.getSpaById.removeObservers(viewLifecycleOwner)
     }
 
     private fun observeTagModels() {
@@ -95,12 +104,53 @@ class SearchTagsFragment : Fragment() {
                 is UiState.Loading -> binding.progressBar.show()
                 is UiState.Success -> {
                     binding.progressBar.hide()
-                    searchAdapter.updateServicesList(state.data)
+                    addSpaDataToServices(state.data)
                 }
                 is UiState.Failure -> {
                     binding.progressBar.hide()
                     toast(state.error)
                 }
+            }
+        }
+    }
+
+    private fun addSpaDataToServices(services: List<Service>) {
+        val servicesWithSpa = services.map { ServiceWithSpa(it) }
+
+        val pendingSpas = servicesWithSpa.size
+        var completedSpas = 0
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            services.forEachIndexed { index, service ->
+                spaViewModel.getSpaById(service.spaId)
+
+                val observer = object : Observer<UiState<Spa?>> {
+                    override fun onChanged(spaState: UiState<Spa?>) {
+                        when (spaState) {
+                            is UiState.Loading -> return
+                            is UiState.Success -> {
+                                spaState.data?.let { spa ->
+                                    servicesWithSpa[index].spaName = spa.spa_name
+                                } ?: run {
+                                    servicesWithSpa[index].spaName = "Spa No Encontrado!"
+                                }
+                            }
+                            is UiState.Failure -> {
+                                servicesWithSpa[index].spaName = "Spa No Encontrado!"
+                            }
+                        }
+
+                        completedSpas++
+
+                        if (completedSpas == pendingSpas) {
+                            binding.progressBar.hide()
+                            searchAdapter.updateServicesList(servicesWithSpa)
+                            spaViewModel.getSpaById.removeObserver(this)
+                        }
+                    }
+                }
+
+                spaViewModel.getSpaById.observe(viewLifecycleOwner, observer)
             }
         }
     }
@@ -112,7 +162,9 @@ class SearchTagsFragment : Fragment() {
                 binding.fragmentSearchTagsCancel.show()
             },
             onServiceClicked = { service ->
-
+                findNavController().navigate(R.id.action_searchTagsFragment_to_spaDetailFragment, Bundle().apply {
+                    putParcelable("service", service)
+                })
             }
         )
         binding.fragmentSearchTagsRecyclerView.apply {
@@ -162,6 +214,7 @@ class SearchTagsFragment : Fragment() {
             }
         })
         binding.fragmentSearchTagsCancel.setOnClickListener {
+            binding.fragmentSearchTagsSearch.setText("")
             tagViewModel.getTags()
             binding.fragmentSearchTagsCancel.hide()
         }

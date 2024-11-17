@@ -163,6 +163,10 @@
         android:name="com.example.spaTi.ui.homeUser.SearchTagsFragment"
         android:label="fragment_search_tags"
         tools:layout="@layout/fragment_search_tags">
+
+        <action
+            android:id="@+id/action_searchTagsFragment_to_spaDetailFragment"
+            app:destination="@+id/spaDetailFragment"/>
     </fragment>
 
     <fragment

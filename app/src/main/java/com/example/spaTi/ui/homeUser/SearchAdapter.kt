@@ -15,7 +15,7 @@ class SearchAdapter  (
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var isAdapting: AdapterState = AdapterState.Tags
-    private var servicesItems: MutableList<Service> = arrayListOf()
+    private var servicesItems: MutableList<ServiceWithSpa> = arrayListOf()
     private var tagsItems: MutableList<Tag> = arrayListOf()
 
     companion object {
@@ -69,12 +69,12 @@ class SearchAdapter  (
     inner class ServiceViewHolder(
         private val binding: ItemServiceBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Service) {
+        fun bind(item: ServiceWithSpa) {
             binding.apply {
-                name.text = item.name
+                name.text = "${item.service.name} \n Por: ${item.spaName}"
 
                 root.setOnClickListener {
-                    onServiceClicked(item)
+                    onServiceClicked(item.service)
                 }
             }
         }
@@ -105,10 +105,10 @@ class SearchAdapter  (
         notifyDataSetChanged()
     }
 
-    fun updateServicesList(services: List<Service>) {
+    fun updateServicesList(servicesWithSpa: List<ServiceWithSpa>) {
         isAdapting = AdapterState.Services
         servicesItems.clear()
-        servicesItems.addAll(services)
+        servicesItems.addAll(servicesWithSpa)
         notifyDataSetChanged()
     }
 }
@@ -117,3 +117,8 @@ sealed class AdapterState {
     object Services: AdapterState()
     object Tags: AdapterState()
 }
+
+data class ServiceWithSpa(
+    val service: Service,
+    var spaName: String = "",
+)
