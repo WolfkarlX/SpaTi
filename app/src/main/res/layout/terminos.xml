@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/v_oscuro">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,255 +15,294 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
+            <!-- Términos y Condiciones -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Términos y Condiciones"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp"
+                android:background="@color/white">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Registro de usuarios y spas:"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_marginTop="8dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:background="@drawable/rounded_corners"
+                    android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="• Los usuarios y los spas deben proporcionar información verídica y actualizada al crear una cuenta.\n"
-                android:textSize="16sp"
-                android:textColor="#333333"/>
+                    <TextView
+                        android:id="@+id/title_terms"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Términos y Condiciones"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="16dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="• Los spas son responsables de mantener la información de sus servicios y disponibilidad actualizada.\n"
-                android:textSize="16sp"
-                android:textColor="#333333"/>
+                    <!-- Puntos de Términos y Condiciones -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Registro de usuarios y spas"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="8dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="• Se prohíbe la creación de cuentas falsas o fraudulentas.\n"
-                android:textSize="16sp"
-                android:textColor="#333333"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="• Los usuarios y los spas deben proporcionar información verídica y actualizada al crear una cuenta.\n"
+                        android:textSize="16sp"
+                        android:textColor="#333333"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Uso de la cámara:"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_marginTop="16dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="• Los spas son responsables de mantener la información de sus servicios y disponibilidad actualizada.\n"
+                        android:textSize="16sp"
+                        android:textColor="#333333"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="• Otorga permiso de utilizar la cámara de su dispositivo para realizar capturas y que estas puedan ser subidas como foto de perfil.\n"
-                android:textSize="16sp"
-                android:textColor="#333333"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="• Se prohíbe la creación de cuentas falsas o fraudulentas.\n"
+                        android:textSize="16sp"
+                        android:textColor="#333333"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Imágenes adjuntadas:"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_marginTop="16dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Uso de la cámara"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="16dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="• Acepta que las fotos subidas a esta aplicación sean utilizadas por la misma, así mismo otorga permiso a que los negocios puedan ver su foto de perfil para fines profesionales.\n"
-                android:textSize="16sp"
-                android:textColor="#333333"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="• Otorga permiso de utilizar la cámara de su dispositivo para realizar capturas y que estas puedan ser subidas como foto de perfil.\n"
+                        android:textSize="16sp"
+                        android:textColor="#333333"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Servicios de agendamiento:"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_marginTop="16dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Imágenes adjuntadas"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="16dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="• La aplicación permite a los usuarios agendar citas con los spas registrados, sujetas a la disponibilidad y políticas del spa.\n"
-                android:textSize="16sp"
-                android:textColor="#333333"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="• Acepta que las fotos subidas a esta aplicación sean utilizadas por la misma, así mismo otorga permiso a que los negocios puedan ver su foto de perfil para fines profesionales.\n"
+                        android:textSize="16sp"
+                        android:textColor="#333333"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="• Los spas son responsables de la precisión de la información sobre sus servicios, precios y horarios.\n"
-                android:textSize="16sp"
-                android:textColor="#333333"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Servicios de agendamiento"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="16dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Responsabilidades del spa:"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_marginTop="16dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="• La aplicación permite a los usuarios agendar citas con los spas registrados, sujetas a la disponibilidad y políticas del spa.\n"
+                        android:textSize="16sp"
+                        android:textColor="#333333"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="• Los spas son responsables de la prestación de los servicios, la calidad de los mismos, y cualquier asunto relacionado con las citas agendadas.\n"
-                android:textSize="16sp"
-                android:textColor="#333333"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="• Los spas son responsables de la precisión de la información sobre sus servicios, precios y horarios.\n"
+                        android:textSize="16sp"
+                        android:textColor="#333333"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="• La aplicación no es responsable por la calidad del servicio proporcionado por los spas ni por disputas entre los usuarios y los spas.\n"
-                android:textSize="16sp"
-                android:textColor="#333333"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Responsabilidades del spa"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="16dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Responsabilidades del usuario:"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_marginTop="16dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="• Los spas son responsables de la prestación de los servicios, la calidad de los mismos, y cualquier asunto relacionado con las citas agendadas.\n"
+                        android:textSize="16sp"
+                        android:textColor="#333333"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="• Los usuarios son responsables de asistir a sus citas a tiempo o cancelar con antelación según las políticas establecidas.\n"
-                android:textSize="16sp"
-                android:textColor="#333333"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="• La aplicación no es responsable por la calidad del servicio proporcionado por los spas ni por disputas entre los usuarios y los spas.\n"
+                        android:textSize="16sp"
+                        android:textColor="#333333"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="• Los usuarios no deben abusar del sistema, como agendar citas sin intención de asistir.\n"
-                android:textSize="16sp"
-                android:textColor="#333333"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Responsabilidades del usuario"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="16dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Limitación de responsabilidad:"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_marginTop="16dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="• Los usuarios son responsables de asistir a sus citas a tiempo o cancelar con antelación según las políticas establecidas.\n"
+                        android:textSize="16sp"
+                        android:textColor="#333333"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="• La aplicación no es responsable por pérdidas o daños resultantes del uso de la plataforma, errores en las citas, o fallos del sistema.\n"
-                android:textSize="16sp"
-                android:textColor="#333333"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="• Los usuarios no deben abusar del sistema, como agendar citas sin intención de asistir.\n"
+                        android:textSize="16sp"
+                        android:textColor="#333333"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="• Como fallos a la hora de agendar las fechas/horas de las citas, el lugar y servicio seleccionado.\n"
-                android:textSize="16sp"
-                android:textColor="#333333"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Limitación de responsabilidad"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="16dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="• Todo lo que conlleva no ser fallos de registro de información queda fuera de la responsabilidad de la aplicación.\n"
-                android:textSize="16sp"
-                android:textColor="#333333"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="• La aplicación no es responsable por pérdidas o daños resultantes del uso de la plataforma, errores en las citas, o fallos del sistema.\n"
+                        android:textSize="16sp"
+                        android:textColor="#333333"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Suspensión y cancelación de cuentas:"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_marginTop="16dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="• Como fallos a la hora de agendar las fechas/horas de las citas, el lugar y servicio seleccionado.\n"
+                        android:textSize="16sp"
+                        android:textColor="#333333"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="• Reservar el derecho de suspender o cancelar cuentas de usuarios o spas en caso de incumplimiento de los términos.\n"
-                android:textSize="16sp"
-                android:textColor="#333333"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="• Todo lo que conlleva no ser fallos de registro de información queda fuera de la responsabilidad de la aplicación.\n"
+                        android:textSize="16sp"
+                        android:textColor="#333333"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="• Una cuenta puede llegar a ser suspendida por los siguientes motivos: Abuso de citas a las cuales no acudió, nombres inapropiados, petición del spa debido a un mal comportamiento en el establecimiento y violación de las políticas.\n"
-                android:textSize="16sp"
-                android:textColor="#333333"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Suspensión y cancelación de cuentas"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="16dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Política de reseñas y comentarios:"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_marginTop="16dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="• Reservar el derecho de suspender o cancelar cuentas de usuarios o spas en caso de incumplimiento de los términos.\n"
+                        android:textSize="16sp"
+                        android:textColor="#333333"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="• Los usuarios y representantes del spa podrán dejar reseñas sobre el servicio/actitud y la aplicación no se hace responsable del nivel de calificación otorgado.\n"
-                android:textSize="16sp"
-                android:textColor="#333333"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="• Una cuenta puede llegar a ser suspendida por los siguientes motivos: Abuso de citas a las cuales no acudió, nombres inapropiados, petición del spa debido a un mal comportamiento en el establecimiento y violación de las políticas.\n"
+                        android:textSize="16sp"
+                        android:textColor="#333333"/>
 
-            <TextView
-                android:id="@+id/privacyTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Política de privacidad:"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_marginTop="16dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Política de reseñas y comentarios"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="16dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="• La aplicación recopila datos personales como nombre, correo electrónico y preferencias de citas, esto para poder llevar un control de los accesos y poder brindar un servicio adecuado tanto para un usuario como para los negocios de spas.\n"
-                android:textSize="16sp"
-                android:textColor="#333333"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="• Los usuarios y representantes del spa podrán dejar reseñas sobre el servicio/actitud y la aplicación no se hace responsable del nivel de calificación otorgado.\n"
+                        android:textSize="16sp"
+                        android:textColor="#333333"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="• Los datos se mantendrán seguros y solo visibles para los desarrolladores de la aplicación y para uso profesional que actualmente es para un proyecto universitario (se actualizará la política si llega al mercado).\n"
-                android:textSize="16sp"
-                android:textColor="#333333"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- Política de Privacidad -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="• Los spas no tendrán acceso a ningún tipo de información confidencial del usuario, solamente aquellos datos que sirvan para facilitar el trato y ubicar a los usuarios clientes.\n"
-                android:textSize="16sp"
-                android:textColor="#333333"/>
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp"
+                android:background="@color/white">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="• Cada imagen cargada en la aplicación será utilizada meramente para uso profesional. Ninguna foto de perfil será otorgada a otro usuario sin el consentimiento del usuario propietario de la foto.\n"
-                android:textSize="16sp"
-                android:textColor="#333333"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:background="@drawable/rounded_corners"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/title_privacy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Política de Privacidad"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- Puntos de la Política de Privacidad -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="• La aplicación recopila datos personales como nombre, correo electrónico y preferencias de citas, esto para poder llevar un control de los accesos y poder brindar un servicio adecuado tanto para un usuario como para los negocios de spas.\n"
+                        android:textSize="16sp"
+                        android:textColor="#333333"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="• Los datos se mantendrán seguros y solo visibles para los desarrolladores de la aplicación y para uso profesional que actualmente es para un proyecto universitario (se actualizará la política si llega al mercado).\n"
+                        android:textSize="16sp"
+                        android:textColor="#333333"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="• Los spas no tendrán acceso a ningún tipo de información confidencial del usuario, solamente aquellos datos que sirvan para facilitar el trato y ubicar a los usuarios clientes.\n"
+                        android:textSize="16sp"
+                        android:textColor="#333333"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="• Cada imagen cargada en la aplicación será utilizada meramente para uso profesional. Ninguna foto de perfil será otorgada a otro usuario sin el consentimiento del usuario propietario de la foto.\n"
+                        android:textSize="16sp"
+                        android:textColor="#333333"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
     </ScrollView>
-
 </RelativeLayout>

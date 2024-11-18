@@ -145,63 +145,98 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_marginBottom="8dp">
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:layout_marginEnd="8dp"
                         android:src="@drawable/agenda"
-                        android:tint="#4CAF50" />
+                        android:tint="#4CAF50"
+                        android:layout_marginEnd="8dp" />
 
                     <TextView
                         android:id="@+id/tvFechaHora"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Fecha y Hora: 17 de Septiembre, 3:00 PM"
-                        android:textColor="#4A4A4A"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:textColor="#4A4A4A" />
                 </LinearLayout>
+
+                <!-- Correo -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/email"
+                        android:tint="#4CAF50"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvCorreo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Email"
+                        android:textSize="16sp"
+                        android:textColor="#4A4A4A" />
+                </LinearLayout>
+
+                <!-- Telefono -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/phone"
+                        android:tint="#4CAF50"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvtelefono"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Telénofo"
+                        android:textSize="16sp"
+                        android:textColor="#4A4A4A" />
+                </LinearLayout>
+
+                <!-- Boton -->
+                <ImageButton
+                    android:id="@+id/btnReport"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/report_inactive"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:layout_columnSpan="2"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="-11dp"
+                    android:contentDescription="Reportar" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Reportar"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"
+                    android:layout_marginStart="288dp"
+                    android:layout_marginTop="-10dp"/>
             </LinearLayout>
 
-            <!-- Botones -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:padding="1dp">
-
-                <!-- Botón Aceptar -->
-                <Button
-                    android:id="@+id/btnAceptarCita"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    android:text="ACEPTAR CITA"
-                    android:backgroundTint="#4CAF50"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/koho"
-                    android:textStyle="bold"
-                    android:padding="8dp" />
-
-                <!-- Botón Rechazar -->
-                <Button
-                    android:id="@+id/btnRechazarCita"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="8dp"
-                    android:text="RECHAZAR CITA"
-                    android:backgroundTint="#b5b5b5"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/koho"
-                    android:textStyle="bold"
-                    android:padding="8dp" />
-            </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

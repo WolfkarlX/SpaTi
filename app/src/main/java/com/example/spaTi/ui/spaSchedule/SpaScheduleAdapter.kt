@@ -65,7 +65,7 @@ class SpaScheduleAdapter(
             binding.tvFechaHora.text = "${appointment.date}, ${appointment.dateTime} hrs"
             binding.tvCorreo.text = item["userEmail"] as? String
             binding.tvtelefono.text = item["userCellphone"] as? String
-            binding.tvsexo.text = item["userSex"] as? String
+            binding.tvSexo.text = item["userSex"] as? String
 
             binding.btnRechazarCita.setOnClickListener { onItemClicked.invoke(adapterPosition,appointment, 1)
             }
@@ -73,13 +73,13 @@ class SpaScheduleAdapter(
 
         fun bindEmptyList(appointment: Appointment) {
             binding.tvUsuario.textSize = 50F
-            binding.tvUsuarioLabel.text = ""
+            //binding.tvUsuarioLabel.text = ""
             binding.tvUsuario.text = "NO HAY SOLICITUDES DE CITAS"
             binding.tvReportesLabel.text = ""
             binding.tvReportes.text = ""
-            binding.tvServicioLabel.text = ""
+            //binding.tvServicioLabel.text = ""
             binding.tvServicio.text = ""
-            binding.tvFechaHoraLabel.text = ""
+            //binding.tvFechaHoraLabel.text = ""
             binding.tvFechaHora.text = ""
         }
     }

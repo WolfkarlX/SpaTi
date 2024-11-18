@@ -58,6 +58,7 @@ class AppointmentListingAdapter(
             binding.tvUsuario.setText(item.userId)
             binding.tvReportes.setText(item.spaId)
             binding.tvServicio.setText(item.serviceId)
+            binding.tvSexo.setText(item.id)
             binding.tvFechaHora.setText(item.date + ", " + item.dateTime + "hrs")
 
             binding.btnAceptarCita.setOnClickListener { onItemClicked.invoke(adapterPosition,item, 1)
@@ -69,13 +70,13 @@ class AppointmentListingAdapter(
 
         fun bindEmptyList(item: Appointment){
             binding.tvUsuario.textSize = 50F
-            binding.tvUsuarioLabel.setText("")
+            //binding.tvUsuarioLabel.setText("")
             binding.tvUsuario.setText("")
             binding.tvReportesLabel.setText("")
             binding.tvReportes.setText("")
-            binding.tvServicioLabel.setText("")
+            //binding.tvServicioLabel.setText("")
             binding.tvServicio.setText("")
-            binding.tvFechaHoraLabel.setText("")
+            //binding.tvFechaHoraLabel.setText("")
             binding.tvFechaHora.setText("")
             binding.tvUsuario.setText("NO HAY SOLICITUDES DE CITAS")
             binding.btnAceptarCita.hide()

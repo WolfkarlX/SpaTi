@@ -114,6 +114,7 @@ class AppointmentRepositoryImpl (
                             if (userDoc.exists()) {
                                 appointment.userId = userDoc.getString("first_name") ?: "Unknown"
                                 appointment.spaId = userDoc.getString("reports") ?: "No reports"
+                                appointment.id = userDoc.getString("sex")?: "failed to retrieve sex"
                             }
                         }
                     tasks.add(userTask)
