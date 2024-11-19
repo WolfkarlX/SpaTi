@@ -43,6 +43,7 @@
     <string name="invalid_description_consecutive_repeated">Description should not have repeated characters.</string>
     <string name="invalid_time_input">Invalid time input</string>
     <string name="invalid_time_output">Invalid time output</string>
+    <string name="invalid_description_repeating_chars">La descripción no puede tener caracteres repetidos consecutivos.</string>
     <string name="invalid_day">Invalid day</string>
     <string name="invalid_month">Invalid month</string>
     <string name="invalid_year">Invalid year</string>

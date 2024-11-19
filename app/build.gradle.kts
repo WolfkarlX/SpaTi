@@ -49,8 +49,14 @@ android {
 
 dependencies {
 
-    implementation("com.github.bumptech.glide:glide:4.15.1")
-    kapt("com.github.bumptech.glide:compiler:4.15.1")
+
+    //Bumpetch
+    implementation ("com.github.bumptech.glide:glide:4.15.0")
+
+    implementation ("com.google.android.gms:play-services-maps:18.0.2")
+    implementation ("com.google.android.gms:play-services-location:18.0.0")
+
+
     // Firebase dependencies
     implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
     implementation("com.google.firebase:firebase-analytics")

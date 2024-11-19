@@ -1,6 +1,8 @@
 package com.example.spaTi.ui.SpaAuth
 
 import android.annotation.SuppressLint
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -13,9 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.spaTi.R
 import com.example.spaTi.data.models.Spa
-import com.example.spaTi.data.models.User
 import com.example.spaTi.databinding.FragmentSpaRegisterBinding
-//import com.example.spaTi.ui.auth.AuthViewModel
 import com.example.spaTi.ui.auth.SpaAuthViewModel
 import com.example.spaTi.util.UiState
 import com.example.spaTi.util.hide
@@ -23,19 +23,23 @@ import com.example.spaTi.util.isValidEmail
 import com.example.spaTi.util.show
 import com.example.spaTi.util.toast
 import com.example.spaTi.util.validatePassword
-import com.google.protobuf.Internal.BooleanList
+import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
-
-
+import android.location.Address
+import android.location.Geocoder
+import java.util.*
 
 @AndroidEntryPoint
 class SpaRegisterFragment : Fragment() {
-    val TAG: String = "SpaRegisterFragment"
+
     lateinit var binding: FragmentSpaRegisterBinding
     val viewModel: SpaAuthViewModel by viewModels()
+
+    private var selectedLatLng: LatLng? = null
+    private var selectedAddress: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,12 +52,17 @@ class SpaRegisterFragment : Fragment() {
     @SuppressLint("NewApi")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         observer()
+
+        // Navegar a los términos y condiciones
         binding.termsTextView.setOnClickListener {
             findNavController().navigate(R.id.action_registerSpaFragment_to_TermsFragment)
         }
+
+        // Registrar spa
         binding.registerBtn.setOnClickListener {
-            if (validation()){
+            if (validation()) {
                 viewModel.registerSpa(
                     email = binding.emailSpaEt.text.toString(),
                     password = binding.passSpaEt.text.toString(),
@@ -61,22 +70,30 @@ class SpaRegisterFragment : Fragment() {
                 )
             }
         }
+
+        // Iniciar actividad de selección de ubicación cuando el campo de ubicación es presionado
+        binding.locationSpaBtn.setOnClickListener {
+            val intent = Intent(requireContext(), MapActivity::class.java)
+            startActivityForResult(intent, LOCATION_REQUEST_CODE)
+        }
     }
 
     fun observer() {
         viewModel.register.observe(viewLifecycleOwner) { state ->
-            when(state){
+            when (state) {
                 is UiState.Loading -> {
                     Log.d("SpaRegisterFragment observer", "LOADING")
                     binding.registerBtn.setText("")
                     binding.registerProgress.show()
                 }
+
                 is UiState.Failure -> {
                     Log.d("SpaRegisterFragment observer", "FAILURE")
                     binding.registerBtn.setText("Register")
                     binding.registerProgress.hide()
                     toast(state.error)
                 }
+
                 is UiState.Success -> {
                     Log.d("SpaRegisterFragment observer", "SUCCESS")
                     binding.registerBtn.setText("Register")
@@ -92,7 +109,7 @@ class SpaRegisterFragment : Fragment() {
         return Spa(
             id = "",
             spa_name = binding.spaNameEt.text.toString(),
-            location = binding.locationSpaEt.text.toString(),
+            location = selectedAddress ?: "", // Usamos selectedAddress para la ubicación en texto plano
             email = binding.emailSpaEt.text.toString(),
             cellphone = binding.telSpaEt.text.toString(),
             description = binding.descriptionEt.text.toString(),
@@ -104,42 +121,42 @@ class SpaRegisterFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun validation(): Boolean {
-
-        if (binding.emailSpaLabel.text.isNullOrEmpty()){
+        if (binding.emailSpaLabel.text.isNullOrEmpty()) {
             toast(getString(R.string.enter_email))
             return false
         } else {
-            if (!binding.emailSpaEt.text.toString().isValidEmail()){
+            if (!binding.emailSpaEt.text.toString().isValidEmail()) {
                 toast(getString(R.string.invalid_email))
                 return false
             }
         }
 
-        if (binding.passSpaEt.text.isNullOrEmpty()){
+        if (binding.passSpaEt.text.isNullOrEmpty()) {
             toast(getString(R.string.enter_password))
             return false
         } else {
-            val (isValid, message) = validatePassword(requireContext(), binding.passSpaEt.text.toString())
+            val (isValid, message) = validatePassword(
+                requireContext(),
+                binding.passSpaEt.text.toString()
+            )
 
-            if(!isValid){
+            if (!isValid) {
                 toast(message)
                 return false
             }
-
         }
 
-        if (binding.spaNameEt.text.isNullOrEmpty()){
+        if (binding.spaNameEt.text.isNullOrEmpty()) {
             toast(getString(R.string.enter_spaname))
             return false
         }
 
-        if (binding.locationSpaEt.text.isNullOrEmpty()){
+        if (binding.locationSpaBtn.text.isNullOrEmpty()) {
             toast(getString(R.string.enter_location))
             return false
         }
 
-
-        if (binding.telSpaEt.text.isNullOrEmpty()){
+        if (binding.telSpaEt.text.isNullOrEmpty()) {
             toast(getString(R.string.enter_cellphone))
             return false
         } else {
@@ -161,10 +178,9 @@ class SpaRegisterFragment : Fragment() {
                 toast(getString(R.string.invalid_cellphone_number))
                 return false
             }
-
         }
 
-        if(binding.inTimeEt.text.isNullOrEmpty()){
+        if (binding.inTimeEt.text.isNullOrEmpty()) {
             toast(getString(R.string.input_hour))
             return false
         } else {
@@ -179,7 +195,7 @@ class SpaRegisterFragment : Fragment() {
             }
         }
 
-        if(binding.outTimeEt.text.isNullOrEmpty()){
+        if (binding.outTimeEt.text.isNullOrEmpty()) {
             toast(getString(R.string.enter_time_output))
             return false
         } else {
@@ -199,58 +215,64 @@ class SpaRegisterFragment : Fragment() {
         } else {
 
             val description = binding.descriptionEt.text.toString()
-            val consecutiveRepeat = Regex("(.)\\1{5,}")
-            val descriptionRegex = Regex("^[a-zA-Z0-9.,!?'\"\\- ]{20,500}$")
+            val consecutiveRepeat = Regex("(.)\\1{3,}") // 4 or more consecutive repeating characters
 
-            if (!description.matches(descriptionRegex)) {
-                toast(getString(R.string.invalid_description_too_long))
+            if (consecutiveRepeat.containsMatchIn(description)) {
+                toast(getString(R.string.invalid_description_repeating_chars))
                 return false
             }
-            if(consecutiveRepeat.containsMatchIn(description)){
-                toast(getString(R.string.invalid_description_consecutive_repeated))
-                return false
-            }
-        }
-
-        if (!binding.termsCheckbox.isChecked) {
-            toast(getString(R.string.check_terms))
-            return false
         }
 
         return true
     }
 
-    @SuppressLint("NewApi")
-    fun validateAndFormatTime(input: String): String? {
-        // Formatter for HH:mm format with zero-padded hours
-        val timeFormat = DateTimeFormatter.ofPattern("HH:mm")
-
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun validateAndFormatTime(time: String): String? {
         return try {
-            // Check if the input is in "H:mm" format (single-digit hour)
-            val formattedTime = if (input.matches(Regex("^\\d{1}:\\d{2}$"))) {
-                "0$input" // Add a leading zero to single-digit hours
-            } else if (input.matches(Regex("^\\d{1,2}$"))) {
-                // If input is only hours (like "12"), add ":00" for minutes
-                "${input.padStart(2, '0')}:00"
-            } else {
-                input
-            }
-
-            // Parse and format the time to ensure zero-padding in "HH:mm" format
-            val time = LocalTime.parse(formattedTime, timeFormat)
-            time.format(timeFormat) // Return formatted time as "HH:mm"
+            val formatter = DateTimeFormatter.ofPattern("HH:mm")
+            val parsedTime = LocalTime.parse(time, formatter)
+            parsedTime.format(formatter)
         } catch (e: DateTimeParseException) {
-            null // Return null if the input is invalid
+            null
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        viewModel.getSession { spa ->
-            if (spa != null){
-                findNavController().navigate(R.id.action_loginFragment_to_spaHomeFragment)
+    companion object {
+        private const val LOCATION_REQUEST_CODE = 1001
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == LOCATION_REQUEST_CODE && resultCode == RESULT_OK) {
+            selectedLatLng = data?.getParcelableExtra("selectedLocation")
+            val latitude = selectedLatLng?.latitude ?: 0.0
+            val longitude = selectedLatLng?.longitude ?: 0.0
+
+            // Obtener la dirección en texto plano
+            selectedAddress = getAddressFromLatLng(latitude, longitude)
+
+            // Establecer la dirección en el campo de texto
+            binding.locationSpaBtn.setText(selectedAddress)
+        }
+    }
+
+    // Método para obtener la dirección en texto plano desde las coordenadas
+    private fun getAddressFromLatLng(lat: Double, lon: Double): String {
+        val geocoder = Geocoder(requireContext(), Locale.getDefault())
+        return try {
+            val addresses = geocoder.getFromLocation(lat, lon, 1)
+            if (addresses.isNullOrEmpty()) {
+                "Dirección no encontrada"
+            } else {
+                val address = addresses[0]
+                address.getAddressLine(0) ?: "Dirección no encontrada"
             }
+        } catch (e: Exception) {
+            "Error al obtener dirección"
         }
     }
 
 }
+
