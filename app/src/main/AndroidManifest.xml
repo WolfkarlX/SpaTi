@@ -16,6 +16,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDxHsqxntUgSMWgSrcUGkraw-fWYOHaAGI"/>
 
+        <!-- Main Activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -25,10 +26,19 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.SpaAuth.MapActivity"
+        <!-- Activity para registrar el spa y seleccionar ubicación -->
+        <activity
+            android:name=".ui.SpaAuth.MapActivity"
             android:exported="true" />
+
+        <!-- Activity para ver la ubicación del spa -->
+        <activity
+            android:name=".ui.map.MapActivity2"
+            android:exported="true" />
+
     </application>
 
+    <!-- Permisos necesarios -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />

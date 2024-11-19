@@ -1,7 +1,7 @@
 package com.example.spaTi.ui.SpaAuth
 
 import android.annotation.SuppressLint
-import android.app.Activity.RESULT_OK
+import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -23,6 +23,7 @@ import com.example.spaTi.util.isValidEmail
 import com.example.spaTi.util.show
 import com.example.spaTi.util.toast
 import com.example.spaTi.util.validatePassword
+import com.example.spaTi.ui.SpaAuth.MapActivity
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalTime
@@ -110,6 +111,7 @@ class SpaRegisterFragment : Fragment() {
             id = "",
             spa_name = binding.spaNameEt.text.toString(),
             location = selectedAddress ?: "", // Usamos selectedAddress para la ubicación en texto plano
+            coordinates = selectedLatLng?.let { "Lat: ${it.latitude}, Lon: ${it.longitude}" } ?: "", // Guardar coordenadas en formato texto
             email = binding.emailSpaEt.text.toString(),
             cellphone = binding.telSpaEt.text.toString(),
             description = binding.descriptionEt.text.toString(),
@@ -244,35 +246,27 @@ class SpaRegisterFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == LOCATION_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            val selectedLocation = data?.getParcelableExtra<LatLng>("selectedLocation")
+            val selectedAddress = data?.getStringExtra("selectedAddress")
 
-        if (requestCode == LOCATION_REQUEST_CODE && resultCode == RESULT_OK) {
-            selectedLatLng = data?.getParcelableExtra("selectedLocation")
-            val latitude = selectedLatLng?.latitude ?: 0.0
-            val longitude = selectedLatLng?.longitude ?: 0.0
+            // Asignar las coordenadas y dirección seleccionadas
+            selectedLatLng = selectedLocation
+            this.selectedAddress = selectedAddress
 
-            // Obtener la dirección en texto plano
-            selectedAddress = getAddressFromLatLng(latitude, longitude)
-
-            // Establecer la dirección en el campo de texto
-            binding.locationSpaBtn.setText(selectedAddress)
+            // Actualizar el botón de ubicación con la dirección seleccionada
+            binding.locationSpaBtn.text = selectedAddress ?: getString(R.string.location_not_selected)
         }
     }
 
-    // Método para obtener la dirección en texto plano desde las coordenadas
-    private fun getAddressFromLatLng(lat: Double, lon: Double): String {
+    private fun getAddressFromLatLng(latLng: LatLng): String {
         val geocoder = Geocoder(requireContext(), Locale.getDefault())
-        return try {
-            val addresses = geocoder.getFromLocation(lat, lon, 1)
-            if (addresses.isNullOrEmpty()) {
-                "Dirección no encontrada"
-            } else {
-                val address = addresses[0]
-                address.getAddressLine(0) ?: "Dirección no encontrada"
-            }
-        } catch (e: Exception) {
-            "Error al obtener dirección"
+        val addresses: List<Address> = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1) ?: emptyList()
+        return if (addresses.isNotEmpty()) {
+            val address = addresses[0]
+            "${address.getAddressLine(0)}, ${address.locality}, ${address.countryName}"
+        } else {
+            "Dirección desconocida"
         }
     }
-
 }
-

@@ -9,8 +9,8 @@ import java.util.*
 data class Spa(
     var id: String = "",
     val spa_name: String = "",
-    val location: String = "", // Ubicación en texto plano (ej: "Calle ceibas Manzanillo Colima")
-    val coordinates: String = "", // Coordenadas en formato "Lat: x, Lon: y"
+    val location: String = "",
+    val coordinates: String = "",
     val email: String = "",
     val cellphone: String = "",
     val description: String = "",

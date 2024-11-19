@@ -83,6 +83,7 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database.ktx)
     implementation(libs.firebase.storage.ktx)
+    implementation(libs.firebase.crashlytics.buildtools)
 
     // Unit Testing dependencies
     testImplementation(libs.junit)

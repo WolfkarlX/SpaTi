@@ -1,5 +1,6 @@
 package com.example.spaTi.ui.spa
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -33,7 +34,15 @@ class SpaViewModel @Inject constructor(
 
     fun getSpaById(id: String) {
         _getSpaById.value = UiState.Loading
-        repository.getSpaById(id) { _getSpaById.value = it }
+        repository.getSpaById(id) { uiState ->
+            _getSpaById.value = uiState
+            // Si el spa está disponible, puedes acceder a las coordenadas
+            val spa = (uiState as? UiState.Success)?.data
+            spa?.coordinates?.let { coordinates ->
+                // Hacer algo con las coordenadas, por ejemplo, pasarlas a la UI o guardarlas
+                Log.d("SpaViewModel", "Coordenadas del spa: $coordinates")
+            }
+        }
     }
 
     fun getServicesBySpaId(id: String) {

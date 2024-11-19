@@ -47,6 +47,8 @@
     <string name="invalid_day">Invalid day</string>
     <string name="invalid_month">Invalid month</string>
     <string name="invalid_year">Invalid year</string>
+    <string name="location_not_selected">Ubicación no seleccionada</string>
+
 
 
 

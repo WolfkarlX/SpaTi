@@ -1,7 +1,9 @@
 package com.example.spaTi.ui.spa
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,7 @@ import com.example.spaTi.data.models.Service
 import com.example.spaTi.data.models.Spa
 import com.example.spaTi.databinding.FragmentServiceDetailBinding
 import com.example.spaTi.databinding.FragmentSpaDetailBinding
+import com.example.spaTi.ui.map.MapActivity2
 import com.example.spaTi.util.UiState
 import com.example.spaTi.util.convertMinutesToReadableTime
 import com.example.spaTi.util.hide
@@ -42,8 +45,7 @@ class SpaDetailFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSpaDetailBinding.inflate(inflater, container, false)
@@ -88,7 +90,6 @@ class SpaDetailFragment : Fragment() {
         }
 
         spaFromArgs?.let { spa ->
-//            binding.spaDetailImage // here you set the image of the spa
             binding.spaDetailName.text = spa.spa_name
             binding.spaDetailLocation.text = spa.location
             if (!isFavorite) {
@@ -109,11 +110,44 @@ class SpaDetailFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
-        binding.spaDetailBackBtn.setOnClickListener {
-            findNavController().navigateUp()
-        }
-        binding.spaDetailFavBtn.setOnClickListener {
-            // TODO: Set the favorites feature here
+        binding.spaDetailLocation.setOnClickListener {
+            objSpa?.coordinates?.let { coordinates ->
+                Log.d("SpaDetail", "Coordenadas del spa: $coordinates")
+
+                // Verificar si las coordenadas tienen el formato correcto
+                val latLon = coordinates.split(",")
+
+                // Asegurarnos de que el formato es correcto (deberían haber exactamente dos elementos: latitud y longitud)
+                if (latLon.size == 2) {
+                    // Eliminar "Lat: " y "Lon: " y también los espacios extra
+                    val latitudeString = latLon[0].replace("Lat: ", "").trim()
+                    val longitudeString = latLon[1].replace("Lon: ", "").trim()
+
+                    // Intentar convertir las coordenadas a Double
+                    val latitude = latitudeString.toDoubleOrNull()
+                    val longitude = longitudeString.toDoubleOrNull()
+
+                    // Verificar si las coordenadas se pudieron convertir correctamente
+                    if (latitude != null && longitude != null) {
+                        Log.d("SpaDetail", "Latitud: $latitude, Longitud: $longitude")
+
+                        val intent = Intent(requireContext(), MapActivity2::class.java).apply {
+                            putExtra("latitude", latitude)
+                            putExtra("longitude", longitude)
+                        }
+                        startActivity(intent)
+                    } else {
+                        Log.e("SpaDetail", "Coordenadas inválidas, no se pudo convertir la latitud o longitud.")
+                        toast("Coordenadas inválidas.")
+                    }
+                } else {
+                    Log.e("SpaDetail", "Formato de coordenadas incorrecto: $coordinates")
+                    toast("Formato de coordenadas incorrecto.")
+                }
+            } ?: run {
+                Log.e("SpaDetail", "No se encontraron coordenadas para este spa.")
+                toast("No se encontraron coordenadas para este spa.")
+            }
         }
     }
 

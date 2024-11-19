@@ -4,6 +4,8 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
@@ -20,6 +22,12 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.IOException
+import java.util.Locale
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -43,9 +51,14 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         binding.selectLocationButton.setOnClickListener {
             selectedLatLng?.let {
                 val resultIntent = Intent()
-                resultIntent.putExtra("selectedLocation", it)
-                setResult(Activity.RESULT_OK, resultIntent)
-                finish()
+                // Ejecutar en segundo plano usando coroutines
+                GlobalScope.launch(Dispatchers.Main) {
+                    val address = getAddressFromCoordinates(it)
+                    resultIntent.putExtra("selectedLocation", selectedLatLng)
+                    resultIntent.putExtra("selectedAddress", address)
+                    setResult(Activity.RESULT_OK, resultIntent)
+                    finish()
+                }
             }
         }
     }
@@ -95,6 +108,20 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)) // Marcador verde
             )
             selectedLatLng = latLng
+        }
+    }
+
+    // Función suspendida para obtener la dirección desde las coordenadas
+    private suspend fun getAddressFromCoordinates(latLng: LatLng): String {
+        return withContext(Dispatchers.IO) {
+            try {
+                val geocoder = Geocoder(applicationContext, Locale.getDefault())
+                val addresses: List<Address> = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1) ?: emptyList()
+                addresses.firstOrNull()?.getAddressLine(0) ?: "Dirección no disponible"
+            } catch (e: IOException) {
+                e.printStackTrace()
+                "Error al obtener la dirección"
+            }
         }
     }
 
