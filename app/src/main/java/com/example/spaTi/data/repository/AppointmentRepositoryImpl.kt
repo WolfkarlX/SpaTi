@@ -20,6 +20,7 @@ import com.google.firebase.firestore.toObject
 import com.google.gson.Gson
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.YearMonth
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -145,7 +146,6 @@ class AppointmentRepositoryImpl (
     }
 
 
-
     override fun addAppointment(
         appointment: Appointment,
         result: (UiState<Pair<Appointment, String>>) -> Unit
@@ -172,6 +172,99 @@ class AppointmentRepositoryImpl (
                         )
                     )
                 )
+            }
+            .addOnFailureListener {
+                result.invoke(UiState.Failure(it.localizedMessage))
+            }
+    }
+
+    override fun getAppointmentsHistory(
+        spaId: String,
+        date: LocalDate,
+        time: LocalTime,
+        result: (UiState<List<Map<String, Any>>>) -> Unit
+    ) {
+        val dateString = date.format(DateTimeFormatter.ISO_LOCAL_DATE)
+        val timeString = time.format(DateTimeFormatter.ofPattern("HH:mm"))
+
+        val appointmentsWithExtras = arrayListOf<Map<String, Any>>()
+
+        database.collection(FireStoreCollection.APPOINTMENT)
+            .whereEqualTo("spaId", spaId)
+            .whereEqualTo("status", "accepted")
+            .whereLessThan("date", dateString)
+            .whereLessThanOrEqualTo("dateTime", timeString)
+            .orderBy(FireStoreDocumentField.DATE, Query.Direction.ASCENDING)
+            .orderBy(FireStoreDocumentField.DATETIME, Query.Direction.ASCENDING)
+            .get()
+            .addOnSuccessListener { appointmentDocs ->
+                val tasks = mutableListOf<Task<*>>()
+
+                for (document in appointmentDocs) {
+                    val appointment = document.toObject(Appointment::class.java)
+                    val appointmentData = mutableMapOf<String, Any>(
+                        "appointment" to appointment
+                    )
+
+                    // Fetch user data
+                    val userTask = database.collection(FireStoreCollection.USER)
+                        .document(appointment.userId)
+                        .get()
+                        .addOnSuccessListener { userDoc ->
+                            if (userDoc.exists()) {
+                                appointmentData["userName"] = userDoc.getString("first_name") ?: "Unknown"
+                                appointmentData["userEmail"] = userDoc.getString("email") ?: "No Email"
+                                appointmentData["userCellphone"] = userDoc.getString("cellphone") ?: "No Cellphone"
+                                appointmentData["userSex"] = userDoc.getString("sex") ?: "No sex"
+                            }
+                        }
+                    tasks.add(userTask)
+
+                    // Fetch service data
+                    val serviceTask = database.collection(FireStoreCollection.SERVICE)
+                        .document(appointment.serviceId)
+                        .get()
+                        .addOnSuccessListener { serviceDoc ->
+                            if (serviceDoc.exists()) {
+                                appointmentData["serviceName"] = serviceDoc.getString("name") ?: "Unknown Service"
+                                appointmentData["serviceDescription"] = serviceDoc.getString("description") ?: "No Description"
+                            }
+                        }
+                    tasks.add(serviceTask)
+
+                    val reportsTask = database.collection(FireStoreCollection.REPORTS_SPA)
+                        .whereEqualTo("spaId", spaId)
+                        .whereEqualTo("userId", appointment.userId)
+                        .get()
+                        .continueWith { task ->
+                            if (task.isSuccessful) {
+                                val reportDocs = task.result
+                                if (reportDocs != null && !reportDocs.isEmpty) {
+                                    // Report exists, extract details
+                                    val report = reportDocs.documents.first()
+                                    appointmentData["reportedBySpa"] = true
+                                    appointmentData["reportReason"] = report.getString("Reason") ?: "No reason provided"
+                                } else {
+                                    appointmentData["reportedBySpa"] = false
+                                }
+                            } else {
+                                appointmentData["reportedBySpa"] = false // Default in case of failure
+                            }
+                            null // Return Void to match Task<Void>
+                        }
+                    tasks.add(reportsTask)
+                    // Add the map with the appointment and additional data to the list
+                    appointmentsWithExtras.add(appointmentData)
+                }
+
+                // Wait for all tasks to complete
+                Tasks.whenAllComplete(tasks)
+                    .addOnSuccessListener {
+                        result.invoke(UiState.Success(appointmentsWithExtras))
+                    }
+                    .addOnFailureListener {
+                        result.invoke(UiState.Failure(it.localizedMessage))
+                    }
             }
             .addOnFailureListener {
                 result.invoke(UiState.Failure(it.localizedMessage))

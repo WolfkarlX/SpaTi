@@ -4,6 +4,7 @@ import com.example.spaTi.data.models.Appointment
 import com.example.spaTi.data.models.Spa
 import com.example.spaTi.util.UiState
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.YearMonth
 
 interface AppointmentRepository {
@@ -19,6 +20,6 @@ interface AppointmentRepository {
     fun setAppointmentDeclined(appointmentid: String, result: (UiState<String>) -> Unit)
     fun setAppointmentAccepted(appointmentid: String, result: (UiState<String>) -> Unit)
     fun checkPendingAppointments(spaId: String, result: (UiState<String>) -> Unit)
-
+    fun getAppointmentsHistory(spaId: String, date: LocalDate, time: LocalTime, result: (UiState<List<Map<String, Any>>>) -> Unit)
 
 }

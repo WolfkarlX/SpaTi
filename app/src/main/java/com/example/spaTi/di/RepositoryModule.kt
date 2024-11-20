@@ -9,6 +9,8 @@ import com.example.spaTi.data.repository.NoteRepository
 import com.example.spaTi.data.repository.NoteRepositoryImp
 import com.example.spaTi.data.repository.ProfileRepository
 import com.example.spaTi.data.repository.ProfileRepositoryImpl
+import com.example.spaTi.data.repository.ReportRepository
+import com.example.spaTi.data.repository.ReportRepositoryImpl
 import com.example.spaTi.data.repository.ServiceRepository
 import com.example.spaTi.data.repository.ServiceRepositoryImpl
 import com.example.spaTi.data.repository.SpaAuthRepository
@@ -122,5 +124,16 @@ object RepositoryModule {
     ): AppointmentRepository {
         // Return the implementation of the interface
         return AppointmentRepositoryImpl(database, appPreferences, gson)
+    }
+
+    @Provides
+    @Singleton
+    fun ReportRepository(
+        database: FirebaseFirestore,
+        appPreferences: SharedPreferences,
+        gson: Gson
+    ): ReportRepository {
+        // Return the implementation of the interface
+        return ReportRepositoryImpl(database)
     }
 }
