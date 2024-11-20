@@ -51,14 +51,14 @@ class EditProfileFragment : Fragment() {
             }
         })
         
-        //Menú desplegable próximo a usar
-        /*val opcionesSexo = arrayOf("Hombre", "Mujer")
+        //Menú desplegable para elegir sexo
+        val opcionesSexo = arrayOf("Hombre", "Mujer")
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, opcionesSexo)
         binding.sexoEt.setAdapter(adapter)
 
         binding.sexoEt.setOnClickListener {
             binding.sexoEt.showDropDown()
-        }*/
+        }
 
         // Call observer method to observe session state
         observer()
@@ -89,6 +89,7 @@ class EditProfileFragment : Fragment() {
             sex = binding.sexoEt.text.toString(),
             bornday = "" + binding.etDia.text.toString() + "/"+ binding.etMes.text.toString()+ "/" + binding.etAno.text.toString(),
             age = age.toString(),
+            reports = binding.reportsEt.text.toString(),  // Método que obtiene la cantidad de reportes
             type = "1",
         )
     }
@@ -229,13 +230,22 @@ class EditProfileFragment : Fragment() {
             binding.etNombre.setText(it.first_name)
             binding.lastNameEt.setText(it.last_name)
             binding.telefonoEt.setText(it.cellphone)
-            binding.sexoEt.setText(it.sex)
+            binding.sexoEt.setText(it.sex)  // Establece el valor actual en el campo sexo
             binding.etDia.setText(bornday[0])
             binding.etMes.setText(bornday[1])
             binding.etAno.setText(bornday[2])
 
+            // Muestra la cantidad de reportes en el campo correspondiente
+            binding.reportsEt.setText(it.reports)
+
+            // Configura el adaptador después de asignar el valor actual del sexo
+            val opcionesSexo = arrayOf("Hombre", "Mujer")
+            val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, opcionesSexo)
+            binding.sexoEt.setAdapter(adapter)
         }
     }
+
+
 
     fun CleanInputs() {
         binding.etNombre.setText("")

@@ -12,5 +12,6 @@ interface SpaRepository {
 
     fun getSpaById(id: String, result: (UiState<Spa?>) -> Unit)
     fun getServicesBySpaId(id: String, result: (UiState<List<Service>>) -> Unit)
-//    fun searchSpas(query: String, result: (UiState<List<Spa>>) -> Unit)
+    fun searchSpas(id: String, query: String, result: (UiState<List<Spa>>) -> Unit)
+    fun searchServicesOnSpa(spaId: String, query: String, result: (UiState<List<Service>>) -> Unit)
 }

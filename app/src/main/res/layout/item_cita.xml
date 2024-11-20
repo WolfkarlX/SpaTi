@@ -1,0 +1,141 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="22dp">
+
+    <!-- Wrapping everything inside a CardView for better isolation and elevation -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:descendantFocusability="blocksDescendants"
+        tools:ignore="MissingConstraints"> <!-- Prevent clicks from passing through -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@drawable/rounded_corners"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:id="@+id/tvUsuario_Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Usuario:"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="17dp"
+                android:fontFamily="@font/koho"/>
+
+            <TextView
+                android:id="@+id/tvUsuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Usuario: Nombre del Usuario"
+                android:textSize="16sp"
+                android:textColor="#4A4A4A"
+                android:fontFamily="@font/koho"/>
+
+            <TextView
+                android:id="@+id/tvReportes_Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reportes:"
+                android:fontFamily="@font/koho"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/tvReportes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reportes: 0"
+                android:textSize="14sp"
+                android:textColor="#4A4A4A"
+                android:fontFamily="@font/koho"/>
+
+            <TextView
+                android:id="@+id/tvServicio_Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Servicio:"
+                android:fontFamily="@font/koho"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="17dp"/>
+
+            <TextView
+                android:id="@+id/tvServicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Servicio: Nombre del Servicio"
+                android:textSize="14sp"
+                android:textColor="#4A4A4A"
+                android:fontFamily="@font/koho"/>
+
+            <TextView
+                android:id="@+id/tvFechaHora_Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha y Hora:"
+                android:fontFamily="@font/koho"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="17dp"/>
+
+            <TextView
+                android:id="@+id/tvFechaHora"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha y Hora: 17 de Septiembre, 3:00 PM"
+                android:textSize="14sp"
+                android:textColor="#4A4A4A"
+                android:fontFamily="@font/koho"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
+
+                <Button
+                    android:id="@+id/btnAceptarCita"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:text="Aceptar cita"
+                    android:backgroundTint="#4CAF50"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/koho"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true" />
+
+                <Button
+                    android:id="@+id/btnRechazarCita"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Rechazar cita"
+                    android:backgroundTint="#F44336"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/koho"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

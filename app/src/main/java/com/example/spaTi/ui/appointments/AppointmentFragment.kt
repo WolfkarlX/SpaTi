@@ -323,7 +323,7 @@ class AppointmentFragment : Fragment() {
             serviceId = objService!!.id,
             date = dateSelected.toString(),
             dateTime = date,
-            status = "",
+            status = "pending",
         )
     }
 }

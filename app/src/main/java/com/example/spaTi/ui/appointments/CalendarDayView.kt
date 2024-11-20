@@ -1,6 +1,7 @@
 package com.example.spaTi.ui.appointments
 
 import android.content.Context
+import android.graphics.Paint
 import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -47,6 +48,8 @@ class CalendarDayView @JvmOverloads constructor(
         if (!isDisabled) {
             dateText.setTextAppearance(R.style.CustomTextFontFamilyBold)
             dateText.setTextColor(ContextCompat.getColor(context, R.color.busy_day_txt))
+            dateText.paint.strokeWidth = 4f // Adjust thickness
+            dateText.paint.style = Paint.Style.STROKE
         }
     }
 
@@ -54,7 +57,16 @@ class CalendarDayView @JvmOverloads constructor(
         if (!isDisabled) {
             dateText.setTextAppearance(R.style.CustomTextFontFamilyBold)
             dateText.setTextColor(ContextCompat.getColor(context, R.color.empty_day_txt))
+            dateText.paint.strokeWidth = 4f // Adjust thickness
+            dateText.paint.style = Paint.Style.STROKE
         }
+    }
+
+    fun therearefewAppointments(){
+        dateText.setTextAppearance(R.style.CustomTextFontFamilyBold)
+        dateText.setTextColor(ContextCompat.getColor(context, R.color.colorOnlyOneAppointment))
+        dateText.paint.strokeWidth = 4f // Adjust thickness
+        dateText.paint.style = Paint.Style.STROKE
     }
 
     fun markDisable() {

@@ -117,6 +117,7 @@ class SpaRegisterFragment : Fragment() {
             description = binding.descriptionEt.text.toString(),
             inTime = binding.inTimeEt.text.toString(),
             outTime = binding.outTimeEt.text.toString(),
+            reports = "0",
             type = "2",
         )
     }

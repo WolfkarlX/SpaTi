@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.provider.Settings.Secure.getString
 import android.view.*
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -33,13 +34,36 @@ fun View.enabled(){
     isEnabled = true
 }
 
-fun Fragment.toast(msg: String?){
-    Toast.makeText(requireContext(),msg,Toast.LENGTH_LONG).show()
+fun Fragment.toast(msg: String?) {
+    val inflater = layoutInflater
+    val layout = inflater.inflate(R.layout.custom_toast, null)
+
+    val textView = layout.findViewById<TextView>(R.id.toast_text)
+    textView.text = msg
+
+    with(Toast(requireContext())) {
+        duration = Toast.LENGTH_LONG
+        view = layout
+        //setGravity(Gravity.CENTER, 0, 0) // Centra el toast en la pantalla
+        show()
+    }
 }
 
-fun Fragment.toastShort(msg: String?){
-    Toast.makeText(requireContext(),msg,Toast.LENGTH_SHORT).show()
+fun Fragment.toastShort(msg: String?) {
+    val inflater = layoutInflater
+    val layout = inflater.inflate(R.layout.custom_toast, null)
+
+    val textView = layout.findViewById<TextView>(R.id.toast_text)
+    textView.text = msg
+
+    with(Toast(requireContext())) {
+        duration = Toast.LENGTH_SHORT
+        view = layout
+        //setGravity(Gravity.CENTER, 0, 0) // Centra el toast en la pantalla
+        show()
+    }
 }
+
 
 fun ChipGroup.addChip(
     text: String,

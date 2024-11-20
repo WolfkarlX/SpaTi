@@ -70,7 +70,27 @@ class SpaRepositoryImpl (
             }
     }
 
-//    override fun searchSpas(query: String, result: (UiState<List<Spa>>) -> Unit) {
-//        TODO("Not yet implemented")
-//    }
+    override fun searchSpas(id: String, query: String, result: (UiState<List<Spa>>) -> Unit) {
+        TODO("Not yet implemented")
+    }
+
+    override fun searchServicesOnSpa(
+        spaId: String,
+        query: String,
+        result: (UiState<List<Service>>) -> Unit
+    ) {
+        database.collection(FireStoreCollection.SERVICE)
+            .orderBy("name")
+            .whereEqualTo("spaId", spaId)
+            .startAt(query)
+            .endAt(query + '\uf8ff')
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                val services = querySnapshot.toObjects(Service::class.java)
+                result.invoke(UiState.Success(services))
+            }
+            .addOnFailureListener {
+                result.invoke(UiState.Failure(it.localizedMessage))
+            }
+    }
 }

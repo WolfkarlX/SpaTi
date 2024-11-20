@@ -56,6 +56,38 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Uso de la cámara:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• Otorga permiso de utilizar la cámara de su dispositivo para realizar capturas y que estas puedan ser subidas como foto de perfil.\n"
+                android:textSize="16sp"
+                android:textColor="#333333"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Imágenes adjuntadas:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• Acepta que las fotos subidas a esta aplicación sean utilizadas por la misma, así mismo otorga permiso a que los negocios puedan ver su foto de perfil para fines profesionales.\n"
+                android:textSize="16sp"
+                android:textColor="#333333"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Servicios de agendamiento:"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -192,10 +224,11 @@
                 android:textColor="#333333"/>
 
             <TextView
+                android:id="@+id/privacyTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Política de privacidad:"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:layout_marginTop="16dp"/>
@@ -217,9 +250,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="• Los spas no tendrán acceso a ningún tipo de información confidencial del usuario, solamente al nombre para facilitar el trato y ubicar a los usuarios.\n"
+                android:text="• Los spas no tendrán acceso a ningún tipo de información confidencial del usuario, solamente aquellos datos que sirvan para facilitar el trato y ubicar a los usuarios clientes.\n"
                 android:textSize="16sp"
                 android:textColor="#333333"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• Cada imagen cargada en la aplicación será utilizada meramente para uso profesional. Ninguna foto de perfil será otorgada a otro usuario sin el consentimiento del usuario propietario de la foto.\n"
+                android:textSize="16sp"
+                android:textColor="#333333"/>
+
         </LinearLayout>
     </ScrollView>
 

@@ -93,6 +93,7 @@ class RegisterFragment : Fragment() {
             sex = binding.sexoEt.text.toString(),
             bornday = "${binding.diaEt.text}/${binding.mesEt.text}/${binding.anoEt.text}",
             age = age.toString(),
+            reports = "0",
             type = "1",
         )
     }

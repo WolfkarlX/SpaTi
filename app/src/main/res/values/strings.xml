@@ -1,57 +1,47 @@
-<resources>
-    <string name="app_name">spaTi</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="note_item_desc_placholder">In this chapter, you’re going to learn about the different types of subjects in RxJava, see how to work with each one and why you might choose one over another based on some common use cases.</string>
-    <string name="note_detail_desc_placeholder">You’ve gotten a handle on what an Observable is, how to create one, how to subscribe to it, and how to dispose of things when you’re done. Observables are a fundamental part of RxJava, but a common need when developing apps is to manually add new values onto an Observable at runtime that will then be emitted to subscribers. What you want is something that can act as both an Observable and as an observer. And that something is called a subject.</string>
-    <string name="error_description">Description missing</string>
-    <string name="error_title">Title missing</string>
-    <string name="error_tag_text">Enter text</string>
-    <string name="enter_first_name">Enter first name</string>
-    <string name="enter_last_name">Enter last name</string>
-    <string name="enter_job_title">Enter job title</string>
-    <string name="enter_email">Enter email address</string>
-    <string name="invalid_email">Invalid email entered</string>
-    <string name="enter_cellphone">Enter phone number</string>
-    <string name="enter_sex">Enter sex</string>
-    <string name="enter_day">Enter day</string>
-    <string name="enter_month">Enter month</string>
-    <string name="enter_year">Enter year</string>
-    <string name="enter_spaname">Enter spa name</string>
-    <string name="enter_location">Enter location</string>
-    <string name="input_hour">Enter input hour</string>
-    <string name="enter_time_output">Enter output hour</string>
+</resources>
 
+    <string name="app_name">SpaTi</string>
+    <!-- TODO: Remover o cambiar este texto de marcador de posición -->
+    <string name="hello_blank_fragment">Hola fragmento en blanco</string>
+    <string name="note_item_desc_placholder">En este capítulo, aprenderás sobre los diferentes tipos de subjects en RxJava, verás cómo trabajar con cada uno y por qué podrías elegir uno sobre otro en función de algunos casos de uso comunes.</string>
+    <string name="note_detail_desc_placeholder">Has comprendido qué es un Observable, cómo crear uno, cómo suscribirse a él y cómo desecharlo cuando hayas terminado. Los Observables son una parte fundamental de RxJava, pero una necesidad común al desarrollar aplicaciones es agregar nuevos valores manualmente a un Observable en tiempo de ejecución que luego serán emitidos a los suscriptores. Lo que necesitas es algo que pueda actuar tanto como un Observable como un observador. Y eso se llama un subject.</string>
+    <string name="error_description">Descripción faltante</string>
+    <string name="error_title">Título faltante</string>
+    <string name="error_tag_text">Ingresa texto</string>
+    <string name="enter_first_name">Ingresa el nombre</string>
+    <string name="enter_last_name">Ingresa el apellido</string>
+    <string name="enter_job_title">Ingresa el título del puesto</string>
+    <string name="enter_email">Ingresa la dirección de correo electrónico</string>
+    <string name="invalid_email">Correo electrónico ingresado no válido</string>
+    <string name="enter_cellphone">Ingresa el número de teléfono</string>
+    <string name="enter_sex">Ingresa el sexo</string>
+    <string name="enter_day">Ingresa el día</string>
+    <string name="enter_month">Ingresa el mes</string>
+    <string name="enter_year">Ingresa el año</string>
+    <string name="enter_spaname">Ingresa el nombre del spa</string>
+    <string name="enter_location">Ingresa la ubicación</string>
+    <string name="input_hour">Ingresa la hora de entrada</string>
+    <string name="enter_time_output">Ingresa la hora de salida</string>
 
-
-
-
-
-    <string name="invalid_cellphone_number">Invalid Cellphone Number</string>
-    <string name="enter_password">Enter password</string>
-    <string name="invalid_age">You are under the age permitted</string>
-    <string name="check_terms">You must accept terms to continue</string>
-    <string name="short_password">Your password must be at least 8 characters</string>
-    <string name="invalid_password_uppercase">Password must contain at least one uppercase letter.</string>
-    <string name="invalid_password_lowercase">Password must contain at least one lowercase letter.</string>
-    <string name="invalid_password_digit">Password must contain at least one number.</string>
-    <string name="invalid_password_special">Password must contain at least one special character.</string>
-    <string name="invalid_password_repeated">Password cannot consist of repeated characters.</string>
-    <string name="invalid_password_consecutive_repeat">Password cannot contain consecutive repeating characters.</string>
-    <string name="invalid_description_does_not_exists">Input a description</string>
-    <string name="invalid_description_too_long">Description should be between 20 and 500 characters and avoid special characters.</string>
-    <string name="invalid_description_consecutive_repeated">Description should not have repeated characters.</string>
-    <string name="invalid_time_input">Invalid time input</string>
-    <string name="invalid_time_output">Invalid time output</string>
-    <string name="invalid_description_repeating_chars">La descripción no puede tener caracteres repetidos consecutivos.</string>
-    <string name="invalid_day">Invalid day</string>
-    <string name="invalid_month">Invalid month</string>
-    <string name="invalid_year">Invalid year</string>
+    <string name="invalid_cellphone_number">Número de teléfono no válido</string>
+    <string name="enter_password">Ingresa la contraseña</string>
+    <string name="invalid_age">No tienes la edad permitida</string>
+    <string name="check_terms">Debes aceptar los términos para continuar</string>
+    <string name="short_password">Tu contraseña debe tener al menos 8 caracteres</string>
+    <string name="invalid_password_uppercase">La contraseña debe contener al menos una letra mayúscula.</string>
+    <string name="invalid_password_lowercase">La contraseña debe contener al menos una letra minúscula.</string>
+    <string name="invalid_password_digit">La contraseña debe contener al menos un número.</string>
+    <string name="invalid_password_special">La contraseña debe contener al menos un carácter especial.</string>
+    <string name="invalid_password_repeated">La contraseña no puede consistir en caracteres repetidos.</string>
+    <string name="invalid_password_consecutive_repeat">La contraseña no puede contener caracteres repetidos consecutivos.</string>
+    <string name="invalid_description_does_not_exists">Ingresa una descripción</string>
+    <string name="invalid_description_too_long">La descripción debe tener entre 20 y 500 caracteres y evitar caracteres especiales.</string>
+    <string name="invalid_description_consecutive_repeated">La descripción no debe tener caracteres repetidos.</string>
+    <string name="invalid_time_input">Hora de entrada no válida</string>
+    <string name="invalid_time_output">Hora de salida no válida</string>
+    <string name="invalid_day">Día no válido</string>
+    <string name="invalid_month">Mes no válido</string>
+    <string name="invalid_year">Año no válido</string>
     <string name="location_not_selected">Ubicación no seleccionada</string>
-
-
-
-
-
 
 </resources>

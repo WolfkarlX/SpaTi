@@ -4,9 +4,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
+import android.content.Context
+import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -23,10 +30,16 @@ import com.example.spaTi.util.convertMinutesToReadableTime
 import com.example.spaTi.util.hide
 import com.example.spaTi.util.show
 import com.example.spaTi.util.toast
+import com.example.spaTi.util.toastShort
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SpaDetailFragment : Fragment() {
@@ -146,6 +159,38 @@ class SpaDetailFragment : Fragment() {
                 toast("No se encontraron coordenadas para este spa.")
             }
         }
+        binding.spaDetailSearch.setOnEditorActionListener { _, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE ||
+                (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN)
+            ) {
+                val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(view?.windowToken, 0)
+                true
+            } else {
+                false
+            }
+        }
+        binding.spaDetailSearch.addTextChangedListener(object : TextWatcher {
+            private var searchJob: Job? = null
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                searchJob?.cancel()
+
+                searchJob = CoroutineScope(Dispatchers.Main).launch {
+                    delay(300)
+                    s?.toString()?.let { searchText ->
+                        if (searchText.isEmpty()) {
+                            objSpa?.let { viewModel.getServicesBySpaId(it.id) }
+                        } else {
+                            objSpa?.let { viewModel.searchServicesOnSpa(it.id, searchText) }
+                        }
+                    }
+                }
+            }
+        })
     }
 
     private fun observeViewModels() {
