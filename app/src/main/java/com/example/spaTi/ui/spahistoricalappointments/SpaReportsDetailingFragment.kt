@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.spaTi.R
 import com.example.spaTi.data.models.Appointment
 import com.example.spaTi.data.models.Report
@@ -140,6 +141,14 @@ class SpaReportsDetailingFragment : Fragment() {
                 is UiState.Success -> {
                     binding.progressBar.hide()
                     toast(state.data)
+                    findNavController().navigate(
+                        R.id.action_spareportsdetailing_to_spahistoryFragment,
+                        Bundle().apply {
+                            putInt("Position", itemPosition ?: -1) // Use a safe-call with a default value to prevent NPE
+                            putParcelable("spa", objSpa)          // Ensure objSpa implements Parcelable
+                        }
+                    )
+
                 }
             }
         }

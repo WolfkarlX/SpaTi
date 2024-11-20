@@ -270,6 +270,10 @@
             android:id="@+id/action_spaHistoricalFragment_to_spaReportsDetailing"
             app:destination="@+id/spareportsdetailing"/>
 
+        <action
+            android:id="@+id/action_spaHistoricalFragment_to_spaHome"
+            app:destination="@+id/spaHomeFragment"/>
+
     </fragment>
 
     <fragment
@@ -277,5 +281,9 @@
         android:name="com.example.spaTi.ui.spahistoricalappointments.SpaReportsDetailingFragment"
         android:label="fragment_spareportsdetiling"
         tools:layout="@layout/fragment_spa_reports_detailing">
+
+        <action
+            android:id="@+id/action_spareportsdetailing_to_spahistoryFragment"
+            app:destination="@+id/spahistoryFragment"/>
     </fragment>
 </navigation>

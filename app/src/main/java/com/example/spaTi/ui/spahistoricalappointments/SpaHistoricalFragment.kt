@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -64,8 +65,18 @@ class SpaHistoricalFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Prevent back navigation
+            }
+        })
+
+        binding.comeBackArrow.setOnClickListener{
+            findNavController().navigate(R.id.action_spaHistoricalFragment_to_spaHome)
+        }
+
         observer()
-        //ApointmentStatusObserver()
 
         val LinearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.appointmentsRecyclerView.layoutManager = LinearLayoutManager
@@ -102,8 +113,18 @@ class SpaHistoricalFragment : Fragment() {
                 is UiState.Success -> {
                     binding.progressBar.hide()
                     val appointments = state.data
+                    Log.d("XDDD", state.data.toString())
+
                     if (appointments.isNotEmpty()) {
-                        adapter.updateList(state.data)
+                        adapter.updateList(appointments)
+                        val itemPosition = arguments?.getInt("Position", -1) ?: -1
+                        if (itemPosition != -1) {
+                            binding.appointmentsRecyclerView.post {
+                                (binding.appointmentsRecyclerView.layoutManager as? LinearLayoutManager)
+                                    ?.scrollToPositionWithOffset(itemPosition, 0)
+                            }
+                            arguments?.remove("Position")
+                        }
                     }
 
                 }
