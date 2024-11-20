@@ -154,6 +154,7 @@
             android:layout_height="250dp"
             android:scaleType="centerCrop"
             android:src="@drawable/fondo_hojas"
+            android:layout_alignParentBottom="true"
             android:layout_below="@+id/gridOpcionesAdmin"/>
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

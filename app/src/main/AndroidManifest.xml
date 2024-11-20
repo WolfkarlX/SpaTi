@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -26,14 +27,14 @@
             </intent-filter>
         </activity>
 
-        <!-- Activity para registrar el spa y seleccionar ubicación -->
         <activity
             android:name=".ui.SpaAuth.MapActivity"
             android:exported="true" />
-
-        <!-- Activity para ver la ubicación del spa -->
         <activity
             android:name=".ui.map.MapActivity2"
+            android:exported="true" />
+        <activity
+            android:name=".ui.SpaProfile.MapActivity3"
             android:exported="true" />
 
     </application>
@@ -43,4 +44,5 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
 </manifest>

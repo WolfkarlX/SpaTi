@@ -31,6 +31,8 @@ class MySpaViewModel @Inject constructor(
     val updateProfileImage: LiveData<UiState<String>>
         get() = _updateProfileImage
 
+    private var currentSpa: Spa? = null // Variable para almacenar la sesión actual
+
     fun forgotPassword(email: String) {
         _forgotPassword.value = UiState.Loading
         repository.forgotPassword(email) {
@@ -53,6 +55,9 @@ class MySpaViewModel @Inject constructor(
         _session.value = UiState.Loading
         repository.syncSessionWithDatabase { result ->
             _session.value = result
+            if (result is UiState.Success) {
+                currentSpa = result.data // Almacenar la sesión actual en memoria
+            }
         }
     }
 
@@ -60,6 +65,7 @@ class MySpaViewModel @Inject constructor(
         _session.value = UiState.Loading
         repository.getSession { result ->
             if (result != null) {
+                currentSpa = result
                 _session.value = UiState.Success(result)
             } else {
                 _session.value = UiState.Failure("No session found")
@@ -67,27 +73,28 @@ class MySpaViewModel @Inject constructor(
         }
     }
 
-    // Nueva función para subir imagen de perfil
     fun updateProfileImage(spaId: String, imageUri: Uri) {
         _updateProfileImage.value = UiState.Loading
         repository.uploadProfileImage(spaId, imageUri) { result ->
-            if (result is UiState.Success) {
-                // Obtener el spa desde el repositorio usando spaId
-                repository.getSession { spa ->
-                    if (spa != null) {
-                        // Actualizar la URL de la imagen en el objeto Spa
-                        spa.profileImageUrl = result.data // Asume que tienes un campo 'profileImageUrl' en tu modelo 'Spa'
-
-                        // Ahora actualiza el perfil con la nueva URL de la imagen
+            when (result) {
+                is UiState.Success -> {
+                    // Si la sesión actual está disponible, actualiza directamente
+                    currentSpa?.let { spa ->
+                        spa.profileImageUrl = result.data // Actualizar la URL de la imagen
                         repository.updateUserInfo(spa) { updateResult ->
                             _updateProfileImage.value = updateResult
                         }
-                    } else {
-                        _updateProfileImage.value = UiState.Failure("Failed to retrieve spa session")
+                    } ?: run {
+                        // Si no hay sesión actual, retornar error
+                        _updateProfileImage.value = UiState.Failure("Session not available to update image URL")
                     }
                 }
-            } else {
-                _updateProfileImage.value = UiState.Failure("Error uploading image")
+                is UiState.Failure -> {
+                    _updateProfileImage.value = UiState.Failure("Error uploading image: ${result.error}")
+                }
+                else -> {
+                    _updateProfileImage.value = UiState.Failure("Unexpected error occurred")
+                }
             }
         }
     }

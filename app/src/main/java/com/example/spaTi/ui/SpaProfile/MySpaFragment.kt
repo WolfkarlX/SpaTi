@@ -38,7 +38,7 @@ class MySpaFragment : Fragment() {
             selectedImageUri = it
             binding.profileImage.setImageURI(it)
             // Subir la imagen seleccionada
-            viewModel.updateProfileImage("spaId", it) // Usa el ID real del spa en lugar de "spaId"
+            viewModel.updateProfileImage("spaId", it)
         }
     }
 
@@ -56,7 +56,7 @@ class MySpaFragment : Fragment() {
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                // Prevent back navigation
+
             }
         })
 
@@ -72,7 +72,6 @@ class MySpaFragment : Fragment() {
         }
 
         binding.changeProfilePhotoText.setOnClickListener {
-            // Abre el selector de imágenes
             imagePickerLauncher.launch("image/*")
         }
     }

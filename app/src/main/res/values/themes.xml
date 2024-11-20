@@ -13,10 +13,16 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Text appearance defaults -->
         <item name="android:textViewStyle">@style/CustomTextFontFamily</item>
-        <item name="android:buttonStyle">@style/CustomTextFontFamily</item>
+        <item name="android:buttonStyle">@style/CustomButtonStyle</item>
         <item name="android:editTextStyle">@style/CustomTextFontFamily</item>
         <item name="android:textAppearance">@style/CustomTextFontFamily</item>
         <item name="android:checkboxStyle">@style/CustomTextFontFamily</item>
+    </style>
+
+    <!-- Estilo personalizado para botones -->
+    <style name="CustomButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:background">@drawable/button_rounded</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="TitilliumWebBold">

@@ -16,7 +16,7 @@
             android:id="@+id/spaDetailImage"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:src="@drawable/spa"
+            android:src="@drawable/spatiprofile"
             android:scaleType="centerCrop"
             android:contentDescription="Spa image"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
             android:src="@drawable/ic_baseline_arrow_back_ios_24"
             android:contentDescription="Arrow Point Left"
             android:backgroundTint="@android:color/transparent"
-            app:tint="@color/white"
+            app:tint="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 

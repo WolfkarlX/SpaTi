@@ -28,7 +28,7 @@ class MyProfileFragment : Fragment() {
     lateinit var binding: FragmentMyProfileBinding
     val viewModel: ProfileViewModel by viewModels()
     private lateinit var userId: String
-    private val IMAGE_PICK_CODE = 1000 // Código para seleccionar la imagen
+    private val IMAGE_PICK_CODE = 1000
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +41,6 @@ class MyProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Llamar a observer para observar el estado de la sesión
         observer()
         viewModel.getSession()
 
@@ -55,50 +54,41 @@ class MyProfileFragment : Fragment() {
                 findNavController().navigate(R.id.action_myprofileFragment_to_loginFragment)
             }
         }
-
-        // Configura el click listener para cambiar la foto de perfil
         binding.changeProfilePicture.setOnClickListener {
             pickImageFromGallery()
         }
     }
 
-    // Método para seleccionar una imagen de la galería
     private fun pickImageFromGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         startActivityForResult(intent, IMAGE_PICK_CODE)
     }
 
-    // Manejo del resultado de la selección de imagen
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == IMAGE_PICK_CODE && resultCode == Activity.RESULT_OK && data != null) {
             val imageUri: Uri? = data.data
-            uploadProfilePicture(imageUri) // Llama a la función para subir la imagen
+            uploadProfilePicture(imageUri)
         }
     }
 
-    // Método para subir la imagen a Firebase Storage
     private fun uploadProfilePicture(imageUri: Uri?) {
         if (imageUri != null) {
             val storage = FirebaseStorage.getInstance()
             val storageRef = storage.reference
-            val imageRef = storageRef.child("profile_images/${userId}.jpg") // Ajusta la ruta si es necesario
+            val imageRef = storageRef.child("profile_images/${userId}.jpg")
 
-            // Muestra el progreso mientras se sube la imagen
             binding.sessionProgress.show()
             imageRef.putFile(imageUri)
                 .addOnSuccessListener {
-                    // Obtén la URL de descarga
                     imageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
-                        viewModel.updateProfilePicture(downloadUrl.toString(), userId) // Llama a updateProfilePicture con URL y userId
+                        viewModel.updateProfilePicture(downloadUrl.toString(), userId)
                         binding.sessionProgress.hide()
                         toast("Foto de perfil actualizada exitosamente")
-
-                        // Cargar la nueva imagen en el ImageView
                         Glide.with(requireContext())
                             .load(downloadUrl.toString())
-                            .into(binding.profileImage) // Reemplaza con el ID correcto de tu ImageView
+                            .into(binding.profileImage)
                     }
                 }
                 .addOnFailureListener {
@@ -107,8 +97,6 @@ class MyProfileFragment : Fragment() {
                 }
         }
     }
-
-    // Observa el LiveData de sesión del ViewModel
     private fun observer() {
         viewModel.session.observe(viewLifecycleOwner) { state ->
             when (state) {
@@ -121,14 +109,12 @@ class MyProfileFragment : Fragment() {
                 }
                 is UiState.Success -> {
                     binding.sessionProgress.hide()
-                    userId = state.data?.id ?: "" // Guarda el userId
-                    setData(state.data) // Llama a setData para actualizar la UI con la info del usuario
+                    userId = state.data?.id ?: ""
+                    setData(state.data)
                 }
             }
         }
     }
-
-    // Actualiza la UI con los datos de la sesión del usuario
     private fun setData(user: User?) {
         user?.let {
             binding.firstName.setText(it.first_name)
@@ -137,11 +123,9 @@ class MyProfileFragment : Fragment() {
             binding.phoneNumber.setText(it.cellphone)
             binding.bornday.setText(it.bornday)
             binding.sex.setText(it.sex)
-
-            // Cargar la imagen de perfil si está disponible
             Glide.with(requireContext())
-                .load(it.profileImageUrl) // Asegúrate de que 'profileImageUrl' sea el nombre del campo
-                .into(binding.profileImage) // Reemplaza con el ID correcto de tu ImageView
+                .load(it.profileImageUrl)
+                .into(binding.profileImage)
         }
     }
 }

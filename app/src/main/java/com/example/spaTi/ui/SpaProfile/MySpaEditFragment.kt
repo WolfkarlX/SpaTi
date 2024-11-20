@@ -1,6 +1,7 @@
 package com.example.spaTi.ui.SpaProfile
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -22,12 +23,16 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import java.util.Date
+import android.location.Geocoder
+import androidx.appcompat.app.AppCompatActivity
+import java.util.Locale
 
 @AndroidEntryPoint
 class MySpaEditFragment : Fragment() {
 
     var id = ""
     var email = ""
+    var profileImageUrl = ""
     val TAG: String = "MySpaEditFragment"
     var createdAt: Date? = null
     val viewModel: MySpaViewModel by viewModels()
@@ -47,11 +52,13 @@ class MySpaEditFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                //Do nothing
-            }
-        })
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    // Prevent navigating back
+                }
+            })
 
         observer()
 
@@ -67,37 +74,73 @@ class MySpaEditFragment : Fragment() {
         binding.btnCancelar.setOnClickListener {
             findNavController().navigate(R.id.action_myspaeditFragment_to_myspaFragment)
         }
+
+        // Handle opening the MapActivity when clicking on the location button
+        binding.locationSpaBtn.setOnClickListener {
+            val currentLocation = binding.locationSpaBtn.text.toString()
+            val intent = Intent(requireContext(), MapActivity3::class.java).apply {
+                putExtra("spaLocation", currentLocation)
+            }
+            startActivityForResult(intent, REQUEST_CODE_LOCATION)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_LOCATION && resultCode == AppCompatActivity.RESULT_OK) {
+            val newLocation = data?.getStringExtra("newLocation")
+            newLocation?.let {
+                binding.locationSpaBtn.setText(it)
+            }
+        }
     }
 
     fun getUserObj(): Spa {
+        val locationText = binding.locationSpaBtn.text.toString()
+        val coordinates = getCoordinatesFromLocation(locationText)
+
         return Spa(
             id = id,
             spa_name = binding.spaNameEt.text.toString(),
-            location = binding.locationSpaEt.text.toString(),
+            location = locationText,
+            coordinates = coordinates,
             email = email,
             cellphone = binding.telSpaEt.text.toString(),
             description = binding.descriptionEt.text.toString(),
             type = "2",
             inTime = binding.inTimeEt.text.toString(),
+            outTime = binding.outTimeEt.text.toString(),
             createdAt = createdAt ?: Date(),
             updatedAt = Date(),
-            outTime = binding.outTimeEt.text.toString(),
+            profileImageUrl = profileImageUrl // Assign the profile image URL from the session
         )
     }
 
-    fun validation(): Boolean {
+    private fun getCoordinatesFromLocation(location: String): String {
+        val geocoder = Geocoder(requireContext(), Locale.getDefault())
+        val addresses = geocoder.getFromLocationName(location, 1)
 
-        if (binding.spaNameEt.text.isNullOrEmpty()){
+        return if (!addresses.isNullOrEmpty()) {
+            val latitude = addresses[0].latitude
+            val longitude = addresses[0].longitude
+            "Lat: $latitude, Lon: $longitude"
+        } else {
+            "Lat: 0.0, Lon: 0.0"
+        }
+    }
+
+    fun validation(): Boolean {
+        if (binding.spaNameEt.text.isNullOrEmpty()) {
             toast(getString(R.string.enter_spaname))
             return false
         }
 
-        if (binding.locationSpaEt.text.isNullOrEmpty()){
+        if (binding.locationSpaBtn.text.isNullOrEmpty()) {
             toast(getString(R.string.enter_location))
             return false
         }
 
-        if (binding.telSpaEt.text.isNullOrEmpty()){
+        if (binding.telSpaEt.text.isNullOrEmpty()) {
             toast(getString(R.string.enter_cellphone))
             return false
         } else {
@@ -107,27 +150,22 @@ class MySpaEditFragment : Fragment() {
             }
 
             val phoneNumber = binding.telSpaEt.text.toString()
-
-            // Check if the number has at least three unique digits (to avoid repeated patterns like "3444444444")
             if (phoneNumber.toSet().size < 4) {
                 toast(getString(R.string.invalid_cellphone_number))
                 return false
             }
 
-            // Example pattern check: Ensure the number doesn't start with 0 or 1, common in some countries for invalid numbers
             if (phoneNumber.startsWith("0") || phoneNumber.startsWith("1")) {
                 toast(getString(R.string.invalid_cellphone_number))
                 return false
             }
-
         }
 
-        if(binding.inTimeEt.text.isNullOrEmpty()){
+        if (binding.inTimeEt.text.isNullOrEmpty()) {
             toast(getString(R.string.input_hour))
             return false
         } else {
             val validTime = validateAndFormatTime(binding.inTimeEt.text.toString())
-
             if (validTime != null) {
                 binding.inTimeEt.setText(validTime)
             } else {
@@ -136,12 +174,11 @@ class MySpaEditFragment : Fragment() {
             }
         }
 
-        if(binding.outTimeEt.text.isNullOrEmpty()){
+        if (binding.outTimeEt.text.isNullOrEmpty()) {
             toast(getString(R.string.enter_time_output))
             return false
         } else {
             val validTime = validateAndFormatTime(binding.outTimeEt.text.toString())
-
             if (validTime != null) {
                 binding.outTimeEt.setText(validTime)
             } else {
@@ -154,7 +191,6 @@ class MySpaEditFragment : Fragment() {
             toast(getString(R.string.invalid_description_does_not_exists))
             return false
         } else {
-
             val description = binding.descriptionEt.text.toString()
             val consecutiveRepeat = Regex("(.)\\1{5,}")
             val descriptionRegex = Regex("^[a-zA-Z0-9.,!?'\"\\- ]{20,500}$")
@@ -163,7 +199,7 @@ class MySpaEditFragment : Fragment() {
                 toast(getString(R.string.invalid_description_too_long))
                 return false
             }
-            if(consecutiveRepeat.containsMatchIn(description)){
+            if (consecutiveRepeat.containsMatchIn(description)) {
                 toast(getString(R.string.invalid_description_consecutive_repeated))
                 return false
             }
@@ -172,7 +208,6 @@ class MySpaEditFragment : Fragment() {
         return true
     }
 
-    // Observe the session LiveData from the ViewModel
     private fun observer() {
         viewModel.session.observe(viewLifecycleOwner) { state ->
             when (state) {
@@ -215,10 +250,12 @@ class MySpaEditFragment : Fragment() {
         spa?.let {
             email = it.email
             id = it.id
+            profileImageUrl =
+                it.profileImageUrl.toString() // Load the profile image URL from the session
             createdAt = it.createdAt
 
             binding.spaNameEt.setText(it.spa_name)
-            binding.locationSpaEt.setText(it.location)
+            binding.locationSpaBtn.setText(it.location)
             binding.telSpaEt.setText(it.cellphone)
             binding.inTimeEt.setText(it.inTime)
             binding.outTimeEt.setText(it.outTime)
@@ -245,16 +282,20 @@ class MySpaEditFragment : Fragment() {
     }
 
     private fun cleanInputs() {
-        binding.spaNameEt.setText("")
-        binding.locationSpaEt.setText("")
-        binding.telSpaEt.setText("")
-        binding.inTimeEt.setText("")
-        binding.outTimeEt.setText("")
-        binding.descriptionEt.setText("")
+        binding.spaNameEt.text.clear()
+        binding.locationSpaBtn.text = ""
+        binding.telSpaEt.text.clear()
+        binding.inTimeEt.text.clear()
+        binding.outTimeEt.text.clear()
+        binding.descriptionEt.text.clear()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val REQUEST_CODE_LOCATION = 1001
     }
 }

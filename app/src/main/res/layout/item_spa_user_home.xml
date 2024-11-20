@@ -18,7 +18,7 @@
             android:id="@+id/itemSpaImageBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/spa"
+            android:backgroundTint="@color/verde"
             android:scaleType="centerCrop"
             android:background="@drawable/rounded_corners_image_view"
             android:clipToOutline="true"

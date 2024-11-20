@@ -69,24 +69,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/spa_name_et" />
 
-            <EditText
-                android:id="@+id/location_spa_et"
+            <Button
+                android:id="@+id/location_spa_btn"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:background="@drawable/edittext_rounded"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="Ubicación física del Spa"
+                android:background="@drawable/button_rounded"
+                android:text="Seleccionar ubicación"
+                android:textColor="@android:color/white"
                 android:paddingLeft="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/locatio_spa_label" />
+
 
             <TextView
                 android:id="@+id/tel_spa_label"
@@ -217,12 +214,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="50dp">
 
                 <Button
                     android:id="@+id/btn_cancelar"
                     android:layout_width="0dp"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.6"
                     android:layout_height="wrap_content"
                     android:text="Cancelar"
                     android:backgroundTint="@android:color/holo_red_light" />
@@ -230,7 +227,7 @@
                 <Button
                     android:id="@+id/btn_guardar"
                     android:layout_width="0dp"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.6"
                     android:layout_height="wrap_content"
                     android:text="Guardar"
                     android:backgroundTint="@color/verde" />

@@ -84,6 +84,7 @@ dependencies {
     implementation(libs.firebase.database.ktx)
     implementation(libs.firebase.storage.ktx)
     implementation(libs.firebase.crashlytics.buildtools)
+    implementation(libs.androidx.material3.android)
 
     // Unit Testing dependencies
     testImplementation(libs.junit)

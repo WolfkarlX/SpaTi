@@ -114,20 +114,17 @@ class SpaDetailFragment : Fragment() {
             objSpa?.coordinates?.let { coordinates ->
                 Log.d("SpaDetail", "Coordenadas del spa: $coordinates")
 
-                // Verificar si las coordenadas tienen el formato correcto
                 val latLon = coordinates.split(",")
 
-                // Asegurarnos de que el formato es correcto (deberían haber exactamente dos elementos: latitud y longitud)
+
                 if (latLon.size == 2) {
-                    // Eliminar "Lat: " y "Lon: " y también los espacios extra
+
                     val latitudeString = latLon[0].replace("Lat: ", "").trim()
                     val longitudeString = latLon[1].replace("Lon: ", "").trim()
 
-                    // Intentar convertir las coordenadas a Double
                     val latitude = latitudeString.toDoubleOrNull()
                     val longitude = longitudeString.toDoubleOrNull()
-
-                    // Verificar si las coordenadas se pudieron convertir correctamente
+                    
                     if (latitude != null && longitude != null) {
                         Log.d("SpaDetail", "Latitud: $latitude, Longitud: $longitude")
 
