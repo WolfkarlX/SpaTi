@@ -40,11 +40,12 @@ class SpaHistoricalFragment : Fragment() {
 
 
     val adapter by lazy {
-        SpaHistoricalAdapter { pos, appointment ->
+        SpaHistoricalAdapter { pos, appointment, userWasReported ->
             val bundle = Bundle().apply {
                 putParcelable("appointment", appointment)
                 putInt("position", pos)
                 putParcelable("spa", objSpa) // Ensure `objSpa` is Parcelable
+                putBoolean("userWasReported", userWasReported)
             }
             findNavController().navigate(R.id.action_spaHistoricalFragment_to_spaReportsDetailing, bundle)
         }
@@ -131,29 +132,4 @@ class SpaHistoricalFragment : Fragment() {
             }
         }
     }
-
-    /*private fun ApointmentStatusObserver(){
-        viewModel.setAppointmentStatus.observe(viewLifecycleOwner) { state ->
-            when(state){
-                is UiState.Loading -> {
-                    binding.appointmentsRecyclerView.show()
-                }
-                is UiState.Failure -> {
-                    binding.appointmentsRecyclerView.hide()
-                    toast(state.error)
-                }
-                is UiState.Success -> {
-                    binding.appointmentsRecyclerView.hide()
-                    //observer()
-                    toast(state.data)
-                    //viewModel.getAppointmentsBySpa()
-                    if (position != -1) {
-                        adapter.removeItem(position)
-                        position =-1
-                    }
-                }
-            }
-        }
-    }*/
-
 }

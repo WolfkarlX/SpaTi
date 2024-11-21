@@ -9,7 +9,7 @@ import com.example.spaTi.data.models.Appointment
 import com.example.spaTi.databinding.ItemCitaHistoryBinding
 
 class SpaHistoricalAdapter(
-    val onItemClicked: (Int, Appointment) -> Unit
+    val onItemClicked: (Int, Appointment, Boolean) -> Unit
 ) : RecyclerView.Adapter<SpaHistoricalAdapter.MyViewHolder>() {
 
     private var list: MutableList<Map<String, Any>> = arrayListOf()
@@ -62,8 +62,9 @@ class SpaHistoricalAdapter(
     inner class MyViewHolder(val binding: ItemCitaHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Map<String, Any>) {
             val appointment = item["appointment"] as Appointment
+            val userWasReported:Boolean =  item["reportedBySpa"] as Boolean
 
-            if (item["reportedBySpa"] as Boolean) {
+            if (userWasReported) {
                 binding.btnReport.setImageResource(R.drawable.report_active) // Replace with your drawable resource
             } else {
                 binding.btnReport.setImageResource(report_inactive)// Replace with your default drawable
@@ -77,7 +78,7 @@ class SpaHistoricalAdapter(
             binding.tvtelefono.text = item["userCellphone"] as? String
             binding.tvSexo.text = item["userSex"] as? String
 
-            binding.btnReport.setOnClickListener { onItemClicked.invoke(adapterPosition, appointment)
+            binding.btnReport.setOnClickListener { onItemClicked.invoke(adapterPosition, appointment, userWasReported)
             }
         }
 

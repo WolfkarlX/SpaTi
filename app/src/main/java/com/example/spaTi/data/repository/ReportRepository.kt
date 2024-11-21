@@ -5,5 +5,7 @@ import com.example.spaTi.util.UiState
 
 interface ReportRepository {
     fun createReportfromSpa(Report: Report,  result: (UiState<String>) -> Unit)
-
+    fun deleteReportFromSpa(report: Report, result: (UiState<String>) -> Unit)
+    fun IncrementReportUserCounter(userId: String, result: (UiState<String>) -> Unit)
+    fun DecrementReportUserCounter(userId: String, result: (UiState<String>) -> Unit)
 }

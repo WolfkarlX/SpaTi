@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -34,6 +35,7 @@ class SpaReportsDetailingFragment : Fragment() {
     private var itemPosition: Int? = null
     private var objAppointment: Appointment? = null
     private var objSpa: Spa? = null
+    private var userWasReported: Boolean? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,13 +56,28 @@ class SpaReportsDetailingFragment : Fragment() {
         objSpa = arguments?.getParcelable<Spa>("spa")
         objAppointment = arguments?.getParcelable<Appointment>("appointment")
         itemPosition = arguments?.getInt("position", -1)
+        userWasReported = arguments?.getBoolean("userWasReported")
 
-
-        binding.btnSubmitReport.setOnClickListener {
-            if(validation()) {
-                viewModel.createReportfromSpa(getReportObj())
+        if(userWasReported!!){
+            modifyreportreasonContainter()
+            binding.btnSubmitReport.setOnClickListener {
+                viewModel.createReportfromSpa(getReportObj(), userWasReported!!)
+            }
+        }else{
+            binding.btnSubmitReport.setOnClickListener {
+                if(validation()) {
+                    viewModel.createReportfromSpa(getReportObj(), userWasReported!!)
+                }
             }
         }
+    }
+
+    private fun modifyreportreasonContainter() {
+        binding.reportReason.hide()
+        binding.titleReport.setText("Se ha reportado a este usuario con anterioridad")
+        binding.instruction.setText("Si desea eliminar su reporte a este usuario clickee el siguiente boton")
+        binding.btnSubmitReport.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.disable_day_txt))
+        binding.btnSubmitReport.setText("Eliminar reporte")
     }
 
     private fun validation(): Boolean {
