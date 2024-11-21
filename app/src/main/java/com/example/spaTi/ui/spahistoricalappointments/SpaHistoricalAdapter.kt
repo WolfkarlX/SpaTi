@@ -77,6 +77,7 @@ class SpaHistoricalAdapter(
             binding.tvCorreo.text = item["userEmail"] as? String
             binding.tvtelefono.text = item["userCellphone"] as? String
             binding.tvSexo.text = item["userSex"] as? String
+            binding.tvReportes.text = item["userReports"] as? String
 
             binding.btnReport.setOnClickListener { onItemClicked.invoke(adapterPosition, appointment, userWasReported)
             }

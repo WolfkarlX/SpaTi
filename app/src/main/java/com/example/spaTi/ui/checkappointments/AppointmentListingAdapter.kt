@@ -58,7 +58,7 @@ class AppointmentListingAdapter(
             binding.tvUsuario.setText(item.userId)
             binding.tvReportes.setText(item.spaId)
             binding.tvServicio.setText(item.serviceId)
-            binding.tvSexo.setText(item.id)
+            binding.tvSexo.setText("example")
             binding.tvFechaHora.setText(item.date + ", " + item.dateTime + "hrs")
 
             binding.btnAceptarCita.setOnClickListener { onItemClicked.invoke(adapterPosition,item, 1)
