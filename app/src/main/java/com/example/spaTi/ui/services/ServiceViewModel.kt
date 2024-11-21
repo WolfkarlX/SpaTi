@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.spaTi.data.models.Service
+import com.example.spaTi.data.models.Spa
 import com.example.spaTi.data.repository.ServiceRepository
 import com.example.spaTi.data.repository.SpaAuthRepository
 import com.example.spaTi.util.UiState
@@ -49,6 +50,10 @@ class ServiceViewModel @Inject constructor(
     private val _getServiceById = MutableLiveData<UiState<Service?>>()
     val getServiceById: LiveData<UiState<Service?>>
         get() = _getServiceById
+
+    private val _getServicesWithSpaByTagId = MutableLiveData<UiState<List<Pair<Service, Spa>>>>()
+    val getServicesWithSpaByTagId: LiveData<UiState<List<Pair<Service, Spa>>>>
+        get() = _getServicesWithSpaByTagId
 
     /**
      * Fetches the list of services from the repository and updates the _services LiveData.
@@ -107,8 +112,8 @@ class ServiceViewModel @Inject constructor(
         repository.getServiceById(id) { _getServiceById.value = it }
     }
 
-    fun getServicesByTagId(id: String) {
-        _services.value = UiState.Loading
-        repository.getServicesByTagId(id) { _services.value = it }
+    fun getServicesWithSpaByTagId(id: String) {
+        _getServicesWithSpaByTagId.value = UiState.Loading
+        repository.getServicesWithSpaByTagId(id) { _getServicesWithSpaByTagId.value = it }
     }
 }

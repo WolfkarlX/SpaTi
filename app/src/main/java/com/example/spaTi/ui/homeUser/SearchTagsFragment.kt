@@ -12,13 +12,9 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.spaTi.R
-import com.example.spaTi.data.models.Service
-import com.example.spaTi.data.models.Spa
 import com.example.spaTi.databinding.FragmentSearchTagsBinding
 import com.example.spaTi.ui.services.ServiceViewModel
 import com.example.spaTi.ui.spa.SpaViewModel
@@ -99,12 +95,13 @@ class SearchTagsFragment : Fragment() {
     }
 
     private fun observeServiceModels() {
-        serviceViewModel.service.observe(viewLifecycleOwner) { state ->
+        serviceViewModel.getServicesWithSpaByTagId.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is UiState.Loading -> binding.progressBar.show()
                 is UiState.Success -> {
+                    val serviceWithSpa = state.data.map { ServiceWithSpa(it.first, it.second.spa_name) }
+                    searchAdapter.updateServicesList(serviceWithSpa)
                     binding.progressBar.hide()
-                    addSpaDataToServices(state.data)
                 }
                 is UiState.Failure -> {
                     binding.progressBar.hide()
@@ -114,51 +111,10 @@ class SearchTagsFragment : Fragment() {
         }
     }
 
-    private fun addSpaDataToServices(services: List<Service>) {
-        val servicesWithSpa = services.map { ServiceWithSpa(it) }
-
-        val pendingSpas = servicesWithSpa.size
-        var completedSpas = 0
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            services.forEachIndexed { index, service ->
-                spaViewModel.getSpaById(service.spaId)
-
-                val observer = object : Observer<UiState<Spa?>> {
-                    override fun onChanged(spaState: UiState<Spa?>) {
-                        when (spaState) {
-                            is UiState.Loading -> return
-                            is UiState.Success -> {
-                                spaState.data?.let { spa ->
-                                    servicesWithSpa[index].spaName = spa.spa_name
-                                } ?: run {
-                                    servicesWithSpa[index].spaName = "Spa No Encontrado!"
-                                }
-                            }
-                            is UiState.Failure -> {
-                                servicesWithSpa[index].spaName = "Spa No Encontrado!"
-                            }
-                        }
-
-                        completedSpas++
-
-                        if (completedSpas == pendingSpas) {
-                            binding.progressBar.hide()
-                            searchAdapter.updateServicesList(servicesWithSpa)
-                            spaViewModel.getSpaById.removeObserver(this)
-                        }
-                    }
-                }
-
-                spaViewModel.getSpaById.observe(viewLifecycleOwner, observer)
-            }
-        }
-    }
-
     private fun setupRecyclerView() {
         searchAdapter = SearchAdapter(
             onTagClicked = { tag ->
-                serviceViewModel.getServicesByTagId(tag.id)
+                serviceViewModel.getServicesWithSpaByTagId(tag.id)
                 binding.fragmentSearchTagsCancel.show()
             },
             onServiceClicked = { service ->
