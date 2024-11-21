@@ -167,8 +167,8 @@ class LoginFragment : Fragment() {
             } else {
                 // If no valid spa session, check for user session
                 viewModelUser.getSession { user ->
-                    if (user != null && user.type == "1") {
-                        // Navigate to user notes if session exists and type is "1"
+                    if (user != null && user.type == "1" && user.status == "active") {
+                        // Navigate to user notes if session exists and type is "1" and is active as status
                         findNavController().navigate(R.id.action_loginFragment_to_userHomeFragment)
                     }
                 }

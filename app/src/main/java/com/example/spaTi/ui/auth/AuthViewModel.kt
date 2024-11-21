@@ -66,12 +66,21 @@ class AuthViewModel @Inject constructor(
                     _login.value = UiState.Failure(state.error)
                 }
                 is UiState.Success -> {
-                    val firebaseUser = repository.getCurrentUser()
-                    if (firebaseUser?.isEmailVerified == true) {
-                        _login.value = UiState.Success(state.data)
-                    } else {
-                        repository.logout {}
-                        _login.value = UiState.Failure("Please verify your email before logging in.")
+                    getSession { spa ->
+                        val firebaseUser = repository.getCurrentUser()
+                        if(spa!!.status == "active"){
+                            if (firebaseUser?.isEmailVerified == true) {
+                                _login.value = UiState.Success(state.data)
+                            } else {
+                                repository.logout {}
+                                _login.value =
+                                    UiState.Failure("Please verify your email before logging in.")
+                            }
+                        }else {
+                            repository.logout {}
+                            _login.value =
+                                UiState.Failure("the user is not available.")
+                        }
                     }
                 }
             }
