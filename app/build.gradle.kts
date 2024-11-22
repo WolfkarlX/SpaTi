@@ -48,6 +48,13 @@ android {
 }
 
 dependencies {
+    //Bumpetch
+    implementation ("com.github.bumptech.glide:glide:4.15.0")
+
+    implementation ("com.google.android.gms:play-services-maps:18.0.2")
+    implementation ("com.google.android.gms:play-services-location:18.0.0")
+
+
     // Firebase dependencies
     implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
     implementation("com.google.firebase:firebase-analytics")
@@ -73,6 +80,8 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database.ktx)
+    implementation(libs.firebase.storage.ktx)
+    implementation(libs.play.services.maps)
 
     // Unit Testing dependencies
     testImplementation(libs.junit)

@@ -8,12 +8,13 @@ import com.example.spaTi.util.UiState
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
+import javax.inject.Inject
 
-class ProfileRepositoryImpl(
-    val auth: FirebaseAuth,
-    val database: FirebaseFirestore,
-    val appPreferences: SharedPreferences,
-    val gson: Gson
+class ProfileRepositoryImpl @Inject constructor(
+    private val auth: FirebaseAuth,
+    private val database: FirebaseFirestore,
+    private val appPreferences: SharedPreferences,
+    private val gson: Gson
 ) : ProfileRepository {
 
     override fun updateUserInfo(user: User, result: (UiState<String>) -> Unit) {
@@ -81,7 +82,6 @@ class ProfileRepositoryImpl(
         }
     }
 
-    // New function to sync session with the database and update local session
     override fun syncSessionWithDatabase(result: (UiState<User>) -> Unit) {
         getSession { localUser ->
             if (localUser == null) {
@@ -95,7 +95,6 @@ class ProfileRepositoryImpl(
                     if (documentSnapshot.exists()) {
                         val dbUser = documentSnapshot.toObject(User::class.java)
                         if (dbUser != null) {
-                            // Update the local session with the data from the database
                             appPreferences.edit()
                                 .putString(SharedPrefConstants.USER_SESSION, gson.toJson(dbUser))
                                 .apply()
@@ -112,5 +111,23 @@ class ProfileRepositoryImpl(
                     result.invoke(UiState.Failure("Failed to retrieve session from database: ${it.localizedMessage}"))
                 }
         }
+    }
+
+    override fun updateProfilePicture(newImageUrl: String, userId: String, result: (UiState<String>) -> Unit) {
+        val document = database.collection(FireStoreCollection.USER).document(userId)
+        document.update(
+            "profileImageUrl",
+            newImageUrl
+        )
+            .addOnSuccessListener {
+                result.invoke(UiState.Success("Profile picture updated successfully"))
+            }
+            .addOnFailureListener { exception ->
+                result.invoke(
+                    UiState.Failure(
+                        exception.localizedMessage ?: "Error updating profile picture"
+                    )
+                )
+            }
     }
 }

@@ -1,12 +1,15 @@
 package com.example.spaTi.ui.SpaProfile
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -22,12 +25,18 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import java.util.Date
+import java.util.Locale
 
 @AndroidEntryPoint
 class MySpaEditFragment : Fragment() {
 
+    companion object {
+        const val REQUEST_CODE_LOCATION = 1001
+    }
+
     var id = ""
     var email = ""
+    var profileImageUrl = ""
     val TAG: String = "MySpaEditFragment"
     var createdAt: Date? = null
     val viewModel: MySpaViewModel by viewModels()
@@ -47,11 +56,13 @@ class MySpaEditFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                //Do nothing
-            }
-        })
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    // Prevent navigating back
+                }
+            })
 
         observer()
 
@@ -67,13 +78,35 @@ class MySpaEditFragment : Fragment() {
         binding.btnCancelar.setOnClickListener {
             findNavController().navigate(R.id.action_myspaeditFragment_to_myspaFragment)
         }
+
+        binding.locationSpaBtn.setOnClickListener {
+            val currentLocation = binding.locationSpaBtn.text.toString()
+            val intent = Intent(requireContext(), MapActivity3::class.java).apply {
+                putExtra("spaLocation", currentLocation)
+            }
+            startActivityForResult(intent, REQUEST_CODE_LOCATION)
+        }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_LOCATION && resultCode == AppCompatActivity.RESULT_OK) {
+            val newLocation = data?.getStringExtra("newLocation")
+            newLocation?.let {
+                binding.locationSpaBtn.setText(it)
+            }
+        }
+    }
     fun getUserObj(): Spa {
+
+        val locationText = binding.locationSpaBtn.text.toString()
+        val coordinates = getCoordinatesFromLocation(locationText)
+
         return Spa(
             id = id,
             spa_name = binding.spaNameEt.text.toString(),
-            location = binding.locationSpaEt.text.toString(),
+            location = locationText,
+            coordinates = coordinates,
             email = email,
             cellphone = binding.telSpaEt.text.toString(),
             description = binding.descriptionEt.text.toString(),
@@ -85,6 +118,19 @@ class MySpaEditFragment : Fragment() {
         )
     }
 
+    private fun getCoordinatesFromLocation(location: String): String {
+        val geocoder = Geocoder(requireContext(), Locale.getDefault())
+        val addresses = geocoder.getFromLocationName(location, 1)
+
+        return if (!addresses.isNullOrEmpty()) {
+            val latitude = addresses[0].latitude
+            val longitude = addresses[0].longitude
+            "Lat: $latitude, Lon: $longitude"
+        } else {
+            "Lat: 0.0, Lon: 0.0"
+        }
+    }
+
     fun validation(): Boolean {
 
         if (binding.spaNameEt.text.isNullOrEmpty()){
@@ -92,7 +138,7 @@ class MySpaEditFragment : Fragment() {
             return false
         }
 
-        if (binding.locationSpaEt.text.isNullOrEmpty()){
+        if (binding.locationSpaBtn.text.isNullOrEmpty()){
             toast(getString(R.string.enter_location))
             return false
         }
@@ -211,20 +257,22 @@ class MySpaEditFragment : Fragment() {
         }
     }
 
-    private fun setData(spa: Spa?) {
-        spa?.let {
-            email = it.email
-            id = it.id
-            createdAt = it.createdAt
+private fun setData(spa: Spa?) {
+    spa?.let {
+        email = it.email
+        id = it.id
+        profileImageUrl =
+            it.profileImageUrl.toString()
+        createdAt = it.createdAt
 
-            binding.spaNameEt.setText(it.spa_name)
-            binding.locationSpaEt.setText(it.location)
-            binding.telSpaEt.setText(it.cellphone)
-            binding.inTimeEt.setText(it.inTime)
-            binding.outTimeEt.setText(it.outTime)
-            binding.descriptionEt.setText(it.description)
-        }
+        binding.spaNameEt.setText(it.spa_name)
+        binding.locationSpaBtn.setText(it.location)
+        binding.telSpaEt.setText(it.cellphone)
+        binding.inTimeEt.setText(it.inTime)
+        binding.outTimeEt.setText(it.outTime)
+        binding.descriptionEt.setText(it.description)
     }
+}
 
     @SuppressLint("NewApi")
     fun validateAndFormatTime(input: String): String? {
@@ -246,7 +294,7 @@ class MySpaEditFragment : Fragment() {
 
     private fun cleanInputs() {
         binding.spaNameEt.setText("")
-        binding.locationSpaEt.setText("")
+        binding.locationSpaBtn.setText("")
         binding.telSpaEt.setText("")
         binding.inTimeEt.setText("")
         binding.outTimeEt.setText("")

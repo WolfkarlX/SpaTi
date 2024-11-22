@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.spaTi.R
 import com.example.spaTi.data.models.Spa
 import com.example.spaTi.databinding.FragmentMyAccountSpaBinding
@@ -74,11 +75,16 @@ class MyAccountSpaFragment : Fragment() {
         }
     }
 
-    // Update the UI with user session data
     fun setData(spa: Spa?) {
         spa?.let {
+            // Actualiza el nombre y el correo
             binding.spaNameEt.setText(it.spa_name)
             binding.spaEmailEt.setText(it.email)
+
+            // Carga la imagen de perfil con Glide
+            Glide.with(requireContext())
+                .load(it.profileImageUrl) // URL de la imagen de perfil desde Firestore o base de datos
+                .into(binding.imageview) // Asegúrate de que 'profileImage' sea el ID correcto de tu ImageView
         }
     }
 

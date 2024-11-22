@@ -1,5 +1,6 @@
 package com.example.spaTi.ui.SpaProfile
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,6 +27,12 @@ class MySpaViewModel @Inject constructor(
     val editUser: LiveData<UiState<String>>
         get() = _editUser
 
+    private val _updateProfileImage = MutableLiveData<UiState<String>>()
+    val updateProfileImage: LiveData<UiState<String>>
+        get() = _updateProfileImage
+
+    private var currentSpa: Spa? = null // Variable para almacenar la sesión actual
+
     fun forgotPassword(email: String) {
         _forgotPassword.value = UiState.Loading
         repository.forgotPassword(email) {
@@ -49,6 +56,9 @@ class MySpaViewModel @Inject constructor(
         _session.value = UiState.Loading
         repository.syncSessionWithDatabase { result ->
             _session.value = result
+            if (result is UiState.Success) {
+                currentSpa = result.data // Almacenar la sesión actual en memoria
+            }
         }
     }
 
@@ -56,9 +66,35 @@ class MySpaViewModel @Inject constructor(
         _session.value = UiState.Loading
         repository.getSession { result ->
             if (result != null) {
+                currentSpa = result
                 _session.value = UiState.Success(result)
             } else {
                 _session.value = UiState.Failure("No session found")
+            }
+        }
+    }
+    fun updateProfileImage(spaId: String, imageUri: Uri) {
+        _updateProfileImage.value = UiState.Loading
+        repository.uploadProfileImage(spaId, imageUri) { result ->
+            when (result) {
+                is UiState.Success -> {
+                    // Si la sesión actual está disponible, actualiza directamente
+                    currentSpa?.let { spa ->
+                        spa.profileImageUrl = result.data // Actualizar la URL de la imagen
+                        repository.updateUserInfo(spa) { updateResult ->
+                            _updateProfileImage.value = updateResult
+                        }
+                    } ?: run {
+                        // Si no hay sesión actual, retornar error
+                        _updateProfileImage.value = UiState.Failure("Session not available to update image URL")
+                    }
+                }
+                is UiState.Failure -> {
+                    _updateProfileImage.value = UiState.Failure("Error uploading image: ${result.error}")
+                }
+                else -> {
+                    _updateProfileImage.value = UiState.Failure("Unexpected error occurred")
+                }
             }
         }
     }

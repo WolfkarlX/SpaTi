@@ -26,6 +26,10 @@ class ProfileViewModel @Inject constructor(
     val editUser: LiveData<UiState<String>>
         get() = _editUser
 
+    private val _updateProfilePicture = MutableLiveData<UiState<String>>()
+    val updateProfilePicture: LiveData<UiState<String>>
+        get() = _updateProfilePicture
+
     fun forgotPassword(email: String) {
         _forgotPassword.value = UiState.Loading
         repository.forgotPassword(email) {
@@ -59,6 +63,12 @@ class ProfileViewModel @Inject constructor(
             } else {
                 _session.value = UiState.Failure("No active session found.")
             }
+        }
+    }
+    fun updateProfilePicture(newImageUrl: String, userId: String) {
+        _updateProfilePicture.value = UiState.Loading
+        repository.updateProfilePicture(newImageUrl, userId) { result ->
+            _updateProfilePicture.value = result
         }
     }
 }

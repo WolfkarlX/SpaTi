@@ -41,5 +41,7 @@
     <string name="invalid_day">Día no válido</string>
     <string name="invalid_month">Mes no válido</string>
     <string name="invalid_year">Año no válido</string>
+    <string name="location_not_selected">Location not selected</string>
+
 
 </resources>

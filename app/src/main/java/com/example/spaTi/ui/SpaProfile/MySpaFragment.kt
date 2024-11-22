@@ -1,14 +1,17 @@
 package com.example.spaTi.ui.SpaProfile
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.spaTi.R
 import com.example.spaTi.data.models.Spa
 import com.example.spaTi.databinding.FragmentMySpaBinding
@@ -25,6 +28,16 @@ class MySpaFragment : Fragment() {
 
     private var _binding: FragmentMySpaBinding? = null
     private val binding get() = _binding!!
+    private var selectedImageUri: Uri? = null
+
+    private val imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let {
+            selectedImageUri = it
+            binding.profileImage.setImageURI(it)
+            // Subir la imagen seleccionada
+            viewModel.updateProfileImage("spaId", it)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,6 +67,10 @@ class MySpaFragment : Fragment() {
         binding.editButton.setOnClickListener {
             findNavController().navigate(R.id.action_myspaFragment_to_myspaeditFragment)
         }
+
+        binding.changeProfilePhotoText.setOnClickListener {
+            imagePickerLauncher.launch("image/*")
+        }
     }
 
     private fun observer() {
@@ -78,6 +95,21 @@ class MySpaFragment : Fragment() {
                 }
             }
         }
+        viewModel.updateProfileImage.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is UiState.Loading -> {
+                    binding.sessionProgress.show()
+                }
+                is UiState.Success -> {
+                    binding.sessionProgress.hide()
+                    toast("Imagen de perfil actualizada correctamente")
+                }
+                is UiState.Failure -> {
+                    binding.sessionProgress.hide()
+                    toast("Error al actualizar la imagen de perfil: ${state.error}")
+                }
+            }
+        }
     }
 
     // Update the UI with user session data
@@ -89,9 +121,16 @@ class MySpaFragment : Fragment() {
             binding.apertura.setText(it.inTime)
             binding.cierre.setText(it.outTime)
             binding.descriptionSpa.setText(it.description)
+
+            if (!it.profileImageUrl.isNullOrEmpty()) {
+                Glide.with(this)
+                    .load(it.profileImageUrl)
+                    .circleCrop() // Corta la imagen en forma circular
+                    .into(binding.profileImage)
+
+            }
         }
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
