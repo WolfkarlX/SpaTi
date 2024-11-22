@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.spaTi.R
+import com.example.spaTi.data.models.Appointment
 import com.example.spaTi.data.models.Spa
 import com.example.spaTi.databinding.FragmentAppointmentListingBinding
 import com.example.spaTi.ui.appointments.AppointmentViewModel
@@ -31,18 +32,20 @@ class AppointmentListingFragment : Fragment() {
     val authViewModel: SpaAuthViewModel by viewModels()
     val adapter by lazy {
         AppointmentListingAdapter(
-            onItemClicked = { pos, item, Buttontype ->
+            onItemClicked = { pos, itemMap, buttonType ->
                 position = pos
+                val appointment = itemMap["appointment"] as Appointment  // Casting to Appointment
                 Bundle().apply {
-                    putParcelable("appointment",item)
+                    putParcelable("appointment", appointment)
                 }
-                when(Buttontype){
-                    1 -> viewModel.setAppointmentAccepted(item.id)
-                    0 -> viewModel.setAppointmentDeclined(item.id)
+                when(buttonType) {
+                    1 -> viewModel.setAppointmentAccepted(appointment.id)  // Assuming 'id' is part of Appointment
+                    0 -> viewModel.setAppointmentDeclined(appointment.id)
                 }
             }
         )
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,7 +82,7 @@ class AppointmentListingFragment : Fragment() {
                 }
                 is UiState.Success -> {
                     binding.progressBar.hide()
-                    adapter.updateList(state.data.toMutableList())
+                    adapter.updateList(state.data)
                 }
             }
         }

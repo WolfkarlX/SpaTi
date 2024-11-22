@@ -84,7 +84,7 @@ class AppointmentRepositoryImpl (
             }
     }
 
-    override fun getAppointmentBySpa(result: (UiState<List<Appointment>>) -> Unit) {
+    override fun getAppointmentBySpa(result: (UiState<List<Map<String, Any>>>) -> Unit) {
         val userStr = appPreferences.getString(SharedPrefConstants.USER_SESSION, null)
         val currentUser = userStr?.let { gson.fromJson(it, User::class.java) }
 
@@ -100,12 +100,14 @@ class AppointmentRepositoryImpl (
             .orderBy(FireStoreDocumentField.DATETIME, Query.Direction.ASCENDING)
             .get()
             .addOnSuccessListener { appointmentDocs ->
-                val appointments = arrayListOf<Appointment>()
-                val tasks = mutableListOf<Task<DocumentSnapshot>>()
+                val appointmentsWithExtras = arrayListOf<Map<String, Any>>()
+                val tasks = mutableListOf<Task<*>>()
 
                 for (document in appointmentDocs) {
                     val appointment = document.toObject(Appointment::class.java)
-                    appointments.add(appointment)
+                    val appointmentData = mutableMapOf<String, Any>(
+                        "appointment" to appointment
+                    )
 
                     // Fetch user data based on userId
                     val userTask = database.collection(FireStoreCollection.USER)
@@ -113,8 +115,9 @@ class AppointmentRepositoryImpl (
                         .get()
                         .addOnSuccessListener { userDoc ->
                             if (userDoc.exists()) {
-                                appointment.userId = userDoc.getString("first_name") ?: "Unknown"
-                                appointment.spaId = userDoc.getString("reports") ?: "No reports"
+                                appointmentData["userName"] = userDoc.getString("first_name") ?: "Unknown"
+                                appointmentData["userReports"] = userDoc.getString("reports") ?: "No reports"
+                                appointmentData["userSex"] = userDoc.getString("sex") ?: "No sex"
                             }
                         }
                     tasks.add(userTask)
@@ -125,15 +128,19 @@ class AppointmentRepositoryImpl (
                         .get()
                         .addOnSuccessListener { serviceDoc ->
                             if (serviceDoc.exists()) {
-                                appointment.serviceId = serviceDoc.getString("name") ?: "Unknown Service"
+                                appointmentData["serviceName"] = serviceDoc.getString("name") ?: "Unknown Service"
+                                appointmentData["serviceDescription"] = serviceDoc.getString("description") ?: "No Description"
                             }
                         }
                     tasks.add(serviceTask)
+
+                    // Add the map with the appointment and additional data to the list
+                    appointmentsWithExtras.add(appointmentData)
                 }
 
                 Tasks.whenAllComplete(tasks)
                     .addOnSuccessListener {
-                        result.invoke(UiState.Success(appointments))
+                        result.invoke(UiState.Success(appointmentsWithExtras))
                     }
                     .addOnFailureListener {
                         result.invoke(UiState.Failure(it.localizedMessage))

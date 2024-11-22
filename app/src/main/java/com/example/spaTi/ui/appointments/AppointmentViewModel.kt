@@ -20,8 +20,8 @@ class AppointmentViewModel @Inject constructor (
     val appointments: LiveData<UiState<List<Appointment>>>
         get() = _appointments
 
-    private val _appointmentsBySpa = MutableLiveData<UiState<List<Appointment>>>()
-    val appointmentsBySpa: LiveData<UiState<List<Appointment>>>
+    private val _appointmentsBySpa = MutableLiveData<UiState<List<Map<String, Any>>>>()
+    val appointmentsBySpa: LiveData<UiState<List<Map<String, Any>>>>
         get() = _appointmentsBySpa
 
     private val _addAppointment = MutableLiveData<UiState<Pair<Appointment, String>>>()
