@@ -83,32 +83,38 @@ class SpaDetailFragment : Fragment() {
     private fun setupFragmentData() {
         val spaFromRegular = arguments?.getParcelable<Spa>("spa")
         val spaFromFavorites = arguments?.getParcelable<Spa>("spaFavorites")
+        val serviceSearchedFound = arguments?.getParcelable<Service>("service")
 
-        val spaFromArgs = when {
+        when {
             spaFromRegular != null -> {
-                isFavorite = false
-                objSpa = spaFromRegular
-                spaFromRegular
+                initFragment(spaFromRegular, false, "")
             }
             spaFromFavorites != null -> {
-                isFavorite = true
-                objSpa = spaFromFavorites
-                spaFromFavorites
+                initFragment(spaFromFavorites, true, "")
             }
-            else -> null
+            serviceSearchedFound != null -> {
+                //TODO: Add the logic to know if the service spa clicked on the search fragment is favorite or not
+                getSpaByService(serviceSearchedFound) { spa, serviceName ->
+                    spa?.let { initFragment(it, false, serviceName) }
+                }
+            }
+            else -> {
+                toast("Error: No spa data found")
+                findNavController().navigateUp()
+            }
         }
+    }
 
-        spaFromArgs?.let { spa ->
+    private fun initFragment(spa: Spa, isFavorite: Boolean, serviceName: String) {
+        objSpa = spa
 //            binding.spaDetailImage // here you set the image of the spa
-            binding.spaDetailName.text = spa.spa_name
-            binding.spaDetailLocation.text = spa.location
-            if (!isFavorite) {
-                binding.spaDetailFavBtn.setColorFilter(resources.getColor(R.color.white))
-            }
-        } ?: run {
-            toast("Error: No spa data found")
-            findNavController().navigateUp()
+        binding.spaDetailName.text = spa.spa_name
+        binding.spaDetailLocation.text = spa.location
+        if (!isFavorite) {
+            binding.spaDetailFavBtn.setColorFilter(resources.getColor(R.color.white))
         }
+        binding.spaDetailSearch.setText(serviceName)
+        binding.spaDetailSearch.onEditorAction(EditorInfo.IME_ACTION_DONE)
     }
 
     private fun setupRecyclerView() {
@@ -166,22 +172,34 @@ class SpaDetailFragment : Fragment() {
 
     private fun observeServiceOperations() {
         viewModel.getServicesBySpaId.observe(viewLifecycleOwner) { state ->
-            handleServiceState(state)
+            when (state) {
+                is UiState.Loading -> binding.progressBar.show()
+                is UiState.Success -> {
+                    binding.progressBar.hide()
+                    servicesAdapter.updateItems(state.data.toMutableList())
+                }
+                is UiState.Failure -> {
+                    binding.progressBar.hide()
+                    toast(state.error)
+                }
+            }
         }
     }
 
-    private fun handleServiceState(state: UiState<List<Service>>) {
-        when (state) {
-            is UiState.Loading -> binding.progressBar.show()
-            is UiState.Success -> {
-                binding.progressBar.hide()
-                servicesAdapter.updateItems(state.data.toMutableList())
-            }
-            is UiState.Failure -> {
-                binding.progressBar.hide()
-                toast(state.error)
+    private fun getSpaByService(service: Service, onSpaReceived: (Spa?, String) -> Unit) {
+        viewModel.getSpaById.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is UiState.Loading -> {}
+                is UiState.Success -> {
+                    onSpaReceived(state.data, service.name)
+                }
+                is UiState.Failure -> {
+                    toast(state.error)
+                }
             }
         }
+
+        viewModel.getSpaById(service.spaId)
     }
 
     private fun cleanupObservers() {
