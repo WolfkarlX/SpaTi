@@ -36,10 +36,8 @@ class SpaViewModel @Inject constructor(
         _getSpaById.value = UiState.Loading
         repository.getSpaById(id) { uiState ->
             _getSpaById.value = uiState
-            // Si el spa está disponible, puedes acceder a las coordenadas
             val spa = (uiState as? UiState.Success)?.data
             spa?.coordinates?.let { coordinates ->
-                // Hacer algo con las coordenadas, por ejemplo, pasarlas a la UI o guardarlas
                 Log.d("SpaViewModel", "Coordenadas del spa: $coordinates")
             }
         }
@@ -49,7 +47,6 @@ class SpaViewModel @Inject constructor(
         _getServicesBySpaId.value = UiState.Loading
         repository.getServicesBySpaId(id) { _getServicesBySpaId.value = it }
     }
-}
 
     fun searchServicesOnSpa(spaId: String, query: String) {
         _getServicesBySpaId.value = UiState.Loading

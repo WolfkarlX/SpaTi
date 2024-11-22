@@ -1,4 +1,4 @@
-</resources>
+<resources>
 
     <string name="app_name">SpaTi</string>
     <!-- TODO: Remover o cambiar este texto de marcador de posición -->
@@ -36,6 +36,7 @@
     <string name="invalid_password_consecutive_repeat">La contraseña no puede contener caracteres repetidos consecutivos.</string>
     <string name="invalid_description_does_not_exists">Ingresa una descripción</string>
     <string name="invalid_description_too_long">La descripción debe tener entre 20 y 500 caracteres y evitar caracteres especiales.</string>
+    <string name="invalid_description_repeating_chars">La descripción no puede contener caracteres repetidos consecutivamente más de 3 veces.</string>
     <string name="invalid_description_consecutive_repeated">La descripción no debe tener caracteres repetidos.</string>
     <string name="invalid_time_input">Hora de entrada no válida</string>
     <string name="invalid_time_output">Hora de salida no válida</string>
