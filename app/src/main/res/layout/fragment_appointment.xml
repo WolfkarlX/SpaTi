@@ -79,29 +79,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Pocas citas -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginEnd="16dp"
-            android:gravity="center_vertical">
-
-            <View
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:background="#FF00E8"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pocas citas"
-                android:textSize="14sp"
-                android:textColor="@color/black" />
-        </LinearLayout>
-
-        <!-- Casi lleno -->
+        <!-- Con citas -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -118,12 +96,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Casi lleno"
+                android:text="Con citas"
                 android:textSize="14sp"
                 android:textColor="@color/black" />
         </LinearLayout>
 
-        <!-- Lleno de citas -->
+        <!-- Lleno o casi lleno de citas -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -139,7 +117,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lleno de citas"
+                android:text="Lleno o casi lleno"
                 android:textSize="14sp"
                 android:textColor="@color/black" />
         </LinearLayout>

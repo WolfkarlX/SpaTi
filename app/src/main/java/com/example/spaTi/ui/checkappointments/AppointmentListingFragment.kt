@@ -74,14 +74,14 @@ class AppointmentListingFragment : Fragment() {
         viewModel.appointmentsBySpa.observe(viewLifecycleOwner) { state ->
             when(state){
                 is UiState.Loading -> {
-                    binding.progressBar.show()
+                    //binding.progressBar.show()
                 }
                 is UiState.Failure -> {
-                    binding.progressBar.hide()
+                    //binding.progressBar.hide()
                     toast(state.error)
                 }
                 is UiState.Success -> {
-                    binding.progressBar.hide()
+                    //binding.progressBar.hide()
                     adapter.updateList(state.data)
                 }
             }
@@ -92,14 +92,14 @@ class AppointmentListingFragment : Fragment() {
         viewModel.setAppointmentStatus.observe(viewLifecycleOwner) { state ->
             when(state){
                 is UiState.Loading -> {
-                    binding.progressBar.show()
+                    //binding.progressBar.show()
                 }
                 is UiState.Failure -> {
-                    binding.progressBar.hide()
+                    //binding.progressBar.hide()
                     toast(state.error)
                 }
                 is UiState.Success -> {
-                    binding.progressBar.hide()
+                    //binding.progressBar.hide()
                     //observer()
                     toast(state.data)
                     //viewModel.getAppointmentsBySpa()
