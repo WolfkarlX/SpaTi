@@ -35,6 +35,7 @@
                 android:focusable="true">
 
                 <ImageView
+                    android:id="@+id/userIcon"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/personal"
@@ -68,6 +69,7 @@
                     android:layout_marginBottom="8dp">
 
                     <ImageView
+                        android:id="@+id/reportIcon"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/report_active"
@@ -102,6 +104,7 @@
                     android:layout_marginBottom="8dp">
 
                     <ImageView
+                        android:id="@+id/sexIcon"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/sex"
@@ -126,6 +129,7 @@
                     android:layout_marginBottom="8dp">
 
                     <ImageView
+                        android:id="@+id/serviceIcon"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/servicios"
@@ -150,6 +154,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/dateIcon"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginEnd="8dp"

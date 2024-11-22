@@ -73,7 +73,8 @@ class AppointmentListingAdapter(
 
         fun bindEmptyList() {
             binding.apply {
-                tvUsuario.textSize = 50F
+
+                tvUsuario.textSize = 30F
                 tvUsuario.text = "NO HAY SOLICITUDES DE CITAS"
                 tvReportesLabel.text = ""
                 tvReportes.text = ""
@@ -82,6 +83,11 @@ class AppointmentListingAdapter(
                 tvFechaHora.text = ""
                 btnAceptarCita.hide()
                 btnRechazarCita.hide()
+                userIcon.hide()
+                reportIcon.hide()
+                sexIcon.hide()
+                serviceIcon.hide()
+                dateIcon.hide()
             }
         }
     }
