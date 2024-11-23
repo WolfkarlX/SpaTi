@@ -41,5 +41,11 @@
     <string name="invalid_day">Día no válido</string>
     <string name="invalid_month">Mes no válido</string>
     <string name="invalid_year">Año no válido</string>
+    <string name="enter_reportreason">Por favor, ingrese la razón del reporte.</string>
+    <string name="reportreason_short">La razón del reporte es demasiado corta. Proporcione al menos 10 caracteres.</string>
+    <string name="reportreason_long">La razón del reporte es demasiado larga. Limítese a 100 caracteres como máximo.</string>
+    <string name="reportreason_hasspecialcharacters">La razón del reporte contiene caracteres no permitidos. Use solo letras, números y puntuación estándar.</string>
+    <string name="reportreason_isoffensive">La razón del reporte contiene contenido ofensivo. Por favor, modifíquelo.</string>
+
 
 </resources>

@@ -8,6 +8,7 @@ import com.example.spaTi.data.repository.AppointmentRepository
 import com.example.spaTi.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.YearMonth
 import javax.inject.Inject
 
@@ -19,8 +20,8 @@ class AppointmentViewModel @Inject constructor (
     val appointments: LiveData<UiState<List<Appointment>>>
         get() = _appointments
 
-    private val _appointmentsBySpa = MutableLiveData<UiState<List<Appointment>>>()
-    val appointmentsBySpa: LiveData<UiState<List<Appointment>>>
+    private val _appointmentsBySpa = MutableLiveData<UiState<List<Map<String, Any>>>>()
+    val appointmentsBySpa: LiveData<UiState<List<Map<String, Any>>>>
         get() = _appointmentsBySpa
 
     private val _addAppointment = MutableLiveData<UiState<Pair<Appointment, String>>>()
@@ -46,6 +47,10 @@ class AppointmentViewModel @Inject constructor (
     private val _checkPendingAppointments = MutableLiveData<UiState<String>>()
     val checkPendingAppointments: LiveData<UiState<String>>
         get() = _checkPendingAppointments
+
+    private val _getAppointmentHistory = MutableLiveData<UiState<List<Map<String, Any>>>>()
+    val getAppointmentHistory: LiveData<UiState<List<Map<String, Any>>>>
+        get() = _getAppointmentHistory
 
 
     fun getAppointments() {
@@ -106,6 +111,11 @@ class AppointmentViewModel @Inject constructor (
     fun checkPendingAppointments(spaId: String) {
         _checkPendingAppointments.value = UiState.Loading
         repository.checkPendingAppointments(spaId) { _checkPendingAppointments.value = it }
+    }
+
+    fun getAppointmentsHistory(spaId: String, date: LocalDate , dateTime: LocalTime) {
+        _getAppointmentHistory.value = UiState.Loading
+        repository.getAppointmentsHistory(spaId,date,dateTime) { _getAppointmentHistory.value = it }
     }
 
     fun getAppointmentByMonthAndUser(spaId: String, yearMonth: YearMonth) {

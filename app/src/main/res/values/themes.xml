@@ -2,9 +2,9 @@
     <!-- Base application theme. -->
     <style name="Theme.spaTi" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">#1C920B</item> <!-- Color para la barra -->
+        <item name="colorPrimaryVariant">#388E3C</item> <!-- Color para la variante -->
+        <item name="colorOnPrimary">#FFFFFF</item> <!-- Color del texto/iconos sobre la barra -->
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
