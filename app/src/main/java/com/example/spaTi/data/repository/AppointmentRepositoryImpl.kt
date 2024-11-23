@@ -383,7 +383,7 @@ class AppointmentRepositoryImpl (
             .addOnSuccessListener { documents ->
                 val appointmentsByDate = documents
                     .mapNotNull { it.toObject(Appointment::class.java) }
-                    .filter { appointment -> appointment.spaId == spaId }
+                    .filter { appointment -> appointment.spaId == spaId && appointment.status in listOf("accepted", "pending") }
                     .groupBy { appointment -> LocalDate.parse(appointment.date) }
 
                 result.invoke(UiState.Success(appointmentsByDate))
@@ -524,7 +524,7 @@ class AppointmentRepositoryImpl (
             .addOnSuccessListener { documents ->
                 val appointmentsByDate = documents
                     .mapNotNull { it.toObject(Appointment::class.java) }
-                    .filter { appointment -> appointment.userId == userId && appointment.status in listOf("accepted", "pending")}
+                    .filter { appointment -> appointment.userId == userId && appointment.status in listOf("accepted", "pending") }
                     .groupBy { appointment -> LocalDate.parse(appointment.date) }
 
                 result.invoke(UiState.Success(appointmentsByDate))
