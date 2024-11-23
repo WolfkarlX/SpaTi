@@ -132,7 +132,7 @@
             android:contentDescription="Arrow Point Left"
             android:backgroundTint="@android:color/transparent"
             app:tint="@color/black"
-            app:layout_constraintTop_toBottomOf="@+id/legendColors"
+            app:layout_constraintTop_toTopOf="@+id/appointmentCalendarMonth"
             app:layout_constraintBottom_toBottomOf="@+id/appointmentCalendarMonth"
             app:layout_constraintEnd_toStartOf="@+id/appointmentCalendarMonth" />
 
@@ -143,8 +143,8 @@
             android:text="November"
             android:textAlignment="center"
             android:textSize="16sp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/legendColors"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@+id/scheduleDay"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -157,7 +157,8 @@
             android:backgroundTint="@android:color/transparent"
             android:scaleX="-1"
             app:tint="@color/black"
-            app:layout_constraintTop_toBottomOf="@+id/legendColors"
+            app:layout_constraintTop_toTopOf="@+id/appointmentCalendarMonth"
+            app:layout_constraintBottom_toBottomOf="@+id/appointmentCalendarMonth"
             app:layout_constraintStart_toEndOf="@+id/appointmentCalendarMonth" />
 
         <com.example.spaTi.ui.appointments.CalendarView
@@ -171,10 +172,12 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/appointmentScheduleRecycler"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:overScrollMode="always"
             app:spanCount="2"
+            android:paddingHorizontal="15dp"
+            android:clipToPadding="false"
             app:layout_constraintTop_toBottomOf="@+id/appointmentCalendar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -186,8 +189,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:indeterminateTint="#000000"
-            android:visibility="invisible"
+            android:indeterminateTint="@color/black"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/appointmentCalendar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

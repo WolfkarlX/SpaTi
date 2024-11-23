@@ -12,7 +12,7 @@ interface AppointmentRepository {
     fun addAppointment(appointment: Appointment, result: (UiState<Pair<Appointment, String>>) -> Unit)
 //    fun updateAppointment(appointment: Appointment, result: (UiState<String>) -> Unit)
 //    fun deleteAppointment(appointment: Appointment, result: (UiState<String>) -> Unit)
-fun getAppointmentBySpa(result: (UiState<List<Map<String, Any>>>) -> Unit)
+    fun getAppointmentBySpa(result: (UiState<List<Appointment>>) -> Unit)
     fun getAppointmentsByDate(spaId: String, date: LocalDate, result: (UiState<List<Appointment>>) -> Unit)
     fun getAppointmentsByDateOnAppointmentsSchedule(spaId: String, date: LocalDate, result: (UiState<List<Map<String, Any>>>) -> Unit)
     fun getAppointmentByMonth(spaId: String, yearMonth: YearMonth, result: (UiState<Map<LocalDate, List<Appointment>>>) -> Unit)
