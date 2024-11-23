@@ -17,6 +17,7 @@ data class Spa (
     val inTime: String = "",
     val outTime: String = "",
     val reports: String = "",
+    val prepayment: Boolean = false,
     @ServerTimestamp
     val createdAt: Date = Date(),
     @ServerTimestamp
