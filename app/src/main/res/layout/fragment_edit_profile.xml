@@ -206,7 +206,12 @@
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
                     android:text="Cancelar"
-                    android:backgroundTint="@android:color/holo_red_light" />
+                    android:backgroundTint="#B2B2B2" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_weight="0.05"
+                android:layout_height="wrap_content" />
 
                 <Button
                     android:id="@+id/btn_guardar"

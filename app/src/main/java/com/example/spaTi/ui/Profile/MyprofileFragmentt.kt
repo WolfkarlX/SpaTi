@@ -87,12 +87,19 @@ class MyprofileFragmentt : Fragment() {
     // Update the UI with user session data
     fun setData(user: User?) {
         user?.let {
-            binding.firstName.setText(it.first_name)
-            binding.lastNames.setText(it.last_name)
-            binding.email.setText(it.email)
-            binding.phoneNumber.setText(it.cellphone)
-            binding.bornday.setText(it.bornday)
-            binding.sex.setText(it.sex)
+            if(user.status=="active") {
+                binding.firstName.setText(it.first_name)
+                binding.lastNames.setText(it.last_name)
+                binding.email.setText(it.email)
+                binding.phoneNumber.setText(it.cellphone)
+                binding.bornday.setText(it.bornday)
+                binding.sex.setText(it.sex)
+            }else{
+                viewModel.logout{
+                    toast("User not available")
+                    findNavController().navigate(R.id.action_myprofileFragment_to_loginFragment)
+                }
+            }
         }
     }
 }

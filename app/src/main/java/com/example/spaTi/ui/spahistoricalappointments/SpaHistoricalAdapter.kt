@@ -1,17 +1,21 @@
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.recyclerview.widget.RecyclerView
+import com.example.spaTi.R
+import com.example.spaTi.R.drawable.report_inactive
+import com.example.spaTi.R.layout.item_cita_history
 import com.example.spaTi.data.models.Appointment
-import com.example.spaTi.databinding.ItemCitaAgendaBinding
+import com.example.spaTi.databinding.ItemCitaHistoryBinding
 
-class SpaScheduleAdapter(
-    val onItemClicked: (Int, Appointment, Int) -> Unit
-) : RecyclerView.Adapter<SpaScheduleAdapter.MyViewHolder>() {
+class SpaHistoricalAdapter(
+    val onItemClicked: (Int, Appointment, Boolean) -> Unit
+) : RecyclerView.Adapter<SpaHistoricalAdapter.MyViewHolder>() {
 
     private var list: MutableList<Map<String, Any>> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val itemView = ItemCitaAgendaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemView = ItemCitaHistoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(itemView)
     }
 
@@ -55,9 +59,16 @@ class SpaScheduleAdapter(
         notifyDataSetChanged()
     }
 
-    inner class MyViewHolder(val binding: ItemCitaAgendaBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MyViewHolder(val binding: ItemCitaHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Map<String, Any>) {
             val appointment = item["appointment"] as Appointment
+            val userWasReported:Boolean =  item["reportedBySpa"] as Boolean
+
+            if (userWasReported) {
+                binding.btnReport.setImageResource(R.drawable.report_active) // Replace with your drawable resource
+            } else {
+                binding.btnReport.setImageResource(report_inactive)// Replace with your default drawable
+            }
 
             binding.tvUsuario.text = item["userName"] as? String
             binding.tvReportes.text = item["userReports"] as? String
@@ -66,8 +77,9 @@ class SpaScheduleAdapter(
             binding.tvCorreo.text = item["userEmail"] as? String
             binding.tvtelefono.text = item["userCellphone"] as? String
             binding.tvSexo.text = item["userSex"] as? String
+            binding.tvReportes.text = item["userReports"] as? String
 
-            binding.btnRechazarCita.setOnClickListener { onItemClicked.invoke(adapterPosition,appointment, 1)
+            binding.btnReport.setOnClickListener { onItemClicked.invoke(adapterPosition, appointment, userWasReported)
             }
         }
 

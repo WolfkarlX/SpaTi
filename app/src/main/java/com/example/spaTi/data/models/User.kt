@@ -11,6 +11,7 @@ data class User(
     val sex: String = "",
     val bornday: String = "",
     val age: String = "",
-    val reports:String = ""
+    val reports:String = "",
+    val status:String = ""
 
 )
