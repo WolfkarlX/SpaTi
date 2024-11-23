@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spaTi.data.models.Appointment
+import com.example.spaTi.databinding.ItemAppointmentsAcceptedBinding
 import com.example.spaTi.databinding.ItemCitaAgendaBinding
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -16,7 +17,7 @@ class UserAppointmentsAdapter (
     private var list: MutableList<Map<String, Any>> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val itemView = ItemCitaAgendaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemView = ItemAppointmentsAcceptedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(itemView)
     }
 
@@ -60,7 +61,7 @@ class UserAppointmentsAdapter (
         notifyDataSetChanged()
     }
 
-    inner class MyViewHolder(val binding: ItemCitaAgendaBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MyViewHolder(val binding: ItemAppointmentsAcceptedBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Map<String, Any>) {
             val appointment = item["appointment"] as Appointment
 
@@ -124,6 +125,7 @@ class UserAppointmentsAdapter (
             binding.tvsexo.text = ""
 
             binding.btnRechazarCita.visibility = View.GONE
+            binding.btnGoToService.visibility = View.GONE
         }
     }
 }

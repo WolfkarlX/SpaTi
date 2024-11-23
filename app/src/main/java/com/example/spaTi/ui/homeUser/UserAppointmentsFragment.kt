@@ -19,6 +19,7 @@ import com.example.spaTi.data.models.Service
 import com.example.spaTi.data.models.Spa
 import com.example.spaTi.data.models.User
 import com.example.spaTi.databinding.FragmentSpaScheduleBinding
+import com.example.spaTi.databinding.FragmentUserAppointmentsBinding
 import com.example.spaTi.ui.Profile.ProfileViewModel
 import com.example.spaTi.ui.appointments.AppointmentViewModel
 import com.example.spaTi.ui.services.ServiceViewModel
@@ -36,7 +37,7 @@ import java.time.YearMonth
 
 @AndroidEntryPoint
 class UserAppointmentsFragment : Fragment() {
-    private var _binding: FragmentSpaScheduleBinding? = null
+    private var _binding: FragmentUserAppointmentsBinding? = null
     private val binding get() = _binding!!
     private var currentMonth = YearMonth.now()
     private var objUser: User? = null
@@ -61,7 +62,7 @@ class UserAppointmentsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSpaScheduleBinding.inflate(layoutInflater)
+        _binding = FragmentUserAppointmentsBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -130,9 +131,7 @@ class UserAppointmentsFragment : Fragment() {
                     binding.appointmentProgressBar.hide()
                     toast(state.error)
                     userViewModel.logout {
-                        findNavController().navigate(R.id.action_userAppointmentsFragment_to_loginFragment) {
-                            popUpTo(R.id.userAppointmentsFragment) { inclusive = true }
-                        }
+                        findNavController().navigate(R.id.action_userAppointmentsFragment_to_loginFragment)
                     }
                 }
             }

@@ -176,7 +176,7 @@
         android:id="@+id/userAppointmentsFragment"
         android:name="com.example.spaTi.ui.homeUser.UserAppointmentsFragment"
         android:label="fragment_appointments"
-        tools:layout="@layout/fragment_spa_schedule">
+        tools:layout="@layout/fragment_user_appointments">
         <action
             android:id="@+id/action_userAppointmentsFragment_to_loginFragment"
             app:destination="@id/loginFragment" />

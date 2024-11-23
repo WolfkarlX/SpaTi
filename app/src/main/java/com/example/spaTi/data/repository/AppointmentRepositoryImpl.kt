@@ -1,9 +1,7 @@
 package com.example.spaTi.data.repository
 
 import android.content.SharedPreferences
-import android.util.Log
 import com.example.spaTi.data.models.Appointment
-import com.example.spaTi.data.models.Spa
 import com.example.spaTi.data.models.User
 import com.example.spaTi.util.FireStoreCollection
 import com.example.spaTi.util.FireStoreDocumentField
@@ -11,18 +9,14 @@ import com.example.spaTi.util.SharedPrefConstants
 import com.example.spaTi.util.UiState
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
-import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.toObject
 import com.google.gson.Gson
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.YearMonth
-import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.concurrent.TimeUnit
 
@@ -530,7 +524,7 @@ class AppointmentRepositoryImpl (
             .addOnSuccessListener { documents ->
                 val appointmentsByDate = documents
                     .mapNotNull { it.toObject(Appointment::class.java) }
-                    .filter { appointment -> appointment.userId == userId }
+                    .filter { appointment -> appointment.userId == userId && appointment.status in listOf("accepted", "pending")}
                     .groupBy { appointment -> LocalDate.parse(appointment.date) }
 
                 result.invoke(UiState.Success(appointmentsByDate))
@@ -550,6 +544,7 @@ class AppointmentRepositoryImpl (
 
         database.collection(FireStoreCollection.APPOINTMENT)
             .whereEqualTo("userId", userId)
+            .whereIn("status", listOf("accepted", "pending"))
             .whereEqualTo("date", dateString)
             .orderBy(FireStoreDocumentField.DATE, Query.Direction.ASCENDING)
             .orderBy(FireStoreDocumentField.DATETIME, Query.Direction.ASCENDING)

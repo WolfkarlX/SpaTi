@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -36,92 +37,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Seleccionar día de agenda"
+            android:text="Seleccionar dia de agenda"
             android:textColor="@color/v_oscuro"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/appointmentBackBtn"
             app:layout_constraintStart_toEndOf="@+id/appointmentBackBtn"
             app:layout_constraintTop_toTopOf="@+id/appointmentBackBtn" />
-
-        <!-- Leyenda de colores (Horizontal) -->
-        <LinearLayout
-            android:id="@+id/legendColors"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/scheduleDay"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <!-- Día con pocas citas -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginEnd="16dp"
-                android:gravity="center_vertical">
-
-                <View
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:background="#FF00E8"
-                    android:layout_marginEnd="8dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Pocas citas"
-                    android:textSize="14sp"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-
-            <!-- Día casi lleno de citas -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginEnd="16dp"
-                android:gravity="center_vertical">
-
-                <View
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:background="#F57F17"
-                    android:layout_marginEnd="8dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Casi lleno"
-                    android:textSize="14sp"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-
-            <!-- Día lleno de citas -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <View
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:background="#D32F2F"
-                    android:layout_marginEnd="8dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Lleno de citas"
-                    android:textSize="14sp"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-
-        </LinearLayout>
 
         <ImageButton
             android:id="@+id/appointmentCalendarMonthPrev"
@@ -131,7 +53,7 @@
             android:contentDescription="Arrow Point Left"
             android:backgroundTint="@android:color/transparent"
             app:tint="@color/black"
-            app:layout_constraintTop_toBottomOf="@+id/legendColors"
+            app:layout_constraintTop_toTopOf="@+id/appointmentCalendarMonth"
             app:layout_constraintBottom_toBottomOf="@+id/appointmentCalendarMonth"
             app:layout_constraintEnd_toStartOf="@+id/appointmentCalendarMonth" />
 
@@ -142,8 +64,8 @@
             android:text="November"
             android:textAlignment="center"
             android:textSize="16sp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/legendColors"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@+id/scheduleDay"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -156,7 +78,8 @@
             android:backgroundTint="@android:color/transparent"
             android:scaleX="-1"
             app:tint="@color/black"
-            app:layout_constraintTop_toBottomOf="@+id/legendColors"
+            app:layout_constraintTop_toTopOf="@+id/appointmentCalendarMonth"
+            app:layout_constraintBottom_toBottomOf="@+id/appointmentCalendarMonth"
             app:layout_constraintStart_toEndOf="@+id/appointmentCalendarMonth" />
 
         <com.example.spaTi.ui.appointments.CalendarView
@@ -170,15 +93,16 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/appointmentScheduleRecycler"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:overScrollMode="always"
             app:spanCount="2"
+            android:paddingHorizontal="15dp"
+            android:clipToPadding="false"
             app:layout_constraintTop_toBottomOf="@+id/appointmentCalendar"
-            app:layout_constraintBottom_toTopOf="@+id/appointmentProgressBar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:listitem="@layout/item_cita_agenda"
+            tools:listitem="@layout/item_appointments_accepted"
             tools:itemCount="1" />
 
         <ProgressBar
@@ -186,8 +110,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:indeterminateTint="#000000"
-            android:visibility="invisible"
+            android:indeterminateTint="@color/black"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/appointmentCalendar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
