@@ -20,6 +20,7 @@ import com.google.firebase.firestore.toObject
 import com.google.gson.Gson
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.YearMonth
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -348,6 +349,18 @@ class AppointmentRepositoryImpl (
             }
     }
 
+    override fun setAppointmentCanceled(appointmentId: String, result: (UiState<String>) -> Unit) {
+        database.collection(FireStoreCollection.APPOINTMENT)
+            .document(appointmentId)
+            .update("status", "canceled")
+            .addOnSuccessListener {
+                result.invoke(UiState.Success("Appointment canceled successfully"))
+            }
+            .addOnFailureListener {
+                result.invoke(UiState.Failure(it.localizedMessage))
+            }
+    }
+
     override fun checkPendingAppointments(spaId: String, result: (UiState<String>) -> Unit) {
         val now = System.currentTimeMillis()
         val oneDayInMillis = TimeUnit.HOURS.toMillis(24)
@@ -402,4 +415,103 @@ class AppointmentRepositoryImpl (
             }
     }
 
+    override fun getAppointmentByMonthAndUser(
+        userId: String,
+        yearMonth: YearMonth,
+        result: (UiState<Map<LocalDate, List<Appointment>>>) -> Unit
+    ) {
+        val startDate = yearMonth.atDay(1).format(DateTimeFormatter.ISO_LOCAL_DATE)
+        val endDate = yearMonth.atEndOfMonth().format(DateTimeFormatter.ISO_LOCAL_DATE)
+
+        database.collection(FireStoreCollection.APPOINTMENT)
+            .whereGreaterThanOrEqualTo("date", startDate)
+            .whereLessThanOrEqualTo("date", endDate)
+            .get()
+            .addOnSuccessListener { documents ->
+                val appointmentsByDate = documents
+                    .mapNotNull { it.toObject(Appointment::class.java) }
+                    .filter { appointment -> appointment.userId == userId }
+                    .groupBy { appointment -> LocalDate.parse(appointment.date) }
+
+                result.invoke(UiState.Success(appointmentsByDate))
+            }
+            .addOnFailureListener {
+                result.invoke(UiState.Failure(it.localizedMessage))
+            }
+    }
+
+    override fun getAppointmentsByDateAndUser(
+        userId: String,
+        date: LocalDate,
+        result: (UiState<List<Map<String, Any>>>) -> Unit // Modify result type to List of Maps
+    ) {
+        val dateString = date.format(DateTimeFormatter.ISO_LOCAL_DATE)
+        val appointmentsWithExtras = arrayListOf<Map<String, Any>>() // List of maps to hold additional data
+
+        database.collection(FireStoreCollection.APPOINTMENT)
+            .whereEqualTo("userId", userId)
+            .whereEqualTo("date", dateString)
+            .orderBy(FireStoreDocumentField.DATE, Query.Direction.ASCENDING)
+            .orderBy(FireStoreDocumentField.DATETIME, Query.Direction.ASCENDING)
+            .get()
+            .addOnSuccessListener { appointmentDocs ->
+                val tasks = mutableListOf<Task<DocumentSnapshot>>()
+
+                for (document in appointmentDocs) {
+                    val appointment = document.toObject(Appointment::class.java)
+                    val appointmentData = mutableMapOf<String, Any>(
+                        "appointment" to appointment // Store the appointment object in the map
+                    )
+
+                    // Fetch user data based on userId
+                    val spaTask = database.collection(FireStoreCollection.SPA)
+                        .document(appointment.spaId)
+                        .get()
+                        .addOnSuccessListener { spaDoc ->
+                            if (spaDoc.exists()) {
+                                // Add additional user data to the map
+                                appointmentData["spaName"] = spaDoc.getString("spa_name") ?: "Unknown"
+                                appointmentData["spaEmail"] = spaDoc.getString("email") ?: "No Email"
+                                appointmentData["spaCellphone"] = spaDoc.getString("cellphone") ?: "No Cellphone"
+                            }
+                        }
+                    tasks.add(spaTask)
+
+                    // Fetch service data based on serviceId
+                    val serviceTask = database.collection(FireStoreCollection.SERVICE)
+                        .document(appointment.serviceId)
+                        .get()
+                        .addOnSuccessListener { serviceDoc ->
+                            if (serviceDoc.exists()) {
+                                val dateEnd = LocalTime.parse(appointment.dateTime, DateTimeFormatter.ofPattern("HH:mm"))
+                                        .plusMinutes(serviceDoc.get("durationMinutes").toString().toLong())
+                                // Add additional service data to the map
+                                appointmentData["serviceName"] = serviceDoc.getString("name") ?: "Unknown Service"
+                                appointmentData["serviceDurationMinutes"] = if (serviceDoc.get("durationMinutes") != null) {
+                                    dateEnd.toString() // Convert LocalTime to a String if needed
+                                } else {
+                                    "Unknown Service"
+                                }
+
+                            }
+                        }
+                    tasks.add(serviceTask)
+
+                    // Add the map with the appointment and additional data to the list
+                    appointmentsWithExtras.add(appointmentData)
+                }
+
+                // Wait until all user and service tasks complete
+                Tasks.whenAllComplete(tasks)
+                    .addOnSuccessListener {
+                        result.invoke(UiState.Success(appointmentsWithExtras))
+                    }
+                    .addOnFailureListener {
+                        result.invoke(UiState.Failure(it.localizedMessage))
+                    }
+            }
+            .addOnFailureListener {
+                result.invoke(UiState.Failure(it.localizedMessage))
+            }
+    }
 }

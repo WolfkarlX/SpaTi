@@ -105,7 +105,7 @@ class AppointmentFragment : Fragment() {
                 is UiState.Success -> {
                     toast(state.data.second)
                     appointmentViewModel.resetAddAppointmentState()
-                    findNavController().navigate(R.id.action_appointmentFragment_to_appointmentsFragment)
+                    findNavController().navigate(R.id.action_appointmentFragment_to_userAppointmentsFragment)
                 }
                 is UiState.Failure -> {
                     toast(state.error)

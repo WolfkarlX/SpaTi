@@ -18,7 +18,8 @@ interface AppointmentRepository {
     fun getAppointmentByMonthOnAppointmentsSchedule(spaId: String, yearMonth: YearMonth, result: (UiState<Map<LocalDate, List<Appointment>>>) -> Unit)
     fun setAppointmentDeclined(appointmentid: String, result: (UiState<String>) -> Unit)
     fun setAppointmentAccepted(appointmentid: String, result: (UiState<String>) -> Unit)
+    fun setAppointmentCanceled(appointmentid: String, result: (UiState<String>) -> Unit)
     fun checkPendingAppointments(spaId: String, result: (UiState<String>) -> Unit)
-
-
+    fun getAppointmentByMonthAndUser(userId: String, yearMonth: YearMonth, result: (UiState<Map<LocalDate, List<Appointment>>>) -> Unit)
+    fun getAppointmentsByDateAndUser(userId: String, date: LocalDate, result: (UiState<List<Map<String, Any>>>) -> Unit)
 }

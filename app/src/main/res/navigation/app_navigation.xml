@@ -129,8 +129,8 @@
             android:id="@+id/action_userHomeFragment_to_searchTagsFragment"
             app:destination="@+id/searchTagsFragment"/>
         <action
-            android:id="@+id/action_userHomeFragment_to_appointmentsFragment"
-            app:destination="@+id/appointmentsFragment"/>
+            android:id="@+id/action_userHomeFragment_to_userAppointmentsFragment"
+            app:destination="@+id/userAppointmentsFragment"/>
         <action
             android:id="@+id/action_userHomeFragment_to_spaDetailFragment"
             app:destination="@+id/spaDetailFragment"/>
@@ -170,10 +170,16 @@
     </fragment>
 
     <fragment
-        android:id="@+id/appointmentsFragment"
-        android:name="com.example.spaTi.ui.homeUser.AppointmentsFragment"
+        android:id="@+id/userAppointmentsFragment"
+        android:name="com.example.spaTi.ui.homeUser.UserAppointmentsFragment"
         android:label="fragment_appointments"
-        tools:layout="@layout/fragment_appointments">
+        tools:layout="@layout/fragment_spa_schedule">
+        <action
+            android:id="@+id/action_userAppointmentsFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_userAppointmentsFragment_to_spaDetailFragment"
+            app:destination="@+id/spaDetailFragment"/>
     </fragment>
 
     <fragment
@@ -241,8 +247,8 @@
         android:label="fragment_appointment"
         tools:layout="@layout/fragment_appointment">
         <action
-            android:id="@+id/action_appointmentFragment_to_appointmentsFragment"
-            app:destination="@+id/appointmentsFragment"/>
+            android:id="@+id/action_appointmentFragment_to_userAppointmentsFragment"
+            app:destination="@+id/userAppointmentsFragment"/>
     </fragment>
 
     <fragment

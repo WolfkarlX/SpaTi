@@ -116,4 +116,8 @@ class ServiceViewModel @Inject constructor(
         _getServicesWithSpaByTagId.value = UiState.Loading
         repository.getServicesWithSpaByTagId(id) { _getServicesWithSpaByTagId.value = it }
     }
+
+    fun cleanGetServiceByIdState() {
+        _getServiceById.value = UiState.Loading
+    }
 }
