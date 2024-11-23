@@ -82,6 +82,7 @@ class MySpaEditFragment : Fragment() {
             createdAt = createdAt ?: Date(),
             updatedAt = Date(),
             outTime = binding.outTimeEt.text.toString(),
+            prepayment = binding.prepaySwitch.isChecked,
         )
     }
 
@@ -223,6 +224,7 @@ class MySpaEditFragment : Fragment() {
             binding.inTimeEt.setText(it.inTime)
             binding.outTimeEt.setText(it.outTime)
             binding.descriptionEt.setText(it.description)
+            binding.prepaySwitch.isChecked = it.prepayment
         }
     }
 

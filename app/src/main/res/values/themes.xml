@@ -62,4 +62,8 @@
         <item name="android:textSize">12dp</item>
     </style>
 
+    <style name="SwitchStyle">
+        <item name="colorControlActivated">@color/verde</item>
+    </style>
+
 </resources>
