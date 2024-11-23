@@ -1,17 +1,26 @@
 package com.example.spaTi.ui.Profile
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.spaTi.R
 import com.example.spaTi.data.models.User
 import com.example.spaTi.databinding.FragmentMyProfileBinding
@@ -19,9 +28,10 @@ import com.example.spaTi.util.UiState
 import com.example.spaTi.util.hide
 import com.example.spaTi.util.show
 import com.example.spaTi.util.toast
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
+import com.yalantis.ucrop.UCrop
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
 
 @AndroidEntryPoint
 class MyprofileFragmentt : Fragment() {
@@ -30,7 +40,9 @@ class MyprofileFragmentt : Fragment() {
     lateinit var binding: FragmentMyProfileBinding
     val viewModel: ProfileViewModel by viewModels()
     private lateinit var userId: String
+    private lateinit var photoUri: Uri
     private val IMAGE_PICK_CODE = 1000
+    private val REQUEST_CAMERA_PERMISSION = 1001
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +58,6 @@ class MyprofileFragmentt : Fragment() {
         observer()
         viewModel.getSession()
 
-        // Edit button navigation
         binding.editButton.setOnClickListener {
             findNavController().navigate(R.id.action_myprofileFragment_to_editprofileFragment)
         }
@@ -56,22 +67,139 @@ class MyprofileFragmentt : Fragment() {
                 findNavController().navigate(R.id.action_myprofileFragment_to_loginFragment)
             }
         }
+
         binding.changeProfilePicture.setOnClickListener {
-            pickImageFromGallery()
+            showImageSourceOptions()
+        }
+
+        binding.profileImage.setOnClickListener {
+            showProfileImageInDialog()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        reloadProfileImage()
+    }
+
+    private fun reloadProfileImage() {
+        val storage = FirebaseStorage.getInstance()
+        val storageRef = storage.reference
+        val imageRef = storageRef.child("profile_images/${userId}.jpg")
+
+        imageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
+            Glide.with(requireContext())
+                .load(downloadUrl.toString())
+                .skipMemoryCache(true)
+                .into(binding.profileImage)
+        }.addOnFailureListener {
+        }
+    }
+
+    private fun setData(user: User?) {
+        user?.let {
+            binding.firstName.setText(it.first_name)
+            binding.lastNames.setText(it.last_name)
+            binding.email.setText(it.email)
+            binding.phoneNumber.setText(it.cellphone)
+            binding.bornday.setText(it.bornday)
+            binding.sex.setText(it.sex)
+
+            if (it.profileImageUrl.isNotEmpty()) {
+                Glide.with(requireContext())
+                    .load(it.profileImageUrl)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(binding.profileImage)
+                binding.profileImage.tag = it.profileImageUrl
+            } else {
+                Glide.with(requireContext())
+                    .load(R.drawable.user_def)
+                    .into(binding.profileImage)
+                binding.profileImage.tag = ""
+            }
+        }
+    }
+
+    private fun showImageSourceOptions() {
+        val options = arrayOf("Tomar foto", "Seleccionar desde galería")
+        val builder = android.app.AlertDialog.Builder(requireContext())
+        builder.setTitle("Seleccionar una opción")
+        builder.setItems(options) { _, which ->
+            when (which) {
+                0 -> checkCameraPermission()
+                1 -> pickImageFromGallery()
+            }
+        }
+        builder.show()
+    }
+
+    private fun checkCameraPermission() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            openCamera()
+        } else {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.CAMERA),
+                REQUEST_CAMERA_PERMISSION
+            )
+        }
+    }
+
+    private fun openCamera() {
+        val photoFile = File(requireContext().cacheDir, "photo.jpg")
+        photoUri = FileProvider.getUriForFile(
+            requireContext(),
+            "${requireContext().packageName}.provider",
+            photoFile
+        )
+
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+            putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
+        }
+        cameraLauncher.launch(intent)
+    }
+
+    private val cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            startCrop(photoUri)
+        } else {
+            toast("No se tomó ninguna foto.")
         }
     }
 
     private fun pickImageFromGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        startActivityForResult(intent, IMAGE_PICK_CODE)
+        galleryLauncher.launch(intent)
+    }
+
+    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+            val sourceUri = result.data?.data
+            sourceUri?.let {
+                startCrop(it)
+            }
+        }
+    }
+
+    private fun startCrop(sourceUri: Uri) {
+        val destinationUri = Uri.fromFile(File(requireContext().cacheDir, "cropped.jpg"))
+        UCrop.of(sourceUri, destinationUri)
+            .withAspectRatio(1f, 1f)
+            .withMaxResultSize(800, 800)
+            .start(requireContext(), this)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == IMAGE_PICK_CODE && resultCode == Activity.RESULT_OK && data != null) {
-            val imageUri: Uri? = data.data
-            uploadProfilePicture(imageUri)
+
+        if (requestCode == UCrop.REQUEST_CROP && resultCode == Activity.RESULT_OK && data != null) {
+            val resultUri = UCrop.getOutput(data)
+            uploadProfilePicture(resultUri)
         }
     }
 
@@ -81,24 +209,37 @@ class MyprofileFragmentt : Fragment() {
             val storageRef = storage.reference
             val imageRef = storageRef.child("profile_images/${userId}.jpg")
 
-            binding.sessionProgress.show()
-            imageRef.putFile(imageUri)
-                .addOnSuccessListener {
-                    imageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
-                        viewModel.updateProfilePicture(downloadUrl.toString(), userId)
-                        binding.sessionProgress.hide()
-                        toast("Foto de perfil actualizada exitosamente")
-                        Glide.with(requireContext())
-                            .load(downloadUrl.toString())
-                            .into(binding.profileImage)
-                    }
-                }
-                .addOnFailureListener {
+            val uploadTask = imageRef.putFile(imageUri)
+            uploadTask.addOnSuccessListener { taskSnapshot ->
+                imageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
+                    viewModel.updateProfilePicture(downloadUrl.toString(), userId)
+
+                    Glide.with(requireContext())
+                        .load(downloadUrl.toString())
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .into(binding.profileImage)
+                    binding.profileImage.tag = downloadUrl.toString()
                     binding.sessionProgress.hide()
-                    toast("Error al subir la imagen.")
+                    toast("Foto de perfil actualizada exitosamente")
+                    reloadProfileImage()
                 }
+            }.addOnFailureListener {
+                toast("No se pudo actualizar la foto de perfil.")
+            }
         }
     }
+
+    private fun showProfileImageInDialog() {
+        val imageUrl = binding.profileImage.tag?.toString() ?: ""
+        Log.d("MyProfileFragment", "imageUrl: $imageUrl")
+        if (imageUrl.isNotEmpty()) {
+            ImageDialogFragment.newInstance(imageUrl).show(parentFragmentManager, "ImageDialog")
+        } else {
+            toast("No se pudo cargar la imagen.")
+        }
+    }
+
     private fun observer() {
         viewModel.session.observe(viewLifecycleOwner) { state ->
             when (state) {
@@ -117,17 +258,19 @@ class MyprofileFragmentt : Fragment() {
             }
         }
     }
-    private fun setData(user: User?) {
-        user?.let {
-            binding.firstName.setText(it.first_name)
-            binding.lastNames.setText(it.last_name)
-            binding.email.setText(it.email)
-            binding.phoneNumber.setText(it.cellphone)
-            binding.bornday.setText(it.bornday)
-            binding.sex.setText(it.sex)
-            Glide.with(requireContext())
-                .load(it.profileImageUrl)
-                .into(binding.profileImage)
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode == REQUEST_CAMERA_PERMISSION) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openCamera()
+            } else {
+                toast("Permiso denegado para acceder a la cámara.")
+            }
         }
     }
 }

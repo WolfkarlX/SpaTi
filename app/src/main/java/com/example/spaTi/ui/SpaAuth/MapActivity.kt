@@ -4,6 +4,8 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
@@ -11,6 +13,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.spaTi.R
 import com.example.spaTi.databinding.ActivityMapBinding
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -19,6 +22,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -85,7 +89,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
             if (location != null) {
                 val currentLatLng = LatLng(location.latitude, location.longitude)
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 18f))
             } else {
                 Log.e("MapActivity", "No se pudo obtener la ubicación actual.")
             }
@@ -97,10 +101,23 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 MarkerOptions()
                     .position(latLng)
                     .title("Ubicación seleccionada")
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)) // Marcador verde
+                    .icon(getCustomPin()) // Pin personalizado
             )
             selectedLatLng = latLng
         }
+    }
+
+    private fun getCustomPin(): BitmapDescriptor {
+        val drawable = ContextCompat.getDrawable(this, R.drawable.pin)!!
+        val bitmap = Bitmap.createBitmap(
+            drawable.intrinsicWidth,
+            drawable.intrinsicHeight,
+            Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        drawable.setBounds(0, 0, canvas.width, canvas.height)
+        drawable.draw(canvas)
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
 
     private suspend fun getAddressFromCoordinates(latLng: LatLng): String {
@@ -116,7 +133,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    // Gestionar el resultado de la solicitud de permisos
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -124,7 +140,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            // Permiso concedido, vuelve a llamar onMapReady
             onMapReady(mMap)
         }
     }

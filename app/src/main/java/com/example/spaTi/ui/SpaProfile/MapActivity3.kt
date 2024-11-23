@@ -1,10 +1,13 @@
 package com.example.spaTi.ui.SpaProfile
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.location.Geocoder
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.example.spaTi.R
 import com.example.spaTi.databinding.ActivityMap3Binding
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -13,6 +16,8 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import java.util.Locale
 
 class MapActivity3 : AppCompatActivity(), OnMapReadyCallback {
@@ -59,7 +64,12 @@ class MapActivity3 : AppCompatActivity(), OnMapReadyCallback {
             val coordinates = parseLocationString(it) ?: getCoordinatesFromAddress(it)
             if (coordinates != null) {
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordinates, 18f))
-                googleMap.addMarker(MarkerOptions().position(coordinates).title("Ubicación actual del spa"))
+                googleMap.addMarker(
+                    MarkerOptions()
+                        .position(coordinates)
+                        .title("Ubicación actual del spa")
+                        .icon(getCustomPin())
+                )
             } else {
                 Toast.makeText(this, "No se pudo obtener las coordenadas de la ubicación", Toast.LENGTH_SHORT).show()
             }
@@ -67,9 +77,26 @@ class MapActivity3 : AppCompatActivity(), OnMapReadyCallback {
 
         googleMap.setOnMapClickListener { latLng ->
             googleMap.clear()
-            googleMap.addMarker(MarkerOptions().position(latLng).title("Nueva ubicación seleccionada"))
+            googleMap.addMarker(
+                MarkerOptions()
+                    .position(latLng)
+                    .title("Nueva ubicación seleccionada")
+                    .icon(getCustomPin())
+            )
             selectedLocation = latLng
         }
+    }
+
+    private fun getCustomPin(): BitmapDescriptor {
+        val drawable = ContextCompat.getDrawable(this, R.drawable.pin)!!
+        val width = drawable.intrinsicWidth
+        val height = drawable.intrinsicHeight
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        drawable.setBounds(0, 0, width, height)
+        drawable.draw(canvas)
+
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
 
     private fun getCoordinatesFromAddress(address: String): LatLng? {

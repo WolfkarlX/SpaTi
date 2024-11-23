@@ -78,6 +78,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:background="@drawable/button_rounded"
                 android:text="Seleccionar ubicación"
                 android:textColor="@android:color/white"
                 android:paddingLeft="16dp"

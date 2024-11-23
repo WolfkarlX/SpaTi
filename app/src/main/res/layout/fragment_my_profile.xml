@@ -16,26 +16,24 @@
             android:padding="0dp"
             android:orientation="vertical">
 
-            <!-- Header -->
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
+                android:layout_height="150dp"
                 android:layout_marginBottom="0dp"
                 android:background="@drawable/rectangle_green_profile">
             </RelativeLayout>
 
-            <!-- Foto del perfil -->
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/profile_image"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/spa"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/user_def"
                 android:scaleType="centerCrop"
                 android:layout_gravity="center"
-                android:layout_marginTop="-70dp"
+                android:layout_marginTop="-80dp"
                 android:layout_marginBottom="0dp"
                 android:padding="0dp"
-                app:shapeAppearanceOverlay="@style/radius" />
+                app:shapeAppearanceOverlay="@style/radius1" />
 
             <TextView
                 android:id="@+id/change_profile_picture"
@@ -177,7 +175,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="330dp"
-                android:layout_marginTop="-630dp">
+                android:layout_marginTop="-700dp">
 
                 <ImageView
                     android:id="@+id/save_button"

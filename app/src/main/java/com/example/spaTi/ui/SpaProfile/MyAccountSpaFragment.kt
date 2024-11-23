@@ -39,7 +39,6 @@ class MyAccountSpaFragment : Fragment() {
 
         observer()
 
-        // Use syncSessionWithDatabase to get and update the session from the database
         viewModel.syncSessionWithDatabase()
 
         binding.home.setOnClickListener {
@@ -55,11 +54,9 @@ class MyAccountSpaFragment : Fragment() {
         viewModel.session.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is UiState.Loading -> {
-                    // Show progress or loading indicator
                     binding.sessionProgress.show()
                 }
                 is UiState.Failure -> {
-                    // Hide progress and show error message
                     binding.sessionProgress.hide()
                     toast(state.error)
                     viewModel.logout {
@@ -67,9 +64,8 @@ class MyAccountSpaFragment : Fragment() {
                     }
                 }
                 is UiState.Success -> {
-                    // Hide progress and display user data
                     binding.sessionProgress.hide()
-                    setData(state.data) // Call setData to update UI with user info
+                    setData(state.data)
                 }
             }
         }
@@ -77,14 +73,12 @@ class MyAccountSpaFragment : Fragment() {
 
     fun setData(spa: Spa?) {
         spa?.let {
-            // Actualiza el nombre y el correo
             binding.spaNameEt.setText(it.spa_name)
             binding.spaEmailEt.setText(it.email)
 
-            // Carga la imagen de perfil con Glide
             Glide.with(requireContext())
-                .load(it.profileImageUrl) // URL de la imagen de perfil desde Firestore o base de datos
-                .into(binding.imageview) // Asegúrate de que 'profileImage' sea el ID correcto de tu ImageView
+                .load(it.profileImageUrl)
+                .into(binding.imageview)
         }
     }
 

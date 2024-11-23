@@ -28,8 +28,8 @@ class MapActivity2 : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var googleMap: GoogleMap
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
-    private var spaName: String? = "Ubicación del Spa"
-    private var spaImage: Int = R.drawable.spa // Cambia esto por el ID de la imagen del spa
+    private var spaName: String? = ""
+    private var spaImage: Int = R.drawable.spa
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,35 +70,36 @@ class MapActivity2 : AppCompatActivity(), OnMapReadyCallback {
         )
 
 
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(spaLocation, 15f))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(spaLocation, 18f))
         googleMap.uiSettings.isZoomControlsEnabled = true
     }
 
     private fun createCustomMarker(imageRes: Int, name: String?): BitmapDescriptor {
-        val markerWidth = 200
-        val markerHeight = 250
+        val drawable: Drawable =
+            ContextCompat.getDrawable(this, R.drawable.pin)!!
+        val markerWidth = drawable.intrinsicWidth
+        val markerHeight = drawable.intrinsicHeight
 
         val bitmap = Bitmap.createBitmap(markerWidth, markerHeight, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
 
-        val paint = Paint()
-        paint.style = Paint.Style.FILL
-        paint.color = ContextCompat.getColor(this, R.color.verde)
-        canvas.drawCircle(markerWidth / 2f, markerWidth / 2f, markerWidth / 2f, paint)
 
-        val drawable: Drawable = ContextCompat.getDrawable(this, imageRes)!!
-        drawable.setBounds(50, 50, markerWidth - 50, markerWidth - 50)
+        drawable.setBounds(0, 0, markerWidth, markerHeight)
         drawable.draw(canvas)
 
-        paint.color = ContextCompat.getColor(this, R.color.black)
-        paint.textSize = 30f
-        paint.typeface = Typeface.DEFAULT_BOLD
-        paint.textAlign = Paint.Align.CENTER
+        if (!name.isNullOrEmpty()) {
+            val paint = Paint().apply {
+                color = ContextCompat.getColor(this@MapActivity2, R.color.black)
+                textSize = 30f
+                typeface = Typeface.DEFAULT_BOLD
+                textAlign = Paint.Align.CENTER
+            }
 
-        val textBounds = Rect()
-        paint.getTextBounds(name, 0, name?.length ?: 0, textBounds)
-        val textY = markerWidth + (markerHeight - markerWidth) / 2f + textBounds.height() / 2f
-        canvas.drawText(name ?: "", markerWidth / 2f, textY, paint)
+            val textBounds = Rect()
+            paint.getTextBounds(name, 0, name.length, textBounds)
+            val textY = markerHeight - 20
+            canvas.drawText(name, markerWidth / 2f, textY.toFloat(), paint)
+        }
 
         return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
