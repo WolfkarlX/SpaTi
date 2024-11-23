@@ -213,30 +213,37 @@
                         android:textColor="#4A4A4A" />
                 </LinearLayout>
 
-                <!-- Boton -->
-
-                <ImageButton
-                    android:id="@+id/btnReport"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_columnSpan="2"
-                    android:layout_gravity="right"
-                    android:paddingStart="-13dp"
-                    android:layout_marginTop="-11dp"
-                    android:adjustViewBounds="true"
-                    android:background="@null"
-                    android:contentDescription="Reportar"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/report_inactive" />
-
-                <TextView
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Reportar"
-                    android:textColor="@color/black"
-                    android:textSize="16dp"
-                    android:layout_marginStart="256dp"
-                    android:layout_marginTop="-10dp"/>
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:layout_gravity="right"
+                    android:layout_marginBottom="0dp">
+
+                    <!-- Botón con ícono -->
+                    <ImageButton
+                        android:id="@+id/btnReport"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginBottom="4dp"
+                        android:background="@null"
+                        android:scaleType="fitCenter"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/report_inactive" />
+
+                    <!-- Texto debajo del botón -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reportar"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:layout_marginTop="0dp" />
+                </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>
