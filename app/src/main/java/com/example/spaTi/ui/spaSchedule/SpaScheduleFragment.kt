@@ -105,7 +105,6 @@ class SpaScheduleFragment : Fragment() {
                         }
                     }
 
-                    Log.d("XDDD", counter.toString())
 
                 }
                 is UiState.Failure -> {
