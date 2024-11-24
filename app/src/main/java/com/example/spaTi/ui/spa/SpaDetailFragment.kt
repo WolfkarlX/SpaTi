@@ -41,6 +41,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SpaDetailFragment : Fragment() {
+
     private val viewModel: SpaViewModel by viewModels()
     private var _binding: FragmentSpaDetailBinding? = null
     private val binding get() = _binding!!
@@ -96,7 +97,6 @@ class SpaDetailFragment : Fragment() {
                 initFragment(spaFromFavorites, true, "")
             }
             serviceSearchedFound != null -> {
-                //TODO: Add the logic to know if the service spa clicked on the search fragment is favorite or not
                 getSpaByService(serviceSearchedFound) { spa, serviceName ->
                     spa?.let { initFragment(it, false, serviceName) }
                 }
@@ -107,19 +107,10 @@ class SpaDetailFragment : Fragment() {
             }
         }
     }
-        spaFromArgs?.let { spa ->
-            binding.spaDetailName.text = spa.spa_name
-            binding.spaDetailLocation.text = spa.location
-            if (!isFavorite) {
-                binding.spaDetailFavBtn.setColorFilter(resources.getColor(R.color.white))
-            }
-        } ?: run {
-            toast("Error: No spa data found")
-            findNavController().navigateUp()
-            
+
     private fun initFragment(spa: Spa, isFavorite: Boolean, serviceName: String) {
         objSpa = spa
-//            binding.spaDetailImage // here you set the image of the spa
+        //binding.spaDetailImage // here you set the image of the spa
         binding.spaDetailName.text = spa.spa_name
         binding.spaDetailLocation.text = spa.location
         if (!isFavorite) {
@@ -140,40 +131,27 @@ class SpaDetailFragment : Fragment() {
     private fun setupClickListeners() {
         binding.spaDetailLocation.setOnClickListener {
             objSpa?.coordinates?.let { coordinates ->
-                Log.d("SpaDetail", "Coordenadas del spa: $coordinates")
-
                 val latLon = coordinates.split(",")
-
-
                 if (latLon.size == 2) {
-
-                    val latitudeString = latLon[0].replace("Lat: ", "").trim()
-                    val longitudeString = latLon[1].replace("Lon: ", "").trim()
-
-                    val latitude = latitudeString.toDoubleOrNull()
-                    val longitude = longitudeString.toDoubleOrNull()
-
+                    val latitude = latLon[0].replace("Lat: ", "").trim().toDoubleOrNull()
+                    val longitude = latLon[1].replace("Lon: ", "").trim().toDoubleOrNull()
                     if (latitude != null && longitude != null) {
-                        Log.d("SpaDetail", "Latitud: $latitude, Longitud: $longitude")
-
                         val intent = Intent(requireContext(), MapActivity2::class.java).apply {
                             putExtra("latitude", latitude)
                             putExtra("longitude", longitude)
                         }
                         startActivity(intent)
                     } else {
-                        Log.e("SpaDetail", "Coordenadas inválidas, no se pudo convertir la latitud o longitud.")
                         toast("Coordenadas inválidas.")
                     }
                 } else {
-                    Log.e("SpaDetail", "Formato de coordenadas incorrecto: $coordinates")
                     toast("Formato de coordenadas incorrecto.")
                 }
             } ?: run {
-                Log.e("SpaDetail", "No se encontraron coordenadas para este spa.")
                 toast("No se encontraron coordenadas para este spa.")
             }
         }
+
         binding.spaDetailSearch.setOnEditorActionListener { _, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE ||
                 (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN)
@@ -185,6 +163,7 @@ class SpaDetailFragment : Fragment() {
                 false
             }
         }
+
         binding.spaDetailSearch.addTextChangedListener(object : TextWatcher {
             private var searchJob: Job? = null
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -193,7 +172,6 @@ class SpaDetailFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable?) {
                 searchJob?.cancel()
-
                 searchJob = CoroutineScope(Dispatchers.Main).launch {
                     delay(300)
                     s?.toString()?.let { searchText ->
@@ -231,16 +209,17 @@ class SpaDetailFragment : Fragment() {
     private fun getSpaByService(service: Service, onSpaReceived: (Spa?, String) -> Unit) {
         viewModel.getSpaById.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is UiState.Loading -> {}
                 is UiState.Success -> {
                     onSpaReceived(state.data, service.name)
                 }
                 is UiState.Failure -> {
                     toast(state.error)
                 }
+                is UiState.Loading -> {
+                    binding.progressBar.hide()
+                }
             }
         }
-
         viewModel.getSpaById(service.spaId)
     }
 

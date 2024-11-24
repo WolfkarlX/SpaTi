@@ -275,7 +275,8 @@ class MyprofileFragmentt : Fragment() {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openCamera()
             } else {
-                toast("Permiso de cámara denegado. No puedes tomar una foto.")        
+                toast("Permiso de cámara denegado. No puedes tomar una foto.")
+            }
         }
     }
 }
