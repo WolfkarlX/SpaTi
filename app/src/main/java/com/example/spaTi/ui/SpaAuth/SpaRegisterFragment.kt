@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
@@ -42,6 +43,9 @@ class SpaRegisterFragment : Fragment() {
     private var selectedLatLng: LatLng? = null
     private var selectedAddress: String? = null
 
+    // Variable para controlar la visibilidad de la contraseña
+    private var isPasswordVisible = false
+
     companion object {
         private const val LOCATION_REQUEST_CODE = 1001  // Definición de la constante
     }
@@ -58,9 +62,26 @@ class SpaRegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observer()
+
+        // Configuración del listener para el botón de visibilidad de la contraseña
+        binding.passSpaEt.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                // Detectar si el click fue en el icono de visibilidad
+                if (event.rawX >= (binding.passSpaEt.right - binding.passSpaEt.compoundDrawables[2].bounds.width())) {
+                    // Solo cambiar la visibilidad si hay texto en el EditText
+                    if (!binding.passSpaEt.text.isNullOrEmpty()) {
+                        togglePasswordVisibility()
+                    }
+                    return@setOnTouchListener true
+                }
+            }
+            false
+        }
+
         binding.termsTextView.setOnClickListener {
             findNavController().navigate(R.id.action_registerSpaFragment_to_TermsFragment)
         }
+
         binding.registerBtn.setOnClickListener {
             if (validation()){
                 viewModel.registerSpa(
@@ -77,6 +98,33 @@ class SpaRegisterFragment : Fragment() {
         }
     }
 
+    // Función para alternar la visibilidad de la contraseña
+    private fun togglePasswordVisibility() {
+        if (isPasswordVisible) {
+            // Cambiar a contraseña oculta usando TransformationMethod
+            binding.passSpaEt.transformationMethod = android.text.method.PasswordTransformationMethod.getInstance()
+            binding.passSpaEt.setCompoundDrawablesWithIntrinsicBounds(
+                null, null, resources.getDrawable(R.drawable.no_show_password, null), null
+            )
+        } else {
+            // Cambiar a contraseña visible usando TransformationMethod
+            binding.passSpaEt.transformationMethod = null
+            binding.passSpaEt.setCompoundDrawablesWithIntrinsicBounds(
+                null, null, resources.getDrawable(R.drawable.show_password, null), null
+            )
+        }
+
+        // Mantener la visibilidad de la contraseña
+        isPasswordVisible = !isPasswordVisible
+
+        // Restablecer la tipografía para que no se pierda
+        binding.passSpaEt.setTypeface(binding.passSpaEt.typeface)
+
+        // Mantener el cursor en la posición correcta
+        binding.passSpaEt.setSelection(binding.passSpaEt.text?.length ?: 0)
+    }
+
+    // Observar los estados del registro
     fun observer() {
         viewModel.register.observe(viewLifecycleOwner) { state ->
             when(state){
@@ -99,12 +147,13 @@ class SpaRegisterFragment : Fragment() {
         }
     }
 
+    // Crear el objeto Spa para el registro
     fun getSpaObj(): Spa {
         return Spa(
             id = "",
             spa_name = binding.spaNameEt.text.toString(),
-            location = selectedAddress ?: "", // Guarda la dirección
-            coordinates = selectedLatLng?.let { "Lat: ${it.latitude}, Lon: ${it.longitude}" } ?: "", // Guarda las coordenadas
+            location = selectedAddress ?: "",
+            coordinates = selectedLatLng?.let { "Lat: ${it.latitude}, Lon: ${it.longitude}" } ?: "",
             email = binding.emailSpaEt.text.toString(),
             cellphone = binding.telSpaEt.text.toString(),
             description = binding.descriptionEt.text.toString(),
@@ -115,6 +164,7 @@ class SpaRegisterFragment : Fragment() {
         )
     }
 
+    // Función para validar los datos del formulario
     @RequiresApi(Build.VERSION_CODES.O)
     fun validation(): Boolean {
         if (binding.emailSpaLabel.text.isNullOrEmpty()){

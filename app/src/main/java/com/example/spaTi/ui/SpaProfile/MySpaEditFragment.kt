@@ -97,6 +97,7 @@ class MySpaEditFragment : Fragment() {
             }
         }
     }
+
     fun getUserObj(): Spa {
 
         val locationText = binding.locationSpaBtn.text.toString()
@@ -257,22 +258,22 @@ class MySpaEditFragment : Fragment() {
         }
     }
 
-private fun setData(spa: Spa?) {
-    spa?.let {
-        email = it.email
-        id = it.id
-        profileImageUrl =
-            it.profileImageUrl.toString()
-        createdAt = it.createdAt
+    private fun setData(spa: Spa?) {
+        spa?.let {
+            email = it.email
+            id = it.id
+            profileImageUrl =
+                it.profileImageUrl.toString()
+            createdAt = it.createdAt
 
-        binding.spaNameEt.setText(it.spa_name)
-        binding.locationSpaBtn.setText(it.location)
-        binding.telSpaEt.setText(it.cellphone)
-        binding.inTimeEt.setText(it.inTime)
-        binding.outTimeEt.setText(it.outTime)
-        binding.descriptionEt.setText(it.description)
+            binding.spaNameEt.setText(it.spa_name)
+            binding.locationSpaBtn.setText(it.location)
+            binding.telSpaEt.setText(it.cellphone)
+            binding.inTimeEt.setText(it.inTime)
+            binding.outTimeEt.setText(it.outTime)
+            binding.descriptionEt.setText(it.description)
+        }
     }
-}
 
     @SuppressLint("NewApi")
     fun validateAndFormatTime(input: String): String? {

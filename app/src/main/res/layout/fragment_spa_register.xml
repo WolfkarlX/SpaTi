@@ -91,7 +91,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pass_spa_label" />
+            app:layout_constraintTop_toBottomOf="@+id/pass_spa_label"
+            android:drawableEnd="@drawable/no_show_password"
+            android:paddingEnd="10dp"/>
 
         <TextView
             android:id="@+id/spa_name_label"

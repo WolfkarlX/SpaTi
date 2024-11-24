@@ -7,7 +7,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +19,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.spaTi.R
 import com.example.spaTi.data.models.User
 import com.example.spaTi.databinding.FragmentMyProfileBinding
@@ -72,6 +70,7 @@ class MyprofileFragmentt : Fragment() {
             showImageSourceOptions()
         }
 
+        // Al hacer clic en la imagen de perfil, abre el diálogo con la imagen en grande
         binding.profileImage.setOnClickListener {
             showProfileImageInDialog()
         }
@@ -90,33 +89,10 @@ class MyprofileFragmentt : Fragment() {
         imageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
             Glide.with(requireContext())
                 .load(downloadUrl.toString())
-                .skipMemoryCache(true)
+                .skipMemoryCache(true) // Evita que Glide use la imagen en caché
                 .into(binding.profileImage)
         }.addOnFailureListener {
-        }
-    }
-
-    private fun setData(user: User?) {
-        user?.let {
-            binding.firstName.setText(it.first_name)
-            binding.lastNames.setText(it.last_name)
-            binding.email.setText(it.email)
-            binding.phoneNumber.setText(it.cellphone)
-            binding.bornday.setText(it.bornday)
-            binding.sex.setText(it.sex)
-
-            if (it.profileImageUrl.isNotEmpty()) {
-                Glide.with(requireContext())
-                    .load(it.profileImageUrl)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(binding.profileImage)
-                binding.profileImage.tag = it.profileImageUrl
-            } else {
-                Glide.with(requireContext())
-                    .load(R.drawable.user_def)
-                    .into(binding.profileImage)
-                binding.profileImage.tag = ""
-            }
+            toast("No se pudo cargar la imagen actualizada.")
         }
     }
 
@@ -209,30 +185,27 @@ class MyprofileFragmentt : Fragment() {
             val storageRef = storage.reference
             val imageRef = storageRef.child("profile_images/${userId}.jpg")
 
-            val uploadTask = imageRef.putFile(imageUri)
-            uploadTask.addOnSuccessListener { taskSnapshot ->
-                imageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
-                    viewModel.updateProfilePicture(downloadUrl.toString(), userId)
-
-                    Glide.with(requireContext())
-                        .load(downloadUrl.toString())
-                        .skipMemoryCache(true)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .into(binding.profileImage)
-                    binding.profileImage.tag = downloadUrl.toString()
-                    binding.sessionProgress.hide()
-                    toast("Foto de perfil actualizada exitosamente")
-                    reloadProfileImage()
+            binding.sessionProgress.show()
+            imageRef.putFile(imageUri)
+                .addOnSuccessListener {
+                    imageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
+                        viewModel.updateProfilePicture(downloadUrl.toString(), userId)
+                        binding.sessionProgress.hide()
+                        toast("Foto de perfil actualizada exitosamente")
+                        Glide.with(requireContext())
+                            .load(downloadUrl.toString())
+                            .into(binding.profileImage)
+                    }
                 }
-            }.addOnFailureListener {
-                toast("No se pudo actualizar la foto de perfil.")
-            }
+                .addOnFailureListener {
+                    binding.sessionProgress.hide()
+                    toast("Error al subir la imagen.")
+                }
         }
     }
 
     private fun showProfileImageInDialog() {
         val imageUrl = binding.profileImage.tag?.toString() ?: ""
-        Log.d("MyProfileFragment", "imageUrl: $imageUrl")
         if (imageUrl.isNotEmpty()) {
             ImageDialogFragment.newInstance(imageUrl).show(parentFragmentManager, "ImageDialog")
         } else {
@@ -258,6 +231,32 @@ class MyprofileFragmentt : Fragment() {
             }
         }
     }
+
+    private fun setData(user: User?) {
+        user?.let {
+            binding.firstName.setText(it.first_name)
+            binding.lastNames.setText(it.last_name)
+            binding.email.setText(it.email)
+            binding.phoneNumber.setText(it.cellphone)
+            binding.bornday.setText(it.bornday)
+            binding.sex.setText(it.sex)
+
+            // Verificar que profileImageUrl no esté vacío o nulo
+            if (it.profileImageUrl.isNotEmpty()) {
+                Glide.with(requireContext())
+                    .load(it.profileImageUrl)
+                    .into(binding.profileImage)
+                binding.profileImage.tag = it.profileImageUrl // Guardamos la URL de la imagen
+            } else {
+                // Si no hay URL de la imagen de perfil, mostrar una imagen predeterminada
+                Glide.with(requireContext())
+                    .load(R.drawable.user_def) // Asegúrate de tener una imagen predeterminada
+                    .into(binding.profileImage)
+                binding.profileImage.tag = "" // Limpiamos la URL
+            }
+        }
+    }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
@@ -269,7 +268,7 @@ class MyprofileFragmentt : Fragment() {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openCamera()
             } else {
-                toast("Permiso denegado para acceder a la cámara.")
+                toast("Permiso de cámara denegado. No puedes tomar una foto.")
             }
         }
     }

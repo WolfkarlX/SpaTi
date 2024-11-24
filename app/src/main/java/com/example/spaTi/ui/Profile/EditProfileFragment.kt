@@ -87,6 +87,7 @@ class EditProfileFragment : Fragment() {
             age = age.toString(),
             reports = binding.reportsEt.text.toString(),
             type = "1",
+            profileImageUrl = ""
         )
     }
 
