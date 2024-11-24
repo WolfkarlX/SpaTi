@@ -2,7 +2,6 @@ package com.example.spaTi.ui.homeUser
 
 import android.graphics.Rect
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,39 +10,29 @@ import android.view.WindowManager
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.PagerSnapHelper
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.spaTi.R
 import com.example.spaTi.data.models.Appointment
 import com.example.spaTi.data.models.Report
-import com.example.spaTi.data.models.Service
-import com.example.spaTi.data.models.Spa
 import com.example.spaTi.data.models.User
 import com.example.spaTi.databinding.BottomSheetReportFragmentBinding
-import com.example.spaTi.databinding.FragmentServiceDetailBinding
-import com.example.spaTi.databinding.FragmentSpaReportsDetailingBinding
-import com.example.spaTi.databinding.FragmentSpaScheduleBinding
 import com.example.spaTi.databinding.FragmentUserAppointmentsBinding
 import com.example.spaTi.ui.Profile.ProfileViewModel
 import com.example.spaTi.ui.appointments.AppointmentViewModel
 import com.example.spaTi.ui.services.ServiceViewModel
-import com.example.spaTi.ui.spa.SpaViewModel
+import com.example.spaTi.ui.spahistoricalappointments.ReportValidator
 import com.example.spaTi.ui.spahistoricalappointments.ReportsViewModel
 import com.example.spaTi.util.UiState
-import com.example.spaTi.util.convertMinutesToReadableTime
 import com.example.spaTi.util.hide
 import com.example.spaTi.util.show
 import com.example.spaTi.util.toast
 import com.example.spaTi.util.toastShort
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
 import java.time.MonthDay
@@ -64,6 +53,7 @@ class UserAppointmentsFragment : Fragment() {
     private var tabSelected = 0
     private var snapHelper: PagerSnapHelper? = null
     private var reportBottomSheet: BottomSheetDialog? = null
+    private val reportValidator = ReportValidator()
     val userAppointmentsAdapter by lazy {
         UserAppointmentsAdapter(
             onItemClicked = { _, item, buttonType ->
@@ -71,12 +61,7 @@ class UserAppointmentsFragment : Fragment() {
                     1 -> appointmentViewModel.setAppointmentCanceled(item.id)
                     2 -> serviceViewModel.getServiceById(item.serviceId)
                     3 -> showBottomSheetReportSpa(item)
-                    4 -> reportViewModel.reportSpaAction(Report(
-                            id = "",
-                            spaId = item.spaId,
-                            userId = item.userId,
-                            reason = "",
-                        ))
+                    4 -> showConfirmDeleteReportDialog(item)
                 }
             }
         )
@@ -500,22 +485,40 @@ class UserAppointmentsFragment : Fragment() {
                 reportReason.requestFocus()
 
                 btnSubmitReport.setOnClickListener {
-                    if (reportReason.text.isNotEmpty()) {
+                    val result = reportValidator.validate(reportReason.text.toString())
+                    if (result.isValid) {
                         reportViewModel.reportSpaAction(Report(
                             id = "",
                             spaId = appointment.spaId,
                             userId = appointment.userId,
                             reason = reportReason.text.toString(),
                         ))
-                    } else if (reportReason.text.trim().length < 50) {
-                        toast("Por favor, proporciona una descripción más detallada para tu reporte. Mínimo 50 caracteres.")
                     } else {
-                        toastShort("Es necesaria una razon para poder hacer un reporte")
+                        result.errorMessageResId?.let { toast(getString(it)) }
                     }
                 }
             }
 
             show()
         }
+    }
+
+    private fun showConfirmDeleteReportDialog(appointment: Appointment) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Borrar Reporte") // Add this string resource
+            .setMessage("Seguro que quiere borrar este reporte?") // Add this string resource
+            .setPositiveButton("Delete") { dialog, _ ->
+                reportViewModel.reportSpaAction(Report(
+                    id = "",
+                    spaId = appointment.spaId,
+                    userId = appointment.userId,
+                    reason = "",
+                ))
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 }

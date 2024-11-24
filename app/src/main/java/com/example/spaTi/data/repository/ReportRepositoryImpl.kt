@@ -4,12 +4,15 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.example.spaTi.data.models.Note
 import com.example.spaTi.data.models.Report
+import com.example.spaTi.data.models.Service
 import com.example.spaTi.data.models.User
 import com.example.spaTi.util.FireStoreCollection
 import com.example.spaTi.util.FireStoreDocumentField
 import com.example.spaTi.util.SharedPrefConstants
 import com.example.spaTi.util.UiState
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -17,7 +20,8 @@ import kotlinx.coroutines.delay
 
 
 class ReportRepositoryImpl(
-    val database: FirebaseFirestore
+    val database: FirebaseFirestore,
+    private val tagRepository: TagRepository
 ) : ReportRepository {
 
     override fun createReportfromSpa(report: Report, result: (UiState<String>) -> Unit) {
@@ -294,8 +298,17 @@ class ReportRepositoryImpl(
 
         document.set(report)
             .addOnSuccessListener {
-                updateReportSpa(report.spaId, 1)
-                result.invoke(UiState.Success("Report created successfully"))
+                updateReportSpa(report.spaId) { updateResult ->
+                    when (updateResult) {
+                        is UiState.Success -> {
+                            result.invoke(UiState.Success("Report created successfully"))
+                        }
+                        is UiState.Failure -> {
+                            result.invoke(UiState.Failure("Report created but failed to update spa: ${updateResult.error}"))
+                        }
+                        else -> {}
+                    }
+                }
             }
             .addOnFailureListener { exception ->
                 result.invoke(UiState.Failure("Failed to create the report: ${exception.localizedMessage}"))
@@ -306,21 +319,117 @@ class ReportRepositoryImpl(
         database.collection(FireStoreCollection.REPORTS_USER).document(report.id)
             .delete()
             .addOnSuccessListener {
-                updateReportSpa(report.spaId, -1)
-                result.invoke(UiState.Success("Report successfully deleted"))
+                decrementReportSpa(report.spaId) { updateResult ->
+                    when (updateResult) {
+                        is UiState.Success -> {
+                            result.invoke(UiState.Success("Report successfully deleted"))
+                        }
+                        is UiState.Failure -> {
+                            result.invoke(UiState.Failure("Report deleted but failed to update spa: ${updateResult.error}"))
+                        }
+                        else -> {}
+                    }
+                }
             }
             .addOnFailureListener { e ->
                 result.invoke(UiState.Failure(e.message))
             }
     }
 
-    private fun updateReportSpa(spaId: String, change: Int) {
+    private fun updateReportSpa(spaId: String, result: (UiState<String>) -> Unit) {
         val spaRef = database.collection(FireStoreCollection.SPA).document(spaId)
+
+        // First, get all services and appointments for this spa
+        val servicesTask = database.collection(FireStoreCollection.SERVICE)
+            .whereEqualTo("spaId", spaId)
+            .get()
+
+        val appointmentsTask = database.collection(FireStoreCollection.APPOINTMENT)
+            .whereEqualTo("spaId", spaId)
+            .get()
+
+        Tasks.whenAllSuccess<Any>(servicesTask, appointmentsTask)
+            .continueWithTask { task ->
+                val serviceSnapshot = servicesTask.result
+                val appointmentSnapshot = appointmentsTask.result
+
+                database.runTransaction { transaction ->
+                    // STEP 1: Perform ALL reads first
+                    // Read the spa document
+                    val spaSnapshot = transaction.get(spaRef)
+                    val currentCount = spaSnapshot.getString("reports")?.toIntOrNull() ?: 0
+                    val newCount = currentCount + 1
+
+                    // Collect all tags that need to be read and updated
+                    val tagsToUpdate = mutableMapOf<String, Int>()
+                    val tagSnapshots = mutableMapOf<String, DocumentSnapshot>()
+
+                    // Process services to collect unique tags
+                    serviceSnapshot.documents.forEach { serviceDoc ->
+                        val service = serviceDoc.toObject(Service::class.java)
+                        service?.tags?.forEach { tagId ->
+                            tagsToUpdate[tagId] = (tagsToUpdate[tagId] ?: 0) - 1
+                        }
+                    }
+
+                    // Read all tag documents before any writes
+                    tagsToUpdate.keys.forEach { tagId ->
+                        val tagRef = database.collection(FireStoreCollection.TAG).document(tagId)
+                        tagSnapshots[tagId] = transaction.get(tagRef)
+                    }
+
+                    // STEP 2: Perform ALL writes after completing all reads
+                    // Update spa report count
+                    transaction.update(spaRef, "reports", newCount.toString())
+
+                    // If threshold reached, perform all the updates
+                    if (newCount >= 3) {
+                        // Update spa status to disabled
+                        transaction.update(spaRef, "status", "disabled")
+
+                        // Delete all services
+                        serviceSnapshot.documents.forEach { serviceDoc ->
+                            transaction.delete(serviceDoc.reference)
+                        }
+
+                        // Update all tag counts
+                        tagsToUpdate.forEach { (tagId, countChange) ->
+                            val tagSnapshot = tagSnapshots[tagId]!!
+                            val currentTagCount = tagSnapshot.getLong("relatedCount") ?: 0
+                            val newTagCount = (currentTagCount + countChange).coerceAtLeast(0)
+                            val tagRef = database.collection(FireStoreCollection.TAG).document(tagId)
+                            transaction.update(tagRef, "relatedCount", newTagCount)
+                        }
+
+                        // Delete all appointments
+                        appointmentSnapshot.documents.forEach { appointmentDoc ->
+                            transaction.delete(appointmentDoc.reference)
+                        }
+                    }
+                }
+            }
+            .addOnSuccessListener {
+                result.invoke(UiState.Success("Spa report count updated successfully"))
+            }
+            .addOnFailureListener { e ->
+                result.invoke(UiState.Failure("Failed to update spa report count: ${e.localizedMessage}"))
+                Log.e("ReportRepository", "Error updating report spa count", e)
+            }
+    }
+
+    private fun decrementReportSpa(spaId: String, result: (UiState<String>) -> Unit) {
+        val spaRef = database.collection(FireStoreCollection.SPA).document(spaId)
+
         database.runTransaction { transaction ->
             val snapshot = transaction.get(spaRef)
-            val currentCount = snapshot.get("reports").toString().toLongOrNull() ?: 0L
-            transaction.update(spaRef, "reports", (currentCount + change).toInt().toString())
+            val currentCount = snapshot.getString("reports")?.toIntOrNull() ?: 0
+            val newCount = (currentCount - 1).coerceAtLeast(0)
+
+            transaction.update(spaRef, "reports", newCount.toString())
+        }.addOnSuccessListener {
+            result.invoke(UiState.Success("Spa report count decremented successfully"))
         }.addOnFailureListener { e ->
+            result.invoke(UiState.Failure("Failed to decrement spa report count: ${e.localizedMessage}"))
             Log.e("ReportRepository", "Error updating report spa count", e)
         }
     }

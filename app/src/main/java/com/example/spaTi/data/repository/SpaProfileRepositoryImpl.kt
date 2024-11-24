@@ -32,13 +32,16 @@ class SpaProfileRepositoryImpl(
                 .addOnSuccessListener { documentSnapshot ->
                     if (documentSnapshot.exists()) {
                         val dbSpa = documentSnapshot.toObject(Spa::class.java)
-                        if (dbSpa != null) {
+                        val status = documentSnapshot.getString("status")
+                        if (dbSpa == null) {
+                            result.invoke(UiState.Failure("Failed to parse session data from database."))
+                        } else if (status != null && status == "disabled") {
+                            result.invoke(UiState.Failure("This user was disabled for multiples report."))
+                        } else {
                             appPreferences.edit()
                                 .putString(SharedPrefConstants.USER_SESSION, gson.toJson(dbSpa))
                                 .apply()
                             result.invoke(UiState.Success(dbSpa))
-                        } else {
-                            result.invoke(UiState.Failure("Failed to parse session data from database."))
                         }
                     } else {
                         result.invoke(UiState.Failure("Session does not exist."))
