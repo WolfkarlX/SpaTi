@@ -1,18 +1,16 @@
 package com.example.spaTi.ui.auth
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
+import android.text.InputType
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavGraph
 import androidx.navigation.fragment.findNavController
 import com.example.spaTi.R
 import com.example.spaTi.databinding.FragmentLoginBinding
-import com.example.spaTi.databinding.FragmentRegisterBinding
 import com.example.spaTi.util.*
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,6 +22,8 @@ class LoginFragment : Fragment() {
     lateinit var binding: FragmentLoginBinding
     val viewModelUser: AuthViewModel by viewModels()
     val viewModelSpa: SpaAuthViewModel by viewModels()
+
+    private var isPasswordVisible = false
 
     override fun onCreateView(
         inflaterf: LayoutInflater, container: ViewGroup?,
@@ -38,6 +38,21 @@ class LoginFragment : Fragment() {
 
         // Set up observers once
         setupObservers()
+
+        // Configurar visibilidad de la contraseña
+        binding.passEt.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                // Detectar si el click fue en el icono de visibilidad
+                if (event.rawX >= (binding.passEt.right - binding.passEt.compoundDrawables[2].bounds.width())) {
+                    // Solo cambiar la visibilidad si hay texto en el EditText
+                    if (!binding.passEt.text.isNullOrEmpty()) {
+                        togglePasswordVisibility()
+                    }
+                    return@setOnTouchListener true
+                }
+            }
+            false
+        }
 
         binding.loginBtn.setOnClickListener {
             if (validation()) {
@@ -61,6 +76,32 @@ class LoginFragment : Fragment() {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
     }
+
+    private fun togglePasswordVisibility() {
+        if (isPasswordVisible) {
+            // Cambiar a contraseña oculta usando TransformationMethod
+            binding.passEt.transformationMethod = android.text.method.PasswordTransformationMethod.getInstance()
+            binding.passEt.setCompoundDrawablesWithIntrinsicBounds(
+                null, null, resources.getDrawable(R.drawable.no_show_password, null), null
+            )
+        } else {
+            // Cambiar a contraseña visible usando TransformationMethod
+            binding.passEt.transformationMethod = null
+            binding.passEt.setCompoundDrawablesWithIntrinsicBounds(
+                null, null, resources.getDrawable(R.drawable.show_password, null), null
+            )
+        }
+
+        // Mantener la visibilidad de la contraseña
+        isPasswordVisible = !isPasswordVisible
+
+        // Restablecer la tipografía para que no se pierda
+        binding.passEt.setTypeface(binding.passEt.typeface)
+
+        // Mantener el cursor en la posición correcta
+        binding.passEt.setSelection(binding.passEt.text?.length ?: 0)
+    }
+
 
     // Set up observers once
     private fun setupObservers() {
@@ -175,5 +216,4 @@ class LoginFragment : Fragment() {
             }
         }
     }
-
 }

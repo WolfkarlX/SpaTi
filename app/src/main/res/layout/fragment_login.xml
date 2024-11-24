@@ -19,10 +19,10 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:layout_marginTop="80dp"
-        android:src="@drawable/logo"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="110dp"
+        android:src="@drawable/flor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,15 +87,23 @@
         android:id="@+id/pass_et"
         android:layout_width="0dp"
         android:layout_height="38dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:background="@drawable/edittext_rounded"
+        android:ems="10"
         android:inputType="textPassword"
         android:hint="Ingrese su contraseña"
         android:paddingLeft="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/email_et"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/email_et"
-        app:layout_constraintTop_toBottomOf="@+id/pass_label" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pass_label"
+        android:drawableEnd="@drawable/no_show_password"
+        android:paddingEnd="10dp" />
+
 
     <TextView
         android:id="@+id/forgot_pass_label"
@@ -109,13 +117,11 @@
         app:layout_constraintEnd_toEndOf="@+id/email_et"
         app:layout_constraintTop_toBottomOf="@+id/pass_et" />
 
-
-
     <Button
         android:id="@+id/register_label"
         android:layout_width="135dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="30dp"
         android:padding="5dp"
         android:text="Registrarme como cliente"
         android:textColor="@color/white"
@@ -130,7 +136,7 @@
         android:id="@+id/register_label_spa"
         android:layout_width="135dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="30dp"
         android:padding="5dp"
         android:text="Registrarme como negocio"
         android:textColor="@color/white"
@@ -142,14 +148,15 @@
 
     <ImageView
         android:id="@+id/imgFondoSuperior2"
-        android:layout_width="405dp"
-        android:layout_height="299dp"
-        android:layout_marginTop="450dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:scaleType="centerCrop"
         android:src="@drawable/fondo1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/button_layout"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
 
     <RelativeLayout
         android:id="@+id/button_layout"

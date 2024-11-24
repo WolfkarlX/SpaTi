@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.spaTi.R
 import com.example.spaTi.data.models.Spa
 import com.example.spaTi.databinding.FragmentMyAccountSpaBinding
@@ -38,7 +39,6 @@ class MyAccountSpaFragment : Fragment() {
 
         observer()
 
-        // Use syncSessionWithDatabase to get and update the session from the database
         viewModel.syncSessionWithDatabase()
 
         binding.home.setOnClickListener {
@@ -54,11 +54,9 @@ class MyAccountSpaFragment : Fragment() {
         viewModel.session.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is UiState.Loading -> {
-                    // Show progress or loading indicator
                     binding.sessionProgress.show()
                 }
                 is UiState.Failure -> {
-                    // Hide progress and show error message
                     binding.sessionProgress.hide()
                     toast(state.error)
                     viewModel.logout {
@@ -66,19 +64,21 @@ class MyAccountSpaFragment : Fragment() {
                     }
                 }
                 is UiState.Success -> {
-                    // Hide progress and display user data
                     binding.sessionProgress.hide()
-                    setData(state.data) // Call setData to update UI with user info
+                    setData(state.data)
                 }
             }
         }
     }
 
-    // Update the UI with user session data
     fun setData(spa: Spa?) {
         spa?.let {
             binding.spaNameEt.setText(it.spa_name)
             binding.spaEmailEt.setText(it.email)
+
+            Glide.with(requireContext())
+                .load(it.profileImageUrl)
+                .into(binding.imageview)
         }
     }
 

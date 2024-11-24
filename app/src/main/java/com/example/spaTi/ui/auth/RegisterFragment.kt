@@ -1,7 +1,10 @@
 package com.example.spaTi.ui.auth
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -33,6 +36,7 @@ class RegisterFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -51,13 +55,35 @@ class RegisterFragment : Fragment() {
         }
 
         binding.registerBtn.setOnClickListener {
-            if (validation()){
+            if (validation()) {
                 viewModel.register(
                     email = binding.emailEt.text.toString(),
                     password = binding.passEt.text.toString(),
                     user = getUserObj(),
                 )
             }
+        }
+
+        binding.passEt.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                val drawableRight = 2
+                if (event.rawX >= binding.passEt.right - binding.passEt.compoundDrawables[drawableRight].bounds.width()) {
+                    val cursorPosition = binding.passEt.selectionStart
+                    val currentTypeface = binding.passEt.typeface
+
+                    if (binding.passEt.inputType == InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD) {
+                        binding.passEt.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                        binding.passEt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.show_password, 0)
+                    } else {
+                        binding.passEt.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                        binding.passEt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.no_show_password, 0)
+                    }
+                    binding.passEt.setTypeface(currentTypeface)
+                    binding.passEt.setSelection(cursorPosition)
+                    return@setOnTouchListener true
+                }
+            }
+            false
         }
     }
 
