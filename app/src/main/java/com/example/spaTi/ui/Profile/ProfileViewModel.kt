@@ -52,6 +52,13 @@ class ProfileViewModel @Inject constructor(
         repository.logout(result)
     }
 
+    fun syncSessionWithDatabase() {
+        _session.value = UiState.Loading
+        repository.syncSessionWithDatabase { result ->
+            _session.value = result
+        }
+    }
+
     // Actualiza la URL de la imagen de perfil en Firebase
     fun updateProfileImageUrl(userId: String, imageUrl: String) {
         // Lógica para actualizar la URL en la base de datos de Firebase
