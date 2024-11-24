@@ -10,6 +10,7 @@ object FireStoreCollection{
     val TAG = "tag"
     val APPOINTMENT = "appointment"
     val REPORTS_SPA = "reports_spa"
+    val REPORTS_USER = "reports_user"
 }
 
 object FireStoreDocumentField {

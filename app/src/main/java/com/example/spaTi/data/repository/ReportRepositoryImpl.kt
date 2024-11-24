@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import kotlinx.coroutines.delay
 
 
 class ReportRepositoryImpl(
@@ -263,4 +264,64 @@ class ReportRepositoryImpl(
             }
     }
 
+    override fun reportSpaAction(report: Report, result: (UiState<String>) -> Unit) {
+        database.collection(FireStoreCollection.REPORTS_USER)
+            .whereEqualTo("userId", report.userId)
+            .whereEqualTo("spaId", report.spaId)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                if (querySnapshot.isEmpty) {
+                    // No report exists, create a new one
+                    createReportFromUser(report, result)
+                } else {
+                    // Report exists, delete it
+                    val existingReport = querySnapshot.documents[0].toObject(Report::class.java)
+                    existingReport?.let {
+                        deleteReportFromUser(it, result)
+                    } ?: result.invoke(UiState.Failure("Failed to parse existing report"))
+                }
+            }
+            .addOnFailureListener {
+                result.invoke(UiState.Failure(
+                    "Failed to check existing reports: ${it.localizedMessage}"
+                ))
+            }
+    }
+
+    override fun createReportFromUser(report: Report, result: (UiState<String>) -> Unit) {
+        val document = database.collection(FireStoreCollection.REPORTS_USER).document()
+        report.id = document.id
+
+        document.set(report)
+            .addOnSuccessListener {
+                updateReportSpa(report.spaId, 1)
+                result.invoke(UiState.Success("Report created successfully"))
+            }
+            .addOnFailureListener { exception ->
+                result.invoke(UiState.Failure("Failed to create the report: ${exception.localizedMessage}"))
+            }
+    }
+
+    override fun deleteReportFromUser(report: Report, result: (UiState<String>) -> Unit) {
+        database.collection(FireStoreCollection.REPORTS_USER).document(report.id)
+            .delete()
+            .addOnSuccessListener {
+                updateReportSpa(report.spaId, -1)
+                result.invoke(UiState.Success("Report successfully deleted"))
+            }
+            .addOnFailureListener { e ->
+                result.invoke(UiState.Failure(e.message))
+            }
+    }
+
+    private fun updateReportSpa(spaId: String, change: Int) {
+        val spaRef = database.collection(FireStoreCollection.SPA).document(spaId)
+        database.runTransaction { transaction ->
+            val snapshot = transaction.get(spaRef)
+            val currentCount = snapshot.get("reports").toString().toLongOrNull() ?: 0L
+            transaction.update(spaRef, "reports", (currentCount + change).toInt().toString())
+        }.addOnFailureListener { e ->
+            Log.e("ReportRepository", "Error updating report spa count", e)
+        }
+    }
 }

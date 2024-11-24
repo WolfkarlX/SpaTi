@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.spaTi.R
 import com.example.spaTi.data.models.Appointment
 import com.example.spaTi.databinding.ItemAppointmentsAcceptedBinding
 import com.example.spaTi.databinding.ItemCitaAgendaBinding
@@ -65,67 +66,106 @@ class UserAppointmentsAdapter (
         fun bind(item: Map<String, Any>) {
             val appointment = item["appointment"] as Appointment
 
-            binding.noAppointments.visibility = View.INVISIBLE
+            val isHistoryTab = when (item["reportedByUser"]) {
+                null -> null
+                else -> item["reportedByUser"] as Boolean
+            }
 
-            binding.btnRechazarCita.visibility = View.VISIBLE
-            binding.btnGoToService.visibility = View.VISIBLE
+            if (isHistoryTab == null) {
+                // Tab is "In progress"
+                binding.itemAppointmentNoAppointments.visibility = View.GONE
+                binding.itemAppointmentUserCard.visibility = View.VISIBLE
+                binding.btnCancelAppointment.visibility = View.VISIBLE
+                binding.btnGoToService.visibility = View.VISIBLE
+            } else {
+                // Tab is "History"
+                binding.itemAppointmentNoAppointments.visibility = View.GONE
+                binding.btnCancelAppointment.visibility = View.GONE
+                binding.btnGoToService.visibility = View.GONE
+                binding.itemAppointmentUserCard.visibility = View.VISIBLE
+                binding.btnReport.visibility = View.VISIBLE
+                binding.btnReportLabel.visibility = View.VISIBLE
 
-            binding.tvUsuarioLabel.text = "Estado de Cita:"
-            binding.tvUsuario.text = appointment.status
+                binding.itemAppointmentReportIcon.visibility = View.VISIBLE
+                binding.itemAppointmentReportLabel.visibility = View.VISIBLE
+                binding.itemAppointmentReportText.visibility = View.VISIBLE
+                binding.itemAppointmentReportText.text = item["spaReports"] as? String
 
-            binding.tvReportesLabel.text = "Spa:"
-            binding.tvReportes.text = item["spaName"] as? String
+                if (isHistoryTab == true) {
+                    binding.btnReport.setImageResource(R.drawable.report_active)
+                } else {
+                    binding.btnReport.setImageResource(R.drawable.report_inactive)
+                }
+            }
 
-            binding.tvServicioLabel.text = "Servicio:"
-            binding.tvServicio.text = item["serviceName"] as? String
 
-            binding.tvFechaHoraLabel.text = "Fecha:"
-            binding.tvFechaHora.text = if (appointment.date.isNotEmpty()) {
+            // make visible icon views
+            binding.itemAppointmentServiceIcon.visibility = View.VISIBLE
+            binding.itemAppointmentDateIcon.visibility = View.VISIBLE
+            binding.itemAppointmentTimeIcon.visibility = View.VISIBLE
+            binding.itemAppointmentEmailIcon.visibility = View.VISIBLE
+            binding.itemAppointmentPhoneIcon.visibility = View.VISIBLE
+
+            // remove visible views
+            binding.itemAppointmentServiceLabel.visibility = View.VISIBLE
+            binding.itemAppointmentDateLabel.visibility = View.VISIBLE
+            binding.itemAppointmentTimeLabel.visibility = View.VISIBLE
+            binding.itemAppointmentEmailLabel.visibility = View.VISIBLE
+            binding.itemAppointmentPhoneLabel.visibility = View.VISIBLE
+
+            binding.itemAppointmentUserCardTxt.text = item["spaName"] as? String
+            binding.itemAppointmentServiceText.text = item["serviceName"] as? String
+            binding.itemAppointmentDateText.text = if (appointment.date.isNotEmpty()) {
                 LocalDate.parse(appointment.date).format(DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy"))
             } else {
                 "Unknown Service"
             }
+            binding.itemAppointmentTimeText.text = "${appointment.dateTime} - ${item["serviceDurationMinutes"]}"
+            binding.itemAppointmentEmailText.text = item["spaEmail"] as? String
+            binding.itemAppointmentPhoneText.text = item["spaCellphone"] as? String
 
-            binding.tvCorreoLabel.text = "Hora:"
-            binding.tvCorreo.text = "${appointment.dateTime} - ${item["serviceDurationMinutes"]}"
-
-            binding.tvtelefonoLabel.text = "Correo:"
-            binding.tvtelefono.text = item["spaEmail"] as? String
-
-            binding.tvsexoLabel.text = "Telefono:"
-            binding.tvsexo.text = item["spaCellphone"] as? String
-
-            binding.btnRechazarCita.setOnClickListener { onItemClicked.invoke(adapterPosition,appointment, 1) }
+            binding.btnCancelAppointment.setOnClickListener { onItemClicked.invoke(adapterPosition,appointment, 1) }
             binding.btnGoToService.setOnClickListener { onItemClicked.invoke(adapterPosition,appointment, 2) }
+
+            if (isHistoryTab == false) { // report spa
+                binding.btnReport.setOnClickListener { onItemClicked.invoke(adapterPosition,appointment, 3) }
+            } else if (isHistoryTab == true)  { // spa already reported, so remove it
+                binding.btnReport.setOnClickListener { onItemClicked.invoke(adapterPosition,appointment, 4) }
+            }
         }
 
         fun bindEmptyList(appointment: Appointment) {
-            binding.noAppointments.text = "No hay citas para este dia"
-            binding.noAppointments.visibility = View.VISIBLE
+            binding.itemAppointmentNoAppointments.visibility = View.VISIBLE
+            binding.itemAppointmentUserCard.visibility = View.GONE
 
-            binding.tvUsuarioLabel.text = ""
-            binding.tvUsuario.text = ""
-
-            binding.tvReportesLabel.text = ""
-            binding.tvReportes.text = ""
-
-            binding.tvServicioLabel.text = ""
-            binding.tvServicio.text = ""
-
-            binding.tvFechaHoraLabel.text = ""
-            binding.tvFechaHora.text = ""
-
-            binding.tvCorreoLabel.text = ""
-            binding.tvCorreo.text = ""
-
-            binding.tvtelefonoLabel.text = ""
-            binding.tvtelefono.text = ""
-
-            binding.tvsexoLabel.text = ""
-            binding.tvsexo.text = ""
-
-            binding.btnRechazarCita.visibility = View.GONE
+            binding.btnCancelAppointment.visibility = View.GONE
             binding.btnGoToService.visibility = View.GONE
+            binding.btnReport.visibility = View.GONE
+
+            // remove icon views
+            binding.itemAppointmentReportIcon.visibility = View.GONE
+            binding.itemAppointmentServiceIcon.visibility = View.GONE
+            binding.itemAppointmentDateIcon.visibility = View.GONE
+            binding.itemAppointmentTimeIcon.visibility = View.GONE
+            binding.itemAppointmentEmailIcon.visibility = View.GONE
+            binding.itemAppointmentPhoneIcon.visibility = View.GONE
+
+            // remove label views
+            binding.itemAppointmentReportLabel.visibility = View.GONE
+            binding.itemAppointmentServiceLabel.visibility = View.GONE
+            binding.itemAppointmentDateLabel.visibility = View.GONE
+            binding.itemAppointmentTimeLabel.visibility = View.GONE
+            binding.itemAppointmentEmailLabel.visibility = View.GONE
+            binding.itemAppointmentPhoneLabel.visibility = View.GONE
+            binding.btnReportLabel.visibility = View.GONE
+
+            // remove text views
+            binding.itemAppointmentReportText.text = ""
+            binding.itemAppointmentServiceText.text = ""
+            binding.itemAppointmentDateText.text = ""
+            binding.itemAppointmentTimeText.text = ""
+            binding.itemAppointmentEmailText.text = ""
+            binding.itemAppointmentPhoneText.text = ""
         }
     }
 }

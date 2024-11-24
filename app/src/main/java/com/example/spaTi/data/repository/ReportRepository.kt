@@ -8,4 +8,8 @@ interface ReportRepository {
     fun deleteReportFromSpa(report: Report, result: (UiState<String>) -> Unit)
     fun IncrementReportUserCounter(userId: String, result: (UiState<String>) -> Unit)
     fun DecrementReportUserCounter(userId: String, result: (UiState<String>) -> Unit)
+
+    fun reportSpaAction(report: Report, result: (UiState<String>) -> Unit)
+    fun createReportFromUser(report: Report,  result: (UiState<String>) -> Unit)
+    fun deleteReportFromUser(report: Report, result: (UiState<String>) -> Unit)
 }
