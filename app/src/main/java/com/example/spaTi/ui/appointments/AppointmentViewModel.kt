@@ -103,6 +103,11 @@ class AppointmentViewModel @Inject constructor (
 
     }
 
+    fun setAppointmentCanceled(AppointmentId: String) {
+        _setAppointmentStatus.value = UiState.Loading
+        repository.setAppointmentCanceled(AppointmentId) { _setAppointmentStatus.value = it }
+    }
+
     fun checkPendingAppointments(spaId: String) {
         _checkPendingAppointments.value = UiState.Loading
         repository.checkPendingAppointments(spaId) { _checkPendingAppointments.value = it }
@@ -113,4 +118,13 @@ class AppointmentViewModel @Inject constructor (
         repository.getAppointmentsHistory(spaId,date,dateTime) { _getAppointmentHistory.value = it }
     }
 
+    fun getAppointmentByMonthAndUser(spaId: String, yearMonth: YearMonth) {
+        _getAppointmentByMonth.value = UiState.Loading
+        repository.getAppointmentByMonthAndUser(spaId, yearMonth) { _getAppointmentByMonth.value = it }
+    }
+
+    fun getAppointmentsByDateAndUser(userId: String, date: LocalDate) {
+        _getAppointmentsByDateOnSpaSchedule.value = UiState.Loading
+        repository.getAppointmentsByDateAndUser(userId, date) { _getAppointmentsByDateOnSpaSchedule.value = it }
+    }
 }

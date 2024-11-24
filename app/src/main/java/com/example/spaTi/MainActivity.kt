@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.homeMenuAppointments -> {
-                    navController.navigate(R.id.appointmentsFragment)
+                    navController.navigate(R.id.userAppointmentsFragment)
                     true
                 }
                 R.id.homeMenuProfile -> {
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
     private fun userMenuListener() {
         navController.addOnDestinationChangedListener{ _, destination, _ ->
             when (destination.id) {
-                R.id.searchTagsFragment, R.id.userHomeFragment, R.id.appointmentsFragment, R.id.myProfileFragment -> {
+                R.id.searchTagsFragment, R.id.userHomeFragment, R.id.userAppointmentsFragment, R.id.myProfileFragment -> {
                     hideAllBottomNavigation()
                     showUserBottomNavigation()
                 }
