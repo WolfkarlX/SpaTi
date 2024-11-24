@@ -12,6 +12,7 @@ data class User(
     val bornday: String = "",
     val age: String = "",
     val profileImageUrl: String = "",
-    val reports:String = ""
+    val reports:String = "",
+    val status:String = ""
 
 )

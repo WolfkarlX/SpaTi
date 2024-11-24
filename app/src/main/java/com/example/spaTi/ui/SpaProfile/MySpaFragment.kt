@@ -185,6 +185,7 @@ class MySpaFragment : Fragment() {
             binding.apertura.setText(it.inTime)
             binding.cierre.setText(it.outTime)
             binding.descriptionSpa.setText(it.description)
+            binding.prepaySpa.setText(if (it.prepayment) "Activo" else "Inactivo")
 
             if (!it.profileImageUrl.isNullOrEmpty()) {
                 Glide.with(this)

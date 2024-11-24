@@ -19,6 +19,7 @@ data class Spa (
     val outTime: String = "",
     val reports: String = "",
     var profileImageUrl: String? = null,
+    val prepayment: Boolean = false,
     @ServerTimestamp
     val createdAt: Date = Date(),
     @ServerTimestamp

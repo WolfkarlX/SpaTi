@@ -126,8 +126,8 @@
             android:id="@+id/action_userHomeFragment_to_favoritesFragment"
             app:destination="@+id/favoritesFragment"/>
         <action
-            android:id="@+id/action_userHomeFragment_to_tagsListFragment"
-            app:destination="@+id/tagsListFragment"/>
+            android:id="@+id/action_userHomeFragment_to_searchTagsFragment"
+            app:destination="@+id/searchTagsFragment"/>
         <action
             android:id="@+id/action_userHomeFragment_to_appointmentsFragment"
             app:destination="@+id/appointmentsFragment"/>
@@ -156,13 +156,20 @@
         <action
             android:id="@+id/action_spaHomeFragment_to_spaScheduleFragment"
             app:destination="@+id/spascheduleFragment"/>
+        <action
+            android:id="@+id/action_spaHomeFragment_to_spaHisoricalFragment"
+            app:destination="@+id/spahistoryFragment"/>
     </fragment>
 
     <fragment
-        android:id="@+id/tagsListFragment"
-        android:name="com.example.spaTi.ui.homeUser.TagsListFragment"
-        android:label="fragment_tags_list"
-        tools:layout="@layout/fragment_tags_list">
+        android:id="@+id/searchTagsFragment"
+        android:name="com.example.spaTi.ui.homeUser.SearchTagsFragment"
+        android:label="fragment_search_tags"
+        tools:layout="@layout/fragment_search_tags">
+
+        <action
+            android:id="@+id/action_searchTagsFragment_to_spaDetailFragment"
+            app:destination="@+id/spaDetailFragment"/>
     </fragment>
 
     <fragment
@@ -255,5 +262,32 @@
         android:label="fragment_appointmentlisting"
         tools:layout="@layout/fragment_spa_schedule">
 
+    </fragment>
+
+    <fragment
+        android:id="@+id/spahistoryFragment"
+        android:name="com.example.spaTi.ui.spahistoricalappointments.SpaHistoricalFragment"
+        android:label="fragment_spahistoyfragment"
+        tools:layout="@layout/fragment_spa_historical">
+
+        <action
+            android:id="@+id/action_spaHistoricalFragment_to_spaReportsDetailing"
+            app:destination="@+id/spareportsdetailing"/>
+
+        <action
+            android:id="@+id/action_spaHistoricalFragment_to_spaHome"
+            app:destination="@+id/spaHomeFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/spareportsdetailing"
+        android:name="com.example.spaTi.ui.spahistoricalappointments.SpaReportsDetailingFragment"
+        android:label="fragment_spareportsdetiling"
+        tools:layout="@layout/fragment_spa_reports_detailing">
+
+        <action
+            android:id="@+id/action_spareportsdetailing_to_spahistoryFragment"
+            app:destination="@+id/spahistoryFragment"/>
     </fragment>
 </navigation>

@@ -90,7 +90,7 @@ class SpaScheduleFragment : Fragment() {
     private fun observeAppointmentOperations() {
         appointmentViewModel.getAppointmentByMonth.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is UiState.Loading -> binding.appointmentProgressBar.show()
+                is UiState.Loading -> binding.appointmentProgressBar.hide()
                 is UiState.Success -> {
                     binding.appointmentProgressBar.hide()
                     val appointmentsByDate = state.data
@@ -105,18 +105,17 @@ class SpaScheduleFragment : Fragment() {
                         }
                     }
 
-                    Log.d("XDDD", counter.toString())
 
                 }
                 is UiState.Failure -> {
-                    binding.appointmentProgressBar.hide()
+                    //binding.appointmentProgressBar.hide()
                     toast(state.error)
                 }
             }
         }
         appointmentViewModel.getAppointmentsByDateOnSpaSchedule.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is UiState.Loading -> binding.appointmentProgressBar.show()
+                is UiState.Loading -> binding.appointmentProgressBar.hide()
                 is UiState.Success -> {
                     binding.appointmentProgressBar.hide()
                     val appointments = state.data
@@ -134,14 +133,14 @@ class SpaScheduleFragment : Fragment() {
         appointmentViewModel.setAppointmentStatus.observe(viewLifecycleOwner) { state ->
             when(state){
                 is UiState.Loading -> {
-                    binding.appointmentProgressBar.show()
+                    //binding.appointmentProgressBar.show()
                 }
                 is UiState.Failure -> {
-                    binding.appointmentProgressBar.hide()
+                    //binding.appointmentProgressBar.hide()
                     toast(state.error)
                 }
                 is UiState.Success -> {
-                    binding.appointmentProgressBar.hide()
+                    //binding.appointmentProgressBar.hide()
                     if (position != -1) {
                         //updateCalendarMonth()
                         val ListCount = adapterSchedule.itemCount

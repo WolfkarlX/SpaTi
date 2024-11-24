@@ -234,12 +234,19 @@ class MyprofileFragmentt : Fragment() {
 
     private fun setData(user: User?) {
         user?.let {
-            binding.firstName.setText(it.first_name)
-            binding.lastNames.setText(it.last_name)
-            binding.email.setText(it.email)
-            binding.phoneNumber.setText(it.cellphone)
-            binding.bornday.setText(it.bornday)
-            binding.sex.setText(it.sex)
+            if(user.status=="active") {
+                binding.firstName.setText(it.first_name)
+                binding.lastNames.setText(it.last_name)
+                binding.email.setText(it.email)
+                binding.phoneNumber.setText(it.cellphone)
+                binding.bornday.setText(it.bornday)
+                binding.sex.setText(it.sex)
+            }else{
+                viewModel.logout{
+                    toast("User not available")
+                    findNavController().navigate(R.id.action_myprofileFragment_to_loginFragment)
+                }
+            }
 
             // Verificar que profileImageUrl no esté vacío o nulo
             if (it.profileImageUrl.isNotEmpty()) {
@@ -268,8 +275,7 @@ class MyprofileFragmentt : Fragment() {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openCamera()
             } else {
-                toast("Permiso de cámara denegado. No puedes tomar una foto.")
-            }
+                toast("Permiso de cámara denegado. No puedes tomar una foto.")        
         }
     }
 }

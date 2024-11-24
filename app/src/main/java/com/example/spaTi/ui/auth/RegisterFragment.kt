@@ -121,6 +121,7 @@ class RegisterFragment : Fragment() {
             age = age.toString(),
             reports = "0",
             type = "1",
+            status = "active"
         )
     }
 

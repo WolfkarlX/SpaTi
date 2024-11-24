@@ -28,6 +28,7 @@ import java.util.Calendar
 class EditProfileFragment : Fragment() {
 
     var id = ""
+    var status = ""
     var email = ""
     var age = 0
     val TAG: String = "EditprofileFragment"
@@ -85,7 +86,8 @@ class EditProfileFragment : Fragment() {
             sex = binding.sexoEt.text.toString(),
             bornday = "" + binding.etDia.text.toString() + "/"+ binding.etMes.text.toString()+ "/" + binding.etAno.text.toString(),
             age = age.toString(),
-            reports = binding.reportsEt.text.toString(),
+            reports = binding.reportsEt.text.toString(),  // Método que obtiene la cantidad de reportes
+            status = status,
             type = "1",
             profileImageUrl = ""
         )
@@ -211,6 +213,7 @@ class EditProfileFragment : Fragment() {
     fun setData(user: User?) {
         user?.let {
             val bornday = extractNumbersFromDate(it.bornday)
+            status = it.status
             email = it.email
 
             id = it.id

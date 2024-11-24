@@ -70,6 +70,10 @@ class SpaHomeFragment : Fragment() {
             binding.agenda.setOnClickListener {
                 findNavController().navigate(R.id.action_spaHomeFragment_to_spaScheduleFragment, Bundle().apply { putParcelable("spa", objspa) })
             }
+
+            binding.history.setOnClickListener {
+                findNavController().navigate(R.id.action_spaHomeFragment_to_spaHisoricalFragment, Bundle().apply { putParcelable("spa", objspa) })
+            }
         }
     }
 

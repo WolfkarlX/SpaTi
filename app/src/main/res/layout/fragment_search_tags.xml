@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_clr"
+    android:padding="16dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/fondo_services"
+        android:scaleType="centerCrop"
+        android:alpha="0.1" />
+
+    <EditText
+        android:id="@+id/fragmentSearchTagsSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_rounded"
+        android:hint="Buscar etiqueta"
+        android:autofillHints="none"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:inputType="text"
+        android:padding="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragmentSearchTagsRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentSearchTagsSearch"
+        tools:listitem="@layout/item_tag_featured"
+        />
+
+    <ImageButton
+        android:id="@+id/fragmentSearchTagsCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_baseline_cancel_24"
+        android:layout_marginHorizontal="4dp"
+        app:tint="@color/verde"
+        app:backgroundTint="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="@+id/fragmentSearchTagsSearch"
+        app:layout_constraintBottom_toBottomOf="@+id/fragmentSearchTagsSearch"
+        app:layout_constraintEnd_toEndOf="@+id/fragmentSearchTagsSearch"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:indeterminateTint="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.example.spaTi.data.repository
 
 import com.example.spaTi.data.models.Service
+import com.example.spaTi.data.models.Spa
 import com.example.spaTi.util.UiState
 
 /**
@@ -19,4 +20,6 @@ interface ServiceRepository {
     fun deleteService(service: Service, result: (UiState<String>) -> Unit)
 
     fun getServiceById(id: String, result: (UiState<Service?>) -> Unit)
+    fun getServicesByTagId(id: String, result: (UiState<List<Service>>) -> Unit)
+    fun getServicesWithSpaByTagId(id: String, result: (UiState<List<Pair<Service, Spa>>>) -> Unit)
 }

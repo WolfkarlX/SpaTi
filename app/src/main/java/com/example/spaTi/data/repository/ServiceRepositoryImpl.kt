@@ -1,8 +1,8 @@
 package com.example.spaTi.data.repository
 
 import com.example.spaTi.data.models.Service
+import com.example.spaTi.data.models.Spa
 import com.example.spaTi.util.FireStoreCollection
-import com.example.spaTi.util.FireStoreDocumentField
 import com.example.spaTi.util.UiState
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -136,6 +136,62 @@ class ServiceRepositoryImpl ( // There is a meaning in naming <Entity>Repository
                     result.invoke(UiState.Success(service))
                 } else {
                     result.invoke(UiState.Success(null))
+                }
+            }
+            .addOnFailureListener {
+                result.invoke(UiState.Failure(it.localizedMessage))
+            }
+    }
+
+    override fun getServicesByTagId(id: String, result: (UiState<List<Service>>) -> Unit) {
+        database.collection(FireStoreCollection.SERVICE)
+            .whereArrayContains("tags", id)
+            .get()
+            .addOnSuccessListener {
+                val services = it.toObjects(Service::class.java)
+                result.invoke(UiState.Success(services))
+            }
+            .addOnFailureListener {
+                result.invoke(UiState.Failure(it.localizedMessage))
+            }
+    }
+
+    override fun getServicesWithSpaByTagId(
+        id: String,
+        result: (UiState<List<Pair<Service, Spa>>>) -> Unit
+    ) {
+        database.collection(FireStoreCollection.SERVICE)
+            .whereArrayContains("tags", id)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                val services = querySnapshot.toObjects(Service::class.java)
+                val servicesWithSpas = mutableListOf<Pair<Service, Spa>>()
+                if (services.isEmpty()) {
+                    result.invoke(UiState.Success(servicesWithSpas))
+                    return@addOnSuccessListener
+                }
+
+                var pendingTask = services.size
+                services.forEach { service ->
+                    database.collection(FireStoreCollection.SPA)
+                        .document(service.spaId).get()
+                        .addOnSuccessListener { spaSnapshot ->
+                            val spa = spaSnapshot.toObject(Spa::class.java) ?: Spa(spa_name = "Spa No Encontrado!")
+                            synchronized(servicesWithSpas) {
+                                servicesWithSpas.add(Pair(service, spa))
+                            }
+                        }
+                        .addOnFailureListener {
+                            synchronized(servicesWithSpas) {
+                                servicesWithSpas.add(Pair(service, Spa(spa_name = "Spa No Encontrado!")))
+                            }
+                        }
+                        .addOnCompleteListener {
+                            pendingTask--
+                            if (pendingTask == 0) {
+                                result.invoke(UiState.Success(servicesWithSpas))
+                            }
+                        }
                 }
             }
             .addOnFailureListener {

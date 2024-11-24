@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationViewUser.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.homeMenuSearch -> {
-                    navController.navigate(R.id.tagsListFragment)
+                    navController.navigate(R.id.searchTagsFragment)
                     true
                 }
                 R.id.homeMenuHome -> {
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
     private fun userMenuListener() {
         navController.addOnDestinationChangedListener{ _, destination, _ ->
             when (destination.id) {
-                R.id.tagsListFragment, R.id.userHomeFragment, R.id.appointmentsFragment, R.id.myProfileFragment -> {
+                R.id.searchTagsFragment, R.id.userHomeFragment, R.id.appointmentsFragment, R.id.myProfileFragment -> {
                     hideAllBottomNavigation()
                     showUserBottomNavigation()
                 }
