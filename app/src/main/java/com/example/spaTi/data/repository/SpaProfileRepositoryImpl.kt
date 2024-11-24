@@ -1,12 +1,14 @@
 package com.example.spaTi.data.repository
 
 import android.content.SharedPreferences
+import android.net.Uri
 import com.example.spaTi.data.models.Spa
 import com.example.spaTi.util.FireStoreCollection
 import com.example.spaTi.util.SharedPrefConstants
 import com.example.spaTi.util.UiState
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import com.google.gson.Gson
 
 class SpaProfileRepositoryImpl(
@@ -77,6 +79,19 @@ class SpaProfileRepositoryImpl(
             }
             .addOnFailureListener {
                 result.invoke(UiState.Failure("Authentication failed, Check email"))
+            }
+    }
+
+    override fun uploadProfileImage(spaId: String, imageUri: Uri, result: (UiState<String>) -> Unit) {
+        val storageReference = FirebaseStorage.getInstance().reference.child("profile_images/$spaId.jpg")
+        storageReference.putFile(imageUri)
+            .addOnSuccessListener {
+                storageReference.downloadUrl.addOnSuccessListener { uri ->
+                    result.invoke(UiState.Success(uri.toString())) // Enviamos la URL de la imagen
+                }
+            }
+            .addOnFailureListener { exception ->
+                result.invoke(UiState.Failure("Failed to upload image: ${exception.message}"))
             }
     }
 

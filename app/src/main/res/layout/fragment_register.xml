@@ -88,14 +88,15 @@
             android:layout_height="38dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/edittext_rounded"
-            
             android:inputType="textPassword"
             android:hint="Ingrese la que será su contraseña"
             android:paddingLeft="16dp"
             app:layout_constraintEnd_toEndOf="@+id/email_et"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/email_et"
-            app:layout_constraintTop_toBottomOf="@+id/pass_label" />
+            app:layout_constraintTop_toBottomOf="@+id/pass_label"
+            android:drawableEnd="@drawable/no_show_password"
+            android:paddingEnd="10dp"/>
 
         <TextView
             android:id="@+id/first_name_label"

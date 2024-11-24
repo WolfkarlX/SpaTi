@@ -45,9 +45,27 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
 }
 
+
 dependencies {
+
+
+    //Camera
+    implementation ("com.github.yalantis:ucrop:2.2.6")
+
+    //Recorte de imagen
+    implementation ("com.github.yalantis:ucrop:2.2.8")
+
+    //Bumpetch
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
+
+    implementation ("com.google.android.gms:play-services-maps:18.0.2")
+    implementation ("com.google.android.gms:play-services-location:18.0.0")
+
+
     // Firebase dependencies
     implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
     implementation("com.google.firebase:firebase-analytics")
@@ -73,6 +91,8 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database.ktx)
+    implementation(libs.firebase.storage.ktx)
+    implementation(libs.play.services.maps)
 
     // Unit Testing dependencies
     testImplementation(libs.junit)
