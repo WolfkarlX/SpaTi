@@ -121,7 +121,7 @@
         android:id="@+id/register_label"
         android:layout_width="135dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:padding="5dp"
         android:text="Registrarme como cliente"
         android:textColor="@color/white"
@@ -148,8 +148,9 @@
 
     <ImageView
         android:id="@+id/imgFondoSuperior2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="405dp"
+        android:layout_height="299dp"
+        android:layout_marginTop="450dp"
         android:scaleType="centerCrop"
         android:src="@drawable/fondo1"
         app:layout_constraintEnd_toEndOf="parent"
