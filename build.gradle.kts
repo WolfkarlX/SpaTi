@@ -8,6 +8,7 @@ plugins {
 
 buildscript {
     dependencies {
-        classpath("com.google.dagger:hilt-android-gradle-plugin:2.48") // Replace with latest version
+        classpath("com.google.dagger:hilt-android-gradle-plugin:2.48")
     }
 }
+

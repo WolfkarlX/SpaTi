@@ -10,6 +10,7 @@ data class Spa (
     var id: String = "",
     val spa_name: String = "",
     val location: String = "",
+    val coordinates: String = "",
     val email: String = "",
     val cellphone: String = "",
     val description: String = "",
@@ -17,6 +18,7 @@ data class Spa (
     val inTime: String = "",
     val outTime: String = "",
     val reports: String = "",
+    var profileImageUrl: String? = null,
     val prepayment: Boolean = false,
     @ServerTimestamp
     val createdAt: Date = Date(),

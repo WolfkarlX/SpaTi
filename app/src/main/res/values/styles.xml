@@ -16,9 +16,20 @@
         <item name="cornerSizeBottomRight">45dp</item>
         <item name="cornerSizeBottomLeft">45dp</item>
     </style>
+    <style name="radius1">
+        <item name="cornerSize">50%</item>
+    </style>
     <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
     </style>
+
+
+
+    <style name="CircularImage">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
 
     <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>

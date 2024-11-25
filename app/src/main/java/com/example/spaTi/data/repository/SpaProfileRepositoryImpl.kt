@@ -1,12 +1,14 @@
 package com.example.spaTi.data.repository
 
 import android.content.SharedPreferences
+import android.net.Uri
 import com.example.spaTi.data.models.Spa
 import com.example.spaTi.util.FireStoreCollection
 import com.example.spaTi.util.SharedPrefConstants
 import com.example.spaTi.util.UiState
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import com.google.gson.Gson
 
 class SpaProfileRepositoryImpl(
@@ -30,13 +32,16 @@ class SpaProfileRepositoryImpl(
                 .addOnSuccessListener { documentSnapshot ->
                     if (documentSnapshot.exists()) {
                         val dbSpa = documentSnapshot.toObject(Spa::class.java)
-                        if (dbSpa != null) {
+                        val status = documentSnapshot.getString("status")
+                        if (dbSpa == null) {
+                            result.invoke(UiState.Failure("Failed to parse session data from database."))
+                        } else if (status != null && status == "disabled") {
+                            result.invoke(UiState.Failure("This user was disabled for multiples report."))
+                        } else {
                             appPreferences.edit()
                                 .putString(SharedPrefConstants.USER_SESSION, gson.toJson(dbSpa))
                                 .apply()
                             result.invoke(UiState.Success(dbSpa))
-                        } else {
-                            result.invoke(UiState.Failure("Failed to parse session data from database."))
                         }
                     } else {
                         result.invoke(UiState.Failure("Session does not exist."))
@@ -77,6 +82,19 @@ class SpaProfileRepositoryImpl(
             }
             .addOnFailureListener {
                 result.invoke(UiState.Failure("Authentication failed, Check email"))
+            }
+    }
+
+    override fun uploadProfileImage(spaId: String, imageUri: Uri, result: (UiState<String>) -> Unit) {
+        val storageReference = FirebaseStorage.getInstance().reference.child("profile_images/$spaId.jpg")
+        storageReference.putFile(imageUri)
+            .addOnSuccessListener {
+                storageReference.downloadUrl.addOnSuccessListener { uri ->
+                    result.invoke(UiState.Success(uri.toString())) // Enviamos la URL de la imagen
+                }
+            }
+            .addOnFailureListener { exception ->
+                result.invoke(UiState.Failure("Failed to upload image: ${exception.message}"))
             }
     }
 

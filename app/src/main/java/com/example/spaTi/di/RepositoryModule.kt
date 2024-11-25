@@ -131,9 +131,10 @@ object RepositoryModule {
     fun ReportRepository(
         database: FirebaseFirestore,
         appPreferences: SharedPreferences,
-        gson: Gson
+        gson: Gson,
+        tagRepository: TagRepository,
     ): ReportRepository {
         // Return the implementation of the interface
-        return ReportRepositoryImpl(database)
+        return ReportRepositoryImpl(database, tagRepository)
     }
 }

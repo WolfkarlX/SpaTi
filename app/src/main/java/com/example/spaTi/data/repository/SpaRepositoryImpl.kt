@@ -16,8 +16,11 @@ class SpaRepositoryImpl (
             .addOnSuccessListener {
                 val spas = arrayListOf<Spa>()
                 for (document in it) {
-                    val spa = document.toObject(Spa::class.java)
-                    spas.add(spa)
+                    val status = document.getString("status")
+                    if (status == null || status != "disabled") {
+                        val spa = document.toObject(Spa::class.java)
+                        spas.add(spa)
+                    }
                 }
                 result.invoke(UiState.Success(spas))
             }
@@ -25,18 +28,6 @@ class SpaRepositoryImpl (
                 result.invoke(UiState.Failure(it.localizedMessage))
             }
     }
-
-//    override fun addSpa(spa: Spa, result: (UiState<Pair<Spa, String>>) -> Unit) {
-//        TODO("Not yet implemented")
-//    }
-//
-//    override fun updateSpa(spa: Spa, result: (UiState<String>) -> Unit) {
-//        TODO("Not yet implemented")
-//    }
-//
-//    override fun deleteSpa(spa: Spa, result: (UiState<String>) -> Unit) {
-//        TODO("Not yet implemented")
-//    }
 
     override fun getSpaById(id: String, result: (UiState<Spa?>) -> Unit) {
         database.collection(FireStoreCollection.SPA)
