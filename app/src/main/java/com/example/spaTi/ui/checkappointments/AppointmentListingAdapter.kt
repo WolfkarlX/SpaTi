@@ -1,6 +1,7 @@
 package com.example.spaTi.ui.checkappointments
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spaTi.data.models.Appointment
@@ -8,7 +9,7 @@ import com.example.spaTi.databinding.ItemCitaBinding
 import com.example.spaTi.util.hide
 
 class AppointmentListingAdapter(
-    private val onItemClicked: (Int, Map<String, Any>, Int) -> Unit
+    private val onItemClicked: (Int, Map<String, Any>, Int, String) -> Unit
 ) : RecyclerView.Adapter<AppointmentListingAdapter.MyViewHolder>() {
 
     private var list: List<Map<String, Any>> = arrayListOf()
@@ -66,9 +67,19 @@ class AppointmentListingAdapter(
             binding.tvServicio.text = item["serviceName"] as? String ?: "Unknown Service"
             binding.tvSexo.text = item["userSex"] as? String ?: "Unknown Sex"
             binding.tvFechaHora.text = "${appointment.date}, ${appointment.dateTime}hrs"
+            val haveReceive = (item["appointmentReceiptUrl"] as? String) == null
+            binding.ivReceiptIcon.visibility = if (haveReceive) { View.GONE } else { View.VISIBLE }
 
-            binding.btnAceptarCita.setOnClickListener { onItemClicked.invoke(adapterPosition, item, 1) }
-            binding.btnRechazarCita.setOnClickListener { onItemClicked.invoke(adapterPosition, item, 0) }
+            binding.btnRechazarCita.setOnClickListener { onItemClicked.invoke(adapterPosition, item, 0, "") }
+            binding.btnAceptarCita.setOnClickListener { onItemClicked.invoke(adapterPosition, item, 1, "") }
+
+            val receiptUri = (item["appointmentReceiptUrl"] as? String)
+            val fileType = (item["appointmentReceiptType"] as? String)
+            if (fileType != null && receiptUri != null && fileType == "img") {
+                binding.ivReceiptIcon.setOnClickListener { onItemClicked.invoke(adapterPosition, item, 2, receiptUri) }
+            } else if (fileType != null && receiptUri != null && fileType == "pdf") {
+                binding.ivReceiptIcon.setOnClickListener { onItemClicked.invoke(adapterPosition, item, 3, receiptUri) }
+            }
         }
 
         fun bindEmptyList() {

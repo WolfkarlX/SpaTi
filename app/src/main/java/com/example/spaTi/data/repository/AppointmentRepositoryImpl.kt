@@ -1,18 +1,26 @@
 package com.example.spaTi.data.repository
 
 import android.content.SharedPreferences
+import android.net.Uri
+import androidx.core.content.ContentProviderCompat.requireContext
+import com.bumptech.glide.Glide
 import com.example.spaTi.data.models.Appointment
+import com.example.spaTi.data.models.AppointmentReceipt
 import com.example.spaTi.data.models.User
 import com.example.spaTi.util.FireStoreCollection
 import com.example.spaTi.util.FireStoreDocumentField
 import com.example.spaTi.util.SharedPrefConstants
 import com.example.spaTi.util.UiState
+import com.example.spaTi.util.hide
+import com.example.spaTi.util.show
+import com.example.spaTi.util.toast
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.toObject
+import com.google.firebase.storage.FirebaseStorage
 import com.google.gson.Gson
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -79,6 +87,7 @@ class AppointmentRepositoryImpl (
             }
     }
 
+    // Fetch all the appointments from the spa with pending status
     override fun getAppointmentBySpa(result: (UiState<List<Map<String, Any>>>) -> Unit) {
         val userStr = appPreferences.getString(SharedPrefConstants.USER_SESSION, null)
         val currentUser = userStr?.let { gson.fromJson(it, User::class.java) }
@@ -128,6 +137,22 @@ class AppointmentRepositoryImpl (
                             }
                         }
                     tasks.add(serviceTask)
+
+
+                    // Fetch receipt data based on the appointment id
+                    val receiptTask = database.collection(FireStoreCollection.APPOINTMENT_RECEIPT)
+                        .whereEqualTo("appointmentId", appointment.id)
+                        .get()
+                        .addOnSuccessListener { receiptDocs ->
+                            if (!receiptDocs.isEmpty) {
+                                val receipt = receiptDocs.documents[0].toObject(AppointmentReceipt::class.java)
+                                receipt?.let {
+                                    appointmentData["appointmentReceiptUrl"] = it.url
+                                    appointmentData["appointmentReceiptType"] = it.fileType
+                                }
+                            }
+                        }
+                    tasks.add(receiptTask)
 
                     // Add the map with the appointment and additional data to the list
                     appointmentsWithExtras.add(appointmentData)
@@ -194,7 +219,6 @@ class AppointmentRepositoryImpl (
             .whereEqualTo("spaId", spaId)
             .whereEqualTo("status", "accepted")
             .whereLessThan("date", dateString)
-            .whereLessThanOrEqualTo("dateTime", timeString)
             .orderBy(FireStoreDocumentField.DATE, Query.Direction.ASCENDING)
             .orderBy(FireStoreDocumentField.DATETIME, Query.Direction.ASCENDING)
             .get()
@@ -255,6 +279,22 @@ class AppointmentRepositoryImpl (
                             null // Return Void to match Task<Void>
                         }
                     tasks.add(reportsTask)
+
+                    // Fetch receipt data based on the appointment id
+                    val receiptTask = database.collection(FireStoreCollection.APPOINTMENT_RECEIPT)
+                        .whereEqualTo("appointmentId", appointment.id)
+                        .get()
+                        .addOnSuccessListener { receiptDocs ->
+                            if (!receiptDocs.isEmpty) {
+                                val receipt = receiptDocs.documents[0].toObject(AppointmentReceipt::class.java)
+                                receipt?.let {
+                                    appointmentData["appointmentReceiptUrl"] = it.url
+                                    appointmentData["appointmentReceiptType"] = it.fileType
+                                }
+                            }
+                        }
+                    tasks.add(receiptTask)
+
                     // Add the map with the appointment and additional data to the list
                     appointmentsWithExtras.add(appointmentData)
                 }
@@ -311,7 +351,7 @@ class AppointmentRepositoryImpl (
             .orderBy(FireStoreDocumentField.DATETIME, Query.Direction.ASCENDING)
             .get()
             .addOnSuccessListener { appointmentDocs ->
-                val tasks = mutableListOf<Task<DocumentSnapshot>>()
+                val tasks = mutableListOf<Task<*>>()
 
                 for (document in appointmentDocs) {
                     val appointment = document.toObject(Appointment::class.java)
@@ -347,6 +387,21 @@ class AppointmentRepositoryImpl (
                             }
                         }
                     tasks.add(serviceTask)
+
+                    // Fetch receipt data based on the appointment id
+                    val receiptTask = database.collection(FireStoreCollection.APPOINTMENT_RECEIPT)
+                        .whereEqualTo("appointmentId", appointment.id)
+                        .get()
+                        .addOnSuccessListener { receiptDocs ->
+                            if (!receiptDocs.isEmpty) {
+                                val receipt = receiptDocs.documents[0].toObject(AppointmentReceipt::class.java)
+                                receipt?.let {
+                                    appointmentData["appointmentReceiptUrl"] = it.url
+                                    appointmentData["appointmentReceiptType"] = it.fileType
+                                }
+                            }
+                        }
+                    tasks.add(receiptTask)
 
                     // Add the map with the appointment and additional data to the list
                     appointmentsWithExtras.add(appointmentData)
@@ -510,6 +565,7 @@ class AppointmentRepositoryImpl (
             }
     }
 
+    // Just get the appointments to mark in the calendar
     override fun getAppointmentByMonthAndUser(
         userId: String,
         yearMonth: YearMonth,
@@ -535,6 +591,7 @@ class AppointmentRepositoryImpl (
             }
     }
 
+    // Get the appointments in a date to make it appear on a item in a recyclerview
     override fun getAppointmentsByDateAndUser(
         userId: String,
         date: LocalDate,
@@ -551,7 +608,7 @@ class AppointmentRepositoryImpl (
             .orderBy(FireStoreDocumentField.DATETIME, Query.Direction.ASCENDING)
             .get()
             .addOnSuccessListener { appointmentDocs ->
-                val tasks = mutableListOf<Task<DocumentSnapshot>>()
+                val tasks = mutableListOf<Task<*>>()
 
                 for (document in appointmentDocs) {
                     val appointment = document.toObject(Appointment::class.java)
@@ -593,6 +650,21 @@ class AppointmentRepositoryImpl (
                         }
                     tasks.add(serviceTask)
 
+                    // Fetch receipt data based on the appointment id
+                    val receiptTask = database.collection(FireStoreCollection.APPOINTMENT_RECEIPT)
+                        .whereEqualTo("appointmentId", appointment.id)
+                        .get()
+                        .addOnSuccessListener { receiptDocs ->
+                            if (!receiptDocs.isEmpty) {
+                                val receipt = receiptDocs.documents[0].toObject(AppointmentReceipt::class.java)
+                                receipt?.let {
+                                    appointmentData["appointmentReceiptUrl"] = it.url
+                                    appointmentData["appointmentReceiptType"] = it.fileType
+                                }
+                            }
+                        }
+                    tasks.add(receiptTask)
+
                     // Add the map with the appointment and additional data to the list
                     appointmentsWithExtras.add(appointmentData)
                 }
@@ -611,6 +683,7 @@ class AppointmentRepositoryImpl (
             }
     }
 
+    // Get the appointments expired to make it appear on a item in a recyclerview
     override fun getAppointmentsUserHistory(
         userId: String,
         result: (UiState<List<Map<String, Any>>>) -> Unit
@@ -670,6 +743,21 @@ class AppointmentRepositoryImpl (
                         }
                     tasks.add(serviceTask)
 
+                    // Fetch receipt data based on the appointment id
+                    val receiptTask = database.collection(FireStoreCollection.APPOINTMENT_RECEIPT)
+                        .whereEqualTo("appointmentId", appointment.id)
+                        .get()
+                        .addOnSuccessListener { receiptDocs ->
+                            if (!receiptDocs.isEmpty) {
+                                val receipt = receiptDocs.documents[0].toObject(AppointmentReceipt::class.java)
+                                receipt?.let {
+                                    appointmentData["appointmentReceiptUrl"] = it.url
+                                    appointmentData["appointmentReceiptType"] = it.fileType
+                                }
+                            }
+                        }
+                    tasks.add(receiptTask)
+
                     // Fetch reports data
                     val reportsTask = database.collection(FireStoreCollection.REPORTS_USER)
                         .whereEqualTo("userId", userId)
@@ -708,6 +796,184 @@ class AppointmentRepositoryImpl (
             }
             .addOnFailureListener {
                 result.invoke(UiState.Failure(it.localizedMessage))
+            }
+    }
+
+    override fun addAppointmentWithReceipt(
+        appointment: Appointment,
+        receiptUri: Uri,
+        fileType: String,
+        result: (UiState<Pair<Appointment, String>>) -> Unit
+    ) {
+        val userStr = appPreferences.getString(SharedPrefConstants.USER_SESSION, null)
+        var user: User? = null
+        if (userStr == null) {
+            result.invoke(UiState.Failure("No session found"))
+            return
+        } else {
+            user = gson.fromJson(userStr, User::class.java)
+        }
+
+        val appointmentDocument = database.collection(FireStoreCollection.APPOINTMENT).document()
+        appointment.id = appointmentDocument.id
+        appointment.userId = user!!.id
+
+        // First, save the appointment
+        appointmentDocument
+            .set(appointment)
+            .addOnSuccessListener {
+                // Determine which upload method to use based on mime type
+                val uploadMethod: (Appointment, Uri, (UiState<String>) -> Unit) -> Unit = when {
+                    fileType == "img" -> ::uploadReceiptImg
+                    fileType == "pdf" -> ::uploadReceiptPdf
+                    else -> {
+                        result.invoke(UiState.Failure("Unsupported file type: $fileType"))
+                        return@addOnSuccessListener
+                    }
+                }
+
+                uploadMethod(appointment, receiptUri) { receiptState ->
+                    when (receiptState) {
+                        is UiState.Success -> {
+                            result.invoke(
+                                UiState.Success(
+                                    Pair(
+                                        appointment,
+                                        "Appointment and receipt uploaded successfully"
+                                    )
+                                )
+                            )
+                        }
+                        is UiState.Failure -> {
+                            // If receipt upload fails, we still want to keep the appointment
+                            // So we'll return a success with a note about the receipt upload
+                            result.invoke(
+                                UiState.Success(
+                                    Pair(
+                                        appointment,
+                                        "Appointment created, but receipt upload failed: ${receiptState.error}"
+                                    )
+                                )
+                            )
+                        }
+                        is UiState.Loading -> {}
+                    }
+                }
+            }
+            .addOnFailureListener {
+                result.invoke(UiState.Failure(it.localizedMessage))
+            }
+    }
+
+    override fun uploadReceiptImg(
+        appointment: Appointment,
+        uri: Uri,
+        result: (UiState<String>) -> Unit
+    ) {
+        // Validate input parameters
+        if (appointment.id.isBlank()) {
+            result(UiState.Failure("Invalid appointment ID"))
+            return
+        }
+
+        // Create a unique filename with timestamp to prevent overwriting
+        val timestamp = System.currentTimeMillis()
+        val imageRef = FirebaseStorage.getInstance().reference
+            .child("appointments_receipt/${appointment.id}_$timestamp.jpg")
+
+        // Use task-based approach for better error handling and readability
+        imageRef.putFile(uri)
+            .continueWithTask { uploadTask ->
+                // Check if upload was successful
+                if (!uploadTask.isSuccessful) {
+                    uploadTask.exception?.let {
+                        throw it
+                    }
+                }
+                // Retrieve download URL
+                imageRef.downloadUrl
+            }
+            .addOnSuccessListener { downloadUrl ->
+                // Create receipt document
+                val document = database.collection(FireStoreCollection.APPOINTMENT_RECEIPT).document()
+
+                val receipt = AppointmentReceipt(
+                    id = document.id,
+                    appointmentId = appointment.id,
+                    url = downloadUrl.toString(),
+                    uploadedAt = System.currentTimeMillis().toString(),
+                    fileType = "img"
+                )
+
+                // Save receipt to Firestore
+                document.set(receipt)
+                    .addOnSuccessListener {
+                        result(UiState.Success("Receipt image uploaded and linked successfully"))
+                    }
+                    .addOnFailureListener { fireStoreError ->
+                        // Delete the uploaded image if Firestore save fails
+                        imageRef.delete()
+                        result(UiState.Failure("Failed to save receipt: ${fireStoreError.localizedMessage}"))
+                    }
+            }
+            .addOnFailureListener { uploadError ->
+                result(UiState.Failure("Upload failed: ${uploadError.localizedMessage}"))
+            }
+    }
+
+    override fun uploadReceiptPdf(
+        appointment: Appointment,
+        uri: Uri,
+        result: (UiState<String>) -> Unit
+    ) {
+        // Validate input parameters
+        if (appointment.id.isBlank()) {
+            result(UiState.Failure("Invalid appointment ID"))
+            return
+        }
+
+        // Create a unique filename with timestamp
+        val timestamp = System.currentTimeMillis()
+        val pdfRef = FirebaseStorage.getInstance().reference
+            .child("appointments_receipt/${appointment.id}_$timestamp.pdf")
+
+        // Upload PDF file
+        pdfRef.putFile(uri)
+            .continueWithTask { uploadTask ->
+                // Check if upload was successful
+                if (!uploadTask.isSuccessful) {
+                    uploadTask.exception?.let {
+                        throw it
+                    }
+                }
+                // Retrieve download URL
+                pdfRef.downloadUrl
+            }
+            .addOnSuccessListener { downloadUrl ->
+                // Create receipt document
+                val document = database.collection(FireStoreCollection.APPOINTMENT_RECEIPT).document()
+
+                val receipt = AppointmentReceipt(
+                    id = document.id,
+                    appointmentId = appointment.id,
+                    url = downloadUrl.toString(),
+                    uploadedAt = System.currentTimeMillis().toString(),
+                    fileType = "pdf"
+                )
+
+                // Save receipt to Firestore
+                document.set(receipt)
+                    .addOnSuccessListener {
+                        result(UiState.Success("Receipt PDF uploaded and linked successfully"))
+                    }
+                    .addOnFailureListener { fireStoreError ->
+                        // Delete the uploaded PDF if Firestore save fails
+                        pdfRef.delete()
+                        result(UiState.Failure("Failed to save receipt: ${fireStoreError.localizedMessage}"))
+                    }
+            }
+            .addOnFailureListener { uploadError ->
+                result(UiState.Failure("Upload failed: ${uploadError.localizedMessage}"))
             }
     }
 }

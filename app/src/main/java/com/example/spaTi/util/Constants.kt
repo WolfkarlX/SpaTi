@@ -7,8 +7,10 @@ object FireStoreCollection{
     val USER = "user"
     val SERVICE = "service"
     val SPA = "spa"
+    val SPA_PREPAYMENT = "spa_prepayment"
     val TAG = "tag"
     val APPOINTMENT = "appointment"
+    val APPOINTMENT_RECEIPT = "appointment_receipt"
     val REPORTS_SPA = "reports_spa"
     val REPORTS_USER = "reports_user"
 }

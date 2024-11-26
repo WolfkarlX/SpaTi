@@ -1,10 +1,14 @@
 package com.example.spaTi.ui.appointments
 
+import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -19,6 +23,8 @@ import com.example.spaTi.databinding.FragmentAppointmentConfirmBinding
 import com.example.spaTi.ui.services.ServiceViewModel
 import com.example.spaTi.util.UiState
 import com.example.spaTi.util.convertMinutesToReadableTime
+import com.example.spaTi.util.disable
+import com.example.spaTi.util.enabled
 import com.example.spaTi.util.hide
 import com.example.spaTi.util.show
 import com.example.spaTi.util.toast
@@ -42,6 +48,9 @@ class AppointmentFragment : Fragment() {
     private val serviceViewModel: ServiceViewModel by activityViewModels()
     private var isBottomSheetShowing = false
     private var currentBottomSheet: BottomSheetDialog? = null
+    private lateinit var fileUploadHelper: FileUploadHelper
+    private lateinit var uriReceiptUploaded: Pair<Uri?, String>
+
     private val adapterSchedule by  lazy {
         ScheduleAdapter { _, time, isValid, errorMessage ->
             if (!isBottomSheetShowing) {
@@ -72,6 +81,7 @@ class AppointmentFragment : Fragment() {
         currentBottomSheet?.dismiss()
         currentBottomSheet = null
         isBottomSheetShowing = false
+        uriReceiptUploaded = Pair(null, "")
         cleanupObservers()
         appointmentViewModel.resetAddAppointmentState()
         _binding = null
@@ -81,11 +91,184 @@ class AppointmentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
         observeViewModels()
+        setUpFileUploader()
     }
 
     override fun onResume() {
         super.onResume()
         adapterSchedule.clearTimeSlots()
+    }
+
+    // Handle permission results
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        fileUploadHelper.onRequestPermissionsResult(requestCode, grantResults)
+    }
+
+    private fun setUpFileUploader() {
+        fileUploadHelper = createFileUploadHelper(
+            onImagePickingStarted = {
+                binding.appointmentProgressBar.visibility = View.VISIBLE
+            },
+            onImagePickingCancelled = { errorCode ->
+                binding.appointmentProgressBar.visibility = View.GONE
+                when(errorCode) {
+                    204 -> toast("Image picking was cancelled.")
+                    300 -> toast("Camera permission denied. Please enable it to continue.")
+                    301 -> toast("Camera permission denied. Please enable it to continue.")
+                    400 -> toast("There was an error while uploading the file.")
+                    404 -> toast("No image file was found.")
+                    409 -> toast("The selected file format is not supported.")
+                    415 -> toast("The selected file format is not supported.")
+                    500 -> toast("An unknown error occurred.")
+                    501 -> toast("The operation or feature is not supported in the current context.")
+                    else -> toast("An unexpected error occurred.")
+                }
+                uploadImageFile(null)
+            },
+            handleFileResult = { uri, fileType ->
+                when (fileType) {
+                    FileUploadHelper.FileType.IMAGE_ONLY -> {
+                        uploadImageFile(uri)
+                    }
+                    FileUploadHelper.FileType.PDF_ONLY -> {
+                        uploadPdfFile(uri)
+                    }
+                    else -> toast("Upload a Image or PDF file.")
+                }
+                binding.appointmentProgressBar.visibility = View.GONE
+            }
+        ).apply {
+            shouldCrop = false
+            fileType = FileUploadHelper.FileType.IMAGE_OR_PDF
+        }
+    }
+
+    private fun uploadImageFile(uri: Uri?) {
+        // Find the current bottom sheet binding
+        currentBottomSheet?.let { bottomSheetDialog ->
+            bottomSheetDialog.findViewById<View>(R.id.fragment_appointment_confirm)?.let {
+                val bottomSheetBinding = FragmentAppointmentConfirmBinding.bind(it)
+                updateImageContainer(bottomSheetBinding, uri)
+            }
+        }
+    }
+
+    private fun updateImageContainer(binding: FragmentAppointmentConfirmBinding, uri: Uri?) {
+        objSpa?.let { spa ->
+            if (spa.prepayment) {
+                uri?.let {
+                    try {
+                        binding.imageUploadedPreview.setImageURI(uri)
+                        binding.imageUploadedPreview.visibility = View.VISIBLE
+
+                        binding.imageUploadedIcon.visibility = View.INVISIBLE
+                        binding.imageUploadedIconLabel.visibility = View.INVISIBLE
+                        binding.imageUploadedIconLabel.text = "Adjuntar recibo"
+
+                        binding.appointmentConfirmSubmitBtn.enabled()
+                        context?.let {
+                            binding.appointmentConfirmSubmitBtn.setBackgroundColor(
+                                ContextCompat.getColor(
+                                    it,
+                                    R.color.verde
+                                )
+                            )
+                        }
+                        uriReceiptUploaded = Pair(it, "img")
+                    } catch (e: Exception) {
+                        Log.e("ImageUpload", "Error setting image URI", e)
+                        toast("Failed to load image")
+                    }
+                }
+            } else {
+                // No prepayment required, hide upload icons
+                binding.imageUploadedIcon.visibility = View.INVISIBLE
+                binding.imageUploadedIconLabel.visibility = View.INVISIBLE
+                binding.imageUploadedPreview.visibility = View.INVISIBLE
+                binding.appointmentConfirmSubmitBtn.enabled()
+                context?.let {
+                    binding.appointmentConfirmSubmitBtn.setBackgroundColor(
+                        ContextCompat.getColor(
+                            it,
+                            R.color.verde
+                        )
+                    )
+                }
+            }
+        }
+    }
+
+    private fun uploadPdfFile(uri: Uri) {
+        currentBottomSheet?.let { bottomSheetDialog ->
+            bottomSheetDialog.findViewById<View>(R.id.fragment_appointment_confirm)?.let {
+                val bottomSheetBinding = FragmentAppointmentConfirmBinding.bind(it)
+                updatePdfContainer(bottomSheetBinding, uri)
+            }
+        }
+    }
+
+    private fun updatePdfContainer(binding: FragmentAppointmentConfirmBinding, uri: Uri?) {
+        objSpa?.let { spa ->
+            if (spa.prepayment) {
+                uri?.let {
+                    try {
+                        binding.imageUploadedPreview.setImageURI(null)
+                        binding.imageUploadedPreview.visibility = View.INVISIBLE
+                        binding.imageUploadedIcon.visibility = View.VISIBLE
+
+                        // Add PDF file name
+                        val fileName = getPdfFileName(uri)
+                        binding.imageUploadedIconLabel.text = fileName
+                        binding.imageUploadedIconLabel.visibility = View.VISIBLE
+
+                        binding.appointmentConfirmSubmitBtn.enabled()
+                        context?.let {
+                            binding.appointmentConfirmSubmitBtn.setBackgroundColor(
+                                ContextCompat.getColor(
+                                    it,
+                                    R.color.verde
+                                )
+                            )
+                        }
+                        uriReceiptUploaded = Pair(it, "pdf")
+                    } catch (e: Exception) {
+                        Log.e("PdfUpload", "Error handling PDF", e)
+                        toast("Failed to load PDF")
+                    }
+                }
+            } else {
+                // No prepayment required, hide upload icons
+                binding.imageUploadedPreview.visibility = View.INVISIBLE
+                binding.imageUploadedIcon.visibility = View.INVISIBLE
+                binding.imageUploadedIconLabel.visibility = View.INVISIBLE
+                binding.appointmentConfirmSubmitBtn.enabled()
+                context?.let {
+                    binding.appointmentConfirmSubmitBtn.setBackgroundColor(
+                        ContextCompat.getColor(
+                            it,
+                            R.color.verde
+                        )
+                    )
+                }
+            }
+        }
+    }
+
+    private fun getPdfFileName(uri: Uri): String {
+        return requireContext().contentResolver.query(uri, null, null, null, null)?.use { cursor ->
+            val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+            if (nameIndex != -1) {
+                cursor.moveToFirst()
+                cursor.getString(nameIndex)
+            } else {
+                "Unknown File"
+            }
+        } ?: "Unknown File"
     }
 
     private fun setupViews() {
@@ -269,12 +452,12 @@ class AppointmentFragment : Fragment() {
             val bottomSheet = findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout
             val behavior = BottomSheetBehavior.from(bottomSheet)
 
-            bottomSheet.layoutParams.height = (resources.displayMetrics.heightPixels * 0.75).toInt()
-
             behavior.apply {
                 state = BottomSheetBehavior.STATE_EXPANDED
                 isDraggable = true
                 isHideable = true
+                // Skip half-expanded state
+                skipCollapsed = true
             }
 
             behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
@@ -297,16 +480,53 @@ class AppointmentFragment : Fragment() {
                     LocalTime.parse(date.trim(), DateTimeFormatter.ofPattern("HH:mm"))
                         .plusMinutes(it.durationMinutes.toLong())
                 }
-
                 appointmentConfirmTime.text = "$date - $dateEnd"
+
+                objSpa?.let {
+                    if (it.prepayment) {
+                        imageUploadedIcon.visibility = View.VISIBLE
+                        imageUploadedIconLabel.visibility = View.VISIBLE
+                        imageUploadedPreview.visibility = View.INVISIBLE
+
+                        appointmentConfirmSubmitBtn.disable()
+                        appointmentConfirmSubmitBtn.setBackgroundColor(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.gray_400
+                            )
+                        )
+                    } else {
+                        // No prepayment required, hide upload icons
+                        imageUploadedIcon.visibility = View.INVISIBLE
+                        imageUploadedIconLabel.visibility = View.INVISIBLE
+                        imageUploadedPreview.visibility = View.INVISIBLE
+                    }
+                }
 
                 appointmentConfirmSubmitBtn.setOnClickListener {
                     dismiss()
                     val appointment = createAppointment(date.trim())
-                    appointmentViewModel.addAppointment(appointment)
+                    objSpa?.let {
+                        if (it.prepayment) {
+                            uriReceiptUploaded.first?.let { uri ->
+                                appointmentViewModel.addAppointmentWithReceipt(appointment, uri, uriReceiptUploaded.second)
+                            } ?: {
+                                toast("This spa require you to prepay to schedule an appointment")
+                            }
+                        } else {
+                            appointmentViewModel.addAppointment(appointment)
+                        }
+                    }
                 }
                 appointmentConfirmCancelBtn.setOnClickListener {
                     dismiss()
+                }
+
+                imageUploadedPreview.setOnClickListener {
+                    fileUploadHelper.showImageSourceDialog()
+                }
+                imageUploadedIcon.setOnClickListener {
+                    fileUploadHelper.showImageSourceDialog()
                 }
             }
         }

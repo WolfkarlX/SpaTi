@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_appointment_confirm"
     android:fillViewport="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/rounded_bottom_sheet_background"
     tools:context=".ui.appointments.AppointmentFragment">
 
@@ -17,6 +18,7 @@
         android:layout_marginBottom="8dp"
         android:elevation="4dp"
         android:background="@drawable/rectangle_white"
+        android:backgroundTint="@color/verde"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
@@ -28,6 +30,7 @@
         android:src="@drawable/spa"
         android:scaleType="centerCrop"
         android:contentDescription="Spa image"
+        android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -35,19 +38,20 @@
 
     <TextView
         android:id="@+id/appointmentConfirmName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="SpaLove"
+        android:text="SpaLove SpaLove "
         android:textSize="24sp"
         android:textColor="@color/v_oscuro"
         android:layout_marginTop="16dp"
         android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appointmentConfirmImage"/>
+        app:layout_constraintTop_toBottomOf="@+id/appointmentConfirmImage"
+        app:layout_constraintEnd_toStartOf="@+id/imageUploadedPreview"/>
 
     <TextView
         android:id="@+id/appointmentConfirmService"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Depilacion Brazilenia"
         android:textSize="16sp"
@@ -55,23 +59,25 @@
         android:textColor="@android:color/black"
         android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appointmentConfirmName"/>
+        app:layout_constraintTop_toBottomOf="@+id/appointmentConfirmName"
+        app:layout_constraintEnd_toStartOf="@+id/imageUploadedPreview"/>
 
     <TextView
         android:id="@+id/appointmentConfirmDate"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Lunes 17 de Septiembre"
+        android:text="Lunes 17 de Septiembre "
         android:textSize="16sp"
         android:layout_marginTop="12dp"
         android:textColor="@android:color/black"
         android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appointmentConfirmService"/>
+        app:layout_constraintTop_toBottomOf="@+id/appointmentConfirmService"
+        app:layout_constraintEnd_toStartOf="@+id/imageUploadedPreview"/>
 
     <TextView
         android:id="@+id/appointmentConfirmTime"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="3pm - 5pm"
         android:textSize="16sp"
@@ -79,18 +85,62 @@
         android:textColor="@android:color/black"
         android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appointmentConfirmDate"/>
+        app:layout_constraintTop_toBottomOf="@+id/appointmentConfirmDate"
+        app:layout_constraintEnd_toStartOf="@+id/imageUploadedPreview"/>
+
+    <ImageView
+        android:id="@+id/imageUploadedPreview"
+        android:layout_width="150dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:layout_marginHorizontal="8dp"
+        android:background="@drawable/rounded_corners_image_view"
+        android:contentDescription="Uploaded Image"
+        android:clipToOutline="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/appointmentConfirmTime"
+        app:layout_constraintTop_toTopOf="@+id/appointmentConfirmName"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/imageUploadedIcon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/upload_document_ic_fill"
+        android:scaleType="centerCrop"
+        android:layout_marginHorizontal="8dp"
+        android:contentDescription="Uploaded Image Icon"
+        android:clipToOutline="true"
+        app:tint="@color/v_oscuro"
+        app:layout_constraintStart_toStartOf="@+id/imageUploadedPreview"
+        app:layout_constraintEnd_toEndOf="@+id/imageUploadedPreview"
+        app:layout_constraintBottom_toBottomOf="@+id/imageUploadedPreview"
+        app:layout_constraintTop_toTopOf="@+id/imageUploadedPreview"/>
+
+    <TextView
+        android:id="@+id/imageUploadedIconLabel"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Adjuntar recibo"
+        android:textSize="16sp"
+        android:layout_marginTop="12dp"
+        android:textColor="@android:color/black"
+        android:layout_marginStart="8dp"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@+id/imageUploadedIcon"
+        app:layout_constraintStart_toStartOf="@+id/imageUploadedPreview"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/appointmentConfirmCancelBtn"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginHorizontal="8dp"
         android:text="Cancelar"
         android:textAppearance="@style/SubTitleStyle"
         android:textColor="@color/verde"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageUploadedIconLabel"
         app:layout_constraintEnd_toStartOf="@+id/appointmentConfirmSubmitBtn"
         app:layout_constraintStart_toStartOf="parent"
         />
@@ -100,11 +150,11 @@
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginHorizontal="8dp"
         android:text="Confirmar"
         android:textAppearance="@style/SubTitleStyle"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageUploadedIconLabel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/appointmentConfirmCancelBtn"
         app:backgroundTint="@color/verde"

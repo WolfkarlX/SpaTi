@@ -49,6 +49,19 @@
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:id="@+id/iv_Receipt_Icon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/upload_document_ic_fill"
+                    android:layout_marginEnd="8dp"
+                    app:tint="@color/white"
+                    />
 
             </LinearLayout>
 

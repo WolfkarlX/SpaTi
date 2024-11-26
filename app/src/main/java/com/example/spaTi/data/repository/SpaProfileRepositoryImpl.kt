@@ -2,7 +2,9 @@ package com.example.spaTi.data.repository
 
 import android.content.SharedPreferences
 import android.net.Uri
+import com.example.spaTi.data.models.Service
 import com.example.spaTi.data.models.Spa
+import com.example.spaTi.data.models.SpaPrepayment
 import com.example.spaTi.util.FireStoreCollection
 import com.example.spaTi.util.SharedPrefConstants
 import com.example.spaTi.util.UiState
@@ -129,5 +131,107 @@ class SpaProfileRepositoryImpl(
             val spa = gson.fromJson(userStr, Spa::class.java)
             result.invoke(spa)
         }
+    }
+
+    override fun actionPrepay(
+        spaId: String,
+        spaPrepayment: SpaPrepayment,
+        result: (UiState<Pair<SpaPrepayment, String>>) -> Unit
+    ) {
+        // First, check if a prepayment exists for this spaId
+        getPrepayment(spaId) { existingState ->
+            when (existingState) {
+                is UiState.Success -> {
+                    val existingPrepayment = existingState.data
+
+                    if (existingPrepayment != null) {
+                        // If prepayment exists, update it
+                        // Copy the ID from existing prepayment to the new one
+                        spaPrepayment.id = existingPrepayment.id
+
+                        // Use the existing updatePrepay method, but wrap the result
+                        updatePrepay(spaPrepayment) { updateState ->
+                            when (updateState) {
+                                is UiState.Success -> {
+                                    result.invoke(UiState.Success(Pair(spaPrepayment, "Prepayment updated successfully")))
+                                }
+                                is UiState.Failure -> {
+                                    result.invoke(updateState)
+                                }
+                                else -> {} // Handle other potential states if needed
+                            }
+                        }
+                    } else {
+                        // If no prepayment exists, add a new one
+                        // Set the spaId for the new prepayment
+                        spaPrepayment.spaId = spaId
+
+                        addPrepay(spaPrepayment) { addState ->
+                            // Directly forward the result
+                            result.invoke(addState)
+                        }
+                    }
+                }
+                is UiState.Failure -> {
+                    // If there's an error in getting prepayment, forward the error
+                    result.invoke(existingState)
+                }
+                else -> {} // Handle other potential states if needed
+            }
+        }
+    }
+
+    override fun addPrepay(
+        spaPrepayment: SpaPrepayment,
+        result: (UiState<Pair<SpaPrepayment, String>>) -> Unit
+    ) {
+        val document = database.collection(FireStoreCollection.SPA_PREPAYMENT).document()
+        spaPrepayment.id = document.id
+        document
+            .set(spaPrepayment)
+            .addOnSuccessListener {
+                result.invoke(
+                    UiState.Success(Pair(spaPrepayment, "Service has been created successfully")))
+            }
+            .addOnFailureListener {
+                result.invoke(UiState.Failure(it.localizedMessage))
+            }
+    }
+
+    override fun updatePrepay(spaPrepayment: SpaPrepayment, result: (UiState<String>) -> Unit) {
+        val document = database.collection(FireStoreCollection.SPA_PREPAYMENT).document(spaPrepayment.id)
+
+        // Convert spa to a map of fields to update
+        val updateData = mapOf(
+            "description" to spaPrepayment.description,
+            "percentage" to spaPrepayment.percentage,
+            "updatedAt" to spaPrepayment.updatedAt,
+        )
+
+        document
+            .update(updateData)
+            .addOnSuccessListener {
+                result.invoke(UiState.Success("User Prepayment updated successfully!"))
+            }
+            .addOnFailureListener {
+                result.invoke(UiState.Failure(it.localizedMessage))
+            }
+    }
+
+    override fun getPrepayment(spaId: String, result: (UiState<SpaPrepayment?>) -> Unit) {
+        database.collection(FireStoreCollection.SPA_PREPAYMENT)
+            .whereEqualTo("spaId", spaId)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                if (!querySnapshot.isEmpty) {
+                    val prepayment = querySnapshot.documents[0].toObject(SpaPrepayment::class.java)
+                    result.invoke(UiState.Success(prepayment))
+                } else {
+                    result.invoke(UiState.Success(null))
+                }
+            }
+            .addOnFailureListener {
+                result.invoke(UiState.Failure(it.localizedMessage))
+            }
     }
 }
