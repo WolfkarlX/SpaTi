@@ -5,6 +5,7 @@ import com.example.spaTi.data.models.Appointment
 object FireStoreCollection{
     val NOTE = "note"
     val USER = "user"
+    val USER_FAVORITES = "user_favorites"
     val SERVICE = "service"
     val SPA = "spa"
     val SPA_PREPAYMENT = "spa_prepayment"
