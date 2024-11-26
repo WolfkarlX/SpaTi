@@ -120,6 +120,46 @@
 
         <!-- First Row -->
         <ImageView
+            android:id="@+id/itemAppointmentStatusIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/alert"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            app:tint="#4CAF50"
+            app:layout_constraintTop_toBottomOf="@+id/itemAppointmentReportIcon"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/itemAppointmentStatusLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status:"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/koho"
+            app:layout_constraintTop_toTopOf="@+id/itemAppointmentStatusIcon"
+            app:layout_constraintBottom_toBottomOf="@+id/itemAppointmentStatusIcon"
+            app:layout_constraintStart_toEndOf="@+id/itemAppointmentStatusIcon"/>
+
+        <TextView
+            android:id="@+id/itemAppointmentStatusText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pending"
+            android:textSize="16sp"
+            android:layout_marginStart="3dp"
+            android:textColor="#4A4A4A"
+            android:fontFamily="@font/koho"
+            app:layout_constraintTop_toTopOf="@+id/itemAppointmentStatusLabel"
+            app:layout_constraintBottom_toBottomOf="@+id/itemAppointmentStatusLabel"
+            app:layout_constraintStart_toEndOf="@+id/itemAppointmentStatusLabel"/>
+
+
+        <!-- First Row -->
+        <ImageView
             android:id="@+id/itemAppointmentServiceIcon"
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -127,7 +167,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
             app:tint="#4CAF50"
-            app:layout_constraintTop_toBottomOf="@+id/itemAppointmentReportIcon"
+            app:layout_constraintTop_toBottomOf="@+id/itemAppointmentStatusIcon"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
