@@ -54,7 +54,7 @@ class MyprofileFragmentt : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         observer()
-        viewModel.syncSessionWithDatabase()
+        viewModel.getSession()
 
         binding.editButton.setOnClickListener {
             findNavController().navigate(R.id.action_myprofileFragment_to_editprofileFragment)
@@ -213,33 +213,26 @@ class MyprofileFragmentt : Fragment() {
         }
     }
 
-    // Observe the session LiveData from the ViewModel
-    fun observer() {
+    private fun observer() {
         viewModel.session.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is UiState.Loading -> {
-                    // Show progress or loading indicator
                     binding.sessionProgress.show()
                 }
                 is UiState.Failure -> {
-                    // Hide progress and show error message
                     binding.sessionProgress.hide()
                     toast(state.error)
-                    viewModel.logout{
-                        findNavController().navigate(R.id.action_myprofileFragment_to_loginFragment)
-                    }
                 }
                 is UiState.Success -> {
-                    // Hide progress and display user data
                     binding.sessionProgress.hide()
-                    setData(state.data) // Call setData to update UI with user info
+                    userId = state.data?.id ?: ""
+                    setData(state.data)
                 }
             }
         }
     }
 
-    // Update the UI with user session data
-    fun setData(user: User?) {
+    private fun setData(user: User?) {
         user?.let {
             if(user.status=="active") {
                 binding.firstName.setText(it.first_name)

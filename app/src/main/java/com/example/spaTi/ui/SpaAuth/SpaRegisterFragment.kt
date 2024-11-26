@@ -18,7 +18,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.spaTi.R
 import com.example.spaTi.data.models.Spa
-import com.example.spaTi.data.models.User
 import com.example.spaTi.databinding.FragmentSpaRegisterBinding
 import com.example.spaTi.ui.auth.SpaAuthViewModel
 import com.example.spaTi.util.UiState
@@ -27,7 +26,6 @@ import com.example.spaTi.util.isValidEmail
 import com.example.spaTi.util.show
 import com.example.spaTi.util.toast
 import com.example.spaTi.util.validatePassword
-import com.google.protobuf.Internal.BooleanList
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalTime
@@ -60,7 +58,7 @@ class SpaRegisterFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("NewApi", "ClickableViewAccessibility")
+    @SuppressLint("NewApi")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observer()
@@ -131,18 +129,15 @@ class SpaRegisterFragment : Fragment() {
         viewModel.register.observe(viewLifecycleOwner) { state ->
             when(state){
                 is UiState.Loading -> {
-                    Log.d("SpaRegisterFragment observer", "LOADING")
                     binding.registerBtn.setText("")
                     binding.registerProgress.show()
                 }
                 is UiState.Failure -> {
-                    Log.d("SpaRegisterFragment observer", "FAILURE")
                     binding.registerBtn.setText("Register")
                     binding.registerProgress.hide()
                     toast(state.error)
                 }
                 is UiState.Success -> {
-                    Log.d("SpaRegisterFragment observer", "SUCCESS")
                     binding.registerBtn.setText("Register")
                     binding.registerProgress.hide()
                     toast(state.data)
@@ -261,15 +256,10 @@ class SpaRegisterFragment : Fragment() {
             return false
         } else {
             val description = binding.descriptionEt.text.toString()
-            val consecutiveRepeat = Regex("(.)\\1{5,}")
             val descriptionRegex = Regex("^[a-zA-Z0-9.,!?'\"\\- ]{20,500}$")
 
             if (!description.matches(descriptionRegex)) {
                 toast(getString(R.string.invalid_description_too_long))
-                return false
-            }
-            if(consecutiveRepeat.containsMatchIn(description)){
-                toast(getString(R.string.invalid_description_consecutive_repeated))
                 return false
             }
         }
@@ -284,21 +274,17 @@ class SpaRegisterFragment : Fragment() {
 
     @SuppressLint("NewApi")
     fun validateAndFormatTime(input: String): String? {
-        // Formatter for HH:mm format with zero-padded hours
         val timeFormat = DateTimeFormatter.ofPattern("HH:mm")
 
         return try {
-            // Check if the input is in "H:mm" format (single-digit hour)
             val formattedTime = if (input.matches(Regex("^\\d{1}:\\d{2}$"))) {
                 "0$input"
             } else if (input.matches(Regex("^\\d{1,2}$"))) {
-                // If input is only hours (like "12"), add ":00" for minutes
                 "${input.padStart(2, '0')}:00"
             } else {
                 input
             }
 
-            // Parse and format the time to ensure zero-padding in "HH:mm" format
             val time = LocalTime.parse(formattedTime, timeFormat)
             time.format(timeFormat)
         } catch (e: DateTimeParseException) {

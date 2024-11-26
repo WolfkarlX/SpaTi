@@ -10,11 +10,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 import javax.inject.Inject
 
-class ProfileRepositoryImpl(
-    val auth: FirebaseAuth,
-    val database: FirebaseFirestore,
-    val appPreferences: SharedPreferences,
-    val gson: Gson
+class ProfileRepositoryImpl @Inject constructor(
+    private val auth: FirebaseAuth,
+    private val database: FirebaseFirestore,
+    private val appPreferences: SharedPreferences,
+    private val gson: Gson
 ) : ProfileRepository {
 
     override fun updateUserInfo(user: User, result: (UiState<String>) -> Unit) {

@@ -129,12 +129,6 @@ class SpaDetailFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
-        binding.spaDetailBackBtn.setOnClickListener {
-            findNavController().navigateUp()
-        }
-        binding.spaDetailFavBtn.setOnClickListener {
-            // TODO: Set the favorites feature here
-        }
         binding.spaDetailLocation.setOnClickListener {
             objSpa?.coordinates?.let { coordinates ->
                 val latLon = coordinates.split(",")

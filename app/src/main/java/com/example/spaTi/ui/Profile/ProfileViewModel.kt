@@ -17,16 +17,13 @@ class ProfileViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _session = MutableLiveData<UiState<User>>()
-    val session: LiveData<UiState<User>>
-        get() = _session
+    val session: LiveData<UiState<User>> get() = _session
 
     private val _forgotPassword = MutableLiveData<UiState<String>>()
-    val forgotPassword: LiveData<UiState<String>>
-        get() = _forgotPassword
+    val forgotPassword: LiveData<UiState<String>> get() = _forgotPassword
 
     private val _editUser = MutableLiveData<UiState<String>>()
-    val editUser: LiveData<UiState<String>>
-        get() = _editUser
+    val editUser: LiveData<UiState<String>> get() = _editUser
 
     private val _updateProfilePicture = MutableLiveData<UiState<String>>()
     val updateProfilePicture: LiveData<UiState<String>> get() = _updateProfilePicture
