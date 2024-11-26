@@ -134,6 +134,9 @@
         <action
             android:id="@+id/action_userHomeFragment_to_spaDetailFragment"
             app:destination="@+id/spaDetailFragment"/>
+        <action
+            android:id="@+id/action_userHomeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
     <fragment
@@ -242,6 +245,9 @@
         <action
             android:id="@+id/action_spaDetailFragment_to_appointmentFragment"
             app:destination="@+id/appointmentFragment"/>
+        <action
+            android:id="@+id/action_spaDetailFragment_to_loginFragment"
+            app:destination="@+id/loginFragment"/>
     </fragment>
 
     <fragment

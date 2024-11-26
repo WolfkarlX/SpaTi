@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.spaTi.data.models.Service
 import com.example.spaTi.data.models.Spa
+import com.example.spaTi.data.models.User
+import com.example.spaTi.data.models.UserFavorites
 import com.example.spaTi.data.repository.SpaRepository
 import com.example.spaTi.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,9 +29,22 @@ class SpaViewModel @Inject constructor(
     val getServicesBySpaId: LiveData<UiState<List<Service>>>
         get() = _getServicesBySpaId
 
+    private val _actionToSpaFavorites = MutableLiveData<UiState<Pair<UserFavorites, String>>>(UiState.Loading)
+    val actionToSpaFavorites: LiveData<UiState<Pair<UserFavorites, String>>>
+        get() = _actionToSpaFavorites
+
+    private val _getFavoritesSpas = MutableLiveData<UiState<List<Spa>>>(UiState.Loading)
+    val getFavoritesSpas: LiveData<UiState<List<Spa>>>
+        get() = _getFavoritesSpas
+
     fun getSpas() {
         _spas.value = UiState.Loading
         repository.getSpas { _spas.value = it }
+    }
+
+    fun getFavoritesSpas(user: User) {
+        _getFavoritesSpas.value = UiState.Loading
+        repository.getFavoritesSpas(user) { _getFavoritesSpas.value = it }
     }
 
     fun getSpaById(id: String) {
@@ -51,5 +66,10 @@ class SpaViewModel @Inject constructor(
     fun searchServicesOnSpa(spaId: String, query: String) {
         _getServicesBySpaId.value = UiState.Loading
         repository.searchServicesOnSpa(spaId, query) { _getServicesBySpaId.value = it }
+    }
+
+    fun actionToSpaFavorites(user: User, spa: Spa) {
+        _actionToSpaFavorites.value = UiState.Loading
+        repository.actionToSpaFavorites(user, spa) { _actionToSpaFavorites.value = it }
     }
 }

@@ -98,6 +98,7 @@ class UserAppointmentsAdapter (
 
 
             // make visible icon views
+            binding.itemAppointmentStatusIcon.visibility = View.VISIBLE
             binding.itemAppointmentServiceIcon.visibility = View.VISIBLE
             binding.itemAppointmentDateIcon.visibility = View.VISIBLE
             binding.itemAppointmentTimeIcon.visibility = View.VISIBLE
@@ -107,6 +108,7 @@ class UserAppointmentsAdapter (
             binding.itemAppointmentUserCardReceipt.visibility = if (haveReceive) { View.GONE } else { View.VISIBLE }
 
             // remove visible views
+            binding.itemAppointmentStatusLabel.visibility = View.VISIBLE
             binding.itemAppointmentServiceLabel.visibility = View.VISIBLE
             binding.itemAppointmentDateLabel.visibility = View.VISIBLE
             binding.itemAppointmentTimeLabel.visibility = View.VISIBLE
@@ -123,6 +125,7 @@ class UserAppointmentsAdapter (
             binding.itemAppointmentTimeText.text = "${appointment.dateTime} - ${item["serviceDurationMinutes"]}"
             binding.itemAppointmentEmailText.text = item["spaEmail"] as? String
             binding.itemAppointmentPhoneText.text = item["spaCellphone"] as? String
+            binding.itemAppointmentStatusText.text = appointment.status
 
             binding.btnCancelAppointment.setOnClickListener { onItemClicked.invoke(adapterPosition,appointment, 1, "") }
             binding.btnGoToService.setOnClickListener { onItemClicked.invoke(adapterPosition,appointment, 2, "") }
@@ -151,7 +154,7 @@ class UserAppointmentsAdapter (
             binding.btnReport.visibility = View.GONE
 
             // remove icon views
-            binding.itemAppointmentReportIcon.visibility = View.GONE
+            binding.itemAppointmentStatusIcon.visibility = View.GONE
             binding.itemAppointmentServiceIcon.visibility = View.GONE
             binding.itemAppointmentDateIcon.visibility = View.GONE
             binding.itemAppointmentTimeIcon.visibility = View.GONE
@@ -160,6 +163,7 @@ class UserAppointmentsAdapter (
             binding.itemAppointmentUserCardReceipt.visibility = View.GONE
 
             // remove label views
+            binding.itemAppointmentStatusLabel.visibility = View.GONE
             binding.itemAppointmentReportLabel.visibility = View.GONE
             binding.itemAppointmentServiceLabel.visibility = View.GONE
             binding.itemAppointmentDateLabel.visibility = View.GONE
@@ -169,6 +173,7 @@ class UserAppointmentsAdapter (
             binding.btnReportLabel.visibility = View.GONE
 
             // remove text views
+            binding.itemAppointmentStatusText.text = ""
             binding.itemAppointmentReportText.text = ""
             binding.itemAppointmentServiceText.text = ""
             binding.itemAppointmentDateText.text = ""

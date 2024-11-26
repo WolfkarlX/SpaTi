@@ -14,6 +14,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,8 +22,10 @@ import com.example.spaTi.R
 import com.example.spaTi.data.models.Service
 import com.example.spaTi.data.models.Spa
 import com.example.spaTi.data.models.SpaPrepayment
+import com.example.spaTi.data.models.User
 import com.example.spaTi.databinding.FragmentServiceDetailBinding
 import com.example.spaTi.databinding.FragmentSpaDetailBinding
+import com.example.spaTi.ui.Profile.ProfileViewModel
 import com.example.spaTi.ui.SpaProfile.MySpaViewModel
 import com.example.spaTi.ui.map.MapActivity2
 import com.example.spaTi.util.UiState
@@ -45,10 +48,13 @@ import kotlinx.coroutines.launch
 class SpaDetailFragment : Fragment() {
 
     private val viewModel: SpaViewModel by viewModels()
+    private val userViewModel: ProfileViewModel by activityViewModels()
+    private var objUser: User? = null
     private var _binding: FragmentSpaDetailBinding? = null
     private val binding get() = _binding!!
     private var isFavorite: Boolean = false
     private var objSpa: Spa? = null
+    private var isSessionLoaded = false
     private var objSpaPrepayment: SpaPrepayment? = null
     private val mySpaViewModel: MySpaViewModel by viewModels()
 
@@ -71,6 +77,7 @@ class SpaDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeSession()
         setupViews()
         observeViewModels()
         objSpa?.let { viewModel.getServicesBySpaId(it.id) }
@@ -80,6 +87,32 @@ class SpaDetailFragment : Fragment() {
         super.onDestroyView()
         cleanupObservers()
         _binding = null
+        isSessionLoaded = false
+    }
+
+    private fun observeSession() {
+        userViewModel.syncSessionWithDatabase()
+
+        userViewModel.session.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is UiState.Loading -> {
+                    binding.progressBar.show()
+                }
+                is UiState.Success -> {
+                    objUser = state.data
+                    if (!isSessionLoaded) {
+                        isSessionLoaded = true
+                    }
+                }
+                is UiState.Failure -> {
+                    binding.progressBar.hide()
+                    toast(state.error)
+                    userViewModel.logout {
+                        findNavController().navigate(R.id.action_spaDetailFragment_to_loginFragment)
+                    }
+                }
+            }
+        }
     }
 
     private fun setupViews() {
@@ -165,7 +198,11 @@ class SpaDetailFragment : Fragment() {
             findNavController().navigateUp()
         }
         binding.spaDetailFavBtn.setOnClickListener {
-            // TODO: Set the favorites feature here
+            objSpa?.let { spa ->
+                objUser?.let { user ->
+                    viewModel.actionToSpaFavorites(user, spa)
+                }
+            }
         }
         binding.spaDetailLocationIcon.setOnClickListener {
             objSpa?.coordinates?.let { coordinates ->
@@ -225,16 +262,34 @@ class SpaDetailFragment : Fragment() {
     }
 
     private fun observeViewModels() {
-        observeServiceOperations()
-    }
-
-    private fun observeServiceOperations() {
         viewModel.getServicesBySpaId.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is UiState.Loading -> binding.progressBar.show()
                 is UiState.Success -> {
                     binding.progressBar.hide()
                     servicesAdapter.updateItems(state.data.toMutableList())
+                }
+                is UiState.Failure -> {
+                    binding.progressBar.hide()
+                    toast(state.error)
+                }
+            }
+        }
+        viewModel.actionToSpaFavorites.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is UiState.Loading -> binding.progressBar.show()
+                is UiState.Success -> {
+                    binding.progressBar.hide()
+                    val userFavorites = state.data
+                    objSpa?.let {
+                        if (userFavorites.first.favoritesSpas.contains(it.id)) {
+                            binding.spaDetailFavBtn.setColorFilter(resources.getColor(android.R.color.holo_red_light))
+                            toast("Spa added to favorites")
+                        } else {
+                            binding.spaDetailFavBtn.setColorFilter(resources.getColor(R.color.white))
+                            toast("Spa remove from favorites")
+                        }
+                    }
                 }
                 is UiState.Failure -> {
                     binding.progressBar.hide()
@@ -263,6 +318,9 @@ class SpaDetailFragment : Fragment() {
 
     private fun cleanupObservers() {
         viewModel.getServicesBySpaId.removeObservers(viewLifecycleOwner)
+        viewModel.getSpaById.removeObservers(viewLifecycleOwner)
+        mySpaViewModel.getPrepayment.removeObservers(viewLifecycleOwner)
+        userViewModel.session.removeObservers(viewLifecycleOwner)
     }
 
     private fun showServiceBottomSheet(service: Service) {
@@ -276,7 +334,7 @@ class SpaDetailFragment : Fragment() {
             bottomSheet.layoutParams.height = (resources.displayMetrics.heightPixels * 0.45).toInt()
 
             behavior.apply {
-                state = BottomSheetBehavior.STATE_EXPANDED  // Start expanded
+                state = BottomSheetBehavior.STATE_EXPANDED
                 isDraggable = true
                 isHideable = true
             }
