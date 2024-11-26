@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
     android:padding="16dp"
     android:fitsSystemWindows="true"
+    android:background="@drawable/rounded_bottom_sheet_background"
     android:windowSoftInputMode="adjustResize">
 
     <ImageView
@@ -65,6 +65,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+
+    <EditText
+        android:id="@+id/percentagePrepayment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_background"
+        android:hint="Porcentaje del prepago"
+        android:textAppearance="@style/SubTitleStyle"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        android:padding="10dp"
+        android:autofillHints="none"
+        android:inputType="numberDecimal"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@+id/reportReason"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"/>
+
     <Button
         android:id="@+id/btnSubmitReport"
         android:layout_width="match_parent"
@@ -75,7 +94,7 @@
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         android:fontFamily="sans-serif"
-        app:layout_constraintTop_toBottomOf="@+id/reportReason"
+        app:layout_constraintTop_toBottomOf="@+id/percentagePrepayment"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

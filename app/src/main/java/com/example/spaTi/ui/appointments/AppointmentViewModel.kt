@@ -1,5 +1,6 @@
 package com.example.spaTi.ui.appointments
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -36,7 +37,6 @@ class AppointmentViewModel @Inject constructor (
     val getAppointmentsByDateOnSpaSchedule: LiveData<UiState<List<Map<String, Any>>>>
         get() = _getAppointmentsByDateOnSpaSchedule
 
-
     private val _getAppointmentsUserHistory = MutableLiveData<UiState<List<Map<String, Any>>>>()
     val getAppointmentsUserHistory: LiveData<UiState<List<Map<String, Any>>>>
         get() = _getAppointmentsUserHistory
@@ -71,6 +71,11 @@ class AppointmentViewModel @Inject constructor (
     fun addAppointment(appointment: Appointment) {
         _addAppointment.value = UiState.Loading
         repository.addAppointment(appointment) { _addAppointment.value = it }
+    }
+
+    fun addAppointmentWithReceipt(appointment: Appointment, uri: Uri, fileType: String) {
+        _addAppointment.value = UiState.Loading
+        repository.addAppointmentWithReceipt(appointment, uri, fileType) { _addAppointment.value = it }
     }
 
     fun resetAddAppointmentState() {

@@ -1,11 +1,12 @@
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spaTi.data.models.Appointment
 import com.example.spaTi.databinding.ItemCitaAgendaBinding
 
 class SpaScheduleAdapter(
-    val onItemClicked: (Int, Appointment, Int) -> Unit
+    val onItemClicked: (Int, Appointment, Int, String) -> Unit
 ) : RecyclerView.Adapter<SpaScheduleAdapter.MyViewHolder>() {
 
     private var list: MutableList<Map<String, Any>> = arrayListOf()
@@ -66,8 +67,17 @@ class SpaScheduleAdapter(
             binding.tvCorreo.text = item["userEmail"] as? String
             binding.tvtelefono.text = item["userCellphone"] as? String
             binding.tvSexo.text = item["userSex"] as? String
+            val haveReceive = (item["appointmentReceiptUrl"] as? String) == null
+            binding.ivReceiptIcon.visibility = if (haveReceive) { View.GONE } else { View.VISIBLE }
 
-            binding.btnRechazarCita.setOnClickListener { onItemClicked.invoke(adapterPosition,appointment, 1)
+            binding.btnRechazarCita.setOnClickListener { onItemClicked.invoke(adapterPosition,appointment, 1, "") }
+
+            val receiptUri = (item["appointmentReceiptUrl"] as? String)
+            val fileType = (item["appointmentReceiptType"] as? String)
+            if (fileType != null && receiptUri != null && fileType == "img") {
+                binding.ivReceiptIcon.setOnClickListener { onItemClicked.invoke(adapterPosition, appointment, 2, receiptUri) }
+            } else if (fileType != null && receiptUri != null && fileType == "pdf") {
+                binding.ivReceiptIcon.setOnClickListener { onItemClicked.invoke(adapterPosition, appointment, 3, receiptUri) }
             }
         }
 

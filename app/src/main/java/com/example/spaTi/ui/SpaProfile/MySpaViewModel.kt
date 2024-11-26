@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.spaTi.data.models.Spa
+import com.example.spaTi.data.models.SpaPrepayment
 import com.example.spaTi.data.repository.SpaProfileRepository
 import com.example.spaTi.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,6 +28,14 @@ class MySpaViewModel @Inject constructor(
     val editUser: LiveData<UiState<String>>
         get() = _editUser
 
+    private val _actionPrepay = MutableLiveData<UiState<Pair<SpaPrepayment, String>>>()
+    val actionPrepay: LiveData<UiState<Pair<SpaPrepayment, String>>>
+        get() = _actionPrepay
+
+    private val _getPrepayment = MutableLiveData<UiState<SpaPrepayment?>>()
+    val getPrepayment: LiveData<UiState<SpaPrepayment?>>
+        get() = _getPrepayment
+
     private val _updateProfileImage = MutableLiveData<UiState<String>>()
     val updateProfileImage: LiveData<UiState<String>>
         get() = _updateProfileImage
@@ -45,6 +54,16 @@ class MySpaViewModel @Inject constructor(
         repository.updateUserInfo(spa) {
             _editUser.value = it
         }
+    }
+
+    fun actionPrepay(spaId: String, spaPrepayment: SpaPrepayment) {
+        _actionPrepay.value = UiState.Loading
+        repository.actionPrepay(spaId, spaPrepayment) { _actionPrepay.value = it }
+    }
+
+    fun getPrepayment(spaId: String) {
+        _getPrepayment.value = UiState.Loading
+        repository.getPrepayment(spaId) { _getPrepayment.value = it }
     }
 
     fun logout(result: () -> Unit) {

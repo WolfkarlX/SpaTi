@@ -20,8 +20,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.spaTi.R
 import com.example.spaTi.data.models.Service
 import com.example.spaTi.data.models.Spa
+import com.example.spaTi.data.models.SpaPrepayment
 import com.example.spaTi.databinding.FragmentServiceDetailBinding
 import com.example.spaTi.databinding.FragmentSpaDetailBinding
+import com.example.spaTi.ui.SpaProfile.MySpaViewModel
 import com.example.spaTi.ui.map.MapActivity2
 import com.example.spaTi.util.UiState
 import com.example.spaTi.util.convertMinutesToReadableTime
@@ -47,6 +49,8 @@ class SpaDetailFragment : Fragment() {
     private val binding get() = _binding!!
     private var isFavorite: Boolean = false
     private var objSpa: Spa? = null
+    private var objSpaPrepayment: SpaPrepayment? = null
+    private val mySpaViewModel: MySpaViewModel by viewModels()
 
     val servicesAdapter by lazy {
         SpaServicesAdapter { _, item ->
@@ -89,6 +93,27 @@ class SpaDetailFragment : Fragment() {
         val spaFromFavorites = arguments?.getParcelable<Spa>("spaFavorites")
         val serviceSearchedFound = arguments?.getParcelable<Service>("service")
 
+        mySpaViewModel.getPrepayment.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is UiState.Loading -> binding.progressBar.show()
+                is UiState.Success -> {
+                    binding.progressBar.hide()
+                    objSpaPrepayment = state.data
+
+                    binding.spaDetailPrepaymentPercentage.visibility = if (objSpaPrepayment != null) { View.VISIBLE } else { View.GONE }
+                    binding.spaDetailPrepaymentPercentage.text = if (objSpaPrepayment != null) {
+                        objSpaPrepayment?.description + "\n\nPrepago del ${objSpaPrepayment?.percentage.toString()}% para agendar"
+                    } else {
+                        "No prepago requerido para agendar"
+                    }
+                }
+                is UiState.Failure -> {
+                    binding.progressBar.hide()
+                    toast(state.error)
+                }
+            }
+        }
+
         when {
             spaFromRegular != null -> {
                 initFragment(spaFromRegular, false, "")
@@ -98,7 +123,9 @@ class SpaDetailFragment : Fragment() {
             }
             serviceSearchedFound != null -> {
                 getSpaByService(serviceSearchedFound) { spa, serviceName ->
-                    spa?.let { initFragment(it, false, serviceName) }
+                    spa?.let {
+                        initFragment(it, false, serviceName)
+                    }
                 }
             }
             else -> {
@@ -110,9 +137,14 @@ class SpaDetailFragment : Fragment() {
 
     private fun initFragment(spa: Spa, isFavorite: Boolean, serviceName: String) {
         objSpa = spa
+        mySpaViewModel.getPrepayment(spa.id)
+
         //binding.spaDetailImage // here you set the image of the spa
         binding.spaDetailName.text = spa.spa_name
         binding.spaDetailLocation.text = spa.location
+        binding.spaDetailTime.text = "${spa.inTime} - ${spa.outTime}"
+        binding.spaDetailDescription.text = spa.description
+
         if (!isFavorite) {
             binding.spaDetailFavBtn.setColorFilter(resources.getColor(R.color.white))
         }
@@ -135,7 +167,7 @@ class SpaDetailFragment : Fragment() {
         binding.spaDetailFavBtn.setOnClickListener {
             // TODO: Set the favorites feature here
         }
-        binding.spaDetailLocation.setOnClickListener {
+        binding.spaDetailLocationIcon.setOnClickListener {
             objSpa?.coordinates?.let { coordinates ->
                 val latLon = coordinates.split(",")
                 if (latLon.size == 2) {

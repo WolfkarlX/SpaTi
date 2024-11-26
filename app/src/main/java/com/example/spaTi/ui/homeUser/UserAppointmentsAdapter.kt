@@ -7,13 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spaTi.R
 import com.example.spaTi.data.models.Appointment
 import com.example.spaTi.databinding.ItemAppointmentsAcceptedBinding
-import com.example.spaTi.databinding.ItemCitaAgendaBinding
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.util.Locale
 
 class UserAppointmentsAdapter (
-    val onItemClicked: (Int, Appointment, Int) -> Unit
+    val onItemClicked: (Int, Appointment, Int, String) -> Unit
 ) : RecyclerView.Adapter<UserAppointmentsAdapter.MyViewHolder>() {
     private var list: MutableList<Map<String, Any>> = arrayListOf()
 
@@ -105,6 +103,8 @@ class UserAppointmentsAdapter (
             binding.itemAppointmentTimeIcon.visibility = View.VISIBLE
             binding.itemAppointmentEmailIcon.visibility = View.VISIBLE
             binding.itemAppointmentPhoneIcon.visibility = View.VISIBLE
+            val haveReceive = (item["appointmentReceiptUrl"] as? String) == null
+            binding.itemAppointmentUserCardReceipt.visibility = if (haveReceive) { View.GONE } else { View.VISIBLE }
 
             // remove visible views
             binding.itemAppointmentServiceLabel.visibility = View.VISIBLE
@@ -124,13 +124,21 @@ class UserAppointmentsAdapter (
             binding.itemAppointmentEmailText.text = item["spaEmail"] as? String
             binding.itemAppointmentPhoneText.text = item["spaCellphone"] as? String
 
-            binding.btnCancelAppointment.setOnClickListener { onItemClicked.invoke(adapterPosition,appointment, 1) }
-            binding.btnGoToService.setOnClickListener { onItemClicked.invoke(adapterPosition,appointment, 2) }
+            binding.btnCancelAppointment.setOnClickListener { onItemClicked.invoke(adapterPosition,appointment, 1, "") }
+            binding.btnGoToService.setOnClickListener { onItemClicked.invoke(adapterPosition,appointment, 2, "") }
 
             if (isHistoryTab == false) { // report spa
-                binding.btnReport.setOnClickListener { onItemClicked.invoke(adapterPosition,appointment, 3) }
+                binding.btnReport.setOnClickListener { onItemClicked.invoke(adapterPosition,appointment, 3, "") }
             } else if (isHistoryTab == true)  { // spa already reported, so remove it
-                binding.btnReport.setOnClickListener { onItemClicked.invoke(adapterPosition,appointment, 4) }
+                binding.btnReport.setOnClickListener { onItemClicked.invoke(adapterPosition,appointment, 4, "") }
+            }
+
+            val receiptUri = (item["appointmentReceiptUrl"] as? String)
+            val fileType = (item["appointmentReceiptType"] as? String)
+            if (fileType != null && receiptUri != null && fileType == "img") {
+                binding.itemAppointmentUserCardReceipt.setOnClickListener { onItemClicked.invoke(adapterPosition, appointment, 5, receiptUri) }
+            } else if (fileType != null && receiptUri != null && fileType == "pdf") {
+                binding.itemAppointmentUserCardReceipt.setOnClickListener { onItemClicked.invoke(adapterPosition, appointment, 6, receiptUri) }
             }
         }
 
@@ -149,6 +157,7 @@ class UserAppointmentsAdapter (
             binding.itemAppointmentTimeIcon.visibility = View.GONE
             binding.itemAppointmentEmailIcon.visibility = View.GONE
             binding.itemAppointmentPhoneIcon.visibility = View.GONE
+            binding.itemAppointmentUserCardReceipt.visibility = View.GONE
 
             // remove label views
             binding.itemAppointmentReportLabel.visibility = View.GONE
