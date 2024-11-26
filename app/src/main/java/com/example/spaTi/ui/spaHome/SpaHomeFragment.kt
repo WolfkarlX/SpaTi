@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.spaTi.R
 import com.example.spaTi.data.models.Spa
 import com.example.spaTi.databinding.FragmentSpaHomeBinding
+import com.example.spaTi.ui.SpaProfile.MySpaViewModel
 import com.example.spaTi.ui.appointments.AppointmentViewModel
 import com.example.spaTi.ui.auth.AuthViewModel
 import com.example.spaTi.ui.auth.SpaAuthViewModel
@@ -25,6 +26,7 @@ import java.sql.Types.NULL
 class SpaHomeFragment : Fragment() {
     val TAG: String = "SpaHomeFragment"
     val authViewModel: SpaAuthViewModel by viewModels()
+    val mySpaViewModel: MySpaViewModel by viewModels()
     val viewModel: AppointmentViewModel by viewModels()
     var objspa: Spa? = null
     var state = null
@@ -44,6 +46,8 @@ class SpaHomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         appointmentsObserver()
+
+        mySpaViewModel.syncSessionWithDatabase()
 
         authViewModel.getSession {
 
@@ -85,6 +89,23 @@ class SpaHomeFragment : Fragment() {
                 }
                 is UiState.Failure -> {
                     binding.progressBar.hide()
+                }
+                is UiState.Success -> {
+                    binding.progressBar.hide()
+                }
+            }
+        }
+        mySpaViewModel.session.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is UiState.Loading -> {
+                    binding.progressBar.show()
+                }
+                is UiState.Failure -> {
+                    binding.progressBar.hide()
+                    toast(state.error)
+                    mySpaViewModel.logout {
+                        findNavController().navigate(R.id.action_spaHomeFragment_to_loginFragment)
+                    }
                 }
                 is UiState.Success -> {
                     binding.progressBar.hide()

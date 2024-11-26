@@ -23,6 +23,10 @@ class ReportsViewModel @Inject constructor(
     val createReport: LiveData<UiState<String>>
         get() = _createReport
 
+    private val _reportSpaAction = MutableLiveData<UiState<String>>()
+    val reportSpaAction: LiveData<UiState<String>>
+        get() = _reportSpaAction
+
     fun createReportfromSpa(Report: Report, UserWasReported: Boolean) {
         if(!UserWasReported){
             _createReport.value = UiState.Loading
@@ -35,5 +39,10 @@ class ReportsViewModel @Inject constructor(
                 _createReport.value = result
             }
         }
+    }
+
+    fun reportSpaAction(report: Report) {
+        _reportSpaAction.value = UiState.Loading
+        repository.reportSpaAction(report) { _reportSpaAction.value = it }
     }
 }

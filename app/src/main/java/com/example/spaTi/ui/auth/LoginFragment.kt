@@ -1,6 +1,8 @@
 package com.example.spaTi.ui.auth
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.text.InputType
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -8,9 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavGraph
 import androidx.navigation.fragment.findNavController
 import com.example.spaTi.R
 import com.example.spaTi.databinding.FragmentLoginBinding
+import com.example.spaTi.databinding.FragmentRegisterBinding
 import com.example.spaTi.util.*
 import dagger.hilt.android.AndroidEntryPoint
 

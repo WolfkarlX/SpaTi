@@ -15,16 +15,44 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:layout_margin="5dp"
-        android:background="@drawable/rounded_corners"
-        android:clickable="true"
-        android:focusable="true">
+        android:background="@drawable/rounded_corners">
+
+        <LinearLayout
+            android:id="@+id/itemAppointmentUserCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient_header"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="12dp"
+            android:clickable="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/itemAppointmentUserCardImg"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/spa_text"
+                android:layout_marginEnd="8dp"
+                />
+            <TextView
+                android:id="@+id/itemAppointmentUserCardTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre del Usuario"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
 
         <!-- THERE ISNT APPOINTMENTS -->
         <TextView
-            android:id="@+id/noAppointments"
+            android:id="@+id/itemAppointmentNoAppointments"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="There is not appointments"
+            android:text="No hay citas para este dia"
             android:textSize="40sp"
             android:textColor="#4A4A4A"
             android:fontFamily="@font/koho"
@@ -35,189 +63,245 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:visibility="gone"/>
 
-        <!-- First Row -->
-        <TextView
-            android:id="@+id/tvUsuario_Label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Usuario:"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:textSize="17dp"
-            android:fontFamily="@font/koho"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+        <!-- Zero Row -->
+        <ImageView
+            android:id="@+id/itemAppointmentReportIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/report_active"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            app:tint="#4CAF50"
+            app:layout_constraintTop_toBottomOf="@+id/itemAppointmentUserCard"
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="gone"/>
 
         <TextView
-            android:id="@+id/tvUsuario"
+            android:id="@+id/itemAppointmentReportLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nombre del Usuario"
+            android:text="Reportes del spa:"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/koho"
+            app:layout_constraintTop_toTopOf="@+id/itemAppointmentReportIcon"
+            app:layout_constraintBottom_toBottomOf="@+id/itemAppointmentReportIcon"
+            app:layout_constraintStart_toEndOf="@+id/itemAppointmentReportIcon"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/itemAppointmentReportText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
             android:textSize="16sp"
             android:layout_marginStart="5dp"
             android:textColor="#4A4A4A"
             android:fontFamily="@font/koho"
-            app:layout_constraintTop_toTopOf="@+id/tvUsuario_Label"
-            app:layout_constraintBottom_toBottomOf="@+id/tvUsuario_Label"
-            app:layout_constraintStart_toEndOf="@+id/tvUsuario_Label"/>
+            app:layout_constraintTop_toTopOf="@+id/itemAppointmentReportLabel"
+            app:layout_constraintBottom_toBottomOf="@+id/itemAppointmentReportLabel"
+            app:layout_constraintStart_toEndOf="@+id/itemAppointmentReportLabel"
+            android:visibility="gone"/>
 
-        <!-- Second Row -->
-        <TextView
-            android:id="@+id/tvReportes_Label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Reportes:"
-            android:fontFamily="@font/koho"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:textSize="17dp"
-            app:layout_constraintTop_toBottomOf="@+id/tvUsuario_Label"
+        <!-- First Row -->
+        <ImageView
+            android:id="@+id/itemAppointmentServiceIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/servicios"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            app:tint="#4CAF50"
+            app:layout_constraintTop_toBottomOf="@+id/itemAppointmentReportIcon"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
-            android:id="@+id/tvReportes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textSize="14sp"
-            android:layout_marginStart="5dp"
-            android:textColor="#4A4A4A"
-            android:fontFamily="@font/koho"
-            app:layout_constraintTop_toTopOf="@+id/tvReportes_Label"
-            app:layout_constraintBottom_toBottomOf="@+id/tvReportes_Label"
-            app:layout_constraintStart_toEndOf="@+id/tvReportes_Label"/>
-
-        <!-- Third Row -->
-        <TextView
-            android:id="@+id/tvServicio_Label"
+            android:id="@+id/itemAppointmentServiceLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Servicio:"
-            android:fontFamily="@font/koho"
             android:textColor="#000"
             android:textStyle="bold"
-            android:textSize="17dp"
-            app:layout_constraintTop_toBottomOf="@+id/tvReportes_Label"
+            android:textSize="17sp"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/koho"
+            app:layout_constraintTop_toTopOf="@+id/itemAppointmentServiceIcon"
+            app:layout_constraintBottom_toBottomOf="@+id/itemAppointmentServiceIcon"
+            app:layout_constraintStart_toEndOf="@+id/itemAppointmentServiceIcon"/>
+
+        <TextView
+            android:id="@+id/itemAppointmentServiceText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Spa name"
+            android:textSize="16sp"
+            android:layout_marginStart="3dp"
+            android:textColor="#4A4A4A"
+            android:fontFamily="@font/koho"
+            app:layout_constraintTop_toTopOf="@+id/itemAppointmentServiceLabel"
+            app:layout_constraintBottom_toBottomOf="@+id/itemAppointmentServiceLabel"
+            app:layout_constraintStart_toEndOf="@+id/itemAppointmentServiceLabel"/>
+
+        <!-- Second Row -->
+        <ImageView
+            android:id="@+id/itemAppointmentDateIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/agenda"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            app:tint="#4CAF50"
+            app:layout_constraintTop_toBottomOf="@+id/itemAppointmentServiceIcon"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
-            android:id="@+id/tvServicio"
+            android:id="@+id/itemAppointmentDateLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nombre del Servicio"
-            android:textSize="14sp"
+            android:text="Fecha:"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:textSize="17sp"
             android:layout_marginStart="5dp"
+            android:fontFamily="@font/koho"
+            app:layout_constraintTop_toTopOf="@+id/itemAppointmentDateIcon"
+            app:layout_constraintBottom_toBottomOf="@+id/itemAppointmentDateIcon"
+            app:layout_constraintStart_toEndOf="@+id/itemAppointmentDateIcon"/>
+
+        <TextView
+            android:id="@+id/itemAppointmentDateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Day, Month 00, 0000"
+            android:textSize="16sp"
+            android:layout_marginStart="3dp"
             android:textColor="#4A4A4A"
             android:fontFamily="@font/koho"
-            app:layout_constraintTop_toTopOf="@+id/tvServicio_Label"
-            app:layout_constraintBottom_toBottomOf="@+id/tvServicio_Label"
-            app:layout_constraintStart_toEndOf="@+id/tvServicio_Label"/>
+            app:layout_constraintTop_toTopOf="@+id/itemAppointmentDateLabel"
+            app:layout_constraintBottom_toBottomOf="@+id/itemAppointmentDateLabel"
+            app:layout_constraintStart_toEndOf="@+id/itemAppointmentDateLabel"/>
+
+        <!-- Third Row -->
+        <ImageView
+            android:id="@+id/itemAppointmentTimeIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/hourglass_start_ic_fill"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            app:tint="#4CAF50"
+            app:layout_constraintTop_toBottomOf="@+id/itemAppointmentDateIcon"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/itemAppointmentTimeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hora:"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/koho"
+            app:layout_constraintTop_toTopOf="@+id/itemAppointmentTimeIcon"
+            app:layout_constraintBottom_toBottomOf="@+id/itemAppointmentTimeIcon"
+            app:layout_constraintStart_toEndOf="@+id/itemAppointmentTimeIcon"/>
+
+        <TextView
+            android:id="@+id/itemAppointmentTimeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HH:MM - HH:MM"
+            android:textSize="16sp"
+            android:layout_marginStart="3dp"
+            android:textColor="#4A4A4A"
+            android:fontFamily="@font/koho"
+            app:layout_constraintTop_toTopOf="@+id/itemAppointmentTimeLabel"
+            app:layout_constraintBottom_toBottomOf="@+id/itemAppointmentTimeLabel"
+            app:layout_constraintStart_toEndOf="@+id/itemAppointmentTimeLabel"/>
 
         <!-- Fourth Row -->
-        <TextView
-            android:id="@+id/tvFechaHora_Label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fecha y Hora:"
-            android:fontFamily="@font/koho"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:textSize="17dp"
-            app:layout_constraintTop_toBottomOf="@+id/tvServicio_Label"
+        <ImageView
+            android:id="@+id/itemAppointmentEmailIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/email"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            app:tint="#4CAF50"
+            app:layout_constraintTop_toBottomOf="@+id/itemAppointmentTimeIcon"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
-            android:id="@+id/tvFechaHora"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="17 de Septiembre, 3:00 PM"
-            android:textSize="14sp"
-            android:textColor="#4A4A4A"
-            android:fontFamily="@font/koho"
-            android:layout_marginStart="5dp"
-            app:layout_constraintTop_toTopOf="@+id/tvFechaHora_Label"
-            app:layout_constraintBottom_toBottomOf="@+id/tvFechaHora_Label"
-            app:layout_constraintStart_toEndOf="@+id/tvFechaHora_Label"/>
-
-        <!-- Fifth Row -->
-        <TextView
-            android:id="@+id/tvCorreo_label"
+            android:id="@+id/itemAppointmentEmailLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Correo:"
-            android:fontFamily="@font/koho"
             android:textColor="#000"
             android:textStyle="bold"
-            android:textSize="17dp"
-            app:layout_constraintTop_toBottomOf="@+id/tvFechaHora_Label"
+            android:textSize="17sp"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/koho"
+            app:layout_constraintTop_toTopOf="@+id/itemAppointmentEmailIcon"
+            app:layout_constraintBottom_toBottomOf="@+id/itemAppointmentEmailIcon"
+            app:layout_constraintStart_toEndOf="@+id/itemAppointmentEmailIcon"/>
+
+        <TextView
+            android:id="@+id/itemAppointmentEmailText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="email@domain.com"
+            android:textSize="16sp"
+            android:layout_marginStart="3dp"
+            android:textColor="#4A4A4A"
+            android:fontFamily="@font/koho"
+            app:layout_constraintTop_toTopOf="@+id/itemAppointmentEmailLabel"
+            app:layout_constraintBottom_toBottomOf="@+id/itemAppointmentEmailLabel"
+            app:layout_constraintStart_toEndOf="@+id/itemAppointmentEmailLabel"/>
+
+        <!-- Fifth Row -->
+        <ImageView
+            android:id="@+id/itemAppointmentPhoneIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/phone"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            app:tint="#4CAF50"
+            app:layout_constraintTop_toBottomOf="@+id/itemAppointmentEmailIcon"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
-            android:id="@+id/tvCorreo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="example@gmail.com"
-            android:textSize="14sp"
-            android:textColor="#4A4A4A"
-            android:fontFamily="@font/koho"
-            android:layout_marginStart="5dp"
-            app:layout_constraintTop_toTopOf="@+id/tvCorreo_label"
-            app:layout_constraintBottom_toBottomOf="@+id/tvCorreo_label"
-            app:layout_constraintStart_toEndOf="@+id/tvCorreo_label"/>
-
-        <!-- Sixth Row -->
-        <TextView
-            android:id="@+id/tvtelefono_label"
+            android:id="@+id/itemAppointmentPhoneLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Telefono:"
-            android:fontFamily="@font/koho"
             android:textColor="#000"
             android:textStyle="bold"
-            android:textSize="17dp"
-            app:layout_constraintTop_toBottomOf="@+id/tvCorreo_label"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:textSize="17sp"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/koho"
+            app:layout_constraintTop_toTopOf="@+id/itemAppointmentPhoneIcon"
+            app:layout_constraintBottom_toBottomOf="@+id/itemAppointmentPhoneIcon"
+            app:layout_constraintStart_toEndOf="@+id/itemAppointmentPhoneIcon"/>
 
         <TextView
-            android:id="@+id/tvtelefono"
+            android:id="@+id/itemAppointmentPhoneText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="314127384"
-            android:textSize="14sp"
+            android:text="1002023040"
+            android:textSize="16sp"
+            android:layout_marginStart="3dp"
             android:textColor="#4A4A4A"
             android:fontFamily="@font/koho"
-            android:layout_marginStart="5dp"
-            app:layout_constraintTop_toTopOf="@+id/tvtelefono_label"
-            app:layout_constraintBottom_toBottomOf="@+id/tvtelefono_label"
-            app:layout_constraintStart_toEndOf="@+id/tvtelefono_label"/>
-
-        <TextView
-            android:id="@+id/tvsexo_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sexo:"
-            android:fontFamily="@font/koho"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:textSize="17dp"
-            app:layout_constraintTop_toBottomOf="@+id/tvtelefono_label"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <TextView
-            android:id="@+id/tvsexo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Eample"
-            android:textSize="14sp"
-            android:textColor="#4A4A4A"
-            android:fontFamily="@font/koho"
-            android:layout_marginStart="5dp"
-            app:layout_constraintTop_toTopOf="@+id/tvsexo_label"
-            app:layout_constraintBottom_toBottomOf="@+id/tvsexo_label"
-            app:layout_constraintStart_toEndOf="@+id/tvsexo_label"/>
+            app:layout_constraintTop_toTopOf="@+id/itemAppointmentPhoneLabel"
+            app:layout_constraintBottom_toBottomOf="@+id/itemAppointmentPhoneLabel"
+            app:layout_constraintStart_toEndOf="@+id/itemAppointmentPhoneLabel"/>
 
         <Button
-            android:id="@+id/btnRechazarCita"
+            android:id="@+id/btnCancelAppointment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancelar Cita"
@@ -227,7 +311,8 @@
             android:clickable="true"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            app:layout_constraintTop_toBottomOf="@+id/tvsexo_label"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@+id/itemAppointmentPhoneIcon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnGoToService"
             app:layout_constraintStart_toStartOf="parent"/>
@@ -243,9 +328,34 @@
             android:clickable="true"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            app:layout_constraintTop_toBottomOf="@+id/tvsexo_label"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@+id/itemAppointmentPhoneIcon"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnRechazarCita"
+            app:layout_constraintStart_toEndOf="@+id/btnCancelAppointment"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <ImageButton
+            android:id="@+id/btnReport"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:src="@drawable/report_inactive"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@+id/itemAppointmentPhoneIcon"
+            app:layout_constraintStart_toStartOf="@+id/btnReportLabel"
+            app:layout_constraintEnd_toEndOf="@+id/btnReportLabel"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/btnReportLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reportar"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@+id/btnReport"
             app:layout_constraintEnd_toEndOf="parent"
             android:visibility="gone"/>
 

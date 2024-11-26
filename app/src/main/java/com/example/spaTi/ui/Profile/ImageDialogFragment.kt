@@ -1,11 +1,8 @@
-package com.example.spaTi.ui.Profile
-
 import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
@@ -24,8 +21,9 @@ class ImageDialogFragment : DialogFragment() {
 
         fun newInstance(imageUrl: String): ImageDialogFragment {
             val fragment = ImageDialogFragment()
-            val args = Bundle()
-            args.putString(ARG_IMAGE_URL, imageUrl)
+            val args = Bundle().apply {
+                putString(ARG_IMAGE_URL, imageUrl)
+            }
             fragment.arguments = args
             return fragment
         }
@@ -46,21 +44,17 @@ class ImageDialogFragment : DialogFragment() {
         imageUrl = arguments?.getString(ARG_IMAGE_URL)
 
         imageUrl?.let {
-            // Limpiar el caché antes de cargar la imagen
-            Glide.with(requireContext())
-                .clear(binding.dialogImageView)
-
             Glide.with(requireContext())
                 .load(it)
-                .transform(CircleCrop())
-                .placeholder(R.drawable.user_def)
-                .error(R.drawable.user_def)
+                .transform(CircleCrop())  // Optional: apply circle crop if needed
+                .placeholder(R.drawable.user_def)  // Placeholder while loading
+                .error(R.drawable.user_def)  // Fallback image if error occurs
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(binding.dialogImageView)
         }
 
         binding.closeButton.setOnClickListener {
-            dismiss()
+            dismiss()  // Close the dialog when button is clicked
         }
     }
 
