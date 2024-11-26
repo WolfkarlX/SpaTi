@@ -3,6 +3,7 @@ package com.example.spaTi.ui.SpaProfile
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.location.Geocoder
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -237,7 +238,7 @@ class MySpaEditFragment : Fragment() {
         }
     }
 
-    private fun observeEdit() {
+    fun observeEdit() {
         viewModel.editUser.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is UiState.Loading -> {
@@ -251,11 +252,18 @@ class MySpaEditFragment : Fragment() {
                     binding.sessionProgress.hide()
                     toast(state.data)
                     cleanInputs()
+
+                    // Once the edit is successful, update the profile image URL
+                    if (!profileImageUrl.isNullOrEmpty()) {
+                        viewModel.updateProfileImage("spaId", Uri.parse(profileImageUrl))
+                    }
+
                     findNavController().navigate(R.id.action_myspaeditFragment_to_myspaFragment)
                 }
             }
         }
     }
+
 
     private fun setData(spa: Spa?) {
         spa?.let {

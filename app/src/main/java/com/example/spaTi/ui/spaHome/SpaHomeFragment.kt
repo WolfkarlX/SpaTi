@@ -101,14 +101,14 @@ class SpaHomeFragment : Fragment() {
                     binding.progressBar.show()
                 }
                 is UiState.Failure -> {
-                    binding.progressBar.show()
+                    binding.progressBar.hide()
                     toast(state.error)
                     mySpaViewModel.logout {
                         findNavController().navigate(R.id.action_spaHomeFragment_to_loginFragment)
                     }
                 }
                 is UiState.Success -> {
-                    binding.progressBar.show()
+                    binding.progressBar.hide()
                 }
             }
         }

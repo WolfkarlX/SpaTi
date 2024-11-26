@@ -73,6 +73,7 @@ class MySpaViewModel @Inject constructor(
             }
         }
     }
+
     fun updateProfileImage(spaId: String, imageUri: Uri) {
         _updateProfileImage.value = UiState.Loading
         repository.uploadProfileImage(spaId, imageUri) { result ->

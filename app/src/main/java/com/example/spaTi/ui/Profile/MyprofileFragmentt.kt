@@ -54,6 +54,7 @@ class MyprofileFragmentt : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         observer()
+        //viewModel.getSession()
         viewModel.syncSessionWithDatabase()
 
         binding.editButton.setOnClickListener {
@@ -78,7 +79,7 @@ class MyprofileFragmentt : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        reloadProfileImage()
+        //reloadProfileImage()
     }
 
     private fun reloadProfileImage() {
@@ -214,7 +215,7 @@ class MyprofileFragmentt : Fragment() {
     }
 
     // Observe the session LiveData from the ViewModel
-    fun observer() {
+    private fun observer() {
         viewModel.session.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is UiState.Loading -> {
@@ -232,7 +233,11 @@ class MyprofileFragmentt : Fragment() {
                 is UiState.Success -> {
                     // Hide progress and display user data
                     binding.sessionProgress.hide()
-                    setData(state.data) // Call setData to update UI with user info
+                    state.data?.let {
+                        userId = it.id // Initialize userId here
+                        setData(it) // Call setData to update UI with user info
+                        reloadProfileImage() // Reload the profile image after userId is set
+                    }
                 }
             }
         }
