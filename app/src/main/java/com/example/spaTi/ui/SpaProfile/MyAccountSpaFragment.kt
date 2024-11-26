@@ -1,5 +1,6 @@
 package com.example.spaTi.ui.SpaProfile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -48,6 +49,15 @@ class MyAccountSpaFragment : Fragment() {
         binding.profileTools.setOnClickListener {
             findNavController().navigate(R.id.action_MyAccountSpaFragment_to_myspaFragment)
         }
+
+        binding.privacy.setOnClickListener {
+            findNavController().navigate(R.id.action_MyAccountSpaFragment_to_ChangePasswordFragment)
+        }
+
+        binding.terminos.setOnClickListener {
+            findNavController().navigate(R.id.action_MyAccountSpaFragment_to_termsFragment)
+        }
+
     }
 
     fun observer() {

@@ -47,5 +47,5 @@
     <string name="reportreason_long">La razón del reporte es demasiado larga. Limítese a 100 caracteres como máximo.</string>
     <string name="reportreason_hasspecialcharacters">La razón del reporte contiene caracteres no permitidos. Use solo letras, números y puntuación estándar.</string>
     <string name="reportreason_isoffensive">La razón del reporte contiene contenido ofensivo. Por favor, modifíquelo.</string>
-  
+
 </resources>

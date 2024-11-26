@@ -54,7 +54,6 @@ class MyprofileFragmentt : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         observer()
-        //viewModel.getSession()
         viewModel.syncSessionWithDatabase()
 
         binding.editButton.setOnClickListener {
@@ -71,15 +70,18 @@ class MyprofileFragmentt : Fragment() {
             showImageSourceOptions()
         }
 
-        // Al hacer clic en la imagen de perfil, abre el diálogo con la imagen en grande
         binding.profileImage.setOnClickListener {
             showProfileImageInDialog()
+        }
+
+        // Navegación al fragmento de cambio de contraseña
+        binding.password.setOnClickListener {
+            findNavController().navigate(R.id.action_myprofileFragment_to_changePasswordUserFragment)
         }
     }
 
     override fun onResume() {
         super.onResume()
-        //reloadProfileImage()
     }
 
     private fun reloadProfileImage() {
@@ -90,7 +92,7 @@ class MyprofileFragmentt : Fragment() {
         imageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
             Glide.with(requireContext())
                 .load(downloadUrl.toString())
-                .skipMemoryCache(true) // Evita que Glide use la imagen en caché
+                .skipMemoryCache(true)
                 .into(binding.profileImage)
         }.addOnFailureListener {
             toast("No se pudo cargar la imagen actualizada.")
@@ -214,64 +216,55 @@ class MyprofileFragmentt : Fragment() {
         }
     }
 
-    // Observe the session LiveData from the ViewModel
     private fun observer() {
         viewModel.session.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is UiState.Loading -> {
-                    // Show progress or loading indicator
-                    binding.sessionProgress.show()
-                }
+                is UiState.Loading -> binding.sessionProgress.show()
                 is UiState.Failure -> {
-                    // Hide progress and show error message
                     binding.sessionProgress.hide()
                     toast(state.error)
-                    viewModel.logout{
+                    viewModel.logout {
                         findNavController().navigate(R.id.action_myprofileFragment_to_loginFragment)
                     }
                 }
                 is UiState.Success -> {
-                    // Hide progress and display user data
                     binding.sessionProgress.hide()
                     state.data?.let {
-                        userId = it.id // Initialize userId here
-                        setData(it) // Call setData to update UI with user info
-                        reloadProfileImage() // Reload the profile image after userId is set
+                        userId = it.id
+                        setData(it)
+                        reloadProfileImage()
                     }
                 }
             }
         }
     }
 
-    // Update the UI with user session data
     fun setData(user: User?) {
         user?.let {
-            if(user.status=="active") {
+            if (user.status == "active") {
                 binding.firstName.setText(it.first_name)
                 binding.lastNames.setText(it.last_name)
                 binding.email.setText(it.email)
                 binding.phoneNumber.setText(it.cellphone)
                 binding.bornday.setText(it.bornday)
                 binding.sex.setText(it.sex)
-            }else{
-                viewModel.logout{
+            } else {
+                viewModel.logout {
                     toast("User not available")
                     findNavController().navigate(R.id.action_myprofileFragment_to_loginFragment)
                 }
             }
 
-            // Verificar que profileImageUrl no esté vacío o nulo
             if (it.profileImageUrl.isNotEmpty()) {
                 Glide.with(requireContext())
                     .load(it.profileImageUrl)
                     .into(binding.profileImage)
-                binding.profileImage.tag = it.profileImageUrl // Guardamos la URL de la imagen
+                binding.profileImage.tag = it.profileImageUrl
             } else {
-                // Si no hay URL de la imagen de perfil, mostrar una imagen predeterminada
                 Glide.with(requireContext())
-                    .load(R.drawable.user_def) // Asegúrate de tener una imagen predeterminada
+                    .load(R.drawable.user_def)
                     .into(binding.profileImage)
-                binding.profileImage.tag = "" // Limpiamos la URL
+                binding.profileImage.tag = ""
             }
         }
     }
@@ -292,3 +285,4 @@ class MyprofileFragmentt : Fragment() {
         }
     }
 }
+
