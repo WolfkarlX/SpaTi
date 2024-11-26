@@ -90,6 +90,7 @@
         android:label="fragment_my_profile"
         tools:layout="@layout/fragment_my_profile" >
 
+        <!-- Otras acciones de navegación -->
         <action
             android:id="@+id/action_myprofileFragment_to_editprofileFragment"
             app:destination="@id/editprofileFragment" />
@@ -101,7 +102,24 @@
         <action
             android:id="@+id/action_myprofileFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+
+        <!-- Acción de navegación al fragmento ChangePasswordUserFragment -->
+        <action
+            android:id="@+id/action_myprofileFragment_to_changePasswordUserFragment"
+            app:destination="@id/changePasswordUserFragment" />
+
     </fragment>
+
+    <!-- Fragmento ChangePasswordUserFragment -->
+    <fragment
+        android:id="@+id/changePasswordUserFragment"
+        android:name="com.example.spaTi.ui.Profile.ChanguePasswordUser"
+        android:label="Cambiar Contraseña"
+        tools:layout="@layout/fragment_changue_password_user" />
+
+
+
+
 
     <fragment
         android:id="@+id/editprofileFragment"
@@ -202,7 +220,24 @@
         <action
             android:id="@+id/action_MyAccountSpaFragment_to_myspaFragment"
             app:destination="@+id/myspaFragment"/>
+
+        <action
+            android:id="@+id/action_MyAccountSpaFragment_to_termsFragment"
+            app:destination="@+id/TermsFragment" />
+
+        <!-- Nueva acción para navegar al ChangePasswordFragment -->
+        <action
+            android:id="@+id/action_MyAccountSpaFragment_to_ChangePasswordFragment"
+            app:destination="@+id/changePasswordFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.example.spaTi.ui.SpaProfile.ChangePasswordFragment"
+        android:label="Cambiar Contraseña"
+        tools:layout="@layout/fragment_changue_password" />
+
+
 
     <fragment
         android:id="@+id/myspaFragment"

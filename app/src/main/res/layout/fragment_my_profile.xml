@@ -46,6 +46,8 @@
                 android:textStyle="bold" />
 
             <!-- Sección de información básica -->
+
+            <!-- Botón inferior -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -58,118 +60,118 @@
                     android:layout_height="wrap_content"
                     android:text="Información básica"
                     android:textColor="#000"
-                    android:textStyle="bold"
-                    android:textSize="28dp" />
+                    android:textSize="28dp"
+                    android:textStyle="bold" />
 
                 <!-- Botón de Editar -->
                 <TextView
                     android:id="@+id/edit_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:text="Editar información"
                     android:textColor="#198b0f"
-                    android:textSize="18dp"
-                    android:layout_alignParentEnd="true" />
+                    android:textSize="18dp" />
 
                 <!-- Información del perfil -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:text="Nombre (s)"
                     android:textColor="#000"
-                    android:textStyle="bold"
                     android:textSize="18dp"
-                    android:layout_marginTop="16dp" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/first_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:textColor="#333333" />
+                    android:textColor="#333333"
+                    android:textSize="15dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:text="Apellidos"
                     android:textColor="#000"
-                    android:textStyle="bold"
                     android:textSize="18dp"
-                    android:layout_marginTop="8dp" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/last_names"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:textColor="#333333" />
+                    android:textColor="#333333"
+                    android:textSize="15dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:text="Correo Electrónico"
                     android:textColor="#000"
                     android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="8dp" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:textColor="#333333" />
+                    android:textColor="#333333"
+                    android:textSize="15dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:text="Número de teléfono"
                     android:textColor="#000"
                     android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="8dp" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/phone_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:textColor="#333333" />
+                    android:textColor="#333333"
+                    android:textSize="15dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:text="Fecha de nacimiento"
-                    android:textSize="18dp"
                     android:textColor="#000"
-                    android:textStyle="bold"
-                    android:layout_marginTop="8dp" />
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/bornday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:textColor="#333333" />
+                    android:textColor="#333333"
+                    android:textSize="15dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:text="Sexo"
                     android:textColor="#000"
                     android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="8dp" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/sex"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:textColor="#333333" />
+                    android:textColor="#333333"
+                    android:textSize="15dp" />
+
             </LinearLayout>
 
-            <!-- Botón inferior -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -181,8 +183,25 @@
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:src="@drawable/ic_baseline_exit_to_app_24"
-                    app:tint="@color/black" />
+                    app:tint="@color/black"/>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end"
+                android:layout_marginTop="-50dp"
+                android:paddingEnd="330dp">
+
+                <ImageView
+                    android:id="@+id/password"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:src="@drawable/icon_contra" />
+            </LinearLayout>
+
+
 
             <ProgressBar
                 android:id="@+id/session_progress"
@@ -196,6 +215,7 @@
                 android:visibility="invisible" />
 
         </LinearLayout>
+
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
